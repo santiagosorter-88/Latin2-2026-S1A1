@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 4 — Régimen verbal: sujeto y objeto directo</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .phrase-cast{ font-size:.98rem; color:var(--ink); margin-bottom:.6rem; }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token:hover{ border-color:var(--accent); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .token-verb{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); border-radius:var(--radius-chip); padding:.35rem 1.05rem; }
+
+  .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .word-panel .for-word{ font-family:var(--serif); font-size:1.05rem; color:var(--ink-muted); margin-right:.2rem; }
+  .word-opt{ font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.answered-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt:disabled{ cursor:default; opacity:.6; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-feedback.ok{ color:var(--correct); } .word-feedback.bad{ color:var(--incorrect); } .word-feedback.info{ color:var(--ink-muted); font-weight:500; }
+
+  .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
+
+  .explain-box{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.75rem; font-size:1.02rem; line-height:1.65; }
+  .explain-box p{ margin:0 0 .8rem; } .explain-box p:last-child{ margin-bottom:0; }
+  .explain-box .ex-latin{ font-family:var(--serif); font-style:italic; }
+
+  .dd-row{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--serif); font-size:1.25rem; margin-bottom:.5rem; }
+  select.dd{
+    font-family:var(--sans); font-size:.95rem; font-weight:600; padding:.4rem .6rem;
+    border-radius:8px; border:2px solid var(--rule); background:var(--surface-raised); color:var(--ink);
+    cursor:pointer;
+  }
+  select.dd:disabled{ cursor:default; opacity:.9; }
+  select.dd.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  select.dd.g-bad{ border-color:var(--incorrect); }
+  .dd-msg{ font-size:.82rem; color:var(--ink-muted); margin-top:.2rem; flex:0 0 100%; }
+  .dd-msg.ok{ color:var(--correct); } .dd-msg.bad{ color:var(--incorrect); }
+
+  .noun-pool{ display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1.5rem; }
+  .noun-pool:empty::after{ content:'Todas las palabras están clasificadas.'; color:var(--ink-muted); font-size:.9rem; }
+  .noun-item{ display:flex; flex-direction:column; align-items:flex-start; }
+  .noun-columns{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:520px){ .noun-columns{ grid-template-columns:1fr; } }
+  .noun-column{ border:1px solid var(--rule); border-radius:8px; padding:1rem; background:var(--surface-raised); min-height:120px; }
+  .noun-column h3{ font-family:var(--serif); font-weight:400; font-size:1.1rem; margin:0 0 .7rem; color:var(--accent-strong); }
+  .noun-column .tokens{ gap:.4rem; }
+  .noun-column .token{ font-size:1rem; padding:.28rem .8rem; cursor:default; }
+  .noun-column:empty p, .noun-column .noun-empty{ color:var(--ink-muted); font-size:.85rem; font-style:italic; }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Latín · Actividad 4</p>
+  <h1>Régimen verbal: sujeto y objeto directo</h1>
+  <p class="lede">Trabajamos el reconocimiento de nominativo (sujeto) y acusativo (objeto directo) — primero por forma, después en frases, incluso con el orden de palabras cambiado.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-nombre">Nombre y apellido</label>
+        <input id="in-nombre" type="text" autocomplete="name" placeholder="Como querés que figure" />
+      </div>
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ===== Paso 1 ===== -->
+    <section class="step" id="step-p1">
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificá cada palabra: ¿nominativo o acusativo?</h2></div></div>
+      <p class="step-instructions">Tocá cada palabra y elegí su caso. Va a ir quedando ubicada en la columna correspondiente.</p>
+      <div class="p-progress" id="p1-progress"></div>
+      <div class="exercise">
+        <div class="noun-pool" id="p1-pool"></div>
+        <div class="noun-columns">
+          <div class="noun-column"><h3>Nominativo</h3><div class="tokens" id="col-nom"></div></div>
+          <div class="noun-column"><h3>Acusativo</h3><div class="tokens" id="col-ac"></div></div>
+        </div>
+      </div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p2" disabled>Continuar a Paso 2</button></div>
+    </section>
+
+    <!-- ===== Paso 2 ===== -->
+    <section class="step" id="step-p2">
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá sujeto y objeto directo</h2></div></div>
+      <p class="step-instructions">El verbo ya está marcado. Tocá la palabra que es sujeto y la que es objeto directo — atención, en algunas frases el orden está cambiado.</p>
+      <div class="p-progress" id="p2-progress"></div>
+      <div class="exercise" id="p2-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p3" disabled>Continuar a Paso 3</button></div>
+    </section>
+
+    <!-- ===== Paso 3 ===== -->
+    <section class="step" id="step-p3">
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí sujeto y objeto (orden habitual)</h2></div></div>
+      <p class="step-instructions">Frases nuevas, orden sujeto-verbo-objeto. Elegí la forma correcta en cada desplegable.</p>
+      <div class="p-progress" id="p3-progress"></div>
+      <div class="exercise" id="p3-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
+    </section>
+
+    <!-- ===== Explicación (antes del paso 4) ===== -->
+    <section class="step" id="step-explain">
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 4</p><h2>El orden de las palabras en latín</h2></div></div>
+      <div class="explain-box">
+        <p>En latín el orden de las palabras es mucho más flexible que en castellano, porque la función de cada palabra en la oración queda determinada por su <strong>caso</strong> (su terminación) y no por su posición.</p>
+        <p>Por eso el objeto puede aparecer antes que el sujeto sin que cambie el sentido de la frase: <span class="ex-latin">Equum Priamus ducit</span> significa exactamente lo mismo que <span class="ex-latin">Priamus equum ducit</span>.</p>
+      </div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
+    </section>
+
+    <!-- ===== Paso 4 ===== -->
+    <section class="step" id="step-p4">
+      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Elegí sujeto y objeto (objeto antepuesto)</h2></div></div>
+      <p class="step-instructions">Las mismas dos opciones por desplegable, pero ahora el objeto aparece primero en la frase.</p>
+      <div class="p-progress" id="p4-progress"></div>
+      <div class="exercise" id="p4-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+    </section>
+
+    <!-- ===== Cierre ===== -->
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="completá la idea" required /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  var PASO1_NOUNS = [
+    {word:"Priamus", correct:"nominativo"}, {word:"Priamum", correct:"acusativo"},
+    {word:"equus", correct:"nominativo"}, {word:"equum", correct:"acusativo"},
+    {word:"Epeus", correct:"nominativo"}, {word:"Epeum", correct:"acusativo"},
+    {word:"Troia", correct:"nominativo"}, {word:"Troiam", correct:"acusativo"},
+    {word:"Cassandra", correct:"nominativo"},
+    {word:"Achivi", correct:"nominativo"}, {word:"Achivos", correct:"acusativo"},
+    {word:"Troiani", correct:"nominativo"}, {word:"Troianos", correct:"acusativo"},
+    {word:"inimici", correct:"nominativo"}, {word:"inimicos", correct:"acusativo"},
+    {word:"portae", correct:"nominativo"}, {word:"portas", correct:"acusativo"},
+    {word:"socios", correct:"acusativo"}
+  ];
+
+  var PASO2_FRASES = [
+    {id:1, latin:"Priamus equum in oppidum ducit.", cast:"Príamo lleva el caballo a la ciudad.",
+     tokens:["Priamus","equum","in","oppidum","ducit."], verbIdx:4, subjectIdx:0, objectIdx:1},
+    {id:2, latin:"Equum Epeus facit.", cast:"Epeo hace el caballo.",
+     tokens:["Equum","Epeus","facit."], verbIdx:2, subjectIdx:1, objectIdx:0},
+    {id:3, latin:"Troiani equum in oppido ponunt.", cast:"Los troyanos ponen el caballo en la ciudad.",
+     tokens:["Troiani","equum","in","oppido","ponunt."], verbIdx:4, subjectIdx:0, objectIdx:1},
+    {id:4, latin:"Equum Sinon aperit.", cast:"Sinón abre el caballo.",
+     tokens:["Equum","Sinon","aperit."], verbIdx:2, subjectIdx:1, objectIdx:0},
+    {id:5, latin:"Achivi Troiam capiunt.", cast:"Los aqueos toman Troya.",
+     tokens:["Achivi","Troiam","capiunt."], verbIdx:2, subjectIdx:0, objectIdx:1},
+    {id:6, latin:"Portas Troiani servant.", cast:"Los troyanos custodian las puertas.",
+     tokens:["Portas","Troiani","servant."], verbIdx:2, subjectIdx:1, objectIdx:0}
+  ];
+
+  // Paso 3: orden habitual — sujeto, objeto, (medio), verbo.
+  var PASO3 = [
+    {id:1, cast:"Príamo lleva el caballo a la ciudad.", subjOptions:["Priamus","Priamum"], subjCorrect:"Priamus",
+     objOptions:["equus","equum"], objCorrect:"equum", mid:"in oppidum", verb:"ducit."},
+    {id:2, cast:"Epeo hace un caballo.", subjOptions:["Epeus","Epeum"], subjCorrect:"Epeus",
+     objOptions:["equus","equum"], objCorrect:"equum", mid:"", verb:"facit."},
+    {id:3, cast:"Los troyanos ponen el caballo en la ciudad.", subjOptions:["Troiani","Troianos"], subjCorrect:"Troiani",
+     objOptions:["equus","equum"], objCorrect:"equum", mid:"in oppido", verb:"ponunt."},
+    {id:4, cast:"Los aqueos toman Troya.", subjOptions:["Achivi","Achivos"], subjCorrect:"Achivi",
+     objOptions:["Troia","Troiam"], objCorrect:"Troiam", mid:"", verb:"capiunt."},
+    {id:5, cast:"Los troyanos custodian las puertas.", subjOptions:["Troiani","Troianos"], subjCorrect:"Troiani",
+     objOptions:["portae","portas"], objCorrect:"portas", mid:"", verb:"servant."}
+  ];
+
+  // Paso 4: objeto antepuesto — objeto, (medio), sujeto, verbo.
+  var PASO4 = [
+    {id:1, cast:"Príamo lleva el caballo a la ciudad.", objOptions:["equus","equum"], objCorrect:"equum",
+     mid:"in oppidum", subjOptions:["Priamus","Priamum"], subjCorrect:"Priamus", verb:"ducit."},
+    {id:2, cast:"Epeo hace un caballo.", objOptions:["equus","equum"], objCorrect:"equum",
+     mid:"", subjOptions:["Epeus","Epeum"], subjCorrect:"Epeus", verb:"facit."},
+    {id:3, cast:"Los troyanos ven a los enemigos.", objOptions:["inimici","inimicos"], objCorrect:"inimicos",
+     mid:"", subjOptions:["Troiani","Troianos"], subjCorrect:"Troiani", verb:"vident."},
+    {id:4, cast:"Los aqueos toman Troya.", objOptions:["Troia","Troiam"], objCorrect:"Troiam",
+     mid:"", subjOptions:["Achivi","Achivos"], subjCorrect:"Achivi", verb:"capiunt."},
+    {id:5, cast:"Los aqueos ven el caballo.", objOptions:["equus","equum"], objCorrect:"equum",
+     mid:"", subjOptions:["Achivi","Achivos"], subjCorrect:"Achivi", verb:"vident."}
+  ];
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+
+  var identity = { nombre:"", email:"" };
+  var submitLog = [];
+
+  var inNombre = document.getElementById("in-nombre");
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inNombre.value.trim() && inEmail.value.trim().indexOf("@") > 0); }
+  inNombre.addEventListener("input", checkIdentity);
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.nombre = inNombre.value.trim(); identity.email = inEmail.value.trim();
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    showStep("step-p1");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  // =================================================================
+  // Paso 1: clasificar sustantivos en Nominativo / Acusativo
+  // =================================================================
+  var p1Resolved = 0;
+  function updateP1Progress(){
+    document.getElementById("p1-progress").innerHTML = "Palabras clasificadas: <strong>" + p1Resolved + " / " + PASO1_NOUNS.length + "</strong>";
+    document.getElementById("btn-to-p2").disabled = p1Resolved < PASO1_NOUNS.length;
+  }
+
+  (function(){
+    var pool = document.getElementById("p1-pool");
+    var colNom = document.getElementById("col-nom");
+    var colAc = document.getElementById("col-ac");
+
+    shuffled(PASO1_NOUNS).forEach(function(noun){
+      var wrap = document.createElement("div");
+      wrap.className = "noun-item";
+      var chip = document.createElement("button");
+      chip.type = "button"; chip.className = "token"; chip.textContent = noun.word;
+      var tried = new Set();
+      var resolved = false;
+
+      chip.addEventListener("click", function(){
+        if (resolved) return;
+        var existing = wrap.querySelector(".word-panel");
+        if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+        chip.classList.add("open");
+
+        var panel = document.createElement("div");
+        panel.className = "word-panel";
+        ["nominativo","acusativo"].forEach(function(opt){
+          var ob = document.createElement("button");
+          ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt.charAt(0).toUpperCase() + opt.slice(1);
+          if (tried.has(opt)){ ob.disabled = true; ob.classList.add("answered-bad"); }
+          ob.addEventListener("click", function(){
+            if (tried.has(opt)) return;
+            var ok = opt === noun.correct;
+            submitLog.push({ paso:"1 - Nominativo/Acusativo", item:noun.word, respuesta:opt, correcta: ok });
+            if (ok){
+              resolved = true;
+              p1Resolved++; updateP1Progress();
+              var doneChip = document.createElement("button");
+              doneChip.type = "button"; doneChip.className = "token g-ok"; doneChip.disabled = true;
+              doneChip.textContent = noun.word;
+              (noun.correct === "nominativo" ? colNom : colAc).appendChild(doneChip);
+              wrap.remove();
+            } else {
+              tried.add(opt);
+              chip.click(); chip.click();
+            }
+          });
+          panel.appendChild(ob);
+        });
+        wrap.appendChild(panel);
+      });
+
+      wrap.appendChild(chip);
+      pool.appendChild(wrap);
+    });
+    updateP1Progress();
+  })();
+
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ showStep("step-p2"); });
+
+  // =================================================================
+  // Paso 2: identificar sujeto y objeto (verbo fijo, no tocable)
+  // =================================================================
+  var p2Resolved = 0;
+  function updateP2Progress(){
+    document.getElementById("p2-progress").innerHTML = "Roles encontrados: <strong>" + p2Resolved + " / " + (PASO2_FRASES.length * 2) + "</strong>";
+    document.getElementById("btn-to-p3").disabled = p2Resolved < PASO2_FRASES.length * 2;
+  }
+
+  (function(){
+    var list = document.getElementById("p2-list");
+    PASO2_FRASES.forEach(function(f){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = f.cast;
+      block.appendChild(cast);
+
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var panelHost = document.createElement("div");
+      var foundSubj = false, foundObj = false;
+
+      f.tokens.forEach(function(word, idx){
+        if (idx === f.verbIdx){
+          var vspan = document.createElement("span");
+          vspan.className = "token-verb"; vspan.textContent = word;
+          tokensEl.appendChild(vspan);
+          return;
+        }
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        var tried = new Set();
+        var resolved = false;
+
+        chip.addEventListener("click", function(){
+          if (resolved) return;
+          var key = f.id + "-" + idx;
+          var existing = panelHost.querySelector('[data-panel-for="' + key + '"]');
+          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+          panelHost.innerHTML = "";
+          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+
+          var panel = document.createElement("div");
+          panel.className = "word-panel";
+          panel.dataset.panelFor = key;
+
+          var isRole = (idx === f.subjectIdx || idx === f.objectIdx);
+          if (!isRole){
+            var fbInfo = document.createElement("span");
+            fbInfo.className = "word-feedback info";
+            fbInfo.textContent = "Esta palabra no es el sujeto ni el objeto directo de la frase.";
+            panel.appendChild(fbInfo);
+            panelHost.appendChild(panel);
+            return;
+          }
+
+          var correctRole = idx === f.subjectIdx ? "sujeto" : "objeto";
+          ["sujeto","objeto"].forEach(function(role){
+            var ob = document.createElement("button");
+            ob.type = "button"; ob.className = "word-opt";
+            ob.textContent = role === "sujeto" ? "Es el sujeto" : "Es el objeto directo";
+            if (tried.has(role)){ ob.disabled = true; ob.classList.add("answered-bad"); }
+            ob.addEventListener("click", function(){
+              if (tried.has(role)) return;
+              var ok = role === correctRole;
+              submitLog.push({ paso:"2 - Sujeto y objeto", item:"Frase " + f.id + " · " + word, respuesta: role, correcta: ok });
+              if (ok){
+                resolved = true;
+                if (correctRole === "sujeto") foundSubj = true; else foundObj = true;
+                p2Resolved++; updateP2Progress();
+                chip.classList.add("g-ok");
+                chip.title = correctRole === "sujeto" ? "Sujeto" : "Objeto directo";
+              } else {
+                tried.add(role);
+              }
+              chip.click(); chip.click();
+            });
+            panel.appendChild(ob);
+          });
+
+          if (resolved){
+            var fbOk = document.createElement("span");
+            fbOk.className = "word-feedback ok";
+            fbOk.textContent = correctRole === "sujeto" ? "¡Correcto! Es el sujeto." : "¡Correcto! Es el objeto directo.";
+            panel.appendChild(fbOk);
+          }
+
+          panelHost.appendChild(panel);
+        });
+
+        tokensEl.appendChild(chip);
+      });
+
+      block.appendChild(tokensEl);
+      block.appendChild(panelHost);
+      list.appendChild(block);
+    });
+    updateP2Progress();
+  })();
+
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ showStep("step-p3"); });
+
+  // =================================================================
+  // Dropdown genérico (2 opciones, con reintento)
+  // =================================================================
+  function buildDropdown(options, correct, onResolve, logCtx){
+    var select = document.createElement("select");
+    select.className = "dd";
+    var placeholder = document.createElement("option");
+    placeholder.textContent = "— elegí —"; placeholder.value = ""; placeholder.disabled = true; placeholder.selected = true;
+    select.appendChild(placeholder);
+    options.forEach(function(opt){
+      var o = document.createElement("option");
+      o.value = opt; o.textContent = opt;
+      select.appendChild(o);
+    });
+    var msg = document.createElement("div");
+    msg.className = "dd-msg";
+
+    select.addEventListener("change", function(){
+      var val = select.value;
+      if (!val) return;
+      var ok = val === correct;
+      submitLog.push({ paso: logCtx.paso, item: logCtx.item, respuesta: val, correcta: ok });
+      if (ok){
+        select.classList.remove("g-bad"); select.classList.add("g-ok");
+        select.disabled = true;
+        msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
+        onResolve();
+      } else {
+        select.classList.add("g-bad");
+        Array.from(select.options).forEach(function(o){ if (o.value === val) o.disabled = true; });
+        select.value = "";
+        msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá otra opción.";
+      }
+    });
+
+    return { select: select, msg: msg };
+  }
+
+  // =================================================================
+  // Paso 3: sujeto y objeto por desplegable, orden habitual
+  // =================================================================
+  var p3Resolved = 0;
+  function updateP3Progress(){
+    document.getElementById("p3-progress").innerHTML = "Desplegables resueltos: <strong>" + p3Resolved + " / " + (PASO3.length * 2) + "</strong>";
+    document.getElementById("btn-to-explain").disabled = p3Resolved < PASO3.length * 2;
+  }
+
+  (function(){
+    var list = document.getElementById("p3-list");
+    PASO3.forEach(function(item){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = item.cast;
+      block.appendChild(cast);
+
+      var row = document.createElement("div"); row.className = "dd-row";
+      var ddSubj = buildDropdown(item.subjOptions, item.subjCorrect, function(){ p3Resolved++; updateP3Progress(); },
+        { paso:"3 - Sujeto y objeto (orden habitual)", item:"Frase " + item.id + " (sujeto)" });
+      row.appendChild(ddSubj.select);
+
+      var ddObj = buildDropdown(item.objOptions, item.objCorrect, function(){ p3Resolved++; updateP3Progress(); },
+        { paso:"3 - Sujeto y objeto (orden habitual)", item:"Frase " + item.id + " (objeto)" });
+      row.appendChild(ddObj.select);
+
+      if (item.mid){ var mid = document.createElement("span"); mid.textContent = item.mid; row.appendChild(mid); }
+      var verb = document.createElement("span"); verb.textContent = item.verb; row.appendChild(verb);
+      row.appendChild(ddSubj.msg); row.appendChild(ddObj.msg);
+
+      block.appendChild(row);
+      list.appendChild(block);
+    });
+    updateP3Progress();
+  })();
+
+  document.getElementById("btn-to-explain").addEventListener("click", function(){ showStep("step-explain"); });
+  document.getElementById("btn-to-p4").addEventListener("click", function(){ showStep("step-p4"); });
+
+  // =================================================================
+  // Paso 4: sujeto y objeto por desplegable, objeto antepuesto
+  // =================================================================
+  var p4Resolved = 0;
+  function updateP4Progress(){
+    document.getElementById("p4-progress").innerHTML = "Desplegables resueltos: <strong>" + p4Resolved + " / " + (PASO4.length * 2) + "</strong>";
+    document.getElementById("btn-to-fin").disabled = p4Resolved < PASO4.length * 2;
+  }
+
+  (function(){
+    var list = document.getElementById("p4-list");
+    PASO4.forEach(function(item){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = item.cast;
+      block.appendChild(cast);
+
+      var row = document.createElement("div"); row.className = "dd-row";
+      var ddObj = buildDropdown(item.objOptions, item.objCorrect, function(){ p4Resolved++; updateP4Progress(); },
+        { paso:"4 - Sujeto y objeto (objeto antepuesto)", item:"Frase " + item.id + " (objeto)" });
+      row.appendChild(ddObj.select);
+
+      if (item.mid){ var mid = document.createElement("span"); mid.textContent = item.mid; row.appendChild(mid); }
+
+      var ddSubj = buildDropdown(item.subjOptions, item.subjCorrect, function(){ p4Resolved++; updateP4Progress(); },
+        { paso:"4 - Sujeto y objeto (objeto antepuesto)", item:"Frase " + item.id + " (sujeto)" });
+      row.appendChild(ddSubj.select);
+
+      var verb = document.createElement("span"); verb.textContent = item.verb; row.appendChild(verb);
+      row.appendChild(ddObj.msg); row.appendChild(ddSubj.msg);
+
+      block.appendChild(row);
+      list.appendChild(block);
+    });
+    updateP4Progress();
+  })();
+
+  document.getElementById("btn-to-fin").addEventListener("click", function(){ showStep("step-fin"); });
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  document.getElementById("btn-send").addEventListener("click", function(){
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+    submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+    submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, nombre: identity.nombre, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
