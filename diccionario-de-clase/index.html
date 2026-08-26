@@ -1,50 +1,50 @@
 <title>Diccionario de latín — frases dadas en clase</title>
 <style>
   :root {
-    --bg: #eeede8;
-    --surface: #faf9f5;
-    --surface-2: #f2f0e9;
-    --text: #221f1a;
-    --text-dim: #6b655a;
-    --accent: #9b3a28;
-    --accent-soft: rgba(155, 58, 40, 0.09);
-    --border: #ddd9ce;
-    --focus: #4a6fa5;
+    --bg: #edefea;
+    --surface: #f7f8f5;
+    --surface-2: #f1f3ee;
+    --text: #1d2321;
+    --text-dim: #616b65;
+    --accent: #3e7a66;
+    --accent-soft: rgba(62, 122, 102, 0.10);
+    --border: #d6dad3;
+    --focus: #4c7c93;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #171613;
-      --surface: #201f1b;
-      --surface-2: #262420;
-      --text: #ebe7dc;
-      --text-dim: #a39c8c;
-      --accent: #e0805f;
-      --accent-soft: rgba(224, 128, 95, 0.13);
-      --border: #35322b;
-      --focus: #8fb3e0;
+      --bg: #131615;
+      --surface: #1b1f1c;
+      --surface-2: #202523;
+      --text: #e7eae5;
+      --text-dim: #9ca69e;
+      --accent: #5faf95;
+      --accent-soft: rgba(95, 175, 149, 0.14);
+      --border: #2c332f;
+      --focus: #7fb2c9;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #171613;
-    --surface: #201f1b;
-    --surface-2: #262420;
-    --text: #ebe7dc;
-    --text-dim: #a39c8c;
-    --accent: #e0805f;
-    --accent-soft: rgba(224, 128, 95, 0.13);
-    --border: #35322b;
-    --focus: #8fb3e0;
+    --bg: #131615;
+    --surface: #1b1f1c;
+    --surface-2: #202523;
+    --text: #e7eae5;
+    --text-dim: #9ca69e;
+    --accent: #5faf95;
+    --accent-soft: rgba(95, 175, 149, 0.14);
+    --border: #2c332f;
+    --focus: #7fb2c9;
   }
   :root[data-theme="light"] {
-    --bg: #eeede8;
-    --surface: #faf9f5;
-    --surface-2: #f2f0e9;
-    --text: #221f1a;
-    --text-dim: #6b655a;
-    --accent: #9b3a28;
-    --accent-soft: rgba(155, 58, 40, 0.09);
-    --border: #ddd9ce;
-    --focus: #4a6fa5;
+    --bg: #edefea;
+    --surface: #f7f8f5;
+    --surface-2: #f1f3ee;
+    --text: #1d2321;
+    --text-dim: #616b65;
+    --accent: #3e7a66;
+    --accent-soft: rgba(62, 122, 102, 0.10);
+    --border: #d6dad3;
+    --focus: #4c7c93;
   }
 
   * { box-sizing: border-box; }
@@ -98,8 +98,24 @@
     margin: 0 0 16px;
     font-size: 13px;
     color: var(--text-dim);
+    line-height: 1.55;
   }
-  .stats strong { color: var(--text); font-variant-numeric: tabular-nums; }
+  .stats strong { color: var(--text); font-variant-numeric: tabular-nums; font-size: 14px; }
+  .motto {
+    font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
+    font-style: italic;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .motto-tr { color: var(--text-dim); }
+
+  .result-count {
+    margin: 10px 0 0;
+    font-size: 12.5px;
+    color: var(--text-dim);
+    font-variant-numeric: tabular-nums;
+  }
+  .result-count[hidden] { display: none; }
 
   .search-box {
     position: relative;
@@ -184,13 +200,21 @@
 
   li.entry {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 14px;
-    padding: 11px 14px;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 11px 8px 11px 14px;
     border-bottom: 1px solid var(--border);
   }
   li.entry:last-child { border-bottom: none; }
+
+  .entry-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 14px;
+  }
 
   .headword {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
@@ -216,6 +240,78 @@
     padding: 0 1px;
   }
 
+  .duda-btn {
+    flex: 0 0 auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    border: none;
+    background: none;
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.55;
+    transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .duda-btn svg { width: 16px; height: 16px; }
+  .duda-btn:hover, .duda-btn:focus-visible { opacity: 1; background: var(--accent-soft); color: var(--accent); }
+  .duda-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .duda-btn[aria-expanded="true"] { opacity: 1; background: var(--accent-soft); color: var(--accent); }
+
+  li.duda-panel {
+    padding: 10px 14px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
+  }
+  li.duda-panel:last-child { border-bottom: none; }
+  .duda-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 6px;
+  }
+  .duda-form { display: flex; flex-direction: column; gap: 8px; }
+  .duda-form textarea {
+    width: 100%;
+    min-height: 56px;
+    resize: vertical;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13.5px;
+    outline: none;
+  }
+  .duda-form textarea:focus { border-color: var(--focus); }
+  .duda-actions { display: flex; align-items: center; gap: 10px; }
+  .duda-send {
+    border: none;
+    background: var(--accent);
+    color: var(--surface);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .duda-send:disabled { opacity: 0.6; cursor: default; }
+  .duda-cancel {
+    border: none;
+    background: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    cursor: pointer;
+    padding: 7px 4px;
+  }
+  .duda-status { font-size: 12.5px; color: var(--text-dim); margin: 0; }
+  .duda-status.ok { color: var(--accent); }
+
   .empty-state {
     text-align: center;
     color: var(--text-dim);
@@ -233,21 +329,25 @@
   footer strong { color: var(--text); }
 
   @media (max-width: 420px) {
-    li.entry { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .entry-main { flex-direction: column; align-items: flex-start; gap: 2px; }
     .gloss { text-align: left; }
   }
 </style>
 
 <div class="wrap">
   <header>
-    <p class="eyebrow">Latín I · UNTREF</p>
+    <p class="eyebrow">Latín I y II (Sorter) · UNTREF</p>
     <h1>Diccionario de clase</h1>
-    <p class="stats"><strong id="count">317</strong> palabras — el vocabulario de las frases en latín ya vistas en clase (Ovidio, Cicerón, Plinio el Joven, Higino)</p>
+    <p class="stats">
+      <strong id="count">317</strong> palabras… y contando!<br>
+      <span class="motto">Ecce cognita et cognoscenda verba</span><span class="motto-tr"> — «he aquí las palabras conocidas y por conocer»</span>: con cada actividad, las palabras que no estaban acá se van a cargar automáticamente.
+    </p>
     <div class="search-box" id="searchBox">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       <input id="search" type="text" placeholder="Buscar una palabra…" autocomplete="off" spellcheck="false">
       <button class="clear-btn" id="clearBtn" aria-label="Borrar búsqueda">×</button>
     </div>
+    <p class="result-count" id="resultCount" hidden></p>
   </header>
 
   <main id="main"></main>
@@ -281,9 +381,16 @@
   var searchBox = document.getElementById('searchBox');
   var clearBtn = document.getElementById('clearBtn');
   var countEl = document.getElementById('count');
+  var resultCountEl = document.getElementById('resultCount');
+
+  countEl.textContent = entries.length; // total del corpus, no cambia con la búsqueda
 
   function escapeHtml(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function escapeAttr(s) {
+    return escapeHtml(s).replace(/"/g, '&quot;');
   }
 
   function highlight(text, term) {
@@ -294,13 +401,20 @@
     return escapeHtml(text.slice(0, idx)) + '<mark>' + escapeHtml(text.slice(idx, idx + term.length)) + '</mark>' + escapeHtml(text.slice(idx + term.length));
   }
 
+  var DUDA_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M12 8v3"></path><circle cx="12" cy="14" r="0.5" fill="currentColor"></circle></svg>';
+
   function render(term) {
     var q = normalize(term || '').trim();
     var filtered = q
       ? entries.filter(function (e) { return e.key.indexOf(q) !== -1 || normalize(e.g).indexOf(q) !== -1; })
       : entries;
 
-    countEl.textContent = filtered.length;
+    if (q) {
+      resultCountEl.hidden = false;
+      resultCountEl.textContent = filtered.length + (filtered.length === 1 ? ' resultado' : ' resultados');
+    } else {
+      resultCountEl.hidden = true;
+    }
 
     if (!filtered.length) {
       main.innerHTML = '<p class="empty-state">Ninguna palabra coincide con "' + escapeHtml(term) + '".</p>';
@@ -318,8 +432,10 @@
         currentLetter = letter;
         ul = true;
       }
-      html += '<li class="entry"><span class="headword">' + highlight(e.l, q) +
-              '</span><span class="gloss">' + highlight(e.g, q) + '</span></li>';
+      html += '<li class="entry" data-lema="' + escapeAttr(e.l) + '" data-gloss="' + escapeAttr(e.g) + '">' +
+              '<span class="entry-main"><span class="headword">' + highlight(e.l, q) +
+              '</span><span class="gloss">' + highlight(e.g, q) + '</span></span>' +
+              '<button type="button" class="duda-btn" aria-expanded="false" aria-label="Marcar duda en ' + escapeAttr(e.l) + '" title="¿Dudas con esta palabra?">' + DUDA_ICON + '</button></li>';
     });
     html += '</ul>';
     main.innerHTML = html;
@@ -334,6 +450,90 @@
     searchBox.classList.remove('has-value');
     render('');
     searchInput.focus();
+  });
+
+  // --- Botón de duda por entrada: abre un panel con un campo "Nota bene" opcional
+  // y lo envía al mismo backend (Apps Script) que usan las demás actividades de latín,
+  // a una hoja nueva "Diccionario - Dudas".
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  function closeDudaPanel(panel) {
+    var btn = panel.previousElementSibling;
+    if (btn && btn.classList.contains('entry')) {
+      var b = btn.querySelector('.duda-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    }
+    panel.remove();
+  }
+
+  function openDudaPanel(entryLi, btn) {
+    var existing = entryLi.nextElementSibling;
+    if (existing && existing.classList.contains('duda-panel')) {
+      closeDudaPanel(existing);
+      return;
+    }
+    // cerrar cualquier otro panel abierto
+    main.querySelectorAll('li.duda-panel').forEach(closeDudaPanel);
+
+    var lema = entryLi.getAttribute('data-lema');
+    var gloss = entryLi.getAttribute('data-gloss');
+
+    var panel = document.createElement('li');
+    panel.className = 'duda-panel';
+    panel.innerHTML =
+      '<p class="duda-label">Nota bene</p>' +
+      '<div class="duda-form">' +
+      '<textarea placeholder="¿Qué te faltó o qué duda te generó esta entrada? (opcional)"></textarea>' +
+      '<div class="duda-actions">' +
+      '<button type="button" class="duda-send">Enviar</button>' +
+      '<button type="button" class="duda-cancel">Cancelar</button>' +
+      '<p class="duda-status" hidden></p>' +
+      '</div></div>';
+
+    entryLi.insertAdjacentElement('afterend', panel);
+    btn.setAttribute('aria-expanded', 'true');
+    panel.querySelector('textarea').focus();
+
+    panel.querySelector('.duda-cancel').addEventListener('click', function () {
+      closeDudaPanel(panel);
+    });
+
+    panel.querySelector('.duda-send').addEventListener('click', function () {
+      var sendBtn = panel.querySelector('.duda-send');
+      var statusEl = panel.querySelector('.duda-status');
+      var notaBene = panel.querySelector('textarea').value.trim();
+      sendBtn.disabled = true;
+      sendBtn.textContent = 'Enviando…';
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          actividad: 'Diccionario de clase',
+          dudasDiccionario: [{ lema: lema, traduccion: gloss, notaBene: notaBene }]
+        })
+      }).then(function () {
+        statusEl.hidden = false;
+        statusEl.className = 'duda-status ok';
+        statusEl.textContent = '¡Gracias, quedó registrado!';
+        panel.querySelector('textarea').disabled = true;
+        sendBtn.hidden = true;
+        panel.querySelector('.duda-cancel').textContent = 'Cerrar';
+      }).catch(function () {
+        statusEl.hidden = false;
+        statusEl.className = 'duda-status';
+        statusEl.textContent = 'No se pudo enviar (revisá tu conexión). Podés reintentar.';
+        sendBtn.disabled = false;
+        sendBtn.textContent = 'Enviar';
+      });
+    });
+  }
+
+  main.addEventListener('click', function (ev) {
+    var btn = ev.target.closest('.duda-btn');
+    if (!btn) return;
+    var entryLi = btn.closest('li.entry');
+    if (entryLi) openDudaPanel(entryLi, btn);
   });
 
   render('');
