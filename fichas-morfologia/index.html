@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín UNTREF · Fichas de morfología (declinaciones y conjugaciones)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  .layout{ max-width:1180px; margin:0 auto; padding:2.25rem 1.25rem 6rem; display:grid; grid-template-columns:230px minmax(0,1fr); gap:2.5rem; align-items:start; }
+  @media (max-width:900px){ .layout{ grid-template-columns:1fr; } }
+
+  .toc{ position:sticky; top:1.5rem; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.1rem 1.2rem; box-shadow:var(--shadow); max-height:calc(100vh - 3rem); overflow-y:auto; }
+  @media (max-width:900px){ .toc{ position:static; max-height:none; } }
+  .toc-title{ font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-strong); margin-bottom:.75rem; }
+  .toc ol{ list-style:none; margin:0; padding:0; }
+  .toc > ol > li{ margin-bottom:.6rem; }
+  .toc a{ color:var(--ink); text-decoration:none; font-size:.86rem; display:block; padding:.15rem 0; border-left:2px solid transparent; padding-left:.6rem; margin-left:-.6rem; }
+  .toc a:hover{ color:var(--accent-strong); border-left-color:var(--accent); }
+  .toc .toc-sub{ list-style:none; margin:.3rem 0 0; padding:0 0 0 .6rem; }
+  .toc .toc-sub a{ font-size:.8rem; color:var(--ink-muted); }
+  .toc .toc-sub a:hover{ color:var(--accent-strong); }
+
+  main{ min-width:0; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.95rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:70ch; margin:0 0 1rem; }
+  .method-note{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1rem 1.2rem; box-shadow:var(--shadow); font-size:.86rem; color:var(--ink-muted); margin-bottom:2.5rem; }
+  .method-note strong{ color:var(--ink); }
+
+  section.block{ margin-bottom:3rem; scroll-margin-top:1.5rem; }
+  section.block > h2{ font-family:var(--serif); font-weight:400; font-size:1.6rem; margin:0 0 .3rem; padding-bottom:.5rem; border-bottom:2px solid var(--accent); color:var(--accent-strong); }
+  section.block > .block-note{ color:var(--ink-muted); font-size:.88rem; margin:.5rem 0 1.5rem; max-width:72ch; }
+
+  h3.sub{ font-family:var(--serif); font-weight:400; font-size:1.25rem; margin:2rem 0 .3rem; scroll-margin-top:1.5rem; }
+  .sub-note{ color:var(--ink-muted); font-size:.85rem; margin:0 0 1rem; max-width:72ch; }
+
+  .card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.3rem 1.4rem 1.5rem; box-shadow:var(--shadow); margin-bottom:1.4rem; }
+  .card-head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.5rem 1rem; margin-bottom:.9rem; }
+  .card-head .lemma{ font-family:var(--serif); font-size:1.15rem; }
+  .card-head .gloss{ color:var(--ink-muted); font-size:.85rem; }
+  .chip{ display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent); border-radius:var(--radius-chip); padding:.18rem .6rem; }
+
+  table{ border-collapse:collapse; width:100%; font-family:var(--serif); font-size:.95rem; }
+  table.wide{ min-width:640px; }
+  .table-scroll{ overflow-x:auto; }
+  th,td{ padding:.4rem .65rem; text-align:left; border-bottom:1px solid var(--rule); white-space:nowrap; }
+  thead th{ font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-muted); border-bottom:2px solid var(--rule); }
+  tbody th{ font-family:var(--sans); font-size:.78rem; font-weight:600; color:var(--accent-strong); white-space:nowrap; }
+  tbody tr:last-child td, tbody tr:last-child th{ border-bottom:none; }
+  .col-group-label{ font-family:var(--sans); font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); text-align:center !important; border-bottom:2px solid var(--rule); }
+
+  .two-up{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+  @media (max-width:720px){ .two-up{ grid-template-columns:1fr; } }
+
+  .verb-table th.pers{ font-family:var(--sans); font-weight:600; color:var(--ink-muted); font-size:.8rem; }
+
+  footer{ margin-top:3.5rem; padding-top:1.5rem; border-top:1px solid var(--rule); color:var(--ink-muted); font-size:.82rem; }
+  footer h4{ font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-strong); margin:0 0 .5rem; }
+  footer ul{ margin:0 0 1.2rem; padding-left:1.2rem; }
+
+  @media print{
+    .toc{ display:none; }
+    .layout{ grid-template-columns:1fr; display:block; }
+    body{ background:#fff; }
+    .card{ box-shadow:none; break-inside:avoid; }
+    section.block{ break-before:page; }
+    section.block:first-of-type{ break-before:auto; }
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc" aria-label="Tabla de contenidos">
+    <div class="toc-title">Contenidos</div>
+    <ol>
+      <li><a href="#sustantivos">1. Sustantivos</a>
+        <ol class="toc-sub">
+          <li><a href="#decl1">1ª declinación</a></li>
+          <li><a href="#decl2">2ª declinación</a></li>
+          <li><a href="#decl3cons">3ª decl. (consonante)</a></li>
+          <li><a href="#decl3i">3ª decl. (tema en -i)</a></li>
+          <li><a href="#decl4">4ª declinación</a></li>
+          <li><a href="#decl5">5ª declinación</a></li>
+        </ol>
+      </li>
+      <li><a href="#adjetivos">2. Adjetivos</a>
+        <ol class="toc-sub">
+          <li><a href="#adj1">1ª clase</a></li>
+          <li><a href="#adj2">2ª clase</a></li>
+        </ol>
+      </li>
+      <li><a href="#pronombres">3. Pronombres</a>
+        <ol class="toc-sub">
+          <li><a href="#pron-personales">Personales</a></li>
+          <li><a href="#pron-demostrativos">Demostrativos</a></li>
+          <li><a href="#pron-relativo">Relativo</a></li>
+          <li><a href="#pron-interrogativo">Interrogativo</a></li>
+        </ol>
+      </li>
+      <li><a href="#verbos">4. Verbos</a>
+        <ol class="toc-sub">
+          <li><a href="#verbo-intro">Las 4 conjugaciones</a></li>
+          <li><a href="#presente">Presente indicativo</a></li>
+          <li><a href="#imperfecto">Imperfecto indicativo</a></li>
+          <li><a href="#futuro">Futuro indicativo</a></li>
+          <li><a href="#perfecto">Perfecto indicativo</a></li>
+          <li><a href="#sum">sum, es, esse, fui</a></li>
+          <li><a href="#participios">Participios</a></li>
+        </ol>
+      </li>
+    </ol>
+  </nav>
+
+  <main>
+    <div class="eyebrow">Latín UNTREF · Material de consulta</div>
+    <h1>Fichas de morfología latina</h1>
+    <p class="lede">Declinaciones, pronombres y conjugaciones para volver a consultar cuantas veces haga falta. Sin desarrollos teóricos: solo los paradigmas organizados por caso, número, persona y tiempo.</p>
+
+    <div class="method-note">
+      <strong>Fuente principal:</strong> Tursi, A. (2009) <em>Latín. Guía para el aprendizaje</em> (UNSAM edita), cuyos «Esquemas» finales reúnen la morfología nominal, pronominal y verbal completa. La organización de casos (Nominativo–Vocativo–Acusativo–Genitivo–Dativo–Ablativo) y los verbos modelo (<em>laudo, video, lego, facio, audio</em>) siguen esa fuente. Se verificó contra Valentí Fiol (1999) <em>Gramática de la lengua latina</em>, y de manera cruzada contra Kühner–Holzweissig, <em>Ausführliche Grammatik der lateinischen Sprache</em> (Formenlehre), Weiss, <em>Outline of the Historical and Comparative Grammar of Latin</em>, Allen &amp; Greenough, <em>New Latin Grammar for Schools and Colleges</em> y <em>Wheelock's Latin</em>.
+    </div>
+
+    <!-- ============ 1. SUSTANTIVOS ============ -->
+    <section class="block" id="sustantivos">
+      <h2>1. Sustantivos</h2>
+      <p class="block-note">Las cinco declinaciones latinas, agrupadas por tema. La 3ª declinación se separa en temas en consonante y temas en -i porque difieren en el ablativo singular, el genitivo plural y el nominativo/acusativo/vocativo plural neutro.</p>
+
+      <h3 class="sub" id="decl1">1ª declinación (tema en -a)</h3>
+      <p class="sub-note">Mayoría femeninos; algunos masculinos por su significado (<em>poeta</em>, <em>agricola</em>, <em>nauta</em>).</p>
+      <div class="card">
+        <div class="card-head"><span class="lemma">vīta, vītae</span><span class="gloss">f. — la vida</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">Singular</th><th class="col-group-label">Plural</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>vīta</td><td>vītae</td></tr>
+            <tr><th>Voc.</th><td>vīta</td><td>vītae</td></tr>
+            <tr><th>Ac.</th><td>vītam</td><td>vītās</td></tr>
+            <tr><th>Gen.</th><td>vītae</td><td>vītārum</td></tr>
+            <tr><th>Dat.</th><td>vītae</td><td>vītīs</td></tr>
+            <tr><th>Abl.</th><td>vītā</td><td>vītīs</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="decl2">2ª declinación (tema en -o)</h3>
+      <p class="sub-note">Masculinos en <em>-us</em> y en <em>-r</em> (con o sin pérdida de la vocal: <em>puer</em> vs. <em>ager</em>); neutros en <em>-um</em> (Nom.=Voc.=Ac. siempre, y terminan en <em>-a</em> en plural). <em>Deus</em> y <em>fīlius</em> tienen formas propias (deī&gt;diī&gt;dī; vocativo <em>fīlī</em>).</p>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">amīcus, amīcī</span><span class="gloss">m. — el amigo</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>amīcus</td><td>amīcī</td></tr>
+              <tr><th>Voc.</th><td>amīce</td><td>amīcī</td></tr>
+              <tr><th>Ac.</th><td>amīcum</td><td>amīcōs</td></tr>
+              <tr><th>Gen.</th><td>amīcī</td><td>amīcōrum</td></tr>
+              <tr><th>Dat.</th><td>amīcō</td><td>amīcīs</td></tr>
+              <tr><th>Abl.</th><td>amīcō</td><td>amīcīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">puer, puerī</span><span class="gloss">m. — el niño</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>puer</td><td>puerī</td></tr>
+              <tr><th>Voc.</th><td>puer</td><td>puerī</td></tr>
+              <tr><th>Ac.</th><td>puerum</td><td>puerōs</td></tr>
+              <tr><th>Gen.</th><td>puerī</td><td>puerōrum</td></tr>
+              <tr><th>Dat.</th><td>puerō</td><td>puerīs</td></tr>
+              <tr><th>Abl.</th><td>puerō</td><td>puerīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">ager, agrī</span><span class="gloss">m. — el campo (pierde la -e-)</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>ager</td><td>agrī</td></tr>
+              <tr><th>Voc.</th><td>ager</td><td>agrī</td></tr>
+              <tr><th>Ac.</th><td>agrum</td><td>agrōs</td></tr>
+              <tr><th>Gen.</th><td>agrī</td><td>agrōrum</td></tr>
+              <tr><th>Dat.</th><td>agrō</td><td>agrīs</td></tr>
+              <tr><th>Abl.</th><td>agrō</td><td>agrīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">dōnum, dōnī</span><span class="gloss">n. — el regalo</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>dōnum</td><td>dōna</td></tr>
+              <tr><th>Voc.</th><td>dōnum</td><td>dōna</td></tr>
+              <tr><th>Ac.</th><td>dōnum</td><td>dōna</td></tr>
+              <tr><th>Gen.</th><td>dōnī</td><td>dōnōrum</td></tr>
+              <tr><th>Dat.</th><td>dōnō</td><td>dōnīs</td></tr>
+              <tr><th>Abl.</th><td>dōnō</td><td>dōnīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <h3 class="sub" id="decl3cons">3ª declinación — temas en consonante</h3>
+      <p class="sub-note">Reconocibles porque el genitivo singular añade <em>-is</em> sin agregar una sílaba de más en el plural (imparisílabos). Genitivo plural en <em>-um</em>; neutro Nom./Voc./Ac. plural en <em>-a</em>.</p>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">cōnsul, cōnsulis</span><span class="gloss">m. — el cónsul</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>cōnsul</td><td>cōnsulēs</td></tr>
+              <tr><th>Voc.</th><td>cōnsul</td><td>cōnsulēs</td></tr>
+              <tr><th>Ac.</th><td>cōnsulem</td><td>cōnsulēs</td></tr>
+              <tr><th>Gen.</th><td>cōnsulis</td><td>cōnsulum</td></tr>
+              <tr><th>Dat.</th><td>cōnsulī</td><td>cōnsulibus</td></tr>
+              <tr><th>Abl.</th><td>cōnsule</td><td>cōnsulibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">nōmen, nōminis</span><span class="gloss">n. — el nombre</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>nōmen</td><td>nōmina</td></tr>
+              <tr><th>Voc.</th><td>nōmen</td><td>nōmina</td></tr>
+              <tr><th>Ac.</th><td>nōmen</td><td>nōmina</td></tr>
+              <tr><th>Gen.</th><td>nōminis</td><td>nōminum</td></tr>
+              <tr><th>Dat.</th><td>nōminī</td><td>nōminibus</td></tr>
+              <tr><th>Abl.</th><td>nōmine</td><td>nōminibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">homō, hominis</span><span class="gloss">m. — el hombre (disminuido)</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>homō</td><td>hominēs</td></tr>
+              <tr><th>Voc.</th><td>homō</td><td>hominēs</td></tr>
+              <tr><th>Ac.</th><td>hominem</td><td>hominēs</td></tr>
+              <tr><th>Gen.</th><td>hominis</td><td>hominum</td></tr>
+              <tr><th>Dat.</th><td>hominī</td><td>hominibus</td></tr>
+              <tr><th>Abl.</th><td>homine</td><td>hominibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">pater, patris</span><span class="gloss">m. — el padre (con vocal de apoyo)</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>pater</td><td>patrēs</td></tr>
+              <tr><th>Voc.</th><td>pater</td><td>patrēs</td></tr>
+              <tr><th>Ac.</th><td>patrem</td><td>patrēs</td></tr>
+              <tr><th>Gen.</th><td>patris</td><td>patrum</td></tr>
+              <tr><th>Dat.</th><td>patrī</td><td>patribus</td></tr>
+              <tr><th>Abl.</th><td>patre</td><td>patribus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <h3 class="sub" id="decl3i">3ª declinación — temas en -i</h3>
+      <p class="sub-note">Genitivo plural en <em>-ium</em> (no en <em>-um</em>); neutros con Nom./Voc./Ac. plural en <em>-ia</em>. Se reconocen por ser parisílabos (<em>civis, civis</em>) o por terminar en dos consonantes tras la raíz (<em>urbs, urbis</em>) o en <em>-e/-al/-ar</em> en el neutro.</p>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">cīvis, cīvis</span><span class="gloss">m./f. — el/la ciudadano/a</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>cīvis</td><td>cīvēs</td></tr>
+              <tr><th>Voc.</th><td>cīvis</td><td>cīvēs</td></tr>
+              <tr><th>Ac.</th><td>cīvem</td><td>cīvēs</td></tr>
+              <tr><th>Gen.</th><td>cīvis</td><td>cīvium</td></tr>
+              <tr><th>Dat.</th><td>cīvī</td><td>cīvibus</td></tr>
+              <tr><th>Abl.</th><td>cīve</td><td>cīvibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">mare, maris</span><span class="gloss">n. — el mar</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>mare</td><td>maria</td></tr>
+              <tr><th>Voc.</th><td>mare</td><td>maria</td></tr>
+              <tr><th>Ac.</th><td>mare</td><td>maria</td></tr>
+              <tr><th>Gen.</th><td>maris</td><td>marium</td></tr>
+              <tr><th>Dat.</th><td>marī</td><td>maribus</td></tr>
+              <tr><th>Abl.</th><td>marī</td><td>maribus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">urbs, urbis</span><span class="gloss">f. — la ciudad</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>urbs</td><td>urbēs</td></tr>
+              <tr><th>Voc.</th><td>urbs</td><td>urbēs</td></tr>
+              <tr><th>Ac.</th><td>urbem</td><td>urbēs</td></tr>
+              <tr><th>Gen.</th><td>urbis</td><td>urbium</td></tr>
+              <tr><th>Dat.</th><td>urbī</td><td>urbibus</td></tr>
+              <tr><th>Abl.</th><td>urbe</td><td>urbibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">animal, animālis</span><span class="gloss">n. — el animal</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>animal</td><td>animālia</td></tr>
+              <tr><th>Voc.</th><td>animal</td><td>animālia</td></tr>
+              <tr><th>Ac.</th><td>animal</td><td>animālia</td></tr>
+              <tr><th>Gen.</th><td>animālis</td><td>animālium</td></tr>
+              <tr><th>Dat.</th><td>animālī</td><td>animālibus</td></tr>
+              <tr><th>Abl.</th><td>animālī</td><td>animālibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <h3 class="sub" id="decl4">4ª declinación (tema en -u)</h3>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">manus, manūs</span><span class="gloss">f. — la mano</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>manus</td><td>manūs</td></tr>
+              <tr><th>Voc.</th><td>manus</td><td>manūs</td></tr>
+              <tr><th>Ac.</th><td>manum</td><td>manūs</td></tr>
+              <tr><th>Gen.</th><td>manūs</td><td>manuum</td></tr>
+              <tr><th>Dat.</th><td>manuī</td><td>manibus</td></tr>
+              <tr><th>Abl.</th><td>manū</td><td>manibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">cornū, cornūs</span><span class="gloss">n. — el cuerno</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">Sg.</th><th class="col-group-label">Pl.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>cornū</td><td>cornua</td></tr>
+              <tr><th>Voc.</th><td>cornū</td><td>cornua</td></tr>
+              <tr><th>Ac.</th><td>cornū</td><td>cornua</td></tr>
+              <tr><th>Gen.</th><td>cornūs</td><td>cornuum</td></tr>
+              <tr><th>Dat.</th><td>cornū</td><td>cornibus</td></tr>
+              <tr><th>Abl.</th><td>cornū</td><td>cornibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <h3 class="sub" id="decl5">5ª declinación (tema en -e)</h3>
+      <div class="card">
+        <div class="card-head"><span class="lemma">rēs, reī</span><span class="gloss">f. — la cosa &nbsp;·&nbsp; diēs, diēī m./f. — el día</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">Sg. (rēs)</th><th class="col-group-label">Pl. (rēs)</th><th class="col-group-label">Sg. (diēs)</th><th class="col-group-label">Pl. (diēs)</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>rēs</td><td>rēs</td><td>diēs</td><td>diēs</td></tr>
+            <tr><th>Voc.</th><td>rēs</td><td>rēs</td><td>diēs</td><td>diēs</td></tr>
+            <tr><th>Ac.</th><td>rem</td><td>rēs</td><td>diem</td><td>diēs</td></tr>
+            <tr><th>Gen.</th><td>reī</td><td>rērum</td><td>diēī</td><td>diērum</td></tr>
+            <tr><th>Dat.</th><td>reī</td><td>rēbus</td><td>diēī</td><td>diēbus</td></tr>
+            <tr><th>Abl.</th><td>rē</td><td>rēbus</td><td>diē</td><td>diēbus</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- ============ 2. ADJETIVOS ============ -->
+    <section class="block" id="adjetivos">
+      <h2>2. Adjetivos</h2>
+      <p class="block-note">Los adjetivos se declinan igual que los sustantivos: los de 1ª clase siguen la 1ª/2ª declinación; los de 2ª clase, la 3ª declinación (tema en -i).</p>
+
+      <h3 class="sub" id="adj1">1ª clase (temas -o/-a)</h3>
+      <div class="card">
+        <div class="card-head"><span class="lemma">bonus, bona, bonum</span><span class="gloss">bueno, -a</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">Masc. sg.</th><th class="col-group-label">Fem. sg.</th><th class="col-group-label">Neutro sg.</th><th class="col-group-label">Masc. pl.</th><th class="col-group-label">Fem. pl.</th><th class="col-group-label">Neutro pl.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>bonus</td><td>bona</td><td>bonum</td><td>bonī</td><td>bonae</td><td>bona</td></tr>
+            <tr><th>Voc.</th><td>bone</td><td>bona</td><td>bonum</td><td>bonī</td><td>bonae</td><td>bona</td></tr>
+            <tr><th>Ac.</th><td>bonum</td><td>bonam</td><td>bonum</td><td>bonōs</td><td>bonās</td><td>bona</td></tr>
+            <tr><th>Gen.</th><td>bonī</td><td>bonae</td><td>bonī</td><td>bonōrum</td><td>bonārum</td><td>bonōrum</td></tr>
+            <tr><th>Dat.</th><td>bonō</td><td>bonae</td><td>bonō</td><td>bonīs</td><td>bonīs</td><td>bonīs</td></tr>
+            <tr><th>Abl.</th><td>bonō</td><td>bonā</td><td>bonō</td><td>bonīs</td><td>bonīs</td><td>bonīs</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="adj2">2ª clase (tema en -i, 3ª declinación)</h3>
+      <p class="sub-note">De dos terminaciones (masc./fem. = neutro): el tipo más frecuente. Ablativo singular en <em>-ī</em>, genitivo plural en <em>-ium</em>, neutro plural en <em>-ia</em> — como los sustantivos tema en -i.</p>
+      <div class="card">
+        <div class="card-head"><span class="lemma">fortis, forte</span><span class="gloss">fuerte, valiente</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">M./F. sg.</th><th class="col-group-label">Neutro sg.</th><th class="col-group-label">M./F. pl.</th><th class="col-group-label">Neutro pl.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>fortis</td><td>forte</td><td>fortēs</td><td>fortia</td></tr>
+            <tr><th>Voc.</th><td>fortis</td><td>forte</td><td>fortēs</td><td>fortia</td></tr>
+            <tr><th>Ac.</th><td>fortem</td><td>forte</td><td>fortēs</td><td>fortia</td></tr>
+            <tr><th>Gen.</th><td>fortis</td><td>fortis</td><td>fortium</td><td>fortium</td></tr>
+            <tr><th>Dat.</th><td>fortī</td><td>fortī</td><td>fortibus</td><td>fortibus</td></tr>
+            <tr><th>Abl.</th><td>fortī</td><td>fortī</td><td>fortibus</td><td>fortibus</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- ============ 3. PRONOMBRES ============ -->
+    <section class="block" id="pronombres">
+      <h2>3. Pronombres</h2>
+
+      <h3 class="sub" id="pron-personales">Personales (y reflexivo)</h3>
+      <div class="card">
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">yo</th><th class="col-group-label">tú</th><th class="col-group-label">nosotros</th><th class="col-group-label">vosotros</th><th class="col-group-label">reflexivo (sg./pl.)</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>ego</td><td>tū</td><td>nōs</td><td>vōs</td><td>—</td></tr>
+            <tr><th>Ac.</th><td>mē</td><td>tē</td><td>nōs</td><td>vōs</td><td>sē</td></tr>
+            <tr><th>Gen.</th><td>meī</td><td>tuī</td><td>nostrī / nostrum</td><td>vestrī / vestrum</td><td>suī</td></tr>
+            <tr><th>Dat.</th><td>mihi</td><td>tibi</td><td>nōbīs</td><td>vōbīs</td><td>sibi</td></tr>
+            <tr><th>Abl.</th><td>mē</td><td>tē</td><td>nōbīs</td><td>vōbīs</td><td>sē</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="pron-demostrativos">Demostrativos</h3>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">hic, haec, hoc</span><span class="gloss">este, esta, esto</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom. sg.</th><td>hic</td><td>haec</td><td>hoc</td></tr>
+              <tr><th>Ac. sg.</th><td>hunc</td><td>hanc</td><td>hoc</td></tr>
+              <tr><th>Gen. sg.</th><td colspan="3">huius</td></tr>
+              <tr><th>Dat. sg.</th><td colspan="3">huic</td></tr>
+              <tr><th>Abl. sg.</th><td>hōc</td><td>hāc</td><td>hōc</td></tr>
+              <tr><th>Nom. pl.</th><td>hī</td><td>hae</td><td>haec</td></tr>
+              <tr><th>Gen. pl.</th><td>hōrum</td><td>hārum</td><td>hōrum</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">hīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">is, ea, id</span><span class="gloss">ese/él, esa/ella, eso</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom. sg.</th><td>is</td><td>ea</td><td>id</td></tr>
+              <tr><th>Ac. sg.</th><td>eum</td><td>eam</td><td>id</td></tr>
+              <tr><th>Gen. sg.</th><td colspan="3">eius</td></tr>
+              <tr><th>Dat. sg.</th><td colspan="3">eī</td></tr>
+              <tr><th>Abl. sg.</th><td>eō</td><td>eā</td><td>eō</td></tr>
+              <tr><th>Nom. pl.</th><td>iī</td><td>eae</td><td>ea</td></tr>
+              <tr><th>Gen. pl.</th><td>eōrum</td><td>eārum</td><td>eōrum</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">iīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">ille, illa, illud</span><span class="gloss">aquel/él, aquella/ella, aquello</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom. sg.</th><td>ille</td><td>illa</td><td>illud</td></tr>
+              <tr><th>Ac. sg.</th><td>illum</td><td>illam</td><td>illud</td></tr>
+              <tr><th>Gen. sg.</th><td colspan="3">illīus</td></tr>
+              <tr><th>Dat. sg.</th><td colspan="3">illī</td></tr>
+              <tr><th>Abl. sg.</th><td>illō</td><td>illā</td><td>illō</td></tr>
+              <tr><th>Nom. pl.</th><td>illī</td><td>illae</td><td>illa</td></tr>
+              <tr><th>Gen. pl.</th><td>illōrum</td><td>illārum</td><td>illōrum</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">illīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">iste, ista, istud</span><span class="gloss">ese, esa, eso (despectivo)</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom. sg.</th><td>iste</td><td>ista</td><td>istud</td></tr>
+              <tr><th>Ac. sg.</th><td>istum</td><td>istam</td><td>istud</td></tr>
+              <tr><th>Gen. sg.</th><td colspan="3">istīus</td></tr>
+              <tr><th>Dat. sg.</th><td colspan="3">istī</td></tr>
+              <tr><th>Abl. sg.</th><td>istō</td><td>istā</td><td>istō</td></tr>
+              <tr><th>Nom. pl.</th><td>istī</td><td>istae</td><td>ista</td></tr>
+              <tr><th>Gen. pl.</th><td>istōrum</td><td>istārum</td><td>istōrum</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">istīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">ipse, ipsa, ipsum</span><span class="gloss">él mismo, ella misma, ello mismo</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom. sg.</th><td>ipse</td><td>ipsa</td><td>ipsum</td></tr>
+              <tr><th>Ac. sg.</th><td>ipsum</td><td>ipsam</td><td>ipsum</td></tr>
+              <tr><th>Gen. sg.</th><td colspan="3">ipsīus</td></tr>
+              <tr><th>Dat. sg.</th><td colspan="3">ipsī</td></tr>
+              <tr><th>Abl. sg.</th><td>ipsō</td><td>ipsā</td><td>ipsō</td></tr>
+              <tr><th>Nom. pl.</th><td>ipsī</td><td>ipsae</td><td>ipsa</td></tr>
+              <tr><th>Gen. pl.</th><td>ipsōrum</td><td>ipsārum</td><td>ipsōrum</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">ipsīs</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">īdem, eadem, idem</span><span class="gloss">el mismo, la misma, lo mismo (<em>is</em> + <em>-dem</em>)</span></div>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom. sg.</th><td>īdem</td><td>eadem</td><td>idem</td></tr>
+              <tr><th>Ac. sg.</th><td>eundem</td><td>eandem</td><td>idem</td></tr>
+              <tr><th>Gen. sg.</th><td colspan="3">eiusdem</td></tr>
+              <tr><th>Dat. sg.</th><td colspan="3">eīdem</td></tr>
+              <tr><th>Abl. sg.</th><td>eōdem</td><td>eādem</td><td>eōdem</td></tr>
+              <tr><th>Nom. pl.</th><td>iīdem</td><td>eaedem</td><td>eadem</td></tr>
+              <tr><th>Gen. pl.</th><td>eōrundem</td><td>eārundem</td><td>eōrundem</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">iīsdem</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <h3 class="sub" id="pron-relativo">Relativo</h3>
+      <div class="card">
+        <div class="card-head"><span class="lemma">quī, quae, quod</span><span class="gloss">que, quien, el cual</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">M. sg.</th><th class="col-group-label">F. sg.</th><th class="col-group-label">N. sg.</th><th class="col-group-label">M. pl.</th><th class="col-group-label">F. pl.</th><th class="col-group-label">N. pl.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>quī</td><td>quae</td><td>quod</td><td>quī</td><td>quae</td><td>quae</td></tr>
+            <tr><th>Ac.</th><td>quem</td><td>quam</td><td>quod</td><td>quōs</td><td>quās</td><td>quae</td></tr>
+            <tr><th>Gen.</th><td colspan="3">cuius</td><td>quōrum</td><td>quārum</td><td>quōrum</td></tr>
+            <tr><th>Dat.</th><td colspan="3">cui</td><td colspan="3">quibus</td></tr>
+            <tr><th>Abl.</th><td>quō</td><td>quā</td><td>quō</td><td colspan="3">quibus</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="pron-interrogativo">Interrogativo</h3>
+      <p class="sub-note">Como sustantivo (¿quién? ¿qué?) usa <em>quis / quid</em> en el nominativo singular; como adjetivo (¿qué X?) usa <em>quī / quae / quod</em>, idéntico al relativo. El resto de las formas coincide con el relativo.</p>
+      <div class="card">
+        <div class="card-head"><span class="lemma">quis? quid?</span><span class="gloss">¿quién? ¿qué?</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">M./F. sg.</th><th class="col-group-label">N. sg.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>quis</td><td>quid</td></tr>
+            <tr><th>Ac.</th><td>quem</td><td>quid</td></tr>
+            <tr><th>Gen.</th><td colspan="2">cuius</td></tr>
+            <tr><th>Dat.</th><td colspan="2">cui</td></tr>
+            <tr><th>Abl.</th><td colspan="2">quō</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <!-- ============ 4. VERBOS ============ -->
+    <section class="block" id="verbos">
+      <h2>4. Verbos</h2>
+
+      <h3 class="sub" id="verbo-intro">Las cuatro conjugaciones</h3>
+      <p class="sub-note">Se reconoce la conjugación por la 2ª persona singular del presente y por el infinitivo. Verbos modelo usados en estas fichas:</p>
+      <div class="card">
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th>Conj.</th><th>1ª sg. pres.</th><th>2ª sg. pres.</th><th>Infinitivo</th><th>Perfecto</th><th>Traducción</th></tr></thead>
+          <tbody>
+            <tr><th>1ª</th><td>laudō</td><td>laudās</td><td>laudāre</td><td>laudāvī</td><td>alabar</td></tr>
+            <tr><th>2ª</th><td>videō</td><td>vidēs</td><td>vidēre</td><td>vīdī</td><td>ver</td></tr>
+            <tr><th>3ª</th><td>legō</td><td>legis</td><td>legere</td><td>lēgī</td><td>leer</td></tr>
+            <tr><th>3ª mixta (-iō)</th><td>faciō</td><td>facis</td><td>facere</td><td>fēcī</td><td>hacer</td></tr>
+            <tr><th>4ª</th><td>audiō</td><td>audīs</td><td>audīre</td><td>audīvī</td><td>oír</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="presente">Presente de indicativo (voz activa)</h3>
+      <div class="card">
+        <div class="table-scroll"><table class="wide verb-table">
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
+          <tbody>
+            <tr><th class="pers">1ª sg.</th><td>laudō</td><td>videō</td><td>legō</td><td>faciō</td><td>audiō</td></tr>
+            <tr><th class="pers">2ª sg.</th><td>laudās</td><td>vidēs</td><td>legis</td><td>facis</td><td>audīs</td></tr>
+            <tr><th class="pers">3ª sg.</th><td>laudat</td><td>videt</td><td>legit</td><td>facit</td><td>audit</td></tr>
+            <tr><th class="pers">1ª pl.</th><td>laudāmus</td><td>vidēmus</td><td>legimus</td><td>facimus</td><td>audīmus</td></tr>
+            <tr><th class="pers">2ª pl.</th><td>laudātis</td><td>vidētis</td><td>legitis</td><td>facitis</td><td>audītis</td></tr>
+            <tr><th class="pers">3ª pl.</th><td>laudant</td><td>vident</td><td>legunt</td><td>faciunt</td><td>audiunt</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="imperfecto">Pretérito imperfecto de indicativo (voz activa)</h3>
+      <div class="card">
+        <div class="table-scroll"><table class="wide verb-table">
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
+          <tbody>
+            <tr><th class="pers">1ª sg.</th><td>laudābam</td><td>vidēbam</td><td>legēbam</td><td>faciēbam</td><td>audiēbam</td></tr>
+            <tr><th class="pers">2ª sg.</th><td>laudābās</td><td>vidēbās</td><td>legēbās</td><td>faciēbās</td><td>audiēbās</td></tr>
+            <tr><th class="pers">3ª sg.</th><td>laudābat</td><td>vidēbat</td><td>legēbat</td><td>faciēbat</td><td>audiēbat</td></tr>
+            <tr><th class="pers">1ª pl.</th><td>laudābāmus</td><td>vidēbāmus</td><td>legēbāmus</td><td>faciēbāmus</td><td>audiēbāmus</td></tr>
+            <tr><th class="pers">2ª pl.</th><td>laudābātis</td><td>vidēbātis</td><td>legēbātis</td><td>faciēbātis</td><td>audiēbātis</td></tr>
+            <tr><th class="pers">3ª pl.</th><td>laudābant</td><td>vidēbant</td><td>legēbant</td><td>faciēbant</td><td>audiēbant</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="futuro">Futuro imperfecto de indicativo (voz activa)</h3>
+      <p class="sub-note">1ª y 2ª conjugación forman el futuro con <em>-bō/-bis...</em>; 3ª y 4ª (incluida la mixta), con <em>-am/-ēs...</em> — idénticas terminaciones a las del presente de subjuntivo de la 1ª conjugación, así que conviene prestar atención al tema.</p>
+      <div class="card">
+        <div class="table-scroll"><table class="wide verb-table">
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
+          <tbody>
+            <tr><th class="pers">1ª sg.</th><td>laudābō</td><td>vidēbō</td><td>legam</td><td>faciam</td><td>audiam</td></tr>
+            <tr><th class="pers">2ª sg.</th><td>laudābis</td><td>vidēbis</td><td>legēs</td><td>faciēs</td><td>audiēs</td></tr>
+            <tr><th class="pers">3ª sg.</th><td>laudābit</td><td>vidēbit</td><td>leget</td><td>faciet</td><td>audiet</td></tr>
+            <tr><th class="pers">1ª pl.</th><td>laudābimus</td><td>vidēbimus</td><td>legēmus</td><td>faciēmus</td><td>audiēmus</td></tr>
+            <tr><th class="pers">2ª pl.</th><td>laudābitis</td><td>vidēbitis</td><td>legētis</td><td>faciētis</td><td>audiētis</td></tr>
+            <tr><th class="pers">3ª pl.</th><td>laudābunt</td><td>vidēbunt</td><td>legent</td><td>facient</td><td>audient</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="perfecto">Pretérito perfecto de indicativo (voz activa)</h3>
+      <p class="sub-note">El perfecto se forma sobre un tema propio (no siempre predecible desde el presente) y usa un juego de desinencias único, igual en las cuatro conjugaciones: <em>-ī, -istī, -it, -imus, -istis, -ērunt</em> (también <em>-ēre</em> en 3ª pers. pl.).</p>
+      <div class="card">
+        <div class="table-scroll"><table class="wide verb-table">
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudāvī)</th><th class="col-group-label">2ª (vīdī)</th><th class="col-group-label">3ª (lēgī)</th><th class="col-group-label">3ª mixta (fēcī)</th><th class="col-group-label">4ª (audīvī)</th></tr></thead>
+          <tbody>
+            <tr><th class="pers">1ª sg.</th><td>laudāvī</td><td>vīdī</td><td>lēgī</td><td>fēcī</td><td>audīvī</td></tr>
+            <tr><th class="pers">2ª sg.</th><td>laudāvistī</td><td>vīdistī</td><td>lēgistī</td><td>fēcistī</td><td>audīvistī</td></tr>
+            <tr><th class="pers">3ª sg.</th><td>laudāvit</td><td>vīdit</td><td>lēgit</td><td>fēcit</td><td>audīvit</td></tr>
+            <tr><th class="pers">1ª pl.</th><td>laudāvimus</td><td>vīdimus</td><td>lēgimus</td><td>fēcimus</td><td>audīvimus</td></tr>
+            <tr><th class="pers">2ª pl.</th><td>laudāvistis</td><td>vīdistis</td><td>lēgistis</td><td>fēcistis</td><td>audīvistis</td></tr>
+            <tr><th class="pers">3ª pl.</th><td>laudāvērunt</td><td>vīdērunt</td><td>lēgērunt</td><td>fēcērunt</td><td>audīvērunt</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="sum">sum, es, esse, fuī</h3>
+      <p class="sub-note">El verbo irregular más frecuente. Comparte con los demás verbos las mismas desinencias del perfecto.</p>
+      <div class="card">
+        <div class="table-scroll"><table class="wide verb-table">
+          <thead><tr><th class="pers"></th><th class="col-group-label">Presente</th><th class="col-group-label">Imperfecto</th><th class="col-group-label">Futuro</th><th class="col-group-label">Perfecto</th></tr></thead>
+          <tbody>
+            <tr><th class="pers">1ª sg.</th><td>sum</td><td>eram</td><td>erō</td><td>fuī</td></tr>
+            <tr><th class="pers">2ª sg.</th><td>es</td><td>erās</td><td>eris</td><td>fuistī</td></tr>
+            <tr><th class="pers">3ª sg.</th><td>est</td><td>erat</td><td>erit</td><td>fuit</td></tr>
+            <tr><th class="pers">1ª pl.</th><td>sumus</td><td>erāmus</td><td>erimus</td><td>fuimus</td></tr>
+            <tr><th class="pers">2ª pl.</th><td>estis</td><td>erātis</td><td>eritis</td><td>fuistis</td></tr>
+            <tr><th class="pers">3ª pl.</th><td>sunt</td><td>erant</td><td>erunt</td><td>fuērunt</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
+      <h3 class="sub" id="participios">Participios</h3>
+      <p class="sub-note">El presente activo se declina como adjetivo de la 3ª declinación (tema en consonante, ablativo en <em>-ī</em> cuando funciona como participio puro). El perfecto y el futuro son adjetivos de 1ª clase (<em>-us, -a, -um</em>).</p>
+      <div class="card">
+        <div class="card-head"><span class="chip">Presente activo</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
+          <tbody>
+            <tr><td>laudāns, -antis</td><td>vidēns, -entis</td><td>legēns, -entis</td><td>faciēns, -entis</td><td>audiēns, -entis</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="chip">Perfecto (pasivo)</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
+          <tbody>
+            <tr><td>laudātus, -a, -um</td><td>vīsus, -a, -um</td><td>lēctus, -a, -um</td><td>factus, -a, -um</td><td>audītus, -a, -um</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="chip">Futuro activo</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
+          <tbody>
+            <tr><td>laudātūrus, -a, -um</td><td>vīsūrus, -a, -um</td><td>lēctūrus, -a, -um</td><td>factūrus, -a, -um</td><td>audītūrus, -a, -um</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+    </section>
+
+    <footer>
+      <h4>Fuentes consultadas</h4>
+      <ul>
+        <li>Tursi, A. (2009) <em>Latín. Guía para el aprendizaje</em>, 3ª ed. (San Martín: UNSAM Edita, 2019) — fuente principal de los paradigmas.</li>
+        <li>Valentí Fiol, E. (1999) <em>Gramática de la lengua latina</em>.</li>
+        <li>Monteil, P. (2003) <em>Elementos de Fonética y Morfología del Latín</em>.</li>
+        <li>Molina Yévenes, J.A. (s.f.) <em>Iniciación a la fonética, fonología y morfología latinas</em>.</li>
+        <li>Kühner, R.; Holzweissig, F. (s.f.) <em>Ausführliche Grammatik der lateinischen Sprache</em>, Erster Teil (Formenlehre) — referencia cruzada exhaustiva.</li>
+        <li>Weiss, M. <em>Outline of the Historical and Comparative Grammar of Latin</em> — referencia cruzada exhaustiva.</li>
+        <li>Allen, J.H.; Greenough, J.B. (2006) <em>New Latin Grammar for Schools and Colleges</em> — referencia cruzada en inglés.</li>
+        <li><em>Wheelock's Latin</em>, 7ª ed. — referencia cruzada en inglés.</li>
+      </ul>
+      <p>Todas se encuentran en «Gramáticas e historias de la literatura latina» y «Manuales de los que robar + paremiografía + INFALTABLES» dentro de esta carpeta.</p>
+    </footer>
+  </main>
+</div>
+</body>
+</html>
