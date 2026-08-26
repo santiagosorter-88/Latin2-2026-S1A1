@@ -77,31 +77,31 @@
   }
 
   .eyebrow {
-    font-size: 12.5px;
-    letter-spacing: 0.11em;
+    font-size: 15px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-dim);
-    margin: 0 0 5px;
+    margin: 0 0 6px;
     font-weight: 600;
   }
 
   h1 {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
     font-weight: 600;
-    font-size: clamp(26px, 4vw, 36px);
-    margin: 0 0 5px;
+    font-size: clamp(34px, 7vw, 46px);
+    margin: 0 0 8px;
     letter-spacing: 0.01em;
     text-wrap: balance;
   }
 
   .stats {
-    margin: 0 0 18px;
-    font-size: 15px;
+    margin: 0 0 20px;
+    font-size: 19px;
     color: var(--text-dim);
-    line-height: 1.55;
+    line-height: 1.5;
     max-width: 65ch;
   }
-  .stats strong { color: var(--text); font-variant-numeric: tabular-nums; font-size: 16.5px; }
+  .stats strong { color: var(--text); font-variant-numeric: tabular-nums; font-size: 21px; }
   .motto {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
     font-style: italic;
@@ -111,8 +111,8 @@
   .motto-tr { color: var(--text-dim); }
 
   .result-count {
-    margin: 10px 0 0;
-    font-size: 14px;
+    margin: 12px 0 0;
+    font-size: 16px;
     color: var(--text-dim);
     font-variant-numeric: tabular-nums;
   }
@@ -124,23 +124,23 @@
 
   .search-box svg {
     position: absolute;
-    left: 15px;
+    left: 17px;
     top: 50%;
     transform: translateY(-50%);
-    width: 19px;
-    height: 19px;
+    width: 22px;
+    height: 22px;
     stroke: var(--text-dim);
     pointer-events: none;
   }
 
   #search {
     width: 100%;
-    padding: 14px 16px 14px 44px;
-    border-radius: 10px;
+    padding: 16px 18px 16px 50px;
+    border-radius: 12px;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--text);
-    font-size: 17px;
+    font-size: 20px;
     font-family: inherit;
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -153,15 +153,15 @@
 
   .clear-btn {
     position: absolute;
-    right: 6px;
+    right: 8px;
     top: 50%;
     transform: translateY(-50%);
     background: none;
     border: none;
     color: var(--text-dim);
-    font-size: 18px;
+    font-size: 22px;
     line-height: 1;
-    padding: 8px;
+    padding: 9px;
     cursor: pointer;
     display: none;
     border-radius: 6px;
@@ -178,9 +178,9 @@
     position: sticky;
     top: 0;
     background: var(--bg);
-    padding: 16px 2px 7px;
+    padding: 20px 2px 9px;
     font-family: "Palatino Linotype", "Iowan Old Style", Georgia, serif;
-    font-size: 14.5px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 0.04em;
@@ -203,7 +203,7 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    padding: 14px 10px 14px 18px;
+    padding: 18px 12px 18px 20px;
     border-bottom: 1px solid var(--border);
   }
   li.entry:last-child { border-bottom: none; }
@@ -212,26 +212,24 @@
     flex: 1 1 auto;
     min-width: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
   }
 
   .headword {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
-    font-size: 19px;
+    font-size: 30px;
+    line-height: 1.25;
     color: var(--accent);
     font-weight: 600;
-    white-space: nowrap;
-    flex: 0 0 auto;
   }
 
   .gloss {
-    font-size: 16.5px;
+    font-size: 24px;
+    line-height: 1.3;
     color: var(--text-dim);
-    text-align: right;
-    flex: 1 1 auto;
-    min-width: 0;
+    text-align: left;
   }
 
   mark {
@@ -243,9 +241,9 @@
 
   .duda-btn {
     flex: 0 0 auto;
-    width: 34px;
-    height: 34px;
-    border-radius: 8px;
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
     border: none;
     background: none;
     color: var(--text-dim);
@@ -256,49 +254,49 @@
     opacity: 0.55;
     transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
   }
-  .duda-btn svg { width: 18px; height: 18px; }
+  .duda-btn svg { width: 22px; height: 22px; }
   .duda-btn:hover, .duda-btn:focus-visible { opacity: 1; background: var(--accent-soft); color: var(--accent); }
   .duda-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
   .duda-btn[aria-expanded="true"] { opacity: 1; background: var(--accent-soft); color: var(--accent); }
 
   li.duda-panel {
-    padding: 12px 18px 16px;
+    padding: 14px 20px 18px;
     border-bottom: 1px solid var(--border);
     background: var(--surface-2);
   }
   li.duda-panel:last-child { border-bottom: none; }
   .duda-label {
-    font-size: 11.5px;
+    font-size: 14px;
     font-weight: 700;
-    letter-spacing: 0.09em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
-    margin: 0 0 7px;
+    margin: 0 0 8px;
   }
-  .duda-form { display: flex; flex-direction: column; gap: 9px; }
+  .duda-form { display: flex; flex-direction: column; gap: 11px; }
   .duda-form textarea {
     width: 100%;
-    min-height: 60px;
+    min-height: 70px;
     resize: vertical;
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 12px 14px;
+    border-radius: 9px;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--text);
     font-family: inherit;
-    font-size: 15px;
+    font-size: 18px;
     outline: none;
   }
   .duda-form textarea:focus { border-color: var(--focus); }
-  .duda-actions { display: flex; align-items: center; gap: 12px; }
+  .duda-actions { display: flex; align-items: center; gap: 14px; }
   .duda-send {
     border: none;
     background: var(--accent);
     color: var(--surface);
-    font-size: 14.5px;
+    font-size: 17px;
     font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 8px;
+    padding: 10px 18px;
+    border-radius: 9px;
     cursor: pointer;
   }
   .duda-send:disabled { opacity: 0.6; cursor: default; }
@@ -306,33 +304,28 @@
     border: none;
     background: none;
     color: var(--text-dim);
-    font-size: 14.5px;
+    font-size: 17px;
     cursor: pointer;
-    padding: 8px 4px;
+    padding: 10px 4px;
   }
-  .duda-status { font-size: 13.5px; color: var(--text-dim); margin: 0; }
+  .duda-status { font-size: 16px; color: var(--text-dim); margin: 0; }
   .duda-status.ok { color: var(--accent); }
 
   .empty-state {
     text-align: center;
     color: var(--text-dim);
-    font-size: 15.5px;
+    font-size: 19px;
     padding: 48px 16px;
   }
 
   footer {
-    padding: 20px clamp(20px, 4vw, 40px) 36px;
-    font-size: 13.5px;
+    padding: 22px clamp(20px, 4vw, 40px) 36px;
+    font-size: 15px;
     color: var(--text-dim);
     line-height: 1.55;
     border-top: 1px solid var(--border);
   }
   footer strong { color: var(--text); }
-
-  @media (max-width: 420px) {
-    .entry-main { flex-direction: column; align-items: flex-start; gap: 2px; }
-    .gloss { text-align: left; }
-  }
 </style>
 
 <div class="wrap">
