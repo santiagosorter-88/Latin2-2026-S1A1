@@ -239,10 +239,6 @@
   <section class="identity" id="identity">
     <div class="identity-grid">
       <div class="field">
-        <label for="in-nombre">Nombre y apellido</label>
-        <input id="in-nombre" type="text" autocomplete="name" placeholder="Como querés que figure" />
-      </div>
-      <div class="field">
         <label for="in-email">Email</label>
         <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
       </div>
@@ -386,20 +382,17 @@
     return a;
   }
 
-  var identity = { nombre:"", email:"" };
+  var identity = { email:"" };
   var submitLog = [];
 
   // ---------- identidad ----------
-  var inNombre = document.getElementById("in-nombre");
   var inEmail = document.getElementById("in-email");
   var btnStart = document.getElementById("btn-start");
   function checkIdentity(){
-    btnStart.disabled = !(inNombre.value.trim() && inEmail.value.trim().indexOf("@") > 0);
+    btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0);
   }
-  inNombre.addEventListener("input", checkIdentity);
   inEmail.addEventListener("input", checkIdentity);
   btnStart.addEventListener("click", function(){
-    identity.nombre = inNombre.value.trim();
     identity.email = inEmail.value.trim();
     document.getElementById("identity").style.display = "none";
     document.getElementById("main").classList.add("visible");
@@ -751,7 +744,7 @@
     fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ actividad: document.title, nombre: identity.nombre, email: identity.email, respuestas: submitLog })
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
     }).then(function(){
       statusEl.textContent = "Enviado. ¡Gracias!";
       statusEl.className = "status ok";

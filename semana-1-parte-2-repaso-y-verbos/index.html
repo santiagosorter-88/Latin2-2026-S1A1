@@ -155,10 +155,6 @@
   <section class="identity" id="identity">
     <div class="identity-grid">
       <div class="field">
-        <label for="in-nombre">Nombre y apellido</label>
-        <input id="in-nombre" type="text" autocomplete="name" placeholder="Como querés que figure" />
-      </div>
-      <div class="field">
         <label for="in-email">Email</label>
         <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
       </div>
@@ -278,11 +274,11 @@
   }
   function clean(s){ return s.replace(/[“”"…,.;:!?]/g, ""); }
 
-  var identity = { nombre:"", email:"" };
+  var identity = { email:"" };
   var submitLog = [];
 
   // ---------- Guardar/retomar progreso (por estudiante, en este mismo navegador) ----------
-  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo nombre/email
+  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo email
   // en el mismo dispositivo retoma en el paso donde quedó, en vez de tener que empezar de
   // nuevo. Si lo interrumpe A MITAD de un paso, ese paso puntual se rehace desde cero (no se
   // guarda el detalle palabra por palabra) — es la opción más simple que resuelve el problema
@@ -300,14 +296,12 @@
     if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
   }
 
-  var inNombre = document.getElementById("in-nombre");
   var inEmail = document.getElementById("in-email");
   var btnStart = document.getElementById("btn-start");
-  function checkIdentity(){ btnStart.disabled = !(inNombre.value.trim() && inEmail.value.trim().indexOf("@") > 0); }
-  inNombre.addEventListener("input", checkIdentity);
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
   inEmail.addEventListener("input", checkIdentity);
   btnStart.addEventListener("click", function(){
-    identity.nombre = inNombre.value.trim(); identity.email = inEmail.value.trim();
+    identity.email = inEmail.value.trim();
     STORAGE_KEY = progressKey(identity.email);
     var restored = loadProgress(STORAGE_KEY);
     document.getElementById("identity").style.display = "none";
@@ -813,7 +807,7 @@
     fetch(APPS_SCRIPT_URL, {
       method: "POST",
       headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify({ actividad: document.title, nombre: identity.nombre, email: identity.email, respuestas: submitLog })
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
     }).then(function(){
       statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
       clearProgress();
