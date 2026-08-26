@@ -419,15 +419,41 @@
   var identity = { email:"" };
   var submitLog = [];
 
+  // ---------- Guardar/retomar progreso (por estudiante, en este mismo navegador) ----------
+  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo email en el
+  // mismo dispositivo retoma en el paso donde quedó, en vez de tener que empezar de nuevo.
+  // Si lo interrumpe A MITAD de un paso, ese paso puntual se rehace desde cero (no se guarda
+  // el detalle palabra por palabra) — es la opción más simple que resuelve el problema real
+  // sin agregar mucha complejidad.
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
   var inEmail = document.getElementById("in-email");
   var btnStart = document.getElementById("btn-start");
   function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
   inEmail.addEventListener("input", checkIdentity);
   btnStart.addEventListener("click", function(){
     identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
     document.getElementById("identity").style.display = "none";
     document.getElementById("main").classList.add("visible");
-    showStep("step-p1");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      showStep(restored.step);
+    } else {
+      showStep("step-p1");
+    }
     window.scrollTo({ top:0, behavior:"smooth" });
   });
 
@@ -498,7 +524,7 @@
 
     updateProgress();
   })();
-  document.getElementById("btn-to-p2").addEventListener("click", function(){ showStep("step-p2"); });
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
 
   // =================================================================
   // Paso 2: elegir la imagen para cada fragmento
@@ -553,7 +579,7 @@
     document.getElementById("p2-score").innerHTML = "Resultado: <strong>" + correct + " / " + FRAGMENTS.length + "</strong>";
     showStep("step-p2-review");
   });
-  document.getElementById("btn-to-p3").addEventListener("click", function(){ showStep("step-p3"); });
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
 
   // =================================================================
   // Paso 3: encontrar en Higino la forma que corresponde al verbo conocido
@@ -606,7 +632,7 @@
     });
     updateP3Progress();
   })();
-  document.getElementById("btn-to-p4").addEventListener("click", function(){ showStep("step-p4"); });
+  document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
 
   // =================================================================
   // Paso 4: marcar libremente todo lo que se reconozca — sin respuestas
@@ -644,7 +670,7 @@
     });
     updateP4Progress();
   })();
-  document.getElementById("btn-to-p5").addEventListener("click", function(){ if (document.getElementById("p5-text").children.length === 0) renderP5(); showStep("step-p5"); });
+  document.getElementById("btn-to-p5").addEventListener("click", function(){ saveProgress("step-p5"); if (document.getElementById("p5-text").children.length === 0) renderP5(); showStep("step-p5"); });
 
   // =================================================================
   // Paso 5: texto completo glosado, sin corrección
@@ -679,7 +705,7 @@
       host.appendChild(panel);
     });
   }
-  document.getElementById("btn-to-fin").addEventListener("click", function(){ showStep("step-fin"); });
+  document.getElementById("btn-to-fin").addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
 
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
@@ -721,6 +747,7 @@
       body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
     }).then(function(){
       statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      clearProgress();
     }).catch(function(){
       statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
       statusEl.className = "status err";
