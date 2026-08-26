@@ -59,7 +59,7 @@
   }
 
   .wrap {
-    max-width: 640px;
+    max-width: 920px;
     margin: 0 auto;
     min-height: 100vh;
     background: var(--bg);
@@ -72,35 +72,36 @@
     top: 0;
     z-index: 10;
     background: var(--bg);
-    padding: clamp(16px, 4vw, 28px) clamp(16px, 4vw, 28px) 14px;
+    padding: clamp(20px, 4vw, 40px) clamp(20px, 4vw, 40px) 16px;
     border-bottom: 1px solid var(--border);
   }
 
   .eyebrow {
-    font-size: 11px;
+    font-size: 12.5px;
     letter-spacing: 0.11em;
     text-transform: uppercase;
     color: var(--text-dim);
-    margin: 0 0 4px;
+    margin: 0 0 5px;
     font-weight: 600;
   }
 
   h1 {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
     font-weight: 600;
-    font-size: clamp(22px, 5.5vw, 28px);
-    margin: 0 0 3px;
+    font-size: clamp(26px, 4vw, 36px);
+    margin: 0 0 5px;
     letter-spacing: 0.01em;
     text-wrap: balance;
   }
 
   .stats {
-    margin: 0 0 16px;
-    font-size: 13px;
+    margin: 0 0 18px;
+    font-size: 15px;
     color: var(--text-dim);
     line-height: 1.55;
+    max-width: 65ch;
   }
-  .stats strong { color: var(--text); font-variant-numeric: tabular-nums; font-size: 14px; }
+  .stats strong { color: var(--text); font-variant-numeric: tabular-nums; font-size: 16.5px; }
   .motto {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
     font-style: italic;
@@ -111,7 +112,7 @@
 
   .result-count {
     margin: 10px 0 0;
-    font-size: 12.5px;
+    font-size: 14px;
     color: var(--text-dim);
     font-variant-numeric: tabular-nums;
   }
@@ -123,23 +124,23 @@
 
   .search-box svg {
     position: absolute;
-    left: 13px;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    width: 17px;
-    height: 17px;
+    width: 19px;
+    height: 19px;
     stroke: var(--text-dim);
     pointer-events: none;
   }
 
   #search {
     width: 100%;
-    padding: 11px 14px 11px 40px;
+    padding: 14px 16px 14px 44px;
     border-radius: 10px;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--text);
-    font-size: 16px;
+    font-size: 17px;
     font-family: inherit;
     outline: none;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -170,16 +171,16 @@
 
   main {
     flex: 1;
-    padding: 4px clamp(16px, 4vw, 28px) 40px;
+    padding: 4px clamp(20px, 4vw, 40px) 40px;
   }
 
   .letter-header {
     position: sticky;
     top: 0;
     background: var(--bg);
-    padding: 14px 2px 6px;
+    padding: 16px 2px 7px;
     font-family: "Palatino Linotype", "Iowan Old Style", Georgia, serif;
-    font-size: 13px;
+    font-size: 14.5px;
     font-weight: 700;
     color: var(--accent);
     letter-spacing: 0.04em;
@@ -201,8 +202,8 @@
   li.entry {
     display: flex;
     align-items: flex-start;
-    gap: 6px;
-    padding: 11px 8px 11px 14px;
+    gap: 8px;
+    padding: 14px 10px 14px 18px;
     border-bottom: 1px solid var(--border);
   }
   li.entry:last-child { border-bottom: none; }
@@ -213,12 +214,12 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 14px;
+    gap: 18px;
   }
 
   .headword {
     font-family: "Palatino Linotype", "Iowan Old Style", "Book Antiqua", Georgia, serif;
-    font-size: 16.5px;
+    font-size: 19px;
     color: var(--accent);
     font-weight: 600;
     white-space: nowrap;
@@ -226,7 +227,7 @@
   }
 
   .gloss {
-    font-size: 14.5px;
+    font-size: 16.5px;
     color: var(--text-dim);
     text-align: right;
     flex: 1 1 auto;
@@ -242,8 +243,8 @@
 
   .duda-btn {
     flex: 0 0 auto;
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     border-radius: 8px;
     border: none;
     background: none;
@@ -255,48 +256,48 @@
     opacity: 0.55;
     transition: opacity 0.15s ease, background 0.15s ease, color 0.15s ease;
   }
-  .duda-btn svg { width: 16px; height: 16px; }
+  .duda-btn svg { width: 18px; height: 18px; }
   .duda-btn:hover, .duda-btn:focus-visible { opacity: 1; background: var(--accent-soft); color: var(--accent); }
   .duda-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
   .duda-btn[aria-expanded="true"] { opacity: 1; background: var(--accent-soft); color: var(--accent); }
 
   li.duda-panel {
-    padding: 10px 14px 14px;
+    padding: 12px 18px 16px;
     border-bottom: 1px solid var(--border);
     background: var(--surface-2);
   }
   li.duda-panel:last-child { border-bottom: none; }
   .duda-label {
-    font-size: 10.5px;
+    font-size: 11.5px;
     font-weight: 700;
     letter-spacing: 0.09em;
     text-transform: uppercase;
     color: var(--accent);
-    margin: 0 0 6px;
+    margin: 0 0 7px;
   }
-  .duda-form { display: flex; flex-direction: column; gap: 8px; }
+  .duda-form { display: flex; flex-direction: column; gap: 9px; }
   .duda-form textarea {
     width: 100%;
-    min-height: 56px;
+    min-height: 60px;
     resize: vertical;
-    padding: 8px 10px;
+    padding: 10px 12px;
     border-radius: 8px;
     border: 1px solid var(--border);
     background: var(--surface);
     color: var(--text);
     font-family: inherit;
-    font-size: 13.5px;
+    font-size: 15px;
     outline: none;
   }
   .duda-form textarea:focus { border-color: var(--focus); }
-  .duda-actions { display: flex; align-items: center; gap: 10px; }
+  .duda-actions { display: flex; align-items: center; gap: 12px; }
   .duda-send {
     border: none;
     background: var(--accent);
     color: var(--surface);
-    font-size: 13px;
+    font-size: 14.5px;
     font-weight: 600;
-    padding: 7px 14px;
+    padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
   }
@@ -305,25 +306,25 @@
     border: none;
     background: none;
     color: var(--text-dim);
-    font-size: 13px;
+    font-size: 14.5px;
     cursor: pointer;
-    padding: 7px 4px;
+    padding: 8px 4px;
   }
-  .duda-status { font-size: 12.5px; color: var(--text-dim); margin: 0; }
+  .duda-status { font-size: 13.5px; color: var(--text-dim); margin: 0; }
   .duda-status.ok { color: var(--accent); }
 
   .empty-state {
     text-align: center;
     color: var(--text-dim);
-    font-size: 14px;
+    font-size: 15.5px;
     padding: 48px 16px;
   }
 
   footer {
-    padding: 18px clamp(16px, 4vw, 28px) 32px;
-    font-size: 12px;
+    padding: 20px clamp(20px, 4vw, 40px) 36px;
+    font-size: 13.5px;
     color: var(--text-dim);
-    line-height: 1.5;
+    line-height: 1.55;
     border-top: 1px solid var(--border);
   }
   footer strong { color: var(--text); }
