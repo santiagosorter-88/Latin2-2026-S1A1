@@ -632,6 +632,8 @@
   var inSuggestion = document.getElementById("in-suggestion");
   var statusEl = document.getElementById("status");
   var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
 
   // Comentario y sugerencia son obligatorios — Santiago pidió que no se pueda enviar sin
   // esa reflexión, aunque sea mínima ("me fue igual que en el anterior").
@@ -642,17 +644,23 @@
   inSuggestion.addEventListener("input", checkEvalComplete);
 
   document.getElementById("btn-send").addEventListener("click", function(){
+    if (sendInFlight) return;
     var comentario = inDiffComment.value.trim();
     var sugerencia = inSuggestion.value.trim();
     if (!comentario || !sugerencia) return; // no debería poder llegar acá con el botón deshabilitado
-    submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
-    submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
-    submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      evalPushed = true;
+    }
 
     if (!APPS_SCRIPT_URL){
       statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
       statusEl.className = "status"; return;
     }
+    sendInFlight = true;
+    btnSend.disabled = true;
     statusEl.textContent = "Enviando…"; statusEl.className = "status";
     fetch(APPS_SCRIPT_URL, {
       method: "POST",
@@ -664,6 +672,8 @@
     }).catch(function(){
       statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
       statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
     });
   });
 
