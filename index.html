@@ -34,14 +34,43 @@
   }
   .page{ max-width:560px; margin:0 auto; padding:1.25rem 1rem 4rem; }
 
-  .tools{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:.6rem; margin-bottom:1.5rem; }
+  .tools{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:.6rem; margin-bottom:1.5rem; }
   .tool-btn{
     display:flex; align-items:center; justify-content:center; text-align:center;
     background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-card);
     color:var(--ink); text-decoration:none; font-size:.92rem; font-weight:500;
     padding:.85rem .5rem; min-height:44px; box-shadow:var(--shadow);
+    font-family:inherit; cursor:pointer;
   }
   .tool-btn:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  .progreso-panel{
+    background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-card);
+    padding:1.1rem 1.2rem; box-shadow:var(--shadow); margin-bottom:1.5rem;
+  }
+  .progreso-form{ display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.85rem; }
+  .progreso-form input{
+    flex:1 1 200px; font-family:var(--serif); font-size:.95rem; padding:.6rem .75rem;
+    border-radius:8px; border:1px solid var(--rule); background:var(--bg); color:var(--ink);
+  }
+  .progreso-form button{
+    font-family:inherit; cursor:pointer; border:none; border-radius:8px; padding:.6rem 1.1rem;
+    font-size:.92rem; font-weight:600; background:var(--accent); color:var(--accent-ink);
+  }
+  .progreso-form button:hover{ background:var(--accent-strong); }
+  .progreso-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.4rem; }
+  .progreso-item{
+    display:flex; align-items:center; gap:.6rem; font-size:.94rem; padding:.5rem .65rem;
+    border-radius:8px; background:var(--bg-opt);
+  }
+  .progreso-item.ok{ background:var(--bg-oblig); }
+  .progreso-check{
+    flex:none; width:1.4rem; height:1.4rem; border-radius:50%; display:flex; align-items:center;
+    justify-content:center; font-size:.85rem; font-weight:700;
+    background:var(--surface-raised); color:var(--ink-muted);
+  }
+  .progreso-item.ok .progreso-check{ background:var(--accent); color:var(--accent-ink); }
+  .progreso-summary{ margin:.75rem 0 0; font-size:.9rem; color:var(--ink-muted); }
 
   .week-card{
     background:var(--surface-raised); border:2px solid var(--accent); border-radius:var(--radius-card);
@@ -118,7 +147,17 @@
     <a class="tool-btn" href="https://santiagosorter-88.github.io/Latin2-2026-S1A1/diccionario-de-clase/">Diccionario</a>
     <a class="tool-btn" href="https://santiagosorter-88.github.io/Latin2-2026-S1A1/fichas-morfologia/">Fichas de morfología</a>
     <a class="tool-btn" href="https://drive.google.com/drive/folders/1L7qZOXecW5HoyYJkqD2mjgxGF65xp4Hr" target="_blank" rel="noopener">Carpeta de Drive</a>
+    <button type="button" class="tool-btn" id="btn-progreso">Mi progreso</button>
   </nav>
+
+  <section id="progreso-panel" class="progreso-panel" hidden>
+    <p class="block-label">Mi progreso</p>
+    <div class="progreso-form">
+      <input type="email" id="progreso-email" placeholder="tu@email.com" autocomplete="email" />
+      <button type="button" id="progreso-consultar">Consultar</button>
+    </div>
+    <div id="progreso-resultado"></div>
+  </section>
 
   <main>
     <section id="semana-actual" class="week-card">
@@ -264,6 +303,65 @@ fetch(CSV_URL)
       '<p class="status-msg status-msg--error">No se pudo cargar el contenido de la semana. Probá recargar la página.</p>';
     document.getElementById("archivo-lista").innerHTML = "";
   });
+
+// ---------- Mi progreso ----------
+// Consulta al mismo Apps Script que ya usan las actividades para enviar respuestas — con
+// GET ?email=... devuelve solo las actividades de ESE email (no expone al resto de la clase).
+var PROGRESO_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+// Lista fija de actividades conocidas: valor = "Actividad" tal como llega a la planilla
+// (document.title de cada HTML), texto = lo que se muestra. Al sumar una actividad nueva,
+// agregarla acá también.
+var ACTIVIDADES_PROGRESO = [
+  { valor: "Latín · Actividad 1 — Sinón y el caballo de Troya", texto: "Actividad 1 — Caballo de Troya" },
+  { valor: "Latín · Semana 1, Parte 2 — Caballo de Troya (repaso y verbos)", texto: "Semana 1, Parte 2 — Repaso y verbos" },
+  { valor: "Latín · Actividad 3 — Concordancia sujeto-verbo", texto: "Actividad 3 — Concordancia sujeto-verbo" },
+  { valor: "Latín · Actividad 4 — Régimen verbal: sujeto y objeto directo", texto: "Actividad 4 — Régimen verbal" },
+  { valor: "Latín II · Hygini Fabula 108: Equus Trojanus", texto: "Actividad 5 — Higino, primer contacto" }
+];
+
+var btnProgreso = document.getElementById("btn-progreso");
+var progresoPanel = document.getElementById("progreso-panel");
+var progresoEmail = document.getElementById("progreso-email");
+var progresoResultado = document.getElementById("progreso-resultado");
+
+btnProgreso.addEventListener("click", function(){
+  progresoPanel.hidden = !progresoPanel.hidden;
+  if (!progresoPanel.hidden) progresoEmail.focus();
+});
+
+function consultarProgreso(){
+  var email = progresoEmail.value.trim();
+  if (!email || email.indexOf("@") < 1){
+    progresoResultado.innerHTML = '<p class="status-msg status-msg--error">Ingresá un email válido.</p>';
+    return;
+  }
+  progresoResultado.innerHTML = '<p class="status-msg">Consultando…</p>';
+  fetch(PROGRESO_URL + "?email=" + encodeURIComponent(email))
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (!data.ok){
+        progresoResultado.innerHTML = '<p class="status-msg status-msg--error">No se pudo consultar. Probá de nuevo.</p>';
+        return;
+      }
+      var hechas = data.actividades || [];
+      var html = '<ul class="progreso-list">';
+      ACTIVIDADES_PROGRESO.forEach(function(act){
+        var ok = hechas.indexOf(act.valor) > -1;
+        html += '<li class="progreso-item' + (ok ? " ok" : "") + '">' +
+          '<span class="progreso-check">' + (ok ? "✓" : "—") + '</span>' +
+          '<span>' + escapeHtml(act.texto) + '</span></li>';
+      });
+      html += '</ul><p class="progreso-summary">' + hechas.length + ' de ' + ACTIVIDADES_PROGRESO.length + ' actividades hechas.</p>';
+      progresoResultado.innerHTML = html;
+    })
+    .catch(function(){
+      progresoResultado.innerHTML = '<p class="status-msg status-msg--error">No se pudo consultar (revisá tu conexión).</p>';
+    });
+}
+
+document.getElementById("progreso-consultar").addEventListener("click", consultarProgreso);
+progresoEmail.addEventListener("keydown", function(ev){ if (ev.key === "Enter") consultarProgreso(); });
 </script>
 </body>
 </html>
