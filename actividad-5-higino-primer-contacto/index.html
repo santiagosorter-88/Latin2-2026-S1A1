@@ -566,14 +566,33 @@
     document.getElementById("btn-p2-check").disabled = Object.keys(p2Answers).length < FRAGMENTS.length;
   }
 
+  var p2VerifyAttempt = 0;
+  var IMAGES_BY_ID = {};
+  IMAGES.forEach(function(img){ IMAGES_BY_ID[img.id] = img; });
+
   document.getElementById("btn-p2-check").addEventListener("click", function(){
+    p2VerifyAttempt++;
+    if (p2VerifyAttempt === 1){
+      // Primer intento: marca ok/bad por fragmento sin revelar cuál era la imagen correcta
+      // ni avanzar — el estudiante puede volver a elegir (los botones de imagen no se
+      // deshabilitan) antes de verificar de nuevo.
+      FRAGMENTS.forEach(function(f){
+        var ok = p2Answers[f.id] === f.correct;
+        var msg = document.getElementById("frag-msg-" + f.id);
+        msg.className = "frag-msg " + (ok ? "ok" : "bad");
+        msg.textContent = ok ? "Recte!" : "No es correcta. Probá otra vez.";
+      });
+      document.getElementById("btn-p2-check").textContent = "Verificar de nuevo";
+      return;
+    }
+
     var correct = 0;
     FRAGMENTS.forEach(function(f){
       var ok = p2Answers[f.id] === f.correct;
       if (ok) correct++;
       var msg = document.getElementById("frag-msg-" + f.id);
       msg.className = "frag-msg " + (ok ? "ok" : "bad");
-      msg.textContent = ok ? "Recte!" : "Probá de nuevo";
+      msg.textContent = ok ? "Recte!" : ("No era correcta. La imagen correcta era: " + IMAGES_BY_ID[f.correct].alt);
       submitLog.push({ paso:"2 - Fragmento y escena", item:"Fragmento " + f.id, respuesta: p2Answers[f.id], correcta: ok });
     });
     document.getElementById("p2-score").innerHTML = "Resultado: <strong>" + correct + " / " + FRAGMENTS.length + "</strong>";

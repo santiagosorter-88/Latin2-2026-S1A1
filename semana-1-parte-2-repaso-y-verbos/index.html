@@ -435,7 +435,31 @@
     });
   })();
 
-  document.getElementById("btn-verify-p2").addEventListener("click", function(){
+  var p2VerifyAttempt = 0;
+  var btnVerifyP2 = document.getElementById("btn-verify-p2");
+
+  btnVerifyP2.addEventListener("click", function(){
+    p2VerifyAttempt++;
+    if (p2VerifyAttempt === 1){
+      // Primer intento: marca en el propio paso qué tokens elegidos están bien o mal, sin
+      // revelar todavía la lista de verbos correctos — el estudiante puede corregir sus
+      // marcas (los chips siguen siendo clickeables) antes de verificar de nuevo.
+      var blocks = document.getElementById("p2-list").children;
+      FULL_TEXT.forEach(function(s, i){
+        var expected = new Set(s.verbIdx);
+        var chosen = p2State[s.id];
+        var chips = blocks[i].querySelectorAll(".token");
+        Array.from(chips).forEach(function(chip, idx){
+          chip.classList.remove("g-ok", "g-bad");
+          if (chosen.has(idx)){
+            chip.classList.add(expected.has(idx) ? "g-ok" : "g-bad");
+          }
+        });
+      });
+      btnVerifyP2.textContent = "Verificar de nuevo";
+      return;
+    }
+
     var correctSentences = 0;
     var reviewList = document.getElementById("p2-review-list");
     reviewList.innerHTML = "";
@@ -510,7 +534,8 @@
           tokensEl.appendChild(span);
           return;
         }
-        tok._lemma = null; tok._trans = null;
+        tok._lemma = null; tok._lemmaDone = false; tok._lemmaTried = new Set();
+        tok._trans = null; tok._transDone = false; tok._transTried = new Set();
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
 
@@ -538,13 +563,22 @@
           tok.lemmaOptions.forEach(function(opt){
             var ob = document.createElement("button");
             ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
-            if (tok._lemma){
+            if (tok._lemmaDone){
               ob.disabled = true;
-              if (opt === tok._lemma) ob.classList.add(opt === tok.correctLemma ? "answered-ok" : "answered-bad");
+              if (opt === tok.correctLemma){ ob.classList.add("answered-ok"); }
+              else if (opt === tok._lemma){ ob.classList.add("answered-bad"); }
+            } else if (tok._lemmaTried.has(opt)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
             }
             ob.addEventListener("click", function(){
-              if (tok._lemma) return;
-              tok._lemma = opt;
+              if (tok._lemmaDone || tok._lemmaTried.has(opt)) return;
+              if (opt === tok.correctLemma){
+                tok._lemma = opt; tok._lemmaDone = true;
+              } else {
+                tok._lemmaTried.add(opt);
+                if (tok._lemmaTried.size >= 2){ tok._lemma = opt; tok._lemmaDone = true; }
+              }
               checkResolved();
               chip.click(); chip.click();
             });
@@ -552,8 +586,15 @@
           });
           panel.appendChild(stageA);
 
-          // Etapa B: traducción (solo si ya eligió enunciado)
-          if (tok._lemma){
+          if (!tok._lemmaDone && tok._lemmaTried.size > 0){
+            var fbA = document.createElement("span");
+            fbA.className = "word-feedback bad";
+            fbA.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fbA);
+          }
+
+          // Etapa B: traducción (solo si ya se resolvió el enunciado, bien o revelado)
+          if (tok._lemmaDone){
             var stageB = document.createElement("div");
             stageB.className = "panel-stage";
             var labelB = document.createElement("span"); labelB.className = "stage-label"; labelB.textContent = "Traducción";
@@ -561,28 +602,45 @@
             tok.transOptions.forEach(function(opt){
               var ob = document.createElement("button");
               ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
-              if (tok._trans){
+              if (tok._transDone){
                 ob.disabled = true;
-                if (opt === tok._trans) ob.classList.add(opt === tok.correctTrans ? "answered-ok" : "answered-bad");
+                if (opt === tok.correctTrans){ ob.classList.add("answered-ok"); }
+                else if (opt === tok._trans){ ob.classList.add("answered-bad"); }
+              } else if (tok._transTried.has(opt)){
+                ob.disabled = true;
+                ob.classList.add("answered-bad");
               }
               ob.addEventListener("click", function(){
-                if (tok._trans) return;
-                tok._trans = opt;
+                if (tok._transDone || tok._transTried.has(opt)) return;
+                if (opt === tok.correctTrans){
+                  tok._trans = opt; tok._transDone = true;
+                } else {
+                  tok._transTried.add(opt);
+                  if (tok._transTried.size >= 2){ tok._trans = opt; tok._transDone = true; }
+                }
                 checkResolved();
                 chip.click(); chip.click();
               });
               stageB.appendChild(ob);
             });
             panel.appendChild(stageB);
+
+            if (!tok._transDone && tok._transTried.size > 0){
+              var fbB = document.createElement("span");
+              fbB.className = "word-feedback bad";
+              fbB.textContent = "No es correcta. Probá una vez más.";
+              panel.appendChild(fbB);
+            }
           }
 
-          if (tok._lemma && tok._trans){
+          if (tok._lemmaDone && tok._transDone){
             var lemmaOk = tok._lemma === tok.correctLemma;
             var transOk = tok._trans === tok.correctTrans;
             var bothOk = lemmaOk && transOk;
             var fb = document.createElement("span");
             fb.className = "word-feedback " + (bothOk ? "ok" : "bad");
-            fb.textContent = bothOk ? "¡Correcto!" : "Alguna de las dos no es correcta. Fijate cuál por tu cuenta.";
+            fb.textContent = bothOk ? "¡Correcto!" :
+              ("No era correcta. Enunciado correcto: " + tok.correctLemma + " · Traducción correcta: " + tok.correctTrans);
             panel.appendChild(fb);
           }
 
@@ -590,7 +648,7 @@
         });
 
         function checkResolved(){
-          if (tok._lemma && tok._trans && !tok._counted){
+          if (tok._lemmaDone && tok._transDone && !tok._counted){
             tok._counted = true;
             p3Resolved++;
             updateP3Progress();
@@ -714,7 +772,7 @@
       p.tokens.forEach(function(tok, idx){
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
-        tok._answered = null; tok._chosen = null;
+        tok._answered = null; tok._chosen = null; tok._tried = new Set();
 
         chip.addEventListener("click", function(){
           var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
@@ -735,33 +793,60 @@
             ob.type = "button";
             ob.className = "word-opt" + (optText === IDK ? " idk" : "");
             ob.textContent = optText;
-            if (tok._answered){
+            if (tok._answered === "revealed"){
+              ob.disabled = true;
+              if (optText === tok.correct){ ob.classList.add("answered-ok"); }
+              else if (optText === tok._chosen){ ob.classList.add("answered-bad"); }
+            } else if (tok._answered){
               ob.disabled = true;
               if (optText === tok._chosen){
-                ob.classList.add(tok._answered === "ok" ? "answered-ok" : (tok._answered === "idk" ? "answered-idk" : "answered-bad"));
+                ob.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
               }
+            } else if (tok._tried.has(optText)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
             }
             ob.addEventListener("click", function(){
-              if (tok._answered) return;
-              tok._chosen = optText;
+              if (tok._answered || tok._tried.has(optText)) return;
               var wasIdk = optText === IDK;
               var wasOk = optText === tok.correct;
-              tok._answered = wasOk ? "ok" : (wasIdk ? "idk" : "bad");
-              p5Resolved++; updateP5Progress();
-              chip.classList.remove("g-ok","g-bad","g-idk");
-              chip.classList.add(wasOk ? "g-ok" : (wasIdk ? "g-idk" : "g-bad"));
               submitLog.push({ paso:"5 - Vocabulario de frases nuevas", item:"Frase nueva " + p.id + " · " + tok.display,
                 respuesta: optText, correcta: wasOk ? true : (wasIdk ? null : false) });
+              if (wasOk || wasIdk){
+                tok._chosen = optText;
+                tok._answered = wasOk ? "ok" : "idk";
+                p5Resolved++; updateP5Progress();
+                chip.classList.remove("g-bad");
+                chip.classList.add(wasOk ? "g-ok" : "g-idk");
+              } else {
+                tok._tried.add(optText);
+                chip.classList.add("g-bad");
+                if (tok._tried.size >= 2){
+                  tok._chosen = optText;
+                  tok._answered = "revealed";
+                  p5Resolved++; updateP5Progress();
+                }
+              }
               chip.click(); chip.click();
             });
             panel.appendChild(ob);
           });
 
-          if (tok._answered){
+          if (tok._answered === "revealed"){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback bad";
+            fb.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+            panel.appendChild(fb);
+          } else if (tok._answered){
             var fb = document.createElement("span");
             fb.className = "word-feedback " + tok._answered;
-            fb.textContent = tok._answered === "ok" ? "¡Correcto!" : (tok._answered === "idk" ? "Quedó marcada para repasar." : "No es correcta. Fijate cuál es por tu cuenta.");
+            fb.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
             panel.appendChild(fb);
+          } else if (tok._tried.size > 0){
+            var fb2 = document.createElement("span");
+            fb2.className = "word-feedback bad";
+            fb2.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fb2);
           }
           panelHost.appendChild(panel);
         });

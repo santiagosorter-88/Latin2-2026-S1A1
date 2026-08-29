@@ -637,8 +637,9 @@
         chip.type = "button";
         chip.className = "token";
         chip.textContent = tok.display;
-        tok._answered = null; // null | 'ok' | 'bad' | 'idk'
+        tok._answered = null; // null | 'ok' | 'bad' | 'idk' | 'revealed'
         tok._chosen = null;
+        tok._tried = new Set();
 
         chip.addEventListener("click", function(){
           var openPanel = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
@@ -662,26 +663,46 @@
             ob.type = "button";
             ob.className = "word-opt" + (optText === IDK ? " idk" : "");
             ob.textContent = optText;
-            if (tok._answered){
+            if (tok._answered === "revealed"){
+              ob.disabled = true;
+              if (optText === tok.correct){ ob.classList.add("answered-ok"); }
+              else if (optText === tok._chosen){ ob.classList.add("answered-bad"); }
+            } else if (tok._answered){
               ob.disabled = true;
               if (optText === tok._chosen){
-                ob.classList.add(tok._answered === "ok" ? "answered-ok" : (tok._answered === "idk" ? "answered-idk" : "answered-bad"));
+                ob.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
               }
+            } else if (tok._tried.has(optText)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
             }
             ob.addEventListener("click", function(){
-              if (tok._answered) return;
-              tok._chosen = optText;
+              if (tok._answered || tok._tried.has(optText)) return;
               var wasIdk = optText === IDK;
               var wasOk = optText === tok.correct;
-              tok._answered = wasOk ? "ok" : (wasIdk ? "idk" : "bad");
-              resolvedCount++;
-              updateP4Progress();
-
-              chip.classList.remove("g-ok","g-bad","g-idk");
-              chip.classList.add(wasOk ? "g-ok" : (wasIdk ? "g-idk" : "g-bad"));
 
               submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
                 respuesta: optText, correcta: wasOk ? true : (wasIdk ? null : false) });
+
+              if (wasOk || wasIdk){
+                tok._chosen = optText;
+                tok._answered = wasOk ? "ok" : "idk";
+                resolvedCount++;
+                updateP4Progress();
+                chip.classList.remove("g-bad");
+                chip.classList.add(wasOk ? "g-ok" : "g-idk");
+              } else {
+                tok._tried.add(optText);
+                chip.classList.add("g-bad");
+                // Primer error: queda marcado, puede reintentar con las opciones que quedan.
+                // Segundo error (dos intentos fallidos en total): se revela la respuesta correcta.
+                if (tok._tried.size >= 2){
+                  tok._chosen = optText;
+                  tok._answered = "revealed";
+                  resolvedCount++;
+                  updateP4Progress();
+                }
+              }
 
               // re-render panel to lock choices + show feedback
               chip.click(); chip.click();
@@ -689,11 +710,21 @@
             panel.appendChild(ob);
           });
 
-          if (tok._answered){
+          if (tok._answered === "revealed"){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback bad";
+            fb.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+            panel.appendChild(fb);
+          } else if (tok._answered){
             var fb = document.createElement("span");
             fb.className = "word-feedback " + tok._answered;
-            fb.textContent = tok._answered === "ok" ? "¡Correcto!" : (tok._answered === "idk" ? "Quedó marcada para repasar." : "No es correcta. Fijate cuál es por tu cuenta.");
+            fb.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
             panel.appendChild(fb);
+          } else if (tok._tried.size > 0){
+            var fb2 = document.createElement("span");
+            fb2.className = "word-feedback bad";
+            fb2.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fb2);
           }
 
           panelHost.appendChild(panel);

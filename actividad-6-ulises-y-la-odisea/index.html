@@ -663,14 +663,18 @@
             ob.className = "word-opt" + (optText === IDK ? " idk" : "");
             ob.textContent = optText;
             var wasTried = tok._tried.has(optText);
-            if (tok._answered || wasTried){
+            if (tok._answered === "revealed"){
+              ob.disabled = true;
+              if (optText === tok.correct){ ob.classList.add("answered-ok"); }
+              else if (optText === tok._chosen){ ob.classList.add("answered-bad"); }
+            } else if (tok._answered || wasTried){
               ob.disabled = true;
               if (tok._answered && optText === tok._chosen){
                 ob.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
               } else if (wasTried){
                 // Se deshabilita la opción ya probada y errada, para que no la vuelva a elegir
-                // por error — pero NO se resalta ni se nombra cuál es la correcta. El resto de
-                // las opciones sigue disponible para que reintente hasta acertar.
+                // por error — el resto de las opciones sigue disponible para el único reintento
+                // permitido (ver más abajo: al segundo error se revela la respuesta correcta).
                 ob.classList.add("answered-bad");
               }
             }
@@ -692,16 +696,29 @@
               } else {
                 tok._tried.add(optText);
                 chip.classList.add("g-bad"); // pista visual de que tuvo un intento fallido
+                // Primer error: puede reintentar. Segundo error (dos intentos fallidos en
+                // total): se revela la respuesta correcta y queda resuelto.
+                if (tok._tried.size >= 2){
+                  tok._chosen = optText;
+                  tok._answered = "revealed";
+                  resolvedCount++;
+                  updateP4Progress();
+                }
               }
 
-              // re-render panel: si acertó, queda bloqueado con feedback; si no, la opción
-              // recién probada queda deshabilitada y el resto sigue disponible para reintentar.
+              // re-render panel: si acertó o se reveló, queda bloqueado con feedback; si no,
+              // la opción recién probada queda deshabilitada y el resto sigue disponible.
               chip.click(); chip.click();
             });
             panel.appendChild(ob);
           });
 
-          if (tok._answered){
+          if (tok._answered === "revealed"){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback bad";
+            fb.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+            panel.appendChild(fb);
+          } else if (tok._answered){
             var fb = document.createElement("span");
             fb.className = "word-feedback " + tok._answered;
             fb.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
@@ -709,9 +726,7 @@
           } else if (tok._tried.size > 0){
             var fb2 = document.createElement("span");
             fb2.className = "word-feedback bad";
-            // No revelar la respuesta correcta — el estudiante sigue probando entre las
-            // opciones que quedan habilitadas hasta acertar.
-            fb2.textContent = "No es correcta. Probá otra opción.";
+            fb2.textContent = "No es correcta. Probá una vez más.";
             panel.appendChild(fb2);
           }
 

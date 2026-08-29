@@ -320,7 +320,10 @@
         chip.type = "button"; chip.className = "token"; chip.textContent = word;
         var isVerb = verbByIdx.hasOwnProperty(idx);
         var vd = isVerb ? verbByIdx[idx] : null;
-        if (isVerb){ vd._lemma = null; vd._trans = null; vd._triedLemma = new Set(); vd._triedTrans = new Set(); }
+        if (isVerb){
+          vd._lemma = null; vd._lemmaDone = false; vd._triedLemma = new Set();
+          vd._trans = null; vd._transDone = false; vd._triedTrans = new Set();
+        }
 
         chip.addEventListener("click", function(){
           var key = f.id + "-" + idx;
@@ -353,25 +356,39 @@
           vd.lemmaOptions.forEach(function(opt){
             var ob = document.createElement("button");
             ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
-            var tried = vd._triedLemma.has(opt);
-            if (vd._lemma || tried){
+            if (vd._lemmaDone){
               ob.disabled = true;
-              if (vd._lemma === opt) ob.classList.add("answered-ok");
-              else if (tried) ob.classList.add("answered-bad");
+              if (opt === vd.correctLemma){ ob.classList.add("answered-ok"); }
+              else if (opt === vd._lemma){ ob.classList.add("answered-bad"); }
+            } else if (vd._triedLemma.has(opt)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
             }
             ob.addEventListener("click", function(){
-              if (vd._lemma || vd._triedLemma.has(opt)) return;
+              if (vd._lemmaDone || vd._triedLemma.has(opt)) return;
               var ok = opt === vd.correctLemma;
               submitLog.push({ paso:"1 - Verbos", item:"Frase " + f.id + " · " + word + " (enunciado)", respuesta: opt, correcta: ok });
-              if (ok){ vd._lemma = opt; } else { vd._triedLemma.add(opt); }
+              if (ok){
+                vd._lemma = opt; vd._lemmaDone = true;
+              } else {
+                vd._triedLemma.add(opt);
+                if (vd._triedLemma.size >= 2){ vd._lemma = opt; vd._lemmaDone = true; }
+              }
               chip.click(); chip.click();
             });
             stageA.appendChild(ob);
           });
           panel.appendChild(stageA);
 
-          // Etapa B: traducción (solo si ya resolvió el enunciado)
-          if (vd._lemma){
+          if (!vd._lemmaDone && vd._triedLemma.size > 0){
+            var fbA = document.createElement("span");
+            fbA.className = "word-feedback bad";
+            fbA.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fbA);
+          }
+
+          // Etapa B: traducción (solo si ya se resolvió el enunciado, bien o revelado)
+          if (vd._lemmaDone){
             var stageB = document.createElement("div");
             stageB.className = "panel-stage";
             var labelB = document.createElement("span"); labelB.className = "stage-label"; labelB.textContent = "Traducción";
@@ -379,46 +396,52 @@
             vd.transOptions.forEach(function(opt){
               var ob = document.createElement("button");
               ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
-              var tried = vd._triedTrans.has(opt);
-              if (vd._trans || tried){
+              if (vd._transDone){
                 ob.disabled = true;
-                if (vd._trans === opt) ob.classList.add("answered-ok");
-                else if (tried) ob.classList.add("answered-bad");
+                if (opt === vd.correctTrans){ ob.classList.add("answered-ok"); }
+                else if (opt === vd._trans){ ob.classList.add("answered-bad"); }
+              } else if (vd._triedTrans.has(opt)){
+                ob.disabled = true;
+                ob.classList.add("answered-bad");
               }
               ob.addEventListener("click", function(){
-                if (vd._trans || vd._triedTrans.has(opt)) return;
+                if (vd._transDone || vd._triedTrans.has(opt)) return;
                 var ok = opt === vd.correctTrans;
                 submitLog.push({ paso:"1 - Verbos", item:"Frase " + f.id + " · " + word + " (traducción)", respuesta: opt, correcta: ok });
                 if (ok){
-                  vd._trans = opt;
+                  vd._trans = opt; vd._transDone = true;
                   p1Resolved++; updateP1Progress();
                   chip.classList.remove("g-bad"); chip.classList.add("g-ok");
                 } else {
                   vd._triedTrans.add(opt);
                   chip.classList.add("g-bad");
+                  if (vd._triedTrans.size >= 2){
+                    vd._trans = opt; vd._transDone = true;
+                    p1Resolved++; updateP1Progress();
+                  }
                 }
                 chip.click(); chip.click();
               });
               stageB.appendChild(ob);
             });
             panel.appendChild(stageB);
+
+            if (!vd._transDone && vd._triedTrans.size > 0){
+              var fbB = document.createElement("span");
+              fbB.className = "word-feedback bad";
+              fbB.textContent = "No es correcta. Probá una vez más.";
+              panel.appendChild(fbB);
+            }
           }
 
-          if (vd._lemma && vd._trans){
+          if (vd._lemmaDone && vd._transDone){
+            var lemmaOk = vd._lemma === vd.correctLemma;
+            var transOk = vd._trans === vd.correctTrans;
             var fbOk = document.createElement("span");
-            fbOk.className = "word-feedback ok";
-            fbOk.textContent = "¡Correcto!";
+            fbOk.className = "word-feedback " + (lemmaOk && transOk ? "ok" : "bad");
+            fbOk.textContent = (lemmaOk && transOk) ? "¡Correcto!" :
+              ("No era correcta. Enunciado correcto: " + vd.correctLemma + " · Traducción correcta: " + vd.correctTrans);
             panel.appendChild(fbOk);
-          } else if (vd._triedLemma.size > 0 && !vd._lemma){
-            var fbBad = document.createElement("span");
-            fbBad.className = "word-feedback bad";
-            fbBad.textContent = "No es correcta. Probá otra opción.";
-            panel.appendChild(fbBad);
-          } else if (vd._lemma && vd._triedTrans.size > 0 && !vd._trans){
-            var fbBad2 = document.createElement("span");
-            fbBad2.className = "word-feedback bad";
-            fbBad2.textContent = "No es correcta. Probá otra opción.";
-            panel.appendChild(fbBad2);
           }
 
           panelHost.appendChild(panel);
@@ -522,6 +545,7 @@
     });
     var msg = document.createElement("div");
     msg.className = "dd-msg";
+    var wrongCount = 0;
 
     select.addEventListener("change", function(){
       var val = select.value;
@@ -534,10 +558,20 @@
         msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
         onResolve();
       } else {
+        wrongCount++;
         select.classList.add("g-bad");
         Array.from(select.options).forEach(function(o){ if (o.value === val) o.disabled = true; });
-        select.value = "";
-        msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá otra opción.";
+        // Primer error: reintenta con las opciones que quedan. Segundo error (dos intentos
+        // fallidos en total): se revela la respuesta correcta y queda resuelto.
+        if (wrongCount >= 2){
+          select.value = correct;
+          select.disabled = true;
+          msg.className = "dd-msg bad"; msg.textContent = "No era correcta. La respuesta correcta es: " + correct;
+          onResolve();
+        } else {
+          select.value = "";
+          msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá una vez más.";
+        }
       }
     });
 
