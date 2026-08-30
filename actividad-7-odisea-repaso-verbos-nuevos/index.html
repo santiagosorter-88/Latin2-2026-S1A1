@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 7 — Odisea (repaso y verbos nuevos)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+  .step-progress{ font-family:var(--sans); font-variant-numeric:tabular-nums; font-size:.82rem; font-weight:700; background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-chip); padding:.3rem .75rem; color:var(--ink-muted); white-space:nowrap; }
+
+  .stage-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.4rem 1.4rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.5rem; }
+  .stage-latin{ font-family:var(--serif); font-size:1.5rem; line-height:1.4; padding:1.4rem 1.1rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; margin-bottom:1.2rem; text-align:center; }
+  .option-list{ display:flex; flex-direction:column; gap:.6rem; }
+  .option-btn{ display:flex; align-items:flex-start; gap:.7rem; text-align:left; width:100%; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:8px; padding:.75rem .9rem; font-size:.95rem; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .option-btn:hover{ border-color:var(--accent); }
+  .option-btn .dot{ flex:0 0 auto; width:1.05rem; height:1.05rem; border-radius:50%; border:1.5px solid var(--rule); margin-top:.15rem; position:relative; }
+  .option-btn.picked .dot{ border-color:var(--accent); }
+  .option-btn.picked .dot::after{ content:''; position:absolute; inset:3px; border-radius:50%; background:var(--accent); }
+  .option-btn.picked{ border-color:var(--accent); background:var(--correct-bg); }
+  .option-btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .option-btn.g-ok{ border-color:var(--correct); background:var(--correct-bg); }
+  .option-btn.g-ok .dot{ border-color:var(--correct); } .option-btn.g-ok .dot::after{ background:var(--correct); }
+  .option-btn.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); }
+  .option-btn.g-bad .dot{ border-color:var(--incorrect); } .option-btn.g-bad .dot::after{ background:var(--incorrect); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+
+  .review-row{ display:grid; grid-template-columns:auto 1fr; gap:0 1rem; padding:.85rem 0; border-top:1px solid var(--rule); }
+  .review-row:first-of-type{ border-top:none; }
+  .review-num{ font-family:var(--sans); font-size:.78rem; font-weight:700; color:var(--ink-muted); padding-top:.15rem; }
+  .review-latin{ font-family:var(--serif); font-size:1.05rem; margin-bottom:.4rem; }
+  .review-answer{ font-size:.88rem; padding:.4rem .6rem; border-radius:6px; display:inline-block; }
+  .review-answer.ok{ background:var(--correct-bg); color:var(--correct); }
+  .review-answer.bad{ background:var(--incorrect-bg); color:var(--incorrect); }
+  .review-correct{ font-size:.85rem; color:var(--ink-muted); margin-top:.3rem; }
+  .score-line{ font-size:.92rem; color:var(--ink-muted); margin:.2rem 0 1.2rem; } .score-line strong{ color:var(--ink); }
+
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token:hover{ border-color:var(--accent); }
+  .token.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .token.g-idk{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .plain-word{ font-family:var(--serif); font-size:1.15rem; padding:.35rem .2rem; color:var(--ink); }
+  .hint{ font-size:.8rem; color:var(--ink-muted); margin:.5rem 0 0 .1rem; }
+
+  .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .word-panel .for-word{ font-family:var(--serif); font-size:1.05rem; color:var(--ink-muted); margin-right:.2rem; }
+  .panel-stage{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; width:100%; }
+  .panel-stage + .panel-stage{ padding-top:.5rem; margin-top:.4rem; border-top:1px dashed var(--rule); }
+  .stage-label{ font-family:var(--sans); font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin-right:.2rem; flex:0 0 100%; }
+  .word-opt{ font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.idk{ border-style:dashed; color:var(--ink-muted); }
+  .word-opt.answered-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt.answered-idk{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .word-opt:disabled{ cursor:default; opacity:.85; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-feedback.ok{ color:var(--correct); } .word-feedback.bad{ color:var(--incorrect); } .word-feedback.idk{ color:var(--warn); }
+
+  .p4-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p4-progress strong{ color:var(--ink); }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Latín · Actividad 7</p>
+  <h1>Odisea — repaso y verbos nuevos</h1>
+  <p class="lede">Repasamos las frases de la Actividad 6 y sumamos las frases nuevas de esta semana, con foco en las formas verbales.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ===== Paso 1: repaso ===== -->
+    <section class="step" id="step-p1">
+      <div class="step-head">
+        <div><p class="eyebrow">Paso 1</p><h2>Repaso — elegí la traducción correcta</h2></div>
+        <span class="step-progress" id="p1-progress">—</span>
+      </div>
+      <p class="step-instructions">Volvemos sobre las frases de la Parte 1. Elegí, entre las tres opciones, la traducción correcta.</p>
+      <div id="p1-stage"></div>
+    </section>
+
+    <section class="step" id="step-p1-review">
+      <div class="step-head"><div><p class="eyebrow">Paso 1 — resultado</p><h2>¿Cómo te fue?</h2></div></div>
+      <div class="score-line" id="p1-score"></div>
+      <div class="exercise" id="p1-review-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
+    </section>
+
+    <!-- ===== Paso 2: texto completo, marcar verbos ===== -->
+    <section class="step" id="step-p2">
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Leé el texto completo y marcá los verbos</h2></div></div>
+      <p class="step-instructions">Tocá las palabras que son formas verbales conjugadas (no los infinitivos) en cada frase del relato completo.</p>
+      <div class="exercise" id="p2-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-verify-p2">Verificar</button></div>
+    </section>
+
+    <section class="step" id="step-p2-review">
+      <div class="step-head"><div><p class="eyebrow">Paso 2 — resultado</p><h2>¿Cómo te fue?</h2></div></div>
+      <div class="score-line" id="p2-score"></div>
+      <div class="exercise" id="p2-review-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
+    </section>
+
+    <!-- ===== Paso 3: enunciado + traducción de los verbos nuevos ===== -->
+    <section class="step" id="step-p3">
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Identificá el enunciado y la traducción de cada verbo nuevo</h2></div></div>
+      <p class="step-instructions">Tocá cada forma verbal marcada (solo las de las frases nuevas). Primero elegí su enunciado y después su traducción — vas a ver el resultado apenas elijas cada una.</p>
+      <div class="p4-progress" id="p3-progress"></div>
+      <div class="exercise" id="p3-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
+    </section>
+
+    <!-- ===== Paso 4: emparejar frase nueva - traducción ===== -->
+    <section class="step" id="step-p4">
+      <div class="step-head">
+        <div><p class="eyebrow">Paso 4</p><h2>Asociá cada frase nueva con su traducción</h2></div>
+        <span class="step-progress" id="p4-progress">—</span>
+      </div>
+      <p class="step-instructions">Elegí, entre todas las traducciones de las frases nuevas, la que corresponde a esta frase en latín.</p>
+      <div id="p4-stage"></div>
+    </section>
+
+    <section class="step" id="step-p4-review">
+      <div class="step-head"><div><p class="eyebrow">Paso 4 — resultado</p><h2>¿Cómo te fue?</h2></div></div>
+      <div class="score-line" id="p4-score"></div>
+      <div class="exercise" id="p4-review-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p5">Continuar a Paso 5</button></div>
+    </section>
+
+    <!-- ===== Paso 5: exploración léxica de las frases nuevas ===== -->
+    <section class="step" id="step-p5">
+      <div class="step-head"><div><p class="eyebrow">Paso 5</p><h2>Explorá el vocabulario de las frases nuevas</h2></div></div>
+      <p class="step-instructions">Tocá cada palabra y elegí qué significa acá. Si no la conocés todavía, está bien decirlo — para eso está la opción.</p>
+      <div class="p4-progress" id="p5-progress"></div>
+      <div class="exercise" id="p5-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+    </section>
+
+    <!-- ===== Cierre ===== -->
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido.</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario (opcional)</label><input id="in-diff-comment" type="text" placeholder="¿algo que quieras agregar?" /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si…</label><input id="in-suggestion" type="text" placeholder="completá la idea" /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send">Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+  var IDK = "No la conozco todavía";
+
+  /*__DATA__*/var DATA = {"repaso": [{"id": 1, "latin": "Cyclops Polyphemus, qui unum oculum habet, Vlixem et socios in spelunca tenet et eos consumit.", "correct": "El cíclope Polifemo, que tiene un solo ojo, retiene a Ulises y a sus compañeros en la cueva y los devora.", "decoyA": "Ulises, que tiene un solo ojo, retiene al cíclope Polifemo y a sus compañeros en la cueva y los devora.", "decoyB": "El cíclope Polifemo, que tiene un solo ojo, retiene a Ulises y a sus compañeros en el barco y los devora."}, {"id": 2, "latin": "Vlixes ad Sirenas venit; socios cera surdos facit et se ligat, et salvus praeterit.", "correct": "Ulises llega donde las sirenas; hace sordos a sus compañeros con cera y se ata a sí mismo, y pasa a salvo.", "decoyA": "Ulises llega donde las sirenas; se hace sordo con cera y ata a sus compañeros, y pasa a salvo.", "decoyB": "Ulises llega donde las sirenas; hace sordos a sus compañeros con cera y se ata a sí mismo, pero no logra pasar a salvo."}, {"id": 3, "latin": "Calypso, nympha pulchra, Vlixem in insula sua diutius tenet; sed Mercurius ei dicit: “Vlixem dimitte!”", "correct": "Calipso, una ninfa hermosa, tiene a Ulises mucho tiempo en su isla; pero Mercurio le dice: “¡Deja ir a Ulises!”", "decoyA": "Calipso, una ninfa hermosa, tiene a Ulises mucho tiempo en su isla; pero Ulises le dice a Mercurio: “¡Déjame ir!”", "decoyB": "Calipso, una ninfa hermosa, tiene a Mercurio mucho tiempo en su isla; pero Ulises le dice: “¡Déjalo ir!”"}, {"id": 4, "latin": "Vlixes nudus in ora iacet; Nausicaa eum videt, pallium dat, et ad patrem suum ducit.", "correct": "Ulises yace desnudo en la orilla; Nausícaa lo ve, le da un manto, y lo lleva ante su padre.", "decoyA": "Nausícaa yace desnuda en la orilla; Ulises la ve, le da un manto, y la lleva ante su padre.", "decoyB": "Ulises yace desnudo en la orilla; Nausícaa lo ve, le da comida, y lo lleva ante su padre."}, {"id": 5, "latin": "Vlixes solus in patriam redit et mendicum se simulat; sed Euryclia eum statim cognoscit.", "correct": "Ulises regresa solo a su patria y finge ser un mendigo; pero Euriclea lo reconoce enseguida.", "decoyA": "Ulises regresa solo a su patria y finge ser un mendigo; pero él mismo reconoce a Euriclea enseguida.", "decoyB": "Ulises regresa solo a su patria y finge ser un mendigo; pero Euriclea no logra reconocerlo."}, {"id": 6, "latin": "Vlixes et Telemachus procos occidunt. Minerva eos adiuvat.", "correct": "Ulises y Telémaco matan a los pretendientes. Minerva los ayuda.", "decoyA": "Los pretendientes matan a Ulises y Telémaco. Minerva los ayuda.", "decoyB": "Ulises y Telémaco matan a los pretendientes. Neptuno los ayuda."}], "fullText": [{"id": 1, "tokens": ["Cyclops", "Polyphemus,", "qui", "unum", "oculum", "habet,", "Vlixem", "et", "socios", "in", "spelunca", "tenet", "et", "eos", "consumit."], "verbIdx": [5, 11, 14]}, {"id": 2, "tokens": ["Circe", "socios", "in", "bestias", "mutat;", "sed", "Mercurius", "ei", "remedium", "dat,", "et", "Circe", "Vlixem", "mutare", "non", "potest."], "verbIdx": [4, 9, 15]}, {"id": 3, "tokens": ["Vlixes", "ad", "Sirenas", "venit;", "socios", "cera", "surdos", "facit", "et", "se", "ligat,", "et", "salvus", "praeterit."], "verbIdx": [3, 7, 10, 13]}, {"id": 4, "tokens": ["Scylla", "sex", "socios", "Vlixis", "consumit;", "Charybdis", "magnas", "undas", "bibit", "et", "reddit,", "sed", "Vlixes", "cum", "sociis", "salvus", "praeterit."], "verbIdx": [4, 8, 10, 16]}, {"id": 5, "tokens": ["Socii", "vaccas", "Solis", "sacras", "consumunt;", "Sol", "iratus", "est,", "et", "Iuppiter", "navigium", "incendit."], "verbIdx": [4, 7, 11]}, {"id": 6, "tokens": ["Calypso,", "nympha", "pulchra,", "Vlixem", "in", "insula", "sua", "diutius", "tenet;", "sed", "Mercurius", "ei", "dicit:", "“Vlixem", "dimitte!”"], "verbIdx": [8, 12, 14]}, {"id": 7, "tokens": ["Vlixes", "navigium", "facit", "et", "solus", "navigat;", "sed", "Neptunus", "iratus", "id", "delet."], "verbIdx": [2, 5, 10]}, {"id": 8, "tokens": ["Vlixes", "nudus", "in", "ora", "iacet;", "Nausicaa", "eum", "videt,", "pallium", "dat,", "et", "ad", "patrem", "suum", "ducit."], "verbIdx": [4, 7, 9, 14]}, {"id": 9, "tokens": ["Vlixes", "solus", "in", "patriam", "redit", "et", "mendicum", "se", "simulat;", "sed", "Euryclia", "eum", "statim", "cognoscit."], "verbIdx": [4, 8, 13]}, {"id": 10, "tokens": ["Vlixes", "et", "Telemachus", "procos", "occidunt.", "Minerva", "eos", "adiuvat."], "verbIdx": [4, 7]}], "paso3": [{"id": 1, "latin": "Circe socios in bestias mutat; sed Mercurius ei remedium dat, et Circe Vlixem mutare non potest.", "tokens": [{"display": "Circe", "isVerb": false}, {"display": "socios", "isVerb": false}, {"display": "in", "isVerb": false}, {"display": "bestias", "isVerb": false}, {"display": "mutat;", "isVerb": true, "correctLemma": "muto", "lemmaOptions": ["deleo", "muto", "incendo"], "correctTrans": "transforma", "transOptions": ["incendia", "comen", "transforma"]}, {"display": "sed", "isVerb": false}, {"display": "Mercurius", "isVerb": false}, {"display": "ei", "isVerb": false}, {"display": "remedium", "isVerb": false}, {"display": "dat,", "isVerb": true, "correctLemma": "do", "lemmaOptions": ["reddo", "do", "bibo"], "correctTrans": "da", "transOptions": ["da", "comen", "bebe"]}, {"display": "et", "isVerb": false}, {"display": "Circe", "isVerb": false}, {"display": "Vlixem", "isVerb": false}, {"display": "mutare", "isVerb": false}, {"display": "non", "isVerb": false}, {"display": "potest.", "isVerb": true, "correctLemma": "possum", "lemmaOptions": ["do", "consumo", "possum"], "correctTrans": "puede", "transOptions": ["bebe", "navega", "puede"]}]}, {"id": 2, "latin": "Vlixes navigium facit et solus navigat; sed Neptunus iratus id delet.", "tokens": [{"display": "Vlixes", "isVerb": false}, {"display": "navigium", "isVerb": false}, {"display": "facit", "isVerb": true, "correctLemma": "facio", "lemmaOptions": ["reddo", "sum", "facio"], "correctTrans": "hace", "transOptions": ["bebe", "destruye", "hace"]}, {"display": "et", "isVerb": false}, {"display": "solus", "isVerb": false}, {"display": "navigat;", "isVerb": true, "correctLemma": "navigo", "lemmaOptions": ["facio", "muto", "navigo"], "correctTrans": "navega", "transOptions": ["pasa de largo", "navega", "devora"]}, {"display": "sed", "isVerb": false}, {"display": "Neptunus", "isVerb": false}, {"display": "iratus", "isVerb": false}, {"display": "id", "isVerb": false}, {"display": "delet.", "isVerb": true, "correctLemma": "deleo", "lemmaOptions": ["consumo", "deleo", "reddo"], "correctTrans": "destruye", "transOptions": ["está", "destruye", "comen"]}]}, {"id": 3, "latin": "Scylla sex socios Vlixis consumit; Charybdis magnas undas bibit et reddit, sed Vlixes cum sociis salvus praeterit.", "tokens": [{"display": "Scylla", "isVerb": false}, {"display": "sex", "isVerb": false}, {"display": "socios", "isVerb": false}, {"display": "Vlixis", "isVerb": false}, {"display": "consumit;", "isVerb": true, "correctLemma": "consumo", "lemmaOptions": ["reddo", "consumo", "bibo"], "correctTrans": "devora", "transOptions": ["devora", "incendia", "puede"]}, {"display": "Charybdis", "isVerb": false}, {"display": "magnas", "isVerb": false}, {"display": "undas", "isVerb": false}, {"display": "bibit", "isVerb": true, "correctLemma": "bibo", "lemmaOptions": ["bibo", "muto", "possum"], "correctTrans": "bebe", "transOptions": ["está", "devuelve", "bebe"]}, {"display": "et", "isVerb": false}, {"display": "reddit,", "isVerb": true, "correctLemma": "reddo", "lemmaOptions": ["reddo", "do", "consumo"], "correctTrans": "devuelve", "transOptions": ["devuelve", "incendia", "navega"]}, {"display": "sed", "isVerb": false}, {"display": "Vlixes", "isVerb": false}, {"display": "cum", "isVerb": false}, {"display": "sociis", "isVerb": false}, {"display": "salvus", "isVerb": false}, {"display": "praeterit.", "isVerb": true, "correctLemma": "praetereo", "lemmaOptions": ["facio", "reddo", "praetereo"], "correctTrans": "pasa de largo", "transOptions": ["está", "incendia", "pasa de largo"]}]}, {"id": 4, "latin": "Socii vaccas Solis sacras consumunt; Sol iratus est, et Iuppiter navigium incendit.", "tokens": [{"display": "Socii", "isVerb": false}, {"display": "vaccas", "isVerb": false}, {"display": "Solis", "isVerb": false}, {"display": "sacras", "isVerb": false}, {"display": "consumunt;", "isVerb": true, "correctLemma": "consumo", "lemmaOptions": ["possum", "consumo", "do"], "correctTrans": "comen", "transOptions": ["comen", "puede", "da"]}, {"display": "Sol", "isVerb": false}, {"display": "iratus", "isVerb": false}, {"display": "est,", "isVerb": true, "correctLemma": "sum", "lemmaOptions": ["sum", "incendo", "reddo"], "correctTrans": "está", "transOptions": ["pasa de largo", "incendia", "está"]}, {"display": "et", "isVerb": false}, {"display": "Iuppiter", "isVerb": false}, {"display": "navigium", "isVerb": false}, {"display": "incendit.", "isVerb": true, "correctLemma": "incendo", "lemmaOptions": ["facio", "incendo", "possum"], "correctTrans": "incendia", "transOptions": ["incendia", "bebe", "devora"]}]}], "paso4": [{"id": 1, "latin": "Circe socios in bestias mutat; sed Mercurius ei remedium dat, et Circe Vlixem mutare non potest.", "spanish": "Circe transforma a los compañeros en bestias; pero Mercurio le da a Ulises un remedio, y Circe no puede transformarlo."}, {"id": 2, "latin": "Vlixes navigium facit et solus navigat; sed Neptunus iratus id delet.", "spanish": "Ulises hace una embarcación y navega solo; pero Neptuno, enojado, la destruye."}, {"id": 3, "latin": "Scylla sex socios Vlixis consumit; Charybdis magnas undas bibit et reddit, sed Vlixes cum sociis salvus praeterit.", "spanish": "Escila devora a seis compañeros de Ulises; Caribdis bebe grandes olas y las devuelve, pero Ulises, con sus compañeros, pasa a salvo."}, {"id": 4, "latin": "Socii vaccas Solis sacras consumunt; Sol iratus est, et Iuppiter navigium incendit.", "spanish": "Los compañeros comen las vacas sagradas del Sol; el Sol se enoja, y Júpiter incendia la nave."}], "paso5": [{"id": 1, "latin": "Circe socios in bestias mutat; sed Mercurius ei remedium dat, et Circe Vlixem mutare non potest.", "spanish": "Circe transforma a los compañeros en bestias; pero Mercurio le da a Ulises un remedio, y Circe no puede transformarlo.", "tokens": [{"display": "Circe", "correct": "Circe", "options": ["Circe", "a Ulises", "Júpiter"]}, {"display": "socios", "correct": "a los compañeros", "options": ["una embarcación", "a los compañeros", "los compañeros"]}, {"display": "in", "correct": "en", "options": ["y", "en", "pero"]}, {"display": "bestias", "correct": "bestias", "options": ["a los compañeros", "un remedio", "bestias"]}, {"display": "mutat;", "correct": "transforma", "options": ["hace", "transforma", "pasa de largo"]}, {"display": "sed", "correct": "pero", "options": ["pero", "en", "eso"]}, {"display": "Mercurius", "correct": "Mercurio", "options": ["Mercurio", "Neptuno", "Circe"]}, {"display": "ei", "correct": "le", "options": ["le", "en", "pero"]}, {"display": "remedium", "correct": "un remedio", "options": ["a los compañeros", "a compañeros", "un remedio"]}, {"display": "dat,", "correct": "da", "options": ["devuelve", "da", "está"]}, {"display": "et", "correct": "y", "options": ["eso", "y", "con"]}, {"display": "Circe", "correct": "Circe", "options": ["a Ulises", "el Sol", "Circe"]}, {"display": "Vlixem", "correct": "a Ulises", "options": ["a Ulises", "Caribdis", "Circe"]}, {"display": "mutare", "correct": "transformar(lo)", "options": ["devuelve", "transformar(lo)", "incendia"]}, {"display": "non", "correct": "no", "options": ["no", "pero", "con"]}, {"display": "potest.", "correct": "puede", "options": ["hace", "navega", "puede"]}]}, {"id": 2, "latin": "Vlixes navigium facit et solus navigat; sed Neptunus iratus id delet.", "spanish": "Ulises hace una embarcación y navega solo; pero Neptuno, enojado, la destruye.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Circe", "Mercurio", "Ulises"]}, {"display": "navigium", "correct": "una embarcación", "options": ["a los compañeros", "olas", "una embarcación"]}, {"display": "facit", "correct": "hace", "options": ["destruye", "transformar(lo)", "hace"]}, {"display": "et", "correct": "y", "options": ["eso", "pero", "y"]}, {"display": "solus", "correct": "solo", "options": ["sagradas", "a salvo", "solo"]}, {"display": "navigat;", "correct": "navega", "options": ["pasa de largo", "comen", "navega"]}, {"display": "sed", "correct": "pero", "options": ["pero", "con", "no"]}, {"display": "Neptunus", "correct": "Neptuno", "options": ["Neptuno", "el Sol", "de Ulises"]}, {"display": "iratus", "correct": "enojado", "options": ["solo", "enojado", "seis"]}, {"display": "id", "correct": "eso", "options": ["eso", "no", "y"]}, {"display": "delet.", "correct": "destruye", "options": ["puede", "destruye", "incendia"]}]}, {"id": 3, "latin": "Scylla sex socios Vlixis consumit; Charybdis magnas undas bibit et reddit, sed Vlixes cum sociis salvus praeterit.", "spanish": "Escila devora a seis compañeros de Ulises; Caribdis bebe grandes olas y las devuelve, pero Ulises, con sus compañeros, pasa a salvo.", "tokens": [{"display": "Scylla", "correct": "Escila", "options": ["Mercurio", "Caribdis", "Escila"]}, {"display": "sex", "correct": "seis", "options": ["seis", "grandes", "a salvo"]}, {"display": "socios", "correct": "a compañeros", "options": ["a compañeros", "sus compañeros", "las vacas"]}, {"display": "Vlixis", "correct": "de Ulises", "options": ["Júpiter", "Neptuno", "de Ulises"]}, {"display": "consumit;", "correct": "devora", "options": ["transforma", "devora", "puede"]}, {"display": "Charybdis", "correct": "Caribdis", "options": ["Neptuno", "Caribdis", "Júpiter"]}, {"display": "magnas", "correct": "grandes", "options": ["solo", "grandes", "sagradas"]}, {"display": "undas", "correct": "olas", "options": ["olas", "un remedio", "los compañeros"]}, {"display": "bibit", "correct": "bebe", "options": ["bebe", "puede", "incendia"]}, {"display": "et", "correct": "y", "options": ["en", "y", "con"]}, {"display": "reddit,", "correct": "devuelve", "options": ["bebe", "puede", "devuelve"]}, {"display": "sed", "correct": "pero", "options": ["no", "eso", "pero"]}, {"display": "Vlixes", "correct": "Ulises", "options": ["Ulises", "Mercurio", "el Sol"]}, {"display": "cum", "correct": "con", "options": ["le", "con", "y"]}, {"display": "sociis", "correct": "sus compañeros", "options": ["un remedio", "sus compañeros", "olas"]}, {"display": "salvus", "correct": "a salvo", "options": ["seis", "solo", "a salvo"]}, {"display": "praeterit.", "correct": "pasa de largo", "options": ["da", "pasa de largo", "navega"]}]}, {"id": 4, "latin": "Socii vaccas Solis sacras consumunt; Sol iratus est, et Iuppiter navigium incendit.", "spanish": "Los compañeros comen las vacas sagradas del Sol; el Sol se enoja, y Júpiter incendia la nave.", "tokens": [{"display": "Socii", "correct": "los compañeros", "options": ["a los compañeros", "la nave", "los compañeros"]}, {"display": "vaccas", "correct": "las vacas", "options": ["a compañeros", "las vacas", "una embarcación"]}, {"display": "Solis", "correct": "del Sol", "options": ["del Sol", "el Sol", "Escila"]}, {"display": "sacras", "correct": "sagradas", "options": ["grandes", "enojado", "sagradas"]}, {"display": "consumunt;", "correct": "comen", "options": ["hace", "comen", "incendia"]}, {"display": "Sol", "correct": "el Sol", "options": ["Ulises", "el Sol", "Escila"]}, {"display": "iratus", "correct": "enojado", "options": ["a salvo", "enojado", "grandes"]}, {"display": "est,", "correct": "está", "options": ["transformar(lo)", "destruye", "está"]}, {"display": "et", "correct": "y", "options": ["pero", "y", "en"]}, {"display": "Iuppiter", "correct": "Júpiter", "options": ["Júpiter", "del Sol", "Mercurio"]}, {"display": "navigium", "correct": "la nave", "options": ["una embarcación", "la nave", "a compañeros"]}, {"display": "incendit.", "correct": "incendia", "options": ["hace", "da", "incendia"]}]}]};/*__DATA__*/
+
+  var REPASO = DATA.repaso, FULL_TEXT = DATA.fullText, PASO3 = DATA.paso3, PASO4 = DATA.paso4, PASO5 = DATA.paso5;
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+  function clean(s){ return s.replace(/[“”"…,.;:!?]/g, ""); }
+
+  var identity = { email:"" };
+  var submitLog = [];
+
+  // ---------- Guardar/retomar progreso (por estudiante, en este mismo navegador) ----------
+  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo email
+  // en el mismo dispositivo retoma en el paso donde quedó, en vez de tener que empezar de
+  // nuevo. Si lo interrumpe A MITAD de un paso, ese paso puntual se rehace desde cero (no se
+  // guarda el detalle palabra por palabra) — es la opción más simple que resuelve el problema
+  // real sin agregar mucha complejidad.
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      showStep(restored.step);
+    } else {
+      showStep("step-p1");
+    }
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  // =================================================================
+  // Paso 1: repaso — una frase por vez, 3 opciones propias (correcta + 2 decoys)
+  // =================================================================
+  (function(){
+    var order = REPASO.map(function(p){ return p.id; });
+    var idx = 0;
+    var answers = {};
+    var optOrder = {};
+    REPASO.forEach(function(p){ optOrder[p.id] = shuffled([p.correct, p.decoyA, p.decoyB]); });
+
+    var stageEl = document.getElementById("p1-stage");
+    var progressEl = document.getElementById("p1-progress");
+
+    function render(){
+      var p = REPASO.filter(function(x){ return x.id === order[idx]; })[0];
+      progressEl.textContent = (idx+1) + " / " + order.length;
+      var card = document.createElement("div");
+      card.className = "stage-card";
+      var lat = document.createElement("div");
+      lat.className = "stage-latin";
+      lat.textContent = p.latin;
+      card.appendChild(lat);
+
+      var list = document.createElement("div");
+      list.className = "option-list";
+      optOrder[p.id].forEach(function(opt){
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option-btn" + (answers[p.id] === opt ? " picked" : "");
+        btn.innerHTML = '<span class="dot"></span><span>' + opt + '</span>';
+        btn.addEventListener("click", function(){ answers[p.id] = opt; render(); });
+        list.appendChild(btn);
+      });
+      card.appendChild(list);
+
+      var nav = document.createElement("div");
+      nav.className = "stage-nav";
+      var btn = document.createElement("button");
+      btn.className = "btn";
+      btn.disabled = answers[p.id] == null;
+      btn.textContent = (idx === order.length - 1) ? "Verificar" : "Confirmar y continuar";
+      btn.addEventListener("click", function(){
+        if (idx === order.length - 1) review(); else { idx++; render(); }
+      });
+      nav.appendChild(btn);
+      card.appendChild(nav);
+
+      stageEl.innerHTML = ""; stageEl.appendChild(card);
+    }
+
+    function review(){
+      var correct = 0;
+      var list = document.getElementById("p1-review-list");
+      list.innerHTML = "";
+      order.forEach(function(pid, i){
+        var p = REPASO.filter(function(x){ return x.id === pid; })[0];
+        var ok = answers[pid] === p.correct;
+        if (ok) correct++;
+        var row = document.createElement("div");
+        row.className = "review-row";
+        var num = document.createElement("div"); num.className = "review-num"; num.textContent = (i+1)+".";
+        var body = document.createElement("div");
+        var lat = document.createElement("div"); lat.className = "review-latin"; lat.textContent = p.latin;
+        body.appendChild(lat);
+        var ans = document.createElement("div");
+        ans.className = "review-answer " + (ok ? "ok" : "bad");
+        ans.textContent = "Tu elección: " + (answers[pid] || "(sin responder)");
+        body.appendChild(ans);
+        if (!ok){
+          var corr = document.createElement("div"); corr.className = "review-correct"; corr.textContent = "Correcta: " + p.correct;
+          body.appendChild(corr);
+        }
+        row.appendChild(num); row.appendChild(body);
+        list.appendChild(row);
+        submitLog.push({ paso:"1 - Repaso", item:"Frase " + p.id, respuesta: answers[pid] || "(sin responder)", correcta: ok });
+      });
+      document.getElementById("p1-score").innerHTML = "Resultado: <strong>" + correct + " / " + order.length + "</strong>";
+      showStep("step-p1-review");
+    }
+
+    render();
+  })();
+
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
+
+  // =================================================================
+  // Paso 2: texto completo — marcar verbos conjugados
+  // =================================================================
+  var p2State = {}; // sentenceId -> Set(idx)
+  FULL_TEXT.forEach(function(s){ p2State[s.id] = new Set(); });
+
+  (function(){
+    var list = document.getElementById("p2-list");
+    FULL_TEXT.forEach(function(s){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + s.id;
+      block.appendChild(num);
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      s.tokens.forEach(function(word, idx){
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        chip.addEventListener("click", function(){
+          var st = p2State[s.id];
+          if (st.has(idx)) st.delete(idx); else st.add(idx);
+          chip.classList.toggle("on", st.has(idx));
+        });
+        tokensEl.appendChild(chip);
+      });
+      block.appendChild(tokensEl);
+      list.appendChild(block);
+    });
+  })();
+
+  var p2VerifyAttempt = 0;
+  var btnVerifyP2 = document.getElementById("btn-verify-p2");
+
+  btnVerifyP2.addEventListener("click", function(){
+    p2VerifyAttempt++;
+    if (p2VerifyAttempt === 1){
+      // Primer intento: marca en el propio paso qué tokens elegidos están bien o mal, sin
+      // revelar todavía la lista de verbos correctos — el estudiante puede corregir sus
+      // marcas (los chips siguen siendo clickeables) antes de verificar de nuevo.
+      var blocks = document.getElementById("p2-list").children;
+      FULL_TEXT.forEach(function(s, i){
+        var expected = new Set(s.verbIdx);
+        var chosen = p2State[s.id];
+        var chips = blocks[i].querySelectorAll(".token");
+        Array.from(chips).forEach(function(chip, idx){
+          chip.classList.remove("g-ok", "g-bad");
+          if (chosen.has(idx)){
+            chip.classList.add(expected.has(idx) ? "g-ok" : "g-bad");
+          }
+        });
+      });
+      btnVerifyP2.textContent = "Verificar de nuevo";
+      return;
+    }
+
+    var correctSentences = 0;
+    var reviewList = document.getElementById("p2-review-list");
+    reviewList.innerHTML = "";
+    var blocks = document.getElementById("p2-list").children;
+    FULL_TEXT.forEach(function(s, i){
+      var expected = new Set(s.verbIdx);
+      var chosen = p2State[s.id];
+      var ok = expected.size === chosen.size && Array.from(expected).every(function(v){ return chosen.has(v); });
+      if (ok) correctSentences++;
+
+      var row = document.createElement("div");
+      row.className = "review-row";
+      var num = document.createElement("div"); num.className = "review-num"; num.textContent = (i+1)+".";
+      var body = document.createElement("div");
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      s.tokens.forEach(function(word, idx){
+        var span = document.createElement("span");
+        span.className = "token";
+        span.style.cursor = "default";
+        var isVerb = expected.has(idx);
+        var wasChosen = chosen.has(idx);
+        span.classList.add((isVerb === wasChosen) ? "g-ok" : "g-bad");
+        span.textContent = word;
+        tokensEl.appendChild(span);
+      });
+      body.appendChild(tokensEl);
+      if (!ok){
+        var hint = document.createElement("div");
+        hint.className = "hint";
+        hint.textContent = "Formas verbales correctas: " + s.verbIdx.map(function(ix){ return s.tokens[ix]; }).join(", ");
+        body.appendChild(hint);
+      }
+      row.appendChild(num); row.appendChild(body);
+      reviewList.appendChild(row);
+
+      submitLog.push({ paso:"2 - Verbos en el texto completo", item:"Frase " + s.id,
+        respuesta: Array.from(chosen).map(function(ix){ return s.tokens[ix]; }).join(", ") || "(ninguna)",
+        correcta: ok });
+    });
+    document.getElementById("p2-score").innerHTML = "Frases sin errores: <strong>" + correctSentences + " / " + FULL_TEXT.length + "</strong>";
+    showStep("step-p2-review");
+  });
+
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
+
+  // =================================================================
+  // Paso 3: enunciado + traducción de los verbos nuevos
+  // =================================================================
+  var p3Total = 0, p3Resolved = 0;
+  PASO3.forEach(function(p){ p.tokens.forEach(function(t){ if (t.isVerb) p3Total++; }); });
+
+  function updateP3Progress(){
+    document.getElementById("p3-progress").innerHTML = "Verbos resueltos: <strong>" + p3Resolved + " / " + p3Total + "</strong>";
+    document.getElementById("btn-to-p4").disabled = p3Resolved < p3Total;
+  }
+
+  (function(){
+    var list = document.getElementById("p3-list");
+    PASO3.forEach(function(p){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase nueva " + p.id;
+      block.appendChild(num);
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var panelHost = document.createElement("div");
+
+      p.tokens.forEach(function(tok, idx){
+        if (!tok.isVerb){
+          var span = document.createElement("span");
+          span.className = "plain-word";
+          span.textContent = tok.display;
+          tokensEl.appendChild(span);
+          return;
+        }
+        tok._lemma = null; tok._lemmaDone = false; tok._lemmaTried = new Set();
+        tok._trans = null; tok._transDone = false; tok._transTried = new Set();
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
+
+        chip.addEventListener("click", function(){
+          var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
+          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+          panelHost.innerHTML = "";
+          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+
+          var panel = document.createElement("div");
+          panel.className = "word-panel";
+          panel.dataset.panelFor = p.id + "-" + idx;
+
+          var label = document.createElement("span");
+          label.className = "for-word";
+          label.textContent = clean(tok.display) + " ·";
+          panel.appendChild(label);
+
+          // Etapa A: enunciado
+          var stageA = document.createElement("div");
+          stageA.className = "panel-stage";
+          var labelA = document.createElement("span"); labelA.className = "stage-label"; labelA.textContent = "Enunciado";
+          stageA.appendChild(labelA);
+          tok.lemmaOptions.forEach(function(opt){
+            var ob = document.createElement("button");
+            ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
+            if (tok._lemmaDone){
+              ob.disabled = true;
+              if (opt === tok.correctLemma){ ob.classList.add("answered-ok"); }
+              else if (opt === tok._lemma){ ob.classList.add("answered-bad"); }
+            } else if (tok._lemmaTried.has(opt)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
+            }
+            ob.addEventListener("click", function(){
+              if (tok._lemmaDone || tok._lemmaTried.has(opt)) return;
+              if (opt === tok.correctLemma){
+                tok._lemma = opt; tok._lemmaDone = true;
+              } else {
+                tok._lemmaTried.add(opt);
+                if (tok._lemmaTried.size >= 2){ tok._lemma = opt; tok._lemmaDone = true; }
+              }
+              checkResolved();
+              chip.click(); chip.click();
+            });
+            stageA.appendChild(ob);
+          });
+          panel.appendChild(stageA);
+
+          if (!tok._lemmaDone && tok._lemmaTried.size > 0){
+            var fbA = document.createElement("span");
+            fbA.className = "word-feedback bad";
+            fbA.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fbA);
+          }
+
+          // Etapa B: traducción (solo si ya se resolvió el enunciado, bien o revelado)
+          if (tok._lemmaDone){
+            var stageB = document.createElement("div");
+            stageB.className = "panel-stage";
+            var labelB = document.createElement("span"); labelB.className = "stage-label"; labelB.textContent = "Traducción";
+            stageB.appendChild(labelB);
+            tok.transOptions.forEach(function(opt){
+              var ob = document.createElement("button");
+              ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
+              if (tok._transDone){
+                ob.disabled = true;
+                if (opt === tok.correctTrans){ ob.classList.add("answered-ok"); }
+                else if (opt === tok._trans){ ob.classList.add("answered-bad"); }
+              } else if (tok._transTried.has(opt)){
+                ob.disabled = true;
+                ob.classList.add("answered-bad");
+              }
+              ob.addEventListener("click", function(){
+                if (tok._transDone || tok._transTried.has(opt)) return;
+                if (opt === tok.correctTrans){
+                  tok._trans = opt; tok._transDone = true;
+                } else {
+                  tok._transTried.add(opt);
+                  if (tok._transTried.size >= 2){ tok._trans = opt; tok._transDone = true; }
+                }
+                checkResolved();
+                chip.click(); chip.click();
+              });
+              stageB.appendChild(ob);
+            });
+            panel.appendChild(stageB);
+
+            if (!tok._transDone && tok._transTried.size > 0){
+              var fbB = document.createElement("span");
+              fbB.className = "word-feedback bad";
+              fbB.textContent = "No es correcta. Probá una vez más.";
+              panel.appendChild(fbB);
+            }
+          }
+
+          if (tok._lemmaDone && tok._transDone){
+            var lemmaOk = tok._lemma === tok.correctLemma;
+            var transOk = tok._trans === tok.correctTrans;
+            var bothOk = lemmaOk && transOk;
+            var fb = document.createElement("span");
+            fb.className = "word-feedback " + (bothOk ? "ok" : "bad");
+            fb.textContent = bothOk ? "¡Correcto!" :
+              ("No era correcta. Enunciado correcto: " + tok.correctLemma + " · Traducción correcta: " + tok.correctTrans);
+            panel.appendChild(fb);
+          }
+
+          panelHost.appendChild(panel);
+        });
+
+        function checkResolved(){
+          if (tok._lemmaDone && tok._transDone && !tok._counted){
+            tok._counted = true;
+            p3Resolved++;
+            updateP3Progress();
+            var ok = tok._lemma === tok.correctLemma && tok._trans === tok.correctTrans;
+            chip.classList.remove("g-ok","g-bad");
+            chip.classList.add(ok ? "g-ok" : "g-bad");
+            submitLog.push({ paso:"3 - Enunciado y traducción de verbos", item:"Frase nueva " + p.id + " · " + tok.display,
+              respuesta: "enunciado: " + tok._lemma + " / traducción: " + tok._trans, correcta: ok });
+          }
+        }
+
+        tokensEl.appendChild(chip);
+      });
+
+      block.appendChild(tokensEl);
+      block.appendChild(panelHost);
+      list.appendChild(block);
+    });
+    updateP3Progress();
+  })();
+
+  document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
+
+  // =================================================================
+  // Paso 4: emparejar frase nueva - traducción (motor de una tarjeta por vez)
+  // =================================================================
+  (function(){
+    var order = shuffled(PASO4.map(function(p){ return p.id; }));
+    var optOrder = shuffled(PASO4.map(function(p){ return p.id; }));
+    var idx = 0;
+    var answers = {};
+    var stageEl = document.getElementById("p4-stage");
+    var progressEl = document.getElementById("p4-progress");
+
+    function render(){
+      var p = PASO4.filter(function(x){ return x.id === order[idx]; })[0];
+      progressEl.textContent = (idx+1) + " / " + order.length;
+      var card = document.createElement("div"); card.className = "stage-card";
+      var lat = document.createElement("div"); lat.className = "stage-latin"; lat.textContent = p.latin;
+      card.appendChild(lat);
+
+      var list = document.createElement("div"); list.className = "option-list";
+      optOrder.forEach(function(oid){
+        var op = PASO4.filter(function(x){ return x.id === oid; })[0];
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option-btn" + (answers[p.id] === oid ? " picked" : "");
+        btn.innerHTML = '<span class="dot"></span><span>' + op.spanish + '</span>';
+        btn.addEventListener("click", function(){ answers[p.id] = oid; render(); });
+        list.appendChild(btn);
+      });
+      card.appendChild(list);
+
+      var nav = document.createElement("div"); nav.className = "stage-nav";
+      var btn = document.createElement("button");
+      btn.className = "btn";
+      btn.disabled = answers[p.id] == null;
+      btn.textContent = (idx === order.length - 1) ? "Verificar" : "Confirmar y continuar";
+      btn.addEventListener("click", function(){ if (idx === order.length - 1) review(); else { idx++; render(); } });
+      nav.appendChild(btn); card.appendChild(nav);
+
+      stageEl.innerHTML = ""; stageEl.appendChild(card);
+    }
+
+    function review(){
+      var correct = 0;
+      var list = document.getElementById("p4-review-list");
+      list.innerHTML = "";
+      order.forEach(function(pid, i){
+        var p = PASO4.filter(function(x){ return x.id === pid; })[0];
+        var ok = answers[pid] === pid;
+        if (ok) correct++;
+        var chosenP = answers[pid] != null ? PASO4.filter(function(x){ return x.id === answers[pid]; })[0] : null;
+        var row = document.createElement("div"); row.className = "review-row";
+        var num = document.createElement("div"); num.className = "review-num"; num.textContent = (i+1)+".";
+        var body = document.createElement("div");
+        var lat = document.createElement("div"); lat.className = "review-latin"; lat.textContent = p.latin;
+        body.appendChild(lat);
+        var ans = document.createElement("div");
+        ans.className = "review-answer " + (ok ? "ok" : "bad");
+        ans.textContent = "Tu elección: " + (chosenP ? chosenP.spanish : "(sin responder)");
+        body.appendChild(ans);
+        if (!ok){
+          var corr = document.createElement("div"); corr.className = "review-correct"; corr.textContent = "Correcta: " + p.spanish;
+          body.appendChild(corr);
+        }
+        row.appendChild(num); row.appendChild(body); list.appendChild(row);
+        submitLog.push({ paso:"4 - Frase nueva y traducción", item:"Frase nueva " + p.id,
+          respuesta: chosenP ? chosenP.spanish : "(sin responder)", correcta: ok });
+      });
+      document.getElementById("p4-score").innerHTML = "Resultado: <strong>" + correct + " / " + order.length + "</strong>";
+      showStep("step-p4-review");
+    }
+
+    render();
+  })();
+
+  document.getElementById("btn-to-p5").addEventListener("click", function(){ saveProgress("step-p5"); showStep("step-p5"); });
+
+  // =================================================================
+  // Paso 5: exploración léxica de las frases nuevas
+  // =================================================================
+  var p5Total = 0, p5Resolved = 0;
+  PASO5.forEach(function(p){ p5Total += p.tokens.length; });
+
+  function updateP5Progress(){
+    document.getElementById("p5-progress").innerHTML = "Palabras recorridas: <strong>" + p5Resolved + " / " + p5Total + "</strong>";
+    document.getElementById("btn-to-fin").disabled = p5Resolved < p5Total;
+  }
+
+  (function(){
+    var list = document.getElementById("p5-list");
+    PASO5.forEach(function(p){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase nueva " + p.id;
+      block.appendChild(num);
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var panelHost = document.createElement("div");
+
+      p.tokens.forEach(function(tok, idx){
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
+        tok._answered = null; tok._chosen = null; tok._tried = new Set();
+
+        chip.addEventListener("click", function(){
+          var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
+          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+          panelHost.innerHTML = "";
+          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+
+          var panel = document.createElement("div");
+          panel.className = "word-panel";
+          panel.dataset.panelFor = p.id + "-" + idx;
+          var label = document.createElement("span"); label.className = "for-word"; label.textContent = clean(tok.display) + " ·";
+          panel.appendChild(label);
+
+          var opts = tok.options.concat([IDK]);
+          opts.forEach(function(optText){
+            var ob = document.createElement("button");
+            ob.type = "button";
+            ob.className = "word-opt" + (optText === IDK ? " idk" : "");
+            ob.textContent = optText;
+            if (tok._answered === "revealed"){
+              ob.disabled = true;
+              if (optText === tok.correct){ ob.classList.add("answered-ok"); }
+              else if (optText === tok._chosen){ ob.classList.add("answered-bad"); }
+            } else if (tok._answered){
+              ob.disabled = true;
+              if (optText === tok._chosen){
+                ob.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
+              }
+            } else if (tok._tried.has(optText)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
+            }
+            ob.addEventListener("click", function(){
+              if (tok._answered || tok._tried.has(optText)) return;
+              var wasIdk = optText === IDK;
+              var wasOk = optText === tok.correct;
+              submitLog.push({ paso:"5 - Vocabulario de frases nuevas", item:"Frase nueva " + p.id + " · " + tok.display,
+                respuesta: optText, correcta: wasOk ? true : (wasIdk ? null : false) });
+              if (wasOk || wasIdk){
+                tok._chosen = optText;
+                tok._answered = wasOk ? "ok" : "idk";
+                p5Resolved++; updateP5Progress();
+                chip.classList.remove("g-bad");
+                chip.classList.add(wasOk ? "g-ok" : "g-idk");
+              } else {
+                tok._tried.add(optText);
+                chip.classList.add("g-bad");
+                if (tok._tried.size >= 2){
+                  tok._chosen = optText;
+                  tok._answered = "revealed";
+                  p5Resolved++; updateP5Progress();
+                }
+              }
+              chip.click(); chip.click();
+            });
+            panel.appendChild(ob);
+          });
+
+          if (tok._answered === "revealed"){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback bad";
+            fb.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+            panel.appendChild(fb);
+          } else if (tok._answered){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback " + tok._answered;
+            fb.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
+            panel.appendChild(fb);
+          } else if (tok._tried.size > 0){
+            var fb2 = document.createElement("span");
+            fb2.className = "word-feedback bad";
+            fb2.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fb2);
+          }
+          panelHost.appendChild(panel);
+        });
+
+        tokensEl.appendChild(chip);
+      });
+
+      block.appendChild(tokensEl);
+      block.appendChild(panelHost);
+      list.appendChild(block);
+    });
+    updateP5Progress();
+  })();
+
+  document.getElementById("btn-to-fin").addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  document.getElementById("btn-send").addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario || "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia ? ("La actividad funcionaría mejor si " + sugerencia) : "(sin responder)", correcta:null });
+      evalPushed = true;
+    }
+
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
