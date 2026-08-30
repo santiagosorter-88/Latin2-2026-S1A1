@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Ronda de vocabulario</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:640px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:60ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .view{ display:none; } .view.visible{ display:block; }
+
+  .top-bar{ display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.5rem; }
+  .counter{ font-family:var(--sans); font-variant-numeric:tabular-nums; font-size:.85rem; color:var(--ink-muted); background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; }
+  .counter strong{ color:var(--ink); }
+
+  .practice-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.6rem 1.5rem 1.75rem; box-shadow:var(--shadow); }
+
+  .example-block{ background:var(--warn-bg); border:1px solid var(--rule); border-radius:8px; padding:1rem 1.1rem; margin-bottom:1.4rem; }
+  .example-label{ font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--warn); margin:0 0 .5rem; }
+  .example-latin{ font-family:var(--serif); font-size:1.15rem; line-height:1.5; margin:0 0 .4rem; }
+  .example-latin b{ background:var(--warn-bg); border-bottom:2px solid var(--warn); padding:0 .1rem; }
+  .example-trans{ font-size:.9rem; color:var(--ink-muted); margin:0; }
+
+  .word-latin{ font-family:var(--serif); font-size:2.1rem; text-align:center; padding:1.2rem 1rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; margin-bottom:1.4rem; }
+  .prompt{ font-size:.9rem; color:var(--ink-muted); text-align:center; margin:0 0 1.1rem; }
+
+  .option-list{ display:flex; flex-direction:column; gap:.6rem; }
+  .option-btn{ display:flex; align-items:center; gap:.7rem; text-align:left; width:100%; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:8px; padding:.75rem .9rem; font-size:.98rem; color:var(--ink); transition:border-color .15s ease, background .15s ease; }
+  .option-btn:hover:not(:disabled){ border-color:var(--accent); }
+  .option-btn.idk{ border-style:dashed; color:var(--ink-muted); }
+  .option-btn.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); font-weight:600; }
+  .option-btn.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .option-btn:disabled{ cursor:default; opacity:.6; }
+  .option-btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+
+  .feedback-line{ font-size:.92rem; font-weight:600; margin-top:1.1rem; text-align:center; }
+  .feedback-line.ok{ color:var(--correct); }
+  .feedback-line.bad{ color:var(--incorrect); }
+  .feedback-line.reveal{ color:var(--incorrect); }
+
+  .next-nav{ display:flex; justify-content:center; margin-top:1.2rem; }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Latín · práctica de vocabulario</p>
+  <h1>Ronda de vocabulario</h1>
+  <p class="lede">Repaso mecánico de todo el vocabulario visto hasta ahora en el curso. Es un loop sin fin — practicá lo que quieras y apretá "LISTO" cuando decidas terminar por hoy.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <div class="view visible" id="view-practice">
+      <div class="top-bar">
+        <span class="counter" id="counter">Palabras practicadas: <strong>0</strong> · Aciertos: <strong>0</strong></span>
+        <button class="btn btn-ghost" id="btn-listo">LISTO</button>
+      </div>
+
+      <div class="practice-card">
+        <div id="example-host"></div>
+        <p class="prompt">¿Qué significa esta palabra?</p>
+        <div class="word-latin" id="word-latin"></div>
+        <div class="option-list" id="option-list"></div>
+        <div id="feedback-host"></div>
+        <div class="next-nav" id="next-nav"></div>
+      </div>
+    </div>
+
+    <div class="view" id="view-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="eyebrow">Antes de enviar</div>
+        <h2 style="font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.3rem 0 1rem;">¿Cómo te resultó esta ronda?</h2>
+        <p style="color:var(--ink-muted); font-size:.92rem; margin:0 0 1.2rem;">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue bien" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field">
+          <label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label>
+          <input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required />
+        </div>
+        <div class="field" style="margin-top:1rem;">
+          <label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label>
+          <input id="in-suggestion" type="text" placeholder="completá la idea" required />
+        </div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+  var IDK = "No sé";
+
+  // Pool de vocabulario. Se arma UNA vez y crece semana a semana (agregar objetos nuevos acá,
+  // con el mismo formato) — no hace falta tocar el resto del motor para sumar palabras.
+  /*__POOL__*/var POOL = [{"latin": "Achivi", "correct": "los aqueos", "pos": "NOUN", "exampleId": 1, "exampleLatin": "Achivi Troiam capere non poterant.", "exampleDisplay": "Achivi", "options": ["los aqueos", "la ciudad", "Ulises"]}, {"latin": "Troiam", "correct": "Troya", "pos": "NOUN", "exampleId": 1, "exampleLatin": "Achivi Troiam capere non poterant.", "exampleDisplay": "Troiam", "options": ["el caballo", "los troyanos", "Troya"]}, {"latin": "capere", "correct": "capturar", "pos": "VERB", "exampleId": 1, "exampleLatin": "Achivi Troiam capere non poterant.", "exampleDisplay": "capere", "options": ["salen", "capturar", "lleva"]}, {"latin": "non", "correct": "no", "pos": "ADV", "exampleId": 1, "exampleLatin": "Achivi Troiam capere non poterant.", "exampleDisplay": "non", "options": ["enorme", "no", "alegres"]}, {"latin": "poterant", "correct": "podían", "pos": "VERB", "exampleId": 1, "exampleLatin": "Achivi Troiam capere non poterant.", "exampleDisplay": "poterant.", "options": ["llevan", "podían", "dan"]}, {"latin": "Tum", "correct": "entonces", "pos": "ADV", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "Tum", "options": ["otros", "entonces", "no"]}, {"latin": "Epeus", "correct": "Epeo", "pos": "NOUN", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "Epeus,", "options": ["a los hombres", "Epeo", "a Casandra"]}, {"latin": "Minervae", "correct": "de Minerva", "pos": "NOUN", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "Minervae", "options": ["Casandra", "Sinón", "de Minerva"]}, {"latin": "consilio", "correct": "consejo", "pos": "NOUN", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "consilio,", "options": ["Menelao", "consejo", "los enemigos"]}, {"latin": "equum", "correct": "el caballo", "pos": "NOUN", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "equum", "options": ["el caballo", "los aqueos", "los dánaos"]}, {"latin": "magnum", "correct": "enorme", "pos": "ADJ", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "magnum", "options": ["otros", "enorme", "alegres"]}, {"latin": "facit", "correct": "hace", "pos": "VERB", "exampleId": 2, "exampleLatin": "Tum Epeus, Minervae consilio, equum magnum facit.", "exampleDisplay": "facit.", "options": ["hace", "toman", "se van"]}, {"latin": "equo", "correct": "el caballo", "pos": "NOUN", "exampleId": 3, "exampleLatin": "Achivi in equo scribunt: “DANAI EQUUM MINERVAE DANT.”", "exampleDisplay": "equo", "options": ["el caballo", "la ciudad", "la señal"]}, {"latin": "scribunt", "correct": "escriben", "pos": "VERB", "exampleId": 3, "exampleLatin": "Achivi in equo scribunt: “DANAI EQUUM MINERVAE DANT.”", "exampleDisplay": "scribunt:", "options": ["escriben", "hace", "duermen"]}, {"latin": "DANAI", "correct": "los dánaos", "pos": "NOUN", "exampleId": 3, "exampleLatin": "Achivi in equo scribunt: “DANAI EQUUM MINERVAE DANT.”", "exampleDisplay": "“DANAI", "options": ["a Casandra", "los dánaos", "la señal"]}, {"latin": "DANT", "correct": "dan", "pos": "VERB", "exampleId": 3, "exampleLatin": "Achivi in equo scribunt: “DANAI EQUUM MINERVAE DANT.”", "exampleDisplay": "DANT.”", "options": ["dan", "capturar", "creen"]}, {"latin": "Menelaus", "correct": "Menelao", "pos": "NOUN", "exampleId": 4, "exampleLatin": "Menelaus, Ulixes et alii Achivi in equum intrant.", "exampleDisplay": "Menelaus,", "options": ["la señal", "Menelao", "a Casandra"]}, {"latin": "Ulixes", "correct": "Ulises", "pos": "NOUN", "exampleId": 4, "exampleLatin": "Menelaus, Ulixes et alii Achivi in equum intrant.", "exampleDisplay": "Ulixes", "options": ["Ulises", "Casandra", "Sinón"]}, {"latin": "alii", "correct": "otros", "pos": "ADJ", "exampleId": 4, "exampleLatin": "Menelaus, Ulixes et alii Achivi in equum intrant.", "exampleDisplay": "alii", "options": ["enorme", "no", "otros"]}, {"latin": "intrant", "correct": "entran", "pos": "VERB", "exampleId": 4, "exampleLatin": "Menelaus, Ulixes et alii Achivi in equum intrant.", "exampleDisplay": "intrant.", "options": ["ponen", "entran", "escriben"]}, {"latin": "castra", "correct": "el campamento", "pos": "NOUN", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "castra", "options": ["a sus compañeros", "Troya", "el campamento"]}, {"latin": "insulam", "correct": "una isla", "pos": "NOUN", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "insulam", "options": ["Epeo", "las puertas", "una isla"]}, {"latin": "movent", "correct": "mueven", "pos": "VERB", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "movent.", "options": ["mueven", "llevan", "dice"]}, {"latin": "Troiani", "correct": "los troyanos", "pos": "NOUN", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "Troiani", "options": ["vino", "los troyanos", "Príamo"]}, {"latin": "vident", "correct": "ven", "pos": "VERB", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "vident", "options": ["se van", "salen", "ven"]}, {"latin": "putant", "correct": "piensan", "pos": "VERB", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "putant:", "options": ["toman", "piensan", "matan"]}, {"latin": "Inimici", "correct": "los enemigos", "pos": "NOUN", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "“Inimici", "options": ["una isla", "el campamento", "los enemigos"]}, {"latin": "discedunt", "correct": "se van", "pos": "VERB", "exampleId": 5, "exampleLatin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”", "exampleDisplay": "discedunt.”", "options": ["beben", "se van", "ponen"]}, {"latin": "Priamus", "correct": "Príamo", "pos": "NOUN", "exampleId": 6, "exampleLatin": "Priamus equum in oppidum ducit.", "exampleDisplay": "Priamus", "options": ["vino", "Príamo", "Sinón"]}, {"latin": "oppidum", "correct": "la ciudad", "pos": "NOUN", "exampleId": 6, "exampleLatin": "Priamus equum in oppidum ducit.", "exampleDisplay": "oppidum", "options": ["las puertas", "Casandra", "la ciudad"]}, {"latin": "ducit", "correct": "lleva", "pos": "VERB", "exampleId": 6, "exampleLatin": "Priamus equum in oppidum ducit.", "exampleDisplay": "ducit.", "options": ["lleva", "ponen", "dice"]}, {"latin": "Cassandra", "correct": "Casandra", "pos": "NOUN", "exampleId": 7, "exampleLatin": "Cassandra dicit: “Inimici in equo sunt!”, sed Troiani Cassandrae non credunt.", "exampleDisplay": "Cassandra", "options": ["a sus compañeros", "el campamento", "Casandra"]}, {"latin": "dicit", "correct": "dice", "pos": "VERB", "exampleId": 7, "exampleLatin": "Cassandra dicit: “Inimici in equo sunt!”, sed Troiani Cassandrae non credunt.", "exampleDisplay": "dicit:", "options": ["capturar", "dice", "duermen"]}, {"latin": "sunt", "correct": "están", "pos": "VERB", "exampleId": 7, "exampleLatin": "Cassandra dicit: “Inimici in equo sunt!”, sed Troiani Cassandrae non credunt.", "exampleDisplay": "sunt!”,", "options": ["están", "abre", "dice"]}, {"latin": "Cassandrae", "correct": "a Casandra", "pos": "NOUN", "exampleId": 7, "exampleLatin": "Cassandra dicit: “Inimici in equo sunt!”, sed Troiani Cassandrae non credunt.", "exampleDisplay": "Cassandrae", "options": ["los enemigos", "a los hombres", "a Casandra"]}, {"latin": "credunt", "correct": "creen", "pos": "VERB", "exampleId": 7, "exampleLatin": "Cassandra dicit: “Inimici in equo sunt!”, sed Troiani Cassandrae non credunt.", "exampleDisplay": "credunt.", "options": ["ven", "creen", "beben"]}, {"latin": "oppido", "correct": "la ciudad", "pos": "NOUN", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "oppido", "options": ["las puertas", "la ciudad", "de Minerva"]}, {"latin": "ponunt", "correct": "ponen", "pos": "VERB", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "ponunt", "options": ["abre", "ponen", "duermen"]}, {"latin": "laeti", "correct": "alegres", "pos": "ADJ", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "laeti", "options": ["alegres", "entonces", "no"]}, {"latin": "vinum", "correct": "vino", "pos": "NOUN", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "vinum", "options": ["a los hombres", "los aqueos", "vino"]}, {"latin": "bibunt", "correct": "beben", "pos": "VERB", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "bibunt;", "options": ["mueven", "capturar", "beben"]}, {"latin": "fessique", "correct": "cansados", "pos": "ADJ", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "fessique", "options": ["enorme", "no", "cansados"]}, {"latin": "dormiunt", "correct": "duermen", "pos": "VERB", "exampleId": 8, "exampleLatin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.", "exampleDisplay": "dormiunt.", "options": ["duermen", "custodian", "matan"]}, {"latin": "Sinon", "correct": "Sinón", "pos": "NOUN", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "Sinon", "options": ["a sus compañeros", "el caballo", "Sinón"]}, {"latin": "aperit", "correct": "abre", "pos": "VERB", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "aperit,", "options": ["duermen", "abre", "ven"]}, {"latin": "exeunt", "correct": "salen", "pos": "VERB", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "exeunt", "options": ["ponen", "podían", "salen"]}, {"latin": "viros", "correct": "a los hombres", "pos": "NOUN", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "viros", "options": ["a los hombres", "consejo", "la señal"]}, {"latin": "portas", "correct": "las puertas", "pos": "NOUN", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "portas", "options": ["consejo", "Casandra", "las puertas"]}, {"latin": "servant", "correct": "custodian", "pos": "VERB", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "servant", "options": ["hace", "custodian", "creen"]}, {"latin": "occidunt", "correct": "matan", "pos": "VERB", "exampleId": 9, "exampleLatin": "Sinon equum aperit, et Achivi ex equo exeunt et viros qui portas servant occidunt.", "exampleDisplay": "occidunt.", "options": ["están", "llevan", "matan"]}, {"latin": "signum", "correct": "la señal", "pos": "NOUN", "exampleId": 10, "exampleLatin": "Achivi signum dant. Socios in oppidum ducunt et Troiam capiunt.", "exampleDisplay": "signum", "options": ["Menelao", "la señal", "Príamo"]}, {"latin": "Socios", "correct": "a sus compañeros", "pos": "NOUN", "exampleId": 10, "exampleLatin": "Achivi signum dant. Socios in oppidum ducunt et Troiam capiunt.", "exampleDisplay": "Socios", "options": ["Casandra", "los troyanos", "a sus compañeros"]}, {"latin": "ducunt", "correct": "llevan", "pos": "VERB", "exampleId": 10, "exampleLatin": "Achivi signum dant. Socios in oppidum ducunt et Troiam capiunt.", "exampleDisplay": "ducunt", "options": ["creen", "hace", "llevan"]}, {"latin": "capiunt", "correct": "toman", "pos": "VERB", "exampleId": 10, "exampleLatin": "Achivi signum dant. Socios in oppidum ducunt et Troiam capiunt.", "exampleDisplay": "capiunt.", "options": ["abre", "beben", "toman"]}];/*__POOL__*/
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+  function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+
+  var identity = { email:"" };
+  var submitLog = [];
+  var practicadas = 0, aciertos = 0;
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    loadNextWord();
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showView(id){
+    Array.from(document.querySelectorAll(".view")).forEach(function(v){ v.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  // =================================================================
+  // Ronda infinita: cada ítem se sortea al azar del pool completo.
+  //   intento 1: solo la palabra, sin contexto.
+  //   error/"No sé" en intento 1: aparece la frase de ejemplo con la palabra
+  //     en negrita, y se repite la misma pregunta (misma opciones, la ya
+  //     probada queda deshabilitada) — intento 2.
+  //   intento 2 correcto: sigue de largo.
+  //   intento 2 incorrecto/"No sé": se revela la respuesta correcta y hay
+  //     que tocar "Siguiente palabra" para continuar (sin más insistencia).
+  // =================================================================
+  var current = null; // { word, attempt, tried:Set, options }
+  var wordLatinEl = document.getElementById("word-latin");
+  var optionListEl = document.getElementById("option-list");
+  var exampleHostEl = document.getElementById("example-host");
+  var feedbackHostEl = document.getElementById("feedback-host");
+  var nextNavEl = document.getElementById("next-nav");
+  var counterEl = document.getElementById("counter");
+
+  function updateCounter(){
+    counterEl.innerHTML = "Palabras practicadas: <strong>" + practicadas + "</strong> · Aciertos: <strong>" + aciertos + "</strong>";
+  }
+
+  function loadNextWord(){
+    var word = pick(POOL);
+    current = { word: word, attempt: 1, tried: new Set(), options: shuffled(word.options) };
+    renderRound();
+  }
+
+  function renderRound(){
+    exampleHostEl.innerHTML = "";
+    feedbackHostEl.innerHTML = "";
+    nextNavEl.innerHTML = "";
+    wordLatinEl.textContent = current.word.latin;
+
+    if (current.attempt === 2){
+      var block = document.createElement("div");
+      block.className = "example-block";
+      var label = document.createElement("p");
+      label.className = "example-label";
+      label.textContent = "Ya apareció en esta frase";
+      block.appendChild(label);
+      var lat = document.createElement("p");
+      lat.className = "example-latin";
+      var re = new RegExp("(" + current.word.exampleDisplay.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")");
+      lat.innerHTML = current.word.exampleLatin.replace(re, "<b>$1</b>");
+      block.appendChild(lat);
+      exampleHostEl.appendChild(block);
+    }
+
+    optionListEl.innerHTML = "";
+    var opts = current.options.concat([IDK]);
+    opts.forEach(function(optText){
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "option-btn" + (optText === IDK ? " idk" : "");
+      btn.textContent = optText;
+      if (current.tried.has(optText)){
+        btn.disabled = true;
+        btn.classList.add("g-bad");
+      }
+      btn.addEventListener("click", function(){ handleChoice(optText); });
+      optionListEl.appendChild(btn);
+    });
+  }
+
+  function handleChoice(optText){
+    if (current.tried.has(optText)) return;
+    var wasIdk = optText === IDK;
+    var wasOk = optText === current.word.correct;
+
+    submitLog.push({
+      paso: "Ronda de vocabulario", item: current.word.latin + " (intento " + current.attempt + ")",
+      respuesta: optText, correcta: wasOk ? true : (wasIdk ? null : false)
+    });
+
+    if (wasOk){
+      practicadas++; aciertos++; updateCounter();
+      Array.from(optionListEl.children).forEach(function(b){ b.disabled = true; });
+      var chosenBtn = Array.from(optionListEl.children).filter(function(b){ return b.textContent === optText; })[0];
+      if (chosenBtn) chosenBtn.classList.add("g-ok");
+      var fb = document.createElement("p");
+      fb.className = "feedback-line ok";
+      fb.textContent = "¡Correcto!";
+      feedbackHostEl.appendChild(fb);
+      setTimeout(loadNextWord, 650);
+      return;
+    }
+
+    current.tried.add(optText);
+
+    if (current.attempt === 1){
+      current.attempt = 2;
+      renderRound();
+      return;
+    }
+
+    // segundo intento fallido (o "No sé" de nuevo): revelar y esperar a que avance a mano.
+    practicadas++; updateCounter();
+    Array.from(optionListEl.children).forEach(function(b){ b.disabled = true; });
+    var correctBtn = Array.from(optionListEl.children).filter(function(b){ return b.textContent === current.word.correct; })[0];
+    if (correctBtn) correctBtn.classList.add("g-ok");
+    var fb2 = document.createElement("p");
+    fb2.className = "feedback-line reveal";
+    fb2.textContent = "La respuesta correcta era: " + current.word.correct;
+    feedbackHostEl.appendChild(fb2);
+
+    var nextBtn = document.createElement("button");
+    nextBtn.type = "button";
+    nextBtn.className = "btn";
+    nextBtn.textContent = "Siguiente palabra";
+    nextBtn.addEventListener("click", loadNextWord);
+    nextNavEl.appendChild(nextBtn);
+  }
+
+  document.getElementById("btn-listo").addEventListener("click", function(){
+    showView("view-fin");
+  });
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Palabras practicadas en la sesión", respuesta: String(practicadas), correcta:null });
+      evalPushed = true;
+    }
+
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Listo. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
