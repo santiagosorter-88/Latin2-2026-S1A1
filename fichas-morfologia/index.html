@@ -95,6 +95,30 @@
   tbody tr:last-child td, tbody tr:last-child th{ border-bottom:none; }
   .col-group-label{ font-family:var(--sans); font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); text-align:center !important; border-bottom:2px solid var(--rule); }
 
+  .mini-label{ font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); margin:1rem 0 .35rem; }
+  .mini-label:first-child{ margin-top:0; }
+
+  /* Indicador de scroll horizontal (degradé + barra) para tablas que no se pueden dividir por número */
+  .scroll-wrap{ position:relative; }
+  .scroll-wrap .table-scroll{ overflow-x:auto; }
+  .fade-right{
+    position:absolute; top:0; right:0; bottom:0; width:76px; pointer-events:none; border-radius:0 8px 8px 0;
+    background:linear-gradient(to right, rgba(246,245,239,0) 0%, rgba(246,245,239,.55) 35%, rgba(246,245,239,.92) 70%, rgba(246,245,239,1) 100%);
+    transition:opacity .2s;
+  }
+  .fade-right.hide{ opacity:0; }
+  @media (prefers-color-scheme: dark){
+    .fade-right{ background:linear-gradient(to right, rgba(29,34,36,0) 0%, rgba(29,34,36,.55) 35%, rgba(29,34,36,.92) 70%, rgba(29,34,36,1) 100%); }
+  }
+  :root[data-theme="dark"] .fade-right{ background:linear-gradient(to right, rgba(29,34,36,0) 0%, rgba(29,34,36,.55) 35%, rgba(29,34,36,.92) 70%, rgba(29,34,36,1) 100%); }
+  :root[data-theme="light"] .fade-right{ background:linear-gradient(to right, rgba(246,245,239,0) 0%, rgba(246,245,239,.55) 35%, rgba(246,245,239,.92) 70%, rgba(246,245,239,1) 100%); }
+  .track-wrap{ padding:.55rem .1rem 0; }
+  .track{ height:6px; background:var(--rule); border-radius:999px; position:relative; overflow:hidden; }
+  .thumb{ position:absolute; top:0; left:0; height:100%; background:#c1611f; border-radius:999px; }
+  @media (prefers-color-scheme: dark){ .thumb{ background:#e2914f; } }
+  :root[data-theme="dark"] .thumb{ background:#e2914f; }
+  :root[data-theme="light"] .thumb{ background:#c1611f; }
+
   .two-up{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
   @media (max-width:720px){ .two-up{ grid-template-columns:1fr; } }
 
@@ -103,6 +127,10 @@
   footer{ margin-top:3.5rem; padding-top:1.5rem; border-top:1px solid var(--rule); color:var(--ink-muted); font-size:.82rem; }
   footer h4{ font-family:var(--sans); font-size:.72rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-strong); margin:0 0 .5rem; }
   footer ul{ margin:0 0 1.2rem; padding-left:1.2rem; }
+
+  @media (max-width:480px){
+    th,td{ padding:.4rem .45rem; }
+  }
 
   @media print{
     .toc{ display:none; }
@@ -176,7 +204,7 @@
       <p class="sub-note">Mayoría femeninos; algunos masculinos por su significado (<em>poeta</em>, <em>agricola</em>, <em>nauta</em>).</p>
       <div class="card">
         <div class="card-head"><span class="lemma">vīta, vītae</span><span class="gloss">f. — la vida</span></div>
-        <div class="table-scroll"><table class="wide">
+        <div class="table-scroll"><table>
           <thead><tr><th></th><th class="col-group-label">Singular</th><th class="col-group-label">Plural</th></tr></thead>
           <tbody>
             <tr><th>Nom.</th><td>vīta</td><td>vītae</td></tr>
@@ -413,15 +441,28 @@
       <h3 class="sub" id="decl5">5ª declinación (tema en -e)</h3>
       <div class="card">
         <div class="card-head"><span class="lemma">rēs, reī</span><span class="gloss">f. — la cosa &nbsp;·&nbsp; diēs, diēī m./f. — el día</span></div>
-        <div class="table-scroll"><table class="wide">
-          <thead><tr><th></th><th class="col-group-label">Sg. (rēs)</th><th class="col-group-label">Pl. (rēs)</th><th class="col-group-label">Sg. (diēs)</th><th class="col-group-label">Pl. (diēs)</th></tr></thead>
+        <p class="mini-label">Singular</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">rēs</th><th class="col-group-label">diēs</th></tr></thead>
           <tbody>
-            <tr><th>Nom.</th><td>rēs</td><td>rēs</td><td>diēs</td><td>diēs</td></tr>
-            <tr><th>Voc.</th><td>rēs</td><td>rēs</td><td>diēs</td><td>diēs</td></tr>
-            <tr><th>Ac.</th><td>rem</td><td>rēs</td><td>diem</td><td>diēs</td></tr>
-            <tr><th>Gen.</th><td>reī</td><td>rērum</td><td>diēī</td><td>diērum</td></tr>
-            <tr><th>Dat.</th><td>reī</td><td>rēbus</td><td>diēī</td><td>diēbus</td></tr>
-            <tr><th>Abl.</th><td>rē</td><td>rēbus</td><td>diē</td><td>diēbus</td></tr>
+            <tr><th>Nom.</th><td>rēs</td><td>diēs</td></tr>
+            <tr><th>Voc.</th><td>rēs</td><td>diēs</td></tr>
+            <tr><th>Ac.</th><td>rem</td><td>diem</td></tr>
+            <tr><th>Gen.</th><td>reī</td><td>diēī</td></tr>
+            <tr><th>Dat.</th><td>reī</td><td>diēī</td></tr>
+            <tr><th>Abl.</th><td>rē</td><td>diē</td></tr>
+          </tbody>
+        </table></div>
+        <p class="mini-label">Plural</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">rēs</th><th class="col-group-label">diēs</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>rēs</td><td>diēs</td></tr>
+            <tr><th>Voc.</th><td>rēs</td><td>diēs</td></tr>
+            <tr><th>Ac.</th><td>rēs</td><td>diēs</td></tr>
+            <tr><th>Gen.</th><td>rērum</td><td>diērum</td></tr>
+            <tr><th>Dat.</th><td>rēbus</td><td>diēbus</td></tr>
+            <tr><th>Abl.</th><td>rēbus</td><td>diēbus</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -435,15 +476,28 @@
       <h3 class="sub" id="adj1">1ª clase (temas -o/-a)</h3>
       <div class="card">
         <div class="card-head"><span class="lemma">bonus, bona, bonum</span><span class="gloss">bueno, -a</span></div>
-        <div class="table-scroll"><table class="wide">
-          <thead><tr><th></th><th class="col-group-label">Masc. sg.</th><th class="col-group-label">Fem. sg.</th><th class="col-group-label">Neutro sg.</th><th class="col-group-label">Masc. pl.</th><th class="col-group-label">Fem. pl.</th><th class="col-group-label">Neutro pl.</th></tr></thead>
+        <p class="mini-label">Singular</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">Masc.</th><th class="col-group-label">Fem.</th><th class="col-group-label">Neutro</th></tr></thead>
           <tbody>
-            <tr><th>Nom.</th><td>bonus</td><td>bona</td><td>bonum</td><td>bonī</td><td>bonae</td><td>bona</td></tr>
-            <tr><th>Voc.</th><td>bone</td><td>bona</td><td>bonum</td><td>bonī</td><td>bonae</td><td>bona</td></tr>
-            <tr><th>Ac.</th><td>bonum</td><td>bonam</td><td>bonum</td><td>bonōs</td><td>bonās</td><td>bona</td></tr>
-            <tr><th>Gen.</th><td>bonī</td><td>bonae</td><td>bonī</td><td>bonōrum</td><td>bonārum</td><td>bonōrum</td></tr>
-            <tr><th>Dat.</th><td>bonō</td><td>bonae</td><td>bonō</td><td>bonīs</td><td>bonīs</td><td>bonīs</td></tr>
-            <tr><th>Abl.</th><td>bonō</td><td>bonā</td><td>bonō</td><td>bonīs</td><td>bonīs</td><td>bonīs</td></tr>
+            <tr><th>Nom.</th><td>bonus</td><td>bona</td><td>bonum</td></tr>
+            <tr><th>Voc.</th><td>bone</td><td>bona</td><td>bonum</td></tr>
+            <tr><th>Ac.</th><td>bonum</td><td>bonam</td><td>bonum</td></tr>
+            <tr><th>Gen.</th><td>bonī</td><td>bonae</td><td>bonī</td></tr>
+            <tr><th>Dat.</th><td>bonō</td><td>bonae</td><td>bonō</td></tr>
+            <tr><th>Abl.</th><td>bonō</td><td>bonā</td><td>bonō</td></tr>
+          </tbody>
+        </table></div>
+        <p class="mini-label">Plural</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">Masc.</th><th class="col-group-label">Fem.</th><th class="col-group-label">Neutro</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>bonī</td><td>bonae</td><td>bona</td></tr>
+            <tr><th>Voc.</th><td>bonī</td><td>bonae</td><td>bona</td></tr>
+            <tr><th>Ac.</th><td>bonōs</td><td>bonās</td><td>bona</td></tr>
+            <tr><th>Gen.</th><td>bonōrum</td><td>bonārum</td><td>bonōrum</td></tr>
+            <tr><th>Dat.</th><td>bonīs</td><td>bonīs</td><td>bonīs</td></tr>
+            <tr><th>Abl.</th><td>bonīs</td><td>bonīs</td><td>bonīs</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -452,15 +506,28 @@
       <p class="sub-note">De dos terminaciones (masc./fem. = neutro): el tipo más frecuente. Ablativo singular en <em>-ī</em>, genitivo plural en <em>-ium</em>, neutro plural en <em>-ia</em> — como los sustantivos tema en -i.</p>
       <div class="card">
         <div class="card-head"><span class="lemma">fortis, forte</span><span class="gloss">fuerte, valiente</span></div>
-        <div class="table-scroll"><table class="wide">
-          <thead><tr><th></th><th class="col-group-label">M./F. sg.</th><th class="col-group-label">Neutro sg.</th><th class="col-group-label">M./F. pl.</th><th class="col-group-label">Neutro pl.</th></tr></thead>
+        <p class="mini-label">Singular</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">Neutro</th></tr></thead>
           <tbody>
-            <tr><th>Nom.</th><td>fortis</td><td>forte</td><td>fortēs</td><td>fortia</td></tr>
-            <tr><th>Voc.</th><td>fortis</td><td>forte</td><td>fortēs</td><td>fortia</td></tr>
-            <tr><th>Ac.</th><td>fortem</td><td>forte</td><td>fortēs</td><td>fortia</td></tr>
-            <tr><th>Gen.</th><td>fortis</td><td>fortis</td><td>fortium</td><td>fortium</td></tr>
-            <tr><th>Dat.</th><td>fortī</td><td>fortī</td><td>fortibus</td><td>fortibus</td></tr>
-            <tr><th>Abl.</th><td>fortī</td><td>fortī</td><td>fortibus</td><td>fortibus</td></tr>
+            <tr><th>Nom.</th><td>fortis</td><td>forte</td></tr>
+            <tr><th>Voc.</th><td>fortis</td><td>forte</td></tr>
+            <tr><th>Ac.</th><td>fortem</td><td>forte</td></tr>
+            <tr><th>Gen.</th><td>fortis</td><td>fortis</td></tr>
+            <tr><th>Dat.</th><td>fortī</td><td>fortī</td></tr>
+            <tr><th>Abl.</th><td>fortī</td><td>fortī</td></tr>
+          </tbody>
+        </table></div>
+        <p class="mini-label">Plural</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">Neutro</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>fortēs</td><td>fortia</td></tr>
+            <tr><th>Voc.</th><td>fortēs</td><td>fortia</td></tr>
+            <tr><th>Ac.</th><td>fortēs</td><td>fortia</td></tr>
+            <tr><th>Gen.</th><td>fortium</td><td>fortium</td></tr>
+            <tr><th>Dat.</th><td>fortibus</td><td>fortibus</td></tr>
+            <tr><th>Abl.</th><td>fortibus</td><td>fortibus</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -472,6 +539,7 @@
 
       <h3 class="sub" id="pron-personales">Personales (y reflexivo)</h3>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th></th><th class="col-group-label">yo</th><th class="col-group-label">tú</th><th class="col-group-label">nosotros</th><th class="col-group-label">vosotros</th><th class="col-group-label">reflexivo (sg./pl.)</th></tr></thead>
           <tbody>
@@ -482,6 +550,9 @@
             <tr><th>Abl.</th><td>mē</td><td>tē</td><td>nōbīs</td><td>vōbīs</td><td>sē</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="pron-demostrativos">Demostrativos</h3>
@@ -591,14 +662,26 @@
       <h3 class="sub" id="pron-relativo">Relativo</h3>
       <div class="card">
         <div class="card-head"><span class="lemma">quī, quae, quod</span><span class="gloss">que, quien, el cual</span></div>
-        <div class="table-scroll"><table class="wide">
-          <thead><tr><th></th><th class="col-group-label">M. sg.</th><th class="col-group-label">F. sg.</th><th class="col-group-label">N. sg.</th><th class="col-group-label">M. pl.</th><th class="col-group-label">F. pl.</th><th class="col-group-label">N. pl.</th></tr></thead>
+        <p class="mini-label">Singular</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
           <tbody>
-            <tr><th>Nom.</th><td>quī</td><td>quae</td><td>quod</td><td>quī</td><td>quae</td><td>quae</td></tr>
-            <tr><th>Ac.</th><td>quem</td><td>quam</td><td>quod</td><td>quōs</td><td>quās</td><td>quae</td></tr>
-            <tr><th>Gen.</th><td colspan="3">cuius</td><td>quōrum</td><td>quārum</td><td>quōrum</td></tr>
-            <tr><th>Dat.</th><td colspan="3">cui</td><td colspan="3">quibus</td></tr>
-            <tr><th>Abl.</th><td>quō</td><td>quā</td><td>quō</td><td colspan="3">quibus</td></tr>
+            <tr><th>Nom.</th><td>quī</td><td>quae</td><td>quod</td></tr>
+            <tr><th>Ac.</th><td>quem</td><td>quam</td><td>quod</td></tr>
+            <tr><th>Gen.</th><td colspan="3">cuius</td></tr>
+            <tr><th>Dat.</th><td colspan="3">cui</td></tr>
+            <tr><th>Abl.</th><td>quō</td><td>quā</td><td>quō</td></tr>
+          </tbody>
+        </table></div>
+        <p class="mini-label">Plural</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>quī</td><td>quae</td><td>quae</td></tr>
+            <tr><th>Ac.</th><td>quōs</td><td>quās</td><td>quae</td></tr>
+            <tr><th>Gen.</th><td>quōrum</td><td>quārum</td><td>quōrum</td></tr>
+            <tr><th>Dat.</th><td colspan="3">quibus</td></tr>
+            <tr><th>Abl.</th><td colspan="3">quibus</td></tr>
           </tbody>
         </table></div>
       </div>
@@ -607,7 +690,7 @@
       <p class="sub-note">Como sustantivo (¿quién? ¿qué?) usa <em>quis / quid</em> en el nominativo singular; como adjetivo (¿qué X?) usa <em>quī / quae / quod</em>, idéntico al relativo. El resto de las formas coincide con el relativo.</p>
       <div class="card">
         <div class="card-head"><span class="lemma">quis? quid?</span><span class="gloss">¿quién? ¿qué?</span></div>
-        <div class="table-scroll"><table class="wide">
+        <div class="table-scroll"><table>
           <thead><tr><th></th><th class="col-group-label">M./F. sg.</th><th class="col-group-label">N. sg.</th></tr></thead>
           <tbody>
             <tr><th>Nom.</th><td>quis</td><td>quid</td></tr>
@@ -627,6 +710,7 @@
       <h3 class="sub" id="verbo-intro">Las cuatro conjugaciones</h3>
       <p class="sub-note">Se reconoce la conjugación por la 2ª persona singular del presente y por el infinitivo. Verbos modelo usados en estas fichas:</p>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th>Conj.</th><th>1ª sg. pres.</th><th>2ª sg. pres.</th><th>Infinitivo</th><th>Perfecto</th><th>Traducción</th></tr></thead>
           <tbody>
@@ -637,10 +721,14 @@
             <tr><th>4ª</th><td>audiō</td><td>audīs</td><td>audīre</td><td>audīvī</td><td>oír</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="presente">Presente de indicativo (voz activa)</h3>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
@@ -652,10 +740,14 @@
             <tr><th class="pers">3ª pl.</th><td>laudant</td><td>vident</td><td>legunt</td><td>faciunt</td><td>audiunt</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="imperfecto">Pretérito imperfecto de indicativo (voz activa)</h3>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
@@ -667,11 +759,15 @@
             <tr><th class="pers">3ª pl.</th><td>laudābant</td><td>vidēbant</td><td>legēbant</td><td>faciēbant</td><td>audiēbant</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="futuro">Futuro imperfecto de indicativo (voz activa)</h3>
       <p class="sub-note">1ª y 2ª conjugación forman el futuro con <em>-bō/-bis...</em>; 3ª y 4ª (incluida la mixta), con <em>-am/-ēs...</em> — idénticas terminaciones a las del presente de subjuntivo de la 1ª conjugación, así que conviene prestar atención al tema.</p>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
@@ -683,11 +779,15 @@
             <tr><th class="pers">3ª pl.</th><td>laudābunt</td><td>vidēbunt</td><td>legent</td><td>facient</td><td>audient</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="perfecto">Pretérito perfecto de indicativo (voz activa)</h3>
       <p class="sub-note">El perfecto se forma sobre un tema propio (no siempre predecible desde el presente) y usa un juego de desinencias único, igual en las cuatro conjugaciones: <em>-ī, -istī, -it, -imus, -istis, -ērunt</em> (también <em>-ēre</em> en 3ª pers. pl.).</p>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudāvī)</th><th class="col-group-label">2ª (vīdī)</th><th class="col-group-label">3ª (lēgī)</th><th class="col-group-label">3ª mixta (fēcī)</th><th class="col-group-label">4ª (audīvī)</th></tr></thead>
           <tbody>
@@ -699,11 +799,15 @@
             <tr><th class="pers">3ª pl.</th><td>laudāvērunt</td><td>vīdērunt</td><td>lēgērunt</td><td>fēcērunt</td><td>audīvērunt</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="sum">sum, es, esse, fuī</h3>
       <p class="sub-note">El verbo irregular más frecuente. Comparte con los demás verbos las mismas desinencias del perfecto.</p>
       <div class="card">
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">Presente</th><th class="col-group-label">Imperfecto</th><th class="col-group-label">Futuro</th><th class="col-group-label">Perfecto</th></tr></thead>
           <tbody>
@@ -715,36 +819,51 @@
             <tr><th class="pers">3ª pl.</th><td>sunt</td><td>erant</td><td>erunt</td><td>fuērunt</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
 
       <h3 class="sub" id="participios">Participios</h3>
       <p class="sub-note">El presente activo se declina como adjetivo de la 3ª declinación (tema en consonante, ablativo en <em>-ī</em> cuando funciona como participio puro). El perfecto y el futuro son adjetivos de 1ª clase (<em>-us, -a, -um</em>).</p>
       <div class="card">
         <div class="card-head"><span class="chip">Presente activo</span></div>
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
           <tbody>
             <tr><td>laudāns, -antis</td><td>vidēns, -entis</td><td>legēns, -entis</td><td>faciēns, -entis</td><td>audiēns, -entis</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
       <div class="card">
         <div class="card-head"><span class="chip">Perfecto (pasivo)</span></div>
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
           <tbody>
             <tr><td>laudātus, -a, -um</td><td>vīsus, -a, -um</td><td>lēctus, -a, -um</td><td>factus, -a, -um</td><td>audītus, -a, -um</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
       <div class="card">
         <div class="card-head"><span class="chip">Futuro activo</span></div>
+        <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
           <tbody>
             <tr><td>laudātūrus, -a, -um</td><td>vīsūrus, -a, -um</td><td>lēctūrus, -a, -um</td><td>factūrus, -a, -um</td><td>audītūrus, -a, -um</td></tr>
           </tbody>
         </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
       </div>
     </section>
 
@@ -764,5 +883,28 @@
     </footer>
   </main>
 </div>
+<script>
+(function(){
+  document.querySelectorAll('.scroll-wrap').forEach(function(wrap){
+    var scroller = wrap.querySelector('.table-scroll');
+    var fade = wrap.querySelector('.fade-right');
+    var thumb = wrap.querySelector('.thumb');
+    if(!scroller || !fade || !thumb) return;
+    function update(){
+      var atEnd = scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 2;
+      fade.classList.toggle('hide', atEnd);
+      var visibleRatio = scroller.clientWidth / scroller.scrollWidth;
+      var maxScroll = scroller.scrollWidth - scroller.clientWidth;
+      var progress = maxScroll > 0 ? scroller.scrollLeft / maxScroll : 0;
+      var thumbWidth = Math.max(visibleRatio * 100, 10);
+      thumb.style.width = thumbWidth + '%';
+      thumb.style.left = (progress * (100 - thumbWidth)) + '%';
+    }
+    scroller.addEventListener('scroll', update);
+    window.addEventListener('resize', update);
+    update();
+  });
+})();
+</script>
 </body>
 </html>
