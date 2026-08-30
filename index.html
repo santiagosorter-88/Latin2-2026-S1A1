@@ -159,6 +159,36 @@
 
   .status-msg{ color:var(--ink-muted); font-size:.95rem; padding:1rem 0; }
   .status-msg--error{ color:#a3402f; }
+
+  /* Imagen interactiva: segunda vía opcional de reencuentro con el vocabulario de la semana */
+  .img-interactiva__trigger{
+    display:block; width:100%; padding:0; margin:0; border:2px solid var(--accent); border-radius:var(--radius-card);
+    background:none; cursor:pointer; overflow:hidden; box-shadow:var(--shadow);
+  }
+  .img-interactiva__trigger:hover{ border-color:var(--accent-strong); }
+  .img-interactiva__img{ display:block; width:100%; height:150px; object-fit:cover; }
+  .img-interactiva.open .img-interactiva__trigger{ border-bottom-left-radius:0; border-bottom-right-radius:0; }
+  .img-interactiva.open .img-interactiva__img{ height:auto; object-fit:contain; background:var(--surface); }
+  .img-interactiva__body{
+    margin-top:-1px; background:var(--surface); border:2px solid var(--accent); border-top:none;
+    border-radius:0 0 var(--radius-card) var(--radius-card); padding:1rem 1.1rem;
+  }
+  .img-interactiva__credito{ margin:0 0 .7rem; font-size:.8rem; color:var(--ink-muted); font-style:italic; }
+  .img-interactiva__body .ii-text{ font-family:var(--serif); font-size:1.05rem; line-height:2; }
+  .img-interactiva__body .rtoken{
+    font-family:inherit; font-size:inherit; color:inherit; background:none;
+    border:1.5px solid transparent; border-radius:6px; padding:.05rem .3rem; cursor:pointer;
+    text-decoration:underline dotted var(--rule); text-underline-offset:3px;
+  }
+  .img-interactiva__body .rtoken:hover{ border-color:var(--accent); }
+  .img-interactiva__body .rtoken.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); text-decoration:none; }
+  .img-interactiva__body .gloss-panel{
+    margin-top:.7rem; padding:.7rem .9rem; background:var(--surface-raised); border:1px solid var(--rule);
+    border-radius:8px; font-size:.92rem; display:flex; flex-wrap:wrap; gap:.4rem; align-items:baseline;
+  }
+  .img-interactiva__body .gloss-panel .gp-word{ font-family:var(--serif); font-style:italic; }
+  .img-interactiva__body .gloss-panel .gp-arrow{ color:var(--ink-muted); }
+  .img-interactiva__body .gloss-panel .gp-mean{ font-weight:600; }
 </style>
 </head>
 <body>
@@ -254,6 +284,109 @@ function rowsToRecords(rows){
     });
 }
 
+// ---------- Imagen interactiva ----------
+// Banco de imágenes de la semana: se elige UNA al azar en cada carga de página. Sin corrección,
+// sin envío a Sheets — es solo una vía opcional de reencuentro con el vocabulario. Cada palabra
+// de "frase" es tocable y muestra su traducción en "gloss" (clave = palabra en minúscula sin
+// puntuación). Al sumar una semana nueva, agregar acá las imágenes de esa semana (y sacar las
+// anteriores si ya no corresponden).
+var IMAGENES_INTERACTIVAS = [
+  {
+    img: "img/imagen-interactiva/dido-eneas-encuentro.jpg",
+    alt: "Nathaniel Dance-Holland, El encuentro de Dido y Eneas (1766)",
+    credito: "N. Dance-Holland (1766) — El encuentro de Dido y Eneas",
+    frase: ["Dido", "convivium", "parat", "et", "Troianos", "ad", "mensam", "invitat."],
+    gloss: {
+      dido: "Dido: reina de Cartago",
+      convivium: "convivium,-i: banquete",
+      parat: "paro: preparar",
+      et: "y",
+      troianos: "Troianus,-a,-um: troyano (aquí: a los troyanos)",
+      ad: "a, hacia",
+      mensam: "mensa,-ae: mesa",
+      invitat: "invito: invitar"
+    }
+  },
+  {
+    img: "img/imagen-interactiva/dido-eneas-banquete.jpg",
+    alt: "François de Troy, El banquete de Dido y Eneas, con Cupido disfrazado de Ascanio (1704)",
+    credito: "F. de Troy (1704) — El banquete de Dido y Eneas, con Cupido disfrazado de Ascanio",
+    frase: ["Cupido", "interea", "formam", "Ascanii", "sumit;", "Dido", "hoc", "nescit."],
+    gloss: {
+      cupido: "Cupido,-inis: dios del amor, hijo de Venus",
+      interea: "mientras tanto",
+      formam: "forma,-ae: forma, apariencia",
+      ascanii: "Ascanius,-i: Ascanio, hijo de Eneas (genitivo)",
+      sumit: "sumo: tomar, adoptar",
+      dido: "Dido: reina de Cartago",
+      hoc: "esto",
+      nescit: "nescio: no saber"
+    }
+  },
+  {
+    img: "img/imagen-interactiva/quos-ego-neptuno.jpg",
+    alt: "Giovanni Antonio da Brescia (según Marcantonio Raimondi y Rafael), Quos ego – Neptuno calma la tempestad (s. XVI)",
+    credito: "G.A. da Brescia (s. XVI, según Raimondi/Rafael) — Quos ego: Neptuno calma la tempestad",
+    frase: ["Neptunus", "ventos", "videt;", "iratus", "statim", "undas", "placat."],
+    gloss: {
+      neptunus: "Neptuno: dios del mar",
+      ventos: "ventus,-i: viento",
+      videt: "video: ver",
+      iratus: "iratus,-a,-um: enojado",
+      statim: "inmediatamente",
+      undas: "unda,-ae: ola",
+      placat: "placo: calmar, aplacar"
+    }
+  }
+];
+var iiPick = IMAGENES_INTERACTIVAS.length
+  ? IMAGENES_INTERACTIVAS[Math.floor(Math.random() * IMAGENES_INTERACTIVAS.length)]
+  : null;
+
+function renderIIText(pick, host){
+  var p = document.createElement("p");
+  p.className = "ii-text";
+  var panel = document.createElement("div");
+  panel.className = "gloss-panel";
+  panel.style.display = "none";
+  pick.frase.forEach(function(word){
+    var key = word.toLowerCase().replace(/[.,;:!?"“”]/g, "");
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "rtoken";
+    btn.textContent = word + " ";
+    btn.addEventListener("click", function(){
+      Array.from(host.querySelectorAll(".rtoken")).forEach(function(s){ s.classList.remove("open"); });
+      btn.classList.add("open");
+      panel.style.display = "flex";
+      var mean = pick.gloss[key] || "—";
+      panel.innerHTML = '<span class="gp-word">' + escapeHtml(word.replace(/[.,;:!?"“”]/g, "")) +
+        '</span><span class="gp-arrow">→</span><span class="gp-mean">' + escapeHtml(mean) + '</span>';
+    });
+    p.appendChild(btn);
+  });
+  host.appendChild(p);
+  host.appendChild(panel);
+}
+
+function wireImagenInteractiva(pick){
+  var toggle = document.getElementById("ii-toggle");
+  var wrap = document.getElementById("ii-wrap");
+  var body = document.getElementById("ii-body");
+  var textHost = document.getElementById("ii-text");
+  if (!toggle) return;
+  var rendered = false;
+  toggle.addEventListener("click", function(){
+    var open = wrap.classList.toggle("open");
+    toggle.setAttribute("aria-expanded", open ? "true" : "false");
+    body.hidden = !open;
+    if (open && !rendered){
+      renderIIText(pick, textHost);
+      rendered = true;
+    }
+  });
+}
+
 function groupBySemana(records){
   var map = {};
   records.forEach(function(rec){
@@ -264,7 +397,7 @@ function groupBySemana(records){
   return map;
 }
 
-function renderWeekBody(items){
+function renderWeekBody(items, isActual){
   var lecturas = items.filter(function(i){ return i.Tipo === "Lectura fuente" || i.Tipo === "Lectura bibliográfica"; });
   var frases = items.filter(function(i){ return i.Tipo === "Frases"; });
   var actividades = items.filter(function(i){ return i.Tipo === "Actividad"; });
@@ -295,6 +428,17 @@ function renderWeekBody(items){
         '<span>' + escapeHtml(a["Título"]) + '</span>' +
         '<span class="badge ' + (esOblig ? "badge-oblig" : "badge-opt") + '">' + escapeHtml(estado || "—") + '</span></a>';
     });
+    if (isActual && iiPick){
+      html += '<div class="img-interactiva" id="ii-wrap">' +
+        '<button type="button" class="img-interactiva__trigger" id="ii-toggle" aria-expanded="false">' +
+          '<img class="img-interactiva__img" src="' + escapeHtml(iiPick.img) + '" alt="' + escapeHtml(iiPick.alt) + '" loading="lazy" />' +
+        '</button>' +
+        '<div class="img-interactiva__body" id="ii-body" hidden>' +
+          '<p class="img-interactiva__credito">' + escapeHtml(iiPick.credito) + '</p>' +
+          '<div id="ii-text"></div>' +
+        '</div>' +
+      '</div>';
+    }
     html += '</div></div>';
   }
 
@@ -324,7 +468,8 @@ fetch(CSV_URL)
       actualEl.innerHTML =
         '<div class="week-card__head"><p class="week-card__title">Esta semana</p>' +
         '<span class="week-badge">Semana ' + escapeHtml(semanaActual) + '</span></div>' +
-        renderWeekBody(bySemana[semanaActual]);
+        renderWeekBody(bySemana[semanaActual], true);
+      if (iiPick) wireImagenInteractiva(iiPick);
     }
 
     var anteriores = semanas.filter(function(s){ return s !== semanaActual; });
@@ -333,7 +478,7 @@ fetch(CSV_URL)
     } else {
       archivoEl.innerHTML = anteriores.map(function(s){
         return '<details class="archive-week"><summary>Semana ' + escapeHtml(s) + '</summary>' +
-          renderWeekBody(bySemana[s]) + '</details>';
+          renderWeekBody(bySemana[s], false) + '</details>';
       }).join("");
     }
   })
