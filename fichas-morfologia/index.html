@@ -119,6 +119,14 @@
   :root[data-theme="dark"] .thumb{ background:#e2914f; }
   :root[data-theme="light"] .thumb{ background:#c1611f; }
 
+  /* Primera columna (rótulo de fila: 1ª sg., 2ª sg., etc.) fija al escrolear horizontalmente */
+  .scroll-wrap.sticky-first-col thead th:first-child,
+  .scroll-wrap.sticky-first-col tbody th:first-child{
+    position:sticky; left:0; z-index:1;
+    background:var(--surface);
+    box-shadow:2px 0 4px -2px rgba(0,0,0,.25);
+  }
+
   .two-up{ display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
   @media (max-width:720px){ .two-up{ grid-template-columns:1fr; } }
 
@@ -539,7 +547,7 @@
 
       <h3 class="sub" id="pron-personales">Personales (y reflexivo)</h3>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th></th><th class="col-group-label">yo</th><th class="col-group-label">tú</th><th class="col-group-label">nosotros</th><th class="col-group-label">vosotros</th><th class="col-group-label">reflexivo (sg./pl.)</th></tr></thead>
           <tbody>
@@ -710,7 +718,7 @@
       <h3 class="sub" id="verbo-intro">Las cuatro conjugaciones</h3>
       <p class="sub-note">Se reconoce la conjugación por la 2ª persona singular del presente y por el infinitivo. Verbos modelo usados en estas fichas:</p>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide">
           <thead><tr><th>Conj.</th><th>1ª sg. pres.</th><th>2ª sg. pres.</th><th>Infinitivo</th><th>Perfecto</th><th>Traducción</th></tr></thead>
           <tbody>
@@ -728,7 +736,7 @@
 
       <h3 class="sub" id="presente">Presente de indicativo (voz activa)</h3>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
@@ -747,7 +755,7 @@
 
       <h3 class="sub" id="imperfecto">Pretérito imperfecto de indicativo (voz activa)</h3>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
@@ -767,7 +775,7 @@
       <h3 class="sub" id="futuro">Futuro imperfecto de indicativo (voz activa)</h3>
       <p class="sub-note">1ª y 2ª conjugación forman el futuro con <em>-bō/-bis...</em>; 3ª y 4ª (incluida la mixta), con <em>-am/-ēs...</em> — idénticas terminaciones a las del presente de subjuntivo de la 1ª conjugación, así que conviene prestar atención al tema.</p>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
@@ -787,7 +795,7 @@
       <h3 class="sub" id="perfecto">Pretérito perfecto de indicativo (voz activa)</h3>
       <p class="sub-note">El perfecto se forma sobre un tema propio (no siempre predecible desde el presente) y usa un juego de desinencias único, igual en las cuatro conjugaciones: <em>-ī, -istī, -it, -imus, -istis, -ērunt</em> (también <em>-ēre</em> en 3ª pers. pl.).</p>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudāvī)</th><th class="col-group-label">2ª (vīdī)</th><th class="col-group-label">3ª (lēgī)</th><th class="col-group-label">3ª mixta (fēcī)</th><th class="col-group-label">4ª (audīvī)</th></tr></thead>
           <tbody>
@@ -807,7 +815,7 @@
       <h3 class="sub" id="sum">sum, es, esse, fuī</h3>
       <p class="sub-note">El verbo irregular más frecuente. Comparte con los demás verbos las mismas desinencias del perfecto.</p>
       <div class="card">
-        <div class="scroll-wrap">
+        <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
           <thead><tr><th class="pers"></th><th class="col-group-label">Presente</th><th class="col-group-label">Imperfecto</th><th class="col-group-label">Futuro</th><th class="col-group-label">Perfecto</th></tr></thead>
           <tbody>
