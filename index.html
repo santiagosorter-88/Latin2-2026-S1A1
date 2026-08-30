@@ -49,6 +49,20 @@
     background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-card);
     padding:1.1rem 1.2rem; box-shadow:var(--shadow); margin-bottom:1.5rem;
   }
+  .panel-head{ display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:.85rem; }
+  .panel-head .block-label{ margin:0; }
+  .close-panel{
+    font-family:inherit; cursor:pointer; font-size:.8rem; font-weight:700; text-decoration:none;
+    padding:.4rem .85rem; border-radius:999px; border:none; flex:none;
+    background:#c1611f; color:#fff8f0; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .close-panel:hover{ background:#a8531a; }
+  @media (prefers-color-scheme: dark){
+    .close-panel{ background:#e2914f; color:#1c1006; }
+    .close-panel:hover{ background:#eda765; }
+  }
+  :root[data-theme="dark"] .close-panel{ background:#e2914f; color:#1c1006; }
+  :root[data-theme="light"] .close-panel{ background:#c1611f; color:#fff8f0; }
   .progreso-form{ display:flex; gap:.5rem; flex-wrap:wrap; margin-bottom:.85rem; }
   .progreso-form input{
     flex:1 1 200px; font-family:var(--serif); font-size:.95rem; padding:.6rem .75rem;
@@ -160,7 +174,10 @@
   </nav>
 
   <section id="progreso-panel" class="progreso-panel" hidden>
-    <p class="block-label">Mi progreso</p>
+    <div class="panel-head">
+      <p class="block-label">Mi progreso</p>
+      <button type="button" class="close-panel" id="btn-cerrar-progreso">✕ Cerrar</button>
+    </div>
     <div class="progreso-form">
       <input type="email" id="progreso-email" placeholder="tu@email.com" autocomplete="email" />
       <button type="button" id="progreso-consultar">Consultar</button>
@@ -169,7 +186,10 @@
   </section>
 
   <section id="consulta-panel" class="progreso-panel" hidden>
-    <p class="block-label">Preguntas/Propuestas</p>
+    <div class="panel-head">
+      <p class="block-label">Preguntas/Propuestas</p>
+      <button type="button" class="close-panel" id="btn-cerrar-consulta">✕ Cerrar</button>
+    </div>
     <div class="progreso-form">
       <input type="email" id="consulta-email" placeholder="tu@email.com" autocomplete="email" />
       <textarea id="consulta-texto" placeholder="Escribí tu pregunta o propuesta..."></textarea>
@@ -350,6 +370,9 @@ btnProgreso.addEventListener("click", function(){
   progresoPanel.hidden = !progresoPanel.hidden;
   if (!progresoPanel.hidden) progresoEmail.focus();
 });
+document.getElementById("btn-cerrar-progreso").addEventListener("click", function(){
+  progresoPanel.hidden = true;
+});
 
 function consultarProgreso(){
   var email = progresoEmail.value.trim();
@@ -399,6 +422,9 @@ var consultaSendInFlight = false;
 btnConsulta.addEventListener("click", function(){
   consultaPanel.hidden = !consultaPanel.hidden;
   if (!consultaPanel.hidden) consultaEmail.focus();
+});
+document.getElementById("btn-cerrar-consulta").addEventListener("click", function(){
+  consultaPanel.hidden = true;
 });
 
 function checkConsultaListo(){

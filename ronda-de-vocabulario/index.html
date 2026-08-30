@@ -65,6 +65,20 @@
   .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
   .btn-ghost:hover{ background:var(--surface-raised); }
 
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-family:var(--sans); font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#c1611f; color:#fff8f0; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#a8531a; }
+  @media (prefers-color-scheme: dark){
+    .back-to-index{ background:#e2914f; color:#1c1006; }
+    .back-to-index:hover{ background:#eda765; }
+  }
+  :root[data-theme="dark"] .back-to-index{ background:#e2914f; color:#1c1006; }
+  :root[data-theme="light"] .back-to-index{ background:#c1611f; color:#fff8f0; }
+
   main{ display:none; } main.visible{ display:block; }
   .view{ display:none; } .view.visible{ display:block; }
 
@@ -115,6 +129,7 @@
 <body>
 <div class="wrap">
 
+  <a class="back-to-index" href="../">← Volver al índice</a>
   <p class="eyebrow">Latín · práctica de vocabulario</p>
   <h1>Ronda de vocabulario</h1>
   <p class="lede">Repaso mecánico de todo el vocabulario visto hasta ahora en el curso. Es un loop sin fin — practicá lo que quieras y apretá "LISTO" cuando decidas terminar por hoy.</p>

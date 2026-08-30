@@ -40,6 +40,20 @@
   .layout{ max-width:1180px; margin:0 auto; padding:2.25rem 1.25rem 6rem; display:grid; grid-template-columns:230px minmax(0,1fr); gap:2.5rem; align-items:start; }
   @media (max-width:900px){ .layout{ grid-template-columns:1fr; } }
 
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; grid-column:1 / -1;
+    font-family:var(--sans); font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; width:fit-content;
+    background:#c1611f; color:#fff8f0; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#a8531a; }
+  @media (prefers-color-scheme: dark){
+    .back-to-index{ background:#e2914f; color:#1c1006; }
+    .back-to-index:hover{ background:#eda765; }
+  }
+  :root[data-theme="dark"] .back-to-index{ background:#e2914f; color:#1c1006; }
+  :root[data-theme="light"] .back-to-index{ background:#c1611f; color:#fff8f0; }
+
   .toc{ position:sticky; top:1.5rem; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.1rem 1.2rem; box-shadow:var(--shadow); max-height:calc(100vh - 3rem); overflow-y:auto; }
   @media (max-width:900px){ .toc{ position:static; max-height:none; } }
   .toc-title{ font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-strong); margin-bottom:.75rem; }
@@ -102,6 +116,7 @@
 </head>
 <body>
 <div class="layout">
+  <a class="back-to-index" href="../">← Volver al índice</a>
   <nav class="toc" aria-label="Tabla de contenidos">
     <div class="toc-title">Contenidos</div>
     <ol>
