@@ -65,6 +65,14 @@
   .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
   .btn-ghost:hover{ background:var(--surface-raised); }
 
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
   main{ display:none; } main.visible{ display:block; }
   .step{ display:none; } .step.visible{ display:block; }
 
@@ -111,6 +119,7 @@
   .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
   .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
   .token.g-idk{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
   .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
   .plain-word{ font-family:var(--serif); font-size:1.15rem; padding:.35rem .2rem; color:var(--ink); }
   .hint{ font-size:.8rem; color:var(--ink-muted); margin:.5rem 0 0 .1rem; }
@@ -185,6 +194,7 @@
     <section class="step" id="step-p2">
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Leé el texto completo y marcá los verbos</h2></div></div>
       <p class="step-instructions">Tocá las palabras que son formas verbales conjugadas (no los infinitivos) en cada frase del relato completo.</p>
+      <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p2-list"></div>
       <div class="stage-nav"><button class="btn" id="btn-verify-p2">Verificar</button></div>
     </section>
@@ -201,6 +211,7 @@
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Identificá el enunciado y la traducción de cada verbo nuevo</h2></div></div>
       <p class="step-instructions">Tocá cada forma verbal marcada (solo las de las frases nuevas). Primero elegí su enunciado y después su traducción — vas a ver el resultado apenas elijas cada una.</p>
       <div class="p4-progress" id="p3-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p3">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p3-list"></div>
       <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
     </section>
@@ -227,6 +238,7 @@
       <div class="step-head"><div><p class="eyebrow">Paso 5</p><h2>Explorá el vocabulario de las frases nuevas</h2></div></div>
       <p class="step-instructions">Tocá cada palabra y elegí qué significa acá. Si no la conocés todavía, está bien decirlo — para eso está la opción.</p>
       <div class="p4-progress" id="p5-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p5">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p5-list"></div>
       <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
@@ -438,6 +450,23 @@
   var p2VerifyAttempt = 0;
   var btnVerifyP2 = document.getElementById("btn-verify-p2");
 
+  // Botón "me cansé": marca directamente las formas verbales correctas en cada frase (como si el
+  // estudiante las hubiera tocado bien) y salta directo al resultado final, sin la vuelta de
+  // "corregir y reintentar" intermedia.
+  document.getElementById("btn-cansado-p2").addEventListener("click", function(){
+    var blocks = document.getElementById("p2-list").children;
+    FULL_TEXT.forEach(function(s, i){
+      p2State[s.id] = new Set(s.verbIdx);
+      var chips = blocks[i].querySelectorAll(".token");
+      Array.from(chips).forEach(function(chip, idx){
+        chip.classList.remove("g-ok", "g-bad");
+        chip.classList.toggle("on", s.verbIdx.indexOf(idx) > -1);
+      });
+    });
+    p2VerifyAttempt = 1;
+    btnVerifyP2.click();
+  });
+
   btnVerifyP2.addEventListener("click", function(){
     p2VerifyAttempt++;
     if (p2VerifyAttempt === 1){
@@ -538,6 +567,7 @@
         tok._trans = null; tok._transDone = false; tok._transTried = new Set();
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
+        tok._chip = chip;
 
         chip.addEventListener("click", function(){
           var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
@@ -670,6 +700,24 @@
     updateP3Progress();
   })();
 
+  // Botón "me cansé": revela de una los verbos todavía sin completar (enunciado + traducción).
+  document.getElementById("btn-cansado-p3").addEventListener("click", function(){
+    PASO3.forEach(function(p){
+      p.tokens.forEach(function(tok){
+        if (!tok.isVerb || tok._counted) return;
+        if (!tok._lemmaDone) tok._lemmaDone = true;
+        if (!tok._transDone) tok._transDone = true;
+        tok._counted = true;
+        p3Resolved++;
+        if (tok._chip){
+          tok._chip.classList.remove("g-bad");
+          tok._chip.classList.add("g-revealed");
+        }
+      });
+    });
+    updateP3Progress();
+  });
+
   document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
 
   // =================================================================
@@ -773,6 +821,7 @@
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
         tok._answered = null; tok._chosen = null; tok._tried = new Set();
+        tok._chip = chip;
 
         chip.addEventListener("click", function(){
           var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
@@ -860,6 +909,23 @@
     });
     updateP5Progress();
   })();
+
+  // Botón "me cansé": revela de una todos los tokens todavía sin responder.
+  document.getElementById("btn-cansado-p5").addEventListener("click", function(){
+    PASO5.forEach(function(p){
+      p.tokens.forEach(function(tok){
+        if (tok._answered) return;
+        tok._answered = "revealed";
+        tok._chosen = null;
+        p5Resolved++;
+        if (tok._chip){
+          tok._chip.classList.remove("g-bad");
+          tok._chip.classList.add("g-idk");
+        }
+      });
+    });
+    updateP5Progress();
+  });
 
   document.getElementById("btn-to-fin").addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
 

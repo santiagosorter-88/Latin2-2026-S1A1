@@ -65,6 +65,14 @@
   .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
   .btn-ghost:hover{ background:var(--surface-raised); }
 
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
   main{ display:none; } main.visible{ display:block; }
   .step{ display:none; } .step.visible{ display:block; }
 
@@ -85,6 +93,7 @@
   .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
   .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
   .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
   .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
   .plain-word{ font-family:var(--serif); font-size:1.15rem; padding:.35rem .2rem; color:var(--ink); }
 
@@ -155,6 +164,7 @@
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Identificá los verbos: enunciado y traducción</h2></div></div>
       <p class="step-instructions">Tocá las palabras que identificás como formas verbales conjugadas. Para cada una, primero elegí su enunciado de diccionario y después su traducción.</p>
       <div class="p-progress" id="p1-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p1">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p1-list"></div>
       <div class="stage-nav"><button class="btn" id="btn-to-p2" disabled>Continuar a Paso 2</button></div>
     </section>
@@ -164,6 +174,7 @@
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá los sujetos</h2></div></div>
       <p class="step-instructions">Los verbos ya están marcados. Tocá la palabra o las palabras que funcionan como sujeto de cada oración.</p>
       <div class="p-progress" id="p2-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p2-list"></div>
       <div class="stage-nav"><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
     </section>
@@ -323,6 +334,7 @@
         if (isVerb){
           vd._lemma = null; vd._lemmaDone = false; vd._triedLemma = new Set();
           vd._trans = null; vd._transDone = false; vd._triedTrans = new Set();
+          vd._chip = chip;
         }
 
         chip.addEventListener("click", function(){
@@ -457,6 +469,24 @@
     updateP1Progress();
   })();
 
+  // Botón "me cansé": revela de una los verbos todavía sin completar (enunciado + traducción).
+  // Los que ya tenían alguna etapa resuelta (bien o revelada) no se pisan.
+  document.getElementById("btn-cansado-p1").addEventListener("click", function(){
+    FRASES.forEach(function(f){
+      f.verbData.forEach(function(vd){
+        if (vd._transDone) return;
+        if (!vd._lemmaDone) vd._lemmaDone = true;
+        vd._transDone = true;
+        p1Resolved++;
+        if (vd._chip){
+          vd._chip.classList.remove("g-bad");
+          vd._chip.classList.add("g-revealed");
+        }
+      });
+    });
+    updateP1Progress();
+  });
+
   document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
 
   // =================================================================
@@ -486,10 +516,14 @@
       var verbSet = new Set(f.verbIdx);
       var found = new Set();
       var triedWrong = new Set();
+      f._subjSet = subjSet;
+      f._found = found;
+      f._subjChipMap = {};
 
       f.tokens.forEach(function(word, idx){
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        if (subjSet.has(idx)) f._subjChipMap[idx] = chip;
         if (verbSet.has(idx)){
           chip.classList.add("g-ok");
           chip.disabled = true;
@@ -519,6 +553,26 @@
     });
     updateP2Progress();
   })();
+
+  // Botón "me cansé": revela de una los sujetos todavía no encontrados en cada frase. Las
+  // palabras ya marcadas (bien o mal) quedan como estaban.
+  document.getElementById("btn-cansado-p2").addEventListener("click", function(){
+    FRASES.forEach(function(f){
+      if (!f._subjSet) return;
+      f._subjSet.forEach(function(idx){
+        if (f._found.has(idx)) return;
+        f._found.add(idx);
+        p2Resolved++;
+        var chip = f._subjChipMap[idx];
+        if (chip){
+          chip.classList.remove("g-bad");
+          chip.classList.add("g-revealed");
+          chip.disabled = true;
+        }
+      });
+    });
+    updateP2Progress();
+  });
 
   document.getElementById("btn-to-explain").addEventListener("click", function(){ saveProgress("step-explain"); showStep("step-explain"); });
   document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });

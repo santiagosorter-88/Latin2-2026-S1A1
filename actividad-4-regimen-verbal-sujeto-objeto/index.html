@@ -65,6 +65,14 @@
   .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
   .btn-ghost:hover{ background:var(--surface-raised); }
 
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
   main{ display:none; } main.visible{ display:block; }
   .step{ display:none; } .step.visible{ display:block; }
 
@@ -83,6 +91,7 @@
   .token:hover{ border-color:var(--accent); }
   .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
   .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
   .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
   .token-verb{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); border-radius:var(--radius-chip); padding:.35rem 1.05rem; }
 
@@ -161,6 +170,7 @@
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificá cada palabra: ¿nominativo o acusativo?</h2></div></div>
       <p class="step-instructions">Tocá cada palabra y elegí su caso. Va a ir quedando ubicada en la columna correspondiente.</p>
       <div class="p-progress" id="p1-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p1">Me cansé, mostrame las respuestas</button>
       <div class="exercise">
         <div class="noun-pool" id="p1-pool"></div>
         <div class="noun-columns">
@@ -368,6 +378,7 @@
       chip.type = "button"; chip.className = "token"; chip.textContent = noun.word;
       var tried = new Set();
       var resolved = false;
+      noun._wrap = wrap;
 
       chip.addEventListener("click", function(){
         if (resolved) return;
@@ -387,6 +398,7 @@
             submitLog.push({ paso:"1 - Nominativo/Acusativo", item:noun.word, respuesta:opt, correcta: ok });
             if (ok){
               resolved = true;
+              noun._resolved = true;
               p1Resolved++; updateP1Progress();
               var doneChip = document.createElement("button");
               doneChip.type = "button"; doneChip.className = "token g-ok"; doneChip.disabled = true;
@@ -408,6 +420,23 @@
     });
     updateP1Progress();
   })();
+
+  // Botón "me cansé": revela de una las palabras todavía sin clasificar.
+  document.getElementById("btn-cansado-p1").addEventListener("click", function(){
+    var colNom = document.getElementById("col-nom");
+    var colAc = document.getElementById("col-ac");
+    PASO1_NOUNS.forEach(function(noun){
+      if (noun._resolved) return;
+      noun._resolved = true;
+      p1Resolved++;
+      var doneChip = document.createElement("button");
+      doneChip.type = "button"; doneChip.className = "token g-revealed"; doneChip.disabled = true;
+      doneChip.textContent = noun.word;
+      (noun.correct === "nominativo" ? colNom : colAc).appendChild(doneChip);
+      if (noun._wrap && noun._wrap.parentNode) noun._wrap.parentNode.removeChild(noun._wrap);
+    });
+    updateP1Progress();
+  });
 
   document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
 

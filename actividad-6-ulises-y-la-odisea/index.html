@@ -92,6 +92,14 @@
   .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
   .btn-ghost:hover{ background:var(--surface-raised); }
 
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
   main{ display:none; }
   main.visible{ display:block; }
   .step{ display:none; }
@@ -324,6 +332,7 @@
       </div>
       <p class="step-instructions">Tocá cada palabra y elegí qué significa acá. Si no la conocés todavía, está bien decirlo — para eso está la opción. Vas a ver el resultado apenas elijas.</p>
       <div class="p4-progress" id="p4-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p4">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p4-list"></div>
       <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
@@ -639,6 +648,7 @@
         chip.textContent = tok.display;
         tok._answered = null; // null | 'ok' | 'idk' (queda null mientras siga probando tras un error)
         tok._tried = new Set(); // opciones incorrectas ya probadas para esta palabra
+        tok._chip = chip;
 
         chip.addEventListener("click", function(){
           var openPanel = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
@@ -740,6 +750,24 @@
     });
     updateP4Progress();
   }
+
+  // Botón "me cansé": revela de una todos los tokens todavía sin responder. Los que ya tenían
+  // respuesta (bien, mal-con-reveal, o "no sé") quedan como estaban — no se pisan.
+  document.getElementById("btn-cansado-p4").addEventListener("click", function(){
+    PHRASES.forEach(function(p){
+      p.tokens.forEach(function(tok){
+        if (tok._answered) return;
+        tok._answered = "revealed";
+        tok._chosen = null;
+        resolvedCount++;
+        if (tok._chip){
+          tok._chip.classList.remove("g-bad");
+          tok._chip.classList.add("g-idk");
+        }
+      });
+    });
+    updateP4Progress();
+  });
 
   btnToFin.addEventListener("click", function(){ showStep("step-fin"); });
 
