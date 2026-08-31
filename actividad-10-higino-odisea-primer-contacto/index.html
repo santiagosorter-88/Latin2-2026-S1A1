@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 10 — Hygini Fabula 125: Odyssea (Higino, primer contacto)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+  .step-note{ color:var(--ink-muted); font-size:.85rem; max-width:66ch; margin:-.9rem 0 1.4rem; font-style:italic; }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
+
+  /* ---- Paso 1: memotest ---- */
+  .memory-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(105px,1fr)); gap:.6rem; }
+  .mem-card{
+    min-height:68px; border:1.5px solid var(--rule); border-radius:8px; background:var(--surface-raised);
+    cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; padding:.4rem .45rem;
+    font-family:var(--serif); font-size:.78rem; line-height:1.2; overflow-wrap:break-word; hyphens:none;
+    transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .mem-card:hover:not(.matched):not(.revealed){ border-color:var(--accent); }
+  .mem-card.flipped{ border-color:var(--accent); background:var(--surface); }
+  .mem-card.matched{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); cursor:default; }
+  .mem-card.revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); cursor:default; }
+  .mem-card.mismatch{ border-color:var(--incorrect); background:var(--incorrect-bg); }
+  .mem-card:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+
+  /* ---- Paso 2: imagen para cada fragmento ---- */
+  .frag-block{ padding:1.2rem 0; border-top:1px solid var(--rule); }
+  .frag-block:first-of-type{ border-top:none; }
+  .frag-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .frag-latin{ font-family:var(--serif); font-size:1.08rem; line-height:1.55; margin-bottom:1rem; }
+  .img-options{ display:flex; flex-wrap:wrap; gap:.7rem; }
+  .img-opt{
+    position:relative; border:3px solid var(--rule); border-radius:10px; padding:.35rem; background:var(--surface-raised);
+    cursor:pointer; transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; flex:0 0 auto;
+  }
+  .img-opt img{ display:block; width:190px; height:190px; object-fit:cover; border-radius:6px; }
+  @media (max-width: 640px){ .img-opt img{ width:120px; height:120px; } }
+  .img-opt:hover{ border-color:var(--accent); transform:translateY(-2px); }
+  .img-opt.picked{
+    border-color:var(--accent-strong); border-width:4px; transform:translateY(-2px) scale(1.03);
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+  }
+  .img-opt.g-ok{ border-color:var(--correct); }
+  .img-opt.g-bad{ border-color:var(--incorrect); }
+  .img-badge{
+    position:absolute; top:-10px; right:-10px; width:28px; height:28px; border-radius:50%;
+    background:var(--accent-strong); color:var(--accent-ink); display:flex; align-items:center; justify-content:center;
+    font-size:.9rem; font-weight:700; opacity:0; transform:scale(.4); box-shadow:var(--shadow);
+    transition:opacity .15s ease, transform .15s ease;
+  }
+  .img-opt.picked .img-badge{ opacity:1; transform:scale(1); }
+  .frag-msg{ font-size:.85rem; margin-top:.6rem; }
+  .frag-msg.ok{ color:var(--correct); } .frag-msg.bad{ color:var(--incorrect); }
+
+  /* ---- Paso 3: comparación lado a lado ---- */
+  .compare-block{ padding:1.2rem 0; border-top:1px solid var(--rule); }
+  .compare-block:first-of-type{ border-top:none; }
+  .compare-label{ font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); margin-bottom:.3rem; }
+  .compare-box{ font-family:var(--serif); font-size:1.05rem; line-height:1.5; padding:.9rem 1rem; border-radius:8px; margin-bottom:.9rem; }
+  .compare-box.adaptada{ background:var(--surface-raised); border:1px solid var(--rule); }
+  .compare-box.higino{ background:var(--surface-raised); border:1px dashed var(--rule); }
+  .compare-box strong{ color:var(--accent-strong); font-weight:700; text-decoration:underline; text-decoration-thickness:2px; text-underline-offset:3px; }
+  .higino-tokens{ display:flex; flex-wrap:wrap; gap:.4rem; }
+  .htoken{
+    font-family:var(--serif); font-size:1.05rem; border:1.5px solid var(--rule); background:var(--bg);
+    border-radius:var(--radius-chip); padding:.3rem .85rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .htoken:hover{ border-color:var(--accent); }
+  .htoken.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .htoken.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); opacity:.7; cursor:default; }
+  .compare-fb{ font-size:.88rem; margin-top:.6rem; font-weight:600; }
+  .compare-fb.ok{ color:var(--correct); } .compare-fb.bad{ color:var(--incorrect); }
+
+  /* ---- Paso 4 y 5: texto corrido con tokens ---- */
+  .running-text{ font-family:var(--serif); font-size:1.15rem; line-height:2.1; }
+  .running-text .rtoken{
+    border:1.5px solid transparent; border-radius:6px; padding:.05rem .25rem; cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .running-text .rtoken:hover{ border-color:var(--accent); }
+  .running-text .rtoken.marked{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .running-text .rtoken.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); opacity:.65; cursor:default; }
+  .running-text .rtoken.glossed{ text-decoration:underline dotted var(--accent); text-underline-offset:3px; }
+  .running-text .rtoken.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .gloss-panel{
+    margin:1rem 0; padding:.8rem 1rem; background:var(--surface-raised); border:1px solid var(--rule);
+    border-radius:8px; font-size:.95rem; display:flex; flex-wrap:wrap; gap:.4rem; align-items:baseline;
+  }
+  .gloss-panel .gp-word{ font-family:var(--serif); font-style:italic; }
+  .gloss-panel .gp-arrow{ color:var(--ink-muted); }
+  .gloss-panel .gp-mean{ font-weight:600; }
+
+  .closing-note{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.4rem 1.5rem; box-shadow:var(--shadow); margin-top:1.5rem; font-size:1rem; line-height:1.65; }
+  .closing-note p{ margin:0 0 .8rem; } .closing-note p:last-child{ margin-bottom:0; }
+  .closing-note .cn-latin{ font-family:var(--serif); font-style:italic; }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Latín · Actividad 10 · Textos originales · Hygini Fabula 125: Odyssea</p>
+  <h1>La Odisea de Ulises contada por el mitógrafo Higino</h1>
+  <p class="lede">Las escenas ya las conocemos por las actividades anteriores; en esta entrega la idea es trabajar con el texto latino original sin adaptaciones. No hace falta entender cada palabra: la idea es reconocer a partir de lo que ya sabés y registrar qué cosas cambiaron. Higino cuenta el viaje entero de Ulises — acá trabajamos solo con los episodios que ya vimos (el cíclope, Circe, las sirenas, Escila y Caribdis, las vacas del Sol, Calipso, la balsa, Nausícaa, y el regreso a Ítaca); quedan afuera los que todavía no vimos (los cicones, los lotófagos, Eolo, los lestrigones, el descenso al Hades).</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ===== Paso 1: memotest ===== -->
+    <section class="step" id="step-p1">
+      <div class="step-head">
+        <div><p class="eyebrow">Paso 1</p><h2>Esto ya lo sabemos</h2></div>
+        <span class="p-progress" id="p1-progress" style="margin:0;">—</span>
+      </div>
+      <p class="step-instructions">Palabras que ya vimos en las actividades, y que vuelven a aparecer en el texto de Higino. Uní cada una con su significado en castellano.</p>
+      <p class="step-note">Un detalle antes de empezar: en la edición de Higino figura <em>u</em> donde nosotros ponemos <em>v</em> (<em>uenit</em> = <em>venit</em>, <em>uidit</em> = <em>vidit</em>). Recuerden que en latín clásico son el mismo sonido.</p>
+      <button type="button" class="btn-tired" id="btn-cansado-p1">Me cansé, mostrame las respuestas</button>
+      <div class="exercise">
+        <div class="memory-grid" id="p1-grid"></div>
+      </div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p2" disabled>Al Paso 2</button></div>
+    </section>
+
+    <!-- ===== Paso 2: Higino en imágenes ===== -->
+    <section class="step" id="step-p2">
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Higino en imágenes</h2></div></div>
+      <p class="step-instructions">Seis fragmentos del texto de Higino, cada uno con la escena que ya conocés. No hace falta traducir: para cada fragmento, elegí qué imagen le corresponde.</p>
+      <div class="exercise" id="p2-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-p2-check" disabled>Verificar</button></div>
+    </section>
+
+    <section class="step" id="step-p2-review">
+      <div class="step-head"><div><p class="eyebrow">Paso 2 — resultados</p><h2>¿Cómo te fue?</h2></div></div>
+      <div class="p-progress" id="p2-score"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p3">Al Paso 3</button></div>
+    </section>
+
+    <!-- ===== Paso 3: comparación lado a lado ===== -->
+    <section class="step" id="step-p3">
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Algunos cambios dignos de mención</h2></div></div>
+      <p class="step-instructions">Tres frases que ya tradujimos, ahora las frases originales de Higino. Tocá los verbos de Higino que corresponden a los verbos en negrita de las frases adaptadas.</p>
+      <div class="exercise" id="p3-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Al Paso 4</button></div>
+    </section>
+
+    <!-- ===== Paso 4: lo que sabemos hasta ahora ===== -->
+    <section class="step" id="step-p4">
+      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Lo que sabemos hasta ahora</h2></div></div>
+      <p class="step-instructions">Ubicá todas las formas que ya conocés y las cinco formas verbales del paso anterior en el texto entero de Higino.</p>
+      <div class="exercise">
+        <div class="p-progress" id="p4-progress"></div>
+        <div class="running-text" id="p4-text"></div>
+      </div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p5" disabled>Al Paso 5</button></div>
+    </section>
+
+    <!-- ===== Paso 5: lectura completa glosada ===== -->
+    <section class="step" id="step-p5">
+      <div class="step-head"><div><p class="eyebrow">Paso 5</p><h2>Ahora, leerlo entero</h2></div></div>
+      <p class="step-instructions">El mismo texto, completo. Tocá cualquier palabra que no reconozcas y vas a ver qué significa acá. No hay corrección en este paso — es solo para leer. Si apretás click sobre una palabra nueva aparece su significado.</p>
+      <div class="exercise">
+        <div class="running-text" id="p5-text"></div>
+      </div>
+      <div class="stage-nav"><button class="btn" id="btn-to-fin">Cerrar</button></div>
+    </section>
+
+    <!-- ===== Cierre ===== -->
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó este primer contacto?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido.</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="¿algo que quieras agregar?" /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (opcional)</label><input id="in-suggestion" type="text" placeholder="completá la idea" /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra · Higino, <em>Fabulae</em> 125</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Backend compartido de esta cátedra (Apps Script) — no tocar salvo que Santiago lo pida.
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  // =================================================================
+  // Datos
+  // =================================================================
+
+  // ---- Paso 1: memotest — forma de Higino / lema (nom. sg.) + traducción sin marca de caso
+  var VOCAB = [{"higino": "Cyclopem", "lema": "Cyclops", "significado": "cíclope"}, {"higino": "Polyphemum", "lema": "Polyphemus", "significado": "Polifemo"}, {"higino": "oculum", "lema": "oculus", "significado": "ojo"}, {"higino": "habebat", "lema": "habeo", "significado": "tenía"}, {"higino": "sociis", "lema": "socius", "significado": "a los compañeros / con los compañeros"}, {"higino": "Sirenas", "lema": "Sirenae", "significado": "sirenas"}, {"higino": "cera", "lema": "cera", "significado": "cera"}, {"higino": "dedit", "lema": "do", "significado": "dio"}, {"higino": "dimitteret", "lema": "dimitto", "significado": "dejara ir"}, {"higino": "uidit", "lema": "video", "significado": "vio"}, {"higino": "Nausicaa", "lema": "Nausicaa", "significado": "Nausícaa"}, {"higino": "patrem", "lema": "pater", "significado": "padre"}, {"higino": "redit,", "lema": "redeo", "significado": "regresa"}, {"higino": "simulauit", "lema": "simulo", "significado": "fingió"}, {"higino": "cognouit.", "lema": "cognosco", "significado": "reconoció"}, {"higino": "Telemacho", "lema": "Telemachus", "significado": "Telémaco"}, {"higino": "Scyllam", "lema": "Scylla", "significado": "Escila"}, {"higino": "Solis", "lema": "Sol", "significado": "del Sol"}, {"higino": "Neptuni", "lema": "Neptunus", "significado": "de Neptuno"}, {"higino": "Charybdinque", "lema": "Charybdis", "significado": "y a Caribdis"}];
+
+  // ---- Paso 2: los tres párrafos de Higino + una imagen por fragmento (sin señuelo)
+  var IMAGES = [{"id": "polifemo", "file": "img/01-polifemo.jpg", "alt": "El cíclope Polifemo en su cueva"}, {"id": "sirenas", "file": "img/02-sirenas.jpg", "alt": "Ulises atado al mástil, pasando frente a las sirenas"}, {"id": "calipso", "file": "img/03-calipso.jpg", "alt": "Calipso y Ulises en la isla"}, {"id": "nausicaa", "file": "img/04-nausicaa.jpg", "alt": "Nausícaa y Ulises en la orilla"}, {"id": "euriclea", "file": "img/05-euriclea.jpg", "alt": "Euriclea reconociendo a Ulises"}, {"id": "pretendientes", "file": "img/06-pretendientes.jpg", "alt": "Ulises y Telémaco contra los pretendientes"}];
+
+  var FRAGMENTS = [{"id": 1, "latin": "inde ad Cyclopem Polyphemum Neptuni filium. hic media fronte unum oculum habebat et carnem humanam epulabatur. qui Vlixem cum sociis inclusit sociosque eius consumere coepit.", "correct": "polifemo"}, {"id": 2, "latin": "tum ad Sirenas Melpomenes Musae et Acheloi filias uenit, quae partem superiorem muliebrem habebant, inferiorem autem gallinaceam. Vlixes monitus a Circe Solis filia sociis cera aures obturauit seque ad arborem malum constringi iussit et sic praeteruectus est.", "correct": "sirenas"}, {"id": 3, "latin": "ex his locis errans naufragio facto sociis amissis enatauit in insulam Aeaeam, ubi Calypso Atlantis filia nympha, quae specie Vlixis capta anno toto eum retinuit neque a se dimittere uoluit donec Mercurius Iouis iussu denuntiauit nymphae ut eum dimitteret.", "correct": "calipso"}, {"id": 4, "latin": "inde in insulam Phaeacum uenit, nudusque ex arborum foliis se obruit, qua Nausicaa Alcinoi regis filia uestem ad flumen lauandam tulit. ille erepit e foliis et ab ea petit ut sibi opem ferret. illa misericordia mota pallio eum operuit et ad patrem suum eum adduxit.", "correct": "nausicaa"}, {"id": 5, "latin": "post uicesimum annum sociis amissis solus in patriam redit, et cum ab hominibus ignoraretur domumque suam attigisset, procos qui Penelopen in coniugium petebant obsidentes uidit regiam seque hospitem simulauit. et Euryclia nutrix ipsius dum pedes ei lauat ex cicatrice Vlixem esse cognouit.", "correct": "euriclea"}, {"id": 6, "latin": "postea procos Minerua adiutrice cum Telemacho filio et duobus seruis interfecit sagittis.", "correct": "pretendientes"}];
+
+  // ---- Paso 3: pares versión adaptada / versión real, con la forma-objetivo en Higino
+  var PAIRS = [{"id": 1, "adaptadaHTML": "Cyclops Polyphemus, qui unum oculum <strong>habet</strong>, Vlixem et socios in spelunca tenet et eos consumit.", "higinoTokens": ["inde", "ad", "Cyclopem", "Polyphemum", "Neptuni", "filium.", "hic", "media", "fronte", "unum", "oculum", "habebat", "et", "carnem", "humanam", "epulabatur.", "qui", "Vlixem", "cum", "sociis", "inclusit", "sociosque", "eius", "consumere", "coepit."], "target": "habebat", "feedbackOk": "Recte! — <em>habet</em>: presente (tiene) / <em>habebat</em>: imperfecto (tenía)"}, {"id": 2, "adaptadaHTML": "Cyclops Polyphemus, qui unum oculum habet, Vlixem et socios in spelunca tenet et eos <strong>consumit</strong>.", "higinoTokens": ["inde", "ad", "Cyclopem", "Polyphemum", "Neptuni", "filium.", "hic", "media", "fronte", "unum", "oculum", "habebat", "et", "carnem", "humanam", "epulabatur.", "qui", "Vlixem", "cum", "sociis", "inclusit", "sociosque", "eius", "consumere", "coepit."], "target": "consumere", "feedbackOk": "Recte! — <em>consumit</em>: presente (devora) / <em>consumere coepit</em>: literalmente 'comenzó a devorar' (coepit + infinitivo)"}, {"id": 3, "adaptadaHTML": "Circe socios in bestias mutat; sed Mercurius ei remedium <strong>dat</strong>, et Circe Vlixem mutare non potest.", "higinoTokens": ["in", "itinere", "Mercurius", "ei", "remedium", "dedit."], "target": "dedit.", "feedbackOk": "Recte! — <em>dat</em>: presente (da) / <em>dedit</em>: perfecto (dio)"}, {"id": 4, "adaptadaHTML": "Vlixes solus in patriam <strong>redit</strong> et mendicum se simulat; sed Euryclia eum statim cognoscit.", "higinoTokens": ["post", "uicesimum", "annum", "sociis", "amissis", "solus", "in", "patriam", "redit,"], "target": "redit,", "feedbackOk": "Recte! — caso especial: acá <em>redit</em> es perfecto (regresó), aunque se escribe igual que el presente (regresa) — en muchos verbos en <em>-eo</em>, el perfecto contraído (<em>rediit</em> → <em>redit</em>) queda idéntico al presente."}, {"id": 5, "adaptadaHTML": "Vlixes solus in patriam redit et mendicum se simulat; sed Euryclia eum statim <strong>cognoscit</strong>.", "higinoTokens": ["et", "Euryclia", "nutrix", "ipsius", "dum", "pedes", "ei", "lauat", "ex", "cicatrice", "Vlixem", "esse", "cognouit."], "target": "cognouit.", "feedbackOk": "Recte! — <em>cognoscit</em>: presente (reconoce) / <em>cognouit</em>: perfecto (reconoció)"}];
+
+  // ---- Pasos 4 y 5: el texto completo, tokenizado en tres bloques
+  var BLOCKS = [["inde", "ad", "Cyclopem", "Polyphemum", "Neptuni", "filium.", "hic", "media", "fronte", "unum", "oculum", "habebat", "et", "carnem", "humanam", "epulabatur.", "qui", "Vlixem", "cum", "sociis", "inclusit", "sociosque", "eius", "consumere", "coepit."], ["in", "insulam", "Aenariam", "ad", "Circen", "Solis", "filiam", "uenit,", "quae", "potione", "data", "homines", "in", "feras", "bestias", "commutabat.", "ad", "quam", "Eurylochum", "cum", "uiginti", "duobus", "sociis", "misit,", "quos", "illa", "ab", "humana", "specie", "immutauit.", "in", "itinere", "Mercurius", "ei", "remedium", "dedit."], ["tum", "ad", "Sirenas", "Melpomenes", "Musae", "et", "Acheloi", "filias", "uenit,", "quae", "partem", "superiorem", "muliebrem", "habebant,", "inferiorem", "autem", "gallinaceam.", "Vlixes", "monitus", "a", "Circe", "Solis", "filia", "sociis", "cera", "aures", "obturauit", "seque", "ad", "arborem", "malum", "constringi", "iussit", "et", "sic", "praeteruectus", "est."], ["inde", "ad", "Scyllam", "Typhonis", "filiam", "uenit,", "quae", "superiorem", "corporis", "partem", "muliebrem,", "inferiorem", "ab", "inguine", "piscis,", "et", "sex", "canes", "ex", "se", "natos", "habebat;", "eaque", "sex", "socios", "Vlixis", "naue", "abreptos", "consumpsit.", "ad", "Charybdinque", "perlatus,", "quae", "ter", "die", "obsorbebat,", "terque", "eructabat,", "monitu", "Tiresiae", "praeteruectus", "est."], ["in", "insulam", "Siciliam", "ad", "Solis", "pecus", "sacrum", "uenerat,", "quod", "socii", "eius", "cum", "coquerent", "in", "aeneo", "mugiebat;", "itaque", "multos", "socios", "ob", "eam", "causam", "ibi", "amisit.", "sed", "ira", "Solis,", "quod", "pecus", "eius", "erat", "uiolatum,", "ob", "id", "Iouis", "nauem", "eius", "fulmine", "incendit."], ["ex", "his", "locis", "errans", "naufragio", "facto", "sociis", "amissis", "enatauit", "in", "insulam", "Aeaeam,", "ubi", "Calypso", "Atlantis", "filia", "nympha,", "quae", "specie", "Vlixis", "capta", "anno", "toto", "eum", "retinuit", "neque", "a", "se", "dimittere", "uoluit", "donec", "Mercurius", "Iouis", "iussu", "denuntiauit", "nymphae", "ut", "eum", "dimitteret."], ["et", "ibi", "facta", "rate", "Calypso", "omnibus", "rebus", "ornatum", "eum", "dimisit,", "eamque", "ratim", "Neptunus", "fluctibus", "disiecit,", "quod", "Cyclopem", "filium", "eius", "lumine", "priuauerat."], ["inde", "in", "insulam", "Phaeacum", "uenit,", "nudusque", "ex", "arborum", "foliis", "se", "obruit,", "qua", "Nausicaa", "Alcinoi", "regis", "filia", "uestem", "ad", "flumen", "lauandam", "tulit.", "ille", "erepit", "e", "foliis", "et", "ab", "ea", "petit", "ut", "sibi", "opem", "ferret.", "illa", "misericordia", "mota", "pallio", "eum", "operuit", "et", "ad", "patrem", "suum", "eum", "adduxit."], ["post", "uicesimum", "annum", "sociis", "amissis", "solus", "in", "patriam", "redit,", "et", "cum", "ab", "hominibus", "ignoraretur", "domumque", "suam", "attigisset,", "procos", "qui", "Penelopen", "in", "coniugium", "petebant", "obsidentes", "uidit", "regiam", "seque", "hospitem", "simulauit.", "et", "Euryclia", "nutrix", "ipsius", "dum", "pedes", "ei", "lauat", "ex", "cicatrice", "Vlixem", "esse", "cognouit.", "postea", "procos", "Minerua", "adiutrice", "cum", "Telemacho", "filio", "et", "duobus", "seruis", "interfecit", "sagittis."]];
+
+  // Paso 4: las cinco formas verbales clave del Paso 3 — tienen que quedar marcadas sí o sí.
+  var HUNT_TARGETS = ["habebat", "consumere", "dedit.", "redit,", "cognouit."];
+
+  // glosario del Paso 5 (clave: palabra en minúscula sin puntuación) — entrada de diccionario:
+  // sustantivos y adjetivos en nominativo singular + traducción de ese nominativo;
+  // verbos como [forma] - [lema en infinitivo]: [significado en infinitivo].
+  // Las 14 palabras del Paso 1 (memotest) no tienen entrada acá a propósito: ya se dieron vuelta ahí.
+  var GLOSS = {"a": "por / desde", "ab": "por / desde", "abreptos": "abripio: arrebatado, arrastrado", "acheloi": "Aqueloo (dios-río, padre de las sirenas)", "ad": "hacia, a", "adduxit": "adduco: llevó, condujo", "adiutrice": "adiutrix,-icis: ayudante ('con la ayuda de')", "aeaeam": "Eea (la isla de Circe)", "aenariam": "Enaria (isla)", "aeneo": "aeneus,-a,-um: de bronce (acá: el caldero de bronce)", "alcinoi": "Alcínoo (rey de los feacios, padre de Nausícaa)", "amisit": "amitto: perdió", "amissis": "amitto: perdidos (los compañeros)", "anno": "annus: año", "annum": "annus: año", "arborem": "arbor: árbol", "arborum": "arbor: árbol", "atlantis": "Atlante (padre de Calipso)", "attigisset": "attingo: hubiera llegado, hubiera tocado", "aures": "auris: oreja", "autem": "pero, en cambio", "bestias": "bestia: bestia", "canes": "canis: perro", "capta": "capio: capturada, cautivada", "carnem": "caro,carnis: carne", "causam": "causa: causa, motivo", "cicatrice": "cicatrix: cicatriz", "coepit": "coepi: comenzó (a)", "commutabat": "commuto: transformaba", "coniugium": "coniugium: matrimonio", "consumere": "consumo: devorar", "consumpsit": "consumo: devoró", "corporis": "corpus: cuerpo", "coquerent": "coquo: cocinaran", "cum": "cuando / como / con", "data": "do: dada", "denuntiauit": "denuntio: anunció, ordenó", "die": "dies: día", "dimisit": "dimitto: dejó ir, envió", "dimittere": "dimitto: dejar ir", "disiecit": "disicio: dispersó, destrozó", "domumque": "domus + -que: y a la casa", "donec": "hasta que", "duobus": "duo: dos", "e": "desde, de", "ea": "ella, esa", "eam": "a ella", "eamque": "eam + -que: y a ella", "eaque": "ea + -que: y ella", "ei": "a él / a ella", "eius": "de él / de ella, su", "enatauit": "enato: salió nadando", "epulabatur": "epulor: se alimentaba, banqueteaba", "erat": "sum: era, estaba", "erepit": "erepo: salió arrastrándose", "errans": "erro: errando, vagando", "eructabat": "eructo: vomitaba, arrojaba", "esse": "sum: ser", "est": "sum: es, está", "et": "y", "eum": "a él, lo", "eurylochum": "Euríloco (compañero de Ulises)", "excaecaretur": "excaeco: fuera cegado", "feras": "ferus,-a,-um: salvaje/-s (acá: bestias salvajes)", "ferret": "fero: llevara, trajera", "filia": "filia: hija", "filiam": "filia: hija", "filias": "filia: hijas", "filio": "filius: hijo", "filium": "filius: hijo", "fluctibus": "fluctus: ola", "flumen": "flumen: río", "foliis": "folium: hoja", "fronte": "frons,frontis: frente", "fulmine": "fulmen: rayo", "gallinaceam": "gallinaceus,-a,-um: de gallina, gallinácea", "habebant": "habeo: tenían", "hic": "este, él (acá: 'este' = el cíclope)", "his": "hic: estos", "homines": "homo: hombre, persona", "hominibus": "homo: hombre, persona", "hospitem": "hospes,-itis: huésped, forastero", "humana": "humanus,-a,-um: humano", "humanam": "humanus,-a,-um: humano", "ibi": "allí", "id": "esto", "ignoraretur": "ignoro: fuera desconocido", "illa": "ella, esa", "ille": "él, ese", "immutauit": "immuto: transformó", "in": "en", "incendit": "incendo: incendió", "inclusit": "includo: encerró", "inde": "desde allí, luego", "inferiorem": "inferior: inferior, la parte de abajo", "inguine": "inguen,-inis: ingle, vientre", "insulam": "insula: isla", "interfecit": "interficio: mató", "iouis": "Iuppiter (genitivo): de Júpiter", "ipsius": "ipse: él mismo, ella misma", "ira": "ira: ira, enojo", "itaque": "así que, por eso", "itinere": "iter,itineris: camino, viaje", "iussit": "iubeo: ordenó", "iussu": "iussus,-us: por orden (de)", "lauandam": "lavo: para lavar", "lauat": "lavo: lava", "locis": "locus: lugar", "lumine": "lumen,-inis: luz, ojo (acá: la vista)", "malum": "malus: manzano (árbol) — no confundir con 'malus,-a,-um' (malo)", "media": "medius,-a,-um: medio, en medio de", "melpomenes": "Melpómene (musa, madre de las sirenas)", "misericordia": "misericordia: compasión, piedad", "misit": "mitto: envió", "monitu": "monitus,-us: por consejo, por advertencia (de)", "monitus": "moneo: advertido", "mota": "moveo: conmovida", "mugiebat": "mugio: mugía", "muliebrem": "muliebris,-e: femenino, de mujer", "multos": "multus,-a,-um: muchos", "musae": "Musa (madre de las sirenas)", "natos": "nascor: nacidos", "naue": "nauis: nave, barco", "nauem": "nauis: nave, barco", "naufragio": "naufragium: naufragio", "neptunus": "Neptuno", "neque": "y no, ni", "nudusque": "nudus + -que: y desnudo", "nutrix": "nutrix,-icis: nodriza", "nympha": "nympha: ninfa", "nymphae": "nympha: a la ninfa", "ob": "a causa de, por", "obruit": "obruo: cubrió, sepultó", "obsidentes": "obsideo: asediando, ocupando", "obsorbebat": "obsorbeo: tragaba, sorbía", "obturauit": "obturo: tapó, taponó", "omnibus": "omnis,-e: todo", "opem": "ops,opis: ayuda", "operuit": "operio: cubrió", "ornatum": "orno: equipado, provisto", "pallio": "pallium: manto", "partem": "pars,partis: parte", "patriam": "patria: patria", "pecus": "pecus,-oris: rebaño, ganado", "pedes": "pes,pedis: pie", "penelopen": "Penélope (esposa de Ulises)", "perlatus": "perfero: llevado, arrastrado (hasta)", "petebant": "peto: pedían, pretendían", "petit": "peto: pide", "phaeacum": "de los feacios", "piscis": "piscis: pez", "post": "después (de)", "postea": "después", "potione": "potio,-onis: poción, bebida", "praeteruectus": "praeteruehor: pasó de largo, navegó más allá", "priuauerat": "priuo: había privado (de)", "procos": "procus: pretendiente", "qua": "por donde", "quae": "que, la cual", "quam": "a la cual", "qui": "que, el cual", "quod": "porque / lo cual", "quos": "a los cuales", "rate": "ratis: balsa", "ratim": "ratis: balsa", "rebus": "res,rei: cosa", "regiam": "regia: palacio", "regis": "rex,regis: rey", "remedium": "remedium: remedio", "retinuit": "retineo: retuvo", "sacrum": "sacer,-cra,-crum: sagrado", "sagittis": "sagitta: flecha", "se": "se, a sí mismo", "sed": "pero", "seque": "se + -que: y a sí mismo", "seruis": "seruus: esclavo, sirviente", "sex": "seis", "sibi": "a sí mismo", "sic": "así", "siciliam": "Sicilia", "socii": "socius: compañero", "socios": "socius: a los compañeros", "sociosque": "socius + -que: y a los compañeros", "sol": "el Sol", "specie": "species,-ei: apariencia, belleza", "suam": "suus,-a,-um: su (de él/ella)", "superiorem": "superior: superior, la parte de arriba", "suum": "suus,-a,-um: su (de él/ella)", "ter": "tres veces", "terque": "ter + -que: y tres veces", "tiresiae": "Tiresias (el adivino)", "toto": "totus,-a,-um: todo, entero", "tulit": "fero: llevó", "tum": "entonces", "typhonis": "Tifón (padre de Escila)", "ubi": "donde", "uenerat": "uenio: había llegado", "uenit": "uenio: llega / llegó", "uestem": "uestis,-is: vestimenta, ropa", "uicesimum": "uicesimus,-a,-um: vigésimo", "uiginti": "veinte", "uiolatum": "uiolo: violado, profanado", "unum": "unus,-a,-um: uno", "uoluit": "uolo: quiso", "ut": "que, para que", "constringi": "constringo: atarse, sujetarse", "dum": "mientras", "ex": "desde, de", "facta": "facio: hecha", "facto": "facio: hecho", "solus": "solus,-a,-um: solo"};
+
+  function clean(s){ return s.replace(/[.,;:!?"“”]/g, "").toLowerCase(); }
+
+  // =================================================================
+  // Identidad + navegación
+  // =================================================================
+  var identity = { email:"" };
+  var submitLog = [];
+
+  // ---------- Guardar/retomar progreso (por estudiante, en este mismo navegador) ----------
+  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo email en el
+  // mismo dispositivo retoma en el paso donde quedó, en vez de tener que empezar de nuevo.
+  // Si lo interrumpe A MITAD de un paso, ese paso puntual se rehace desde cero (no se guarda
+  // el detalle palabra por palabra) — es la opción más simple que resuelve el problema real
+  // sin agregar mucha complejidad.
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      showStep(restored.step);
+    } else {
+      showStep("step-p1");
+    }
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  // =================================================================
+  // Paso 1: memotest — 14 pares, 28 cartas
+  // =================================================================
+  (function(){
+    var grid = document.getElementById("p1-grid");
+    var cards = [];
+    VOCAB.forEach(function(v, i){
+      cards.push({ pairId:i, html:"<strong>" + v.higino + "</strong>", label:v.higino, el:null, matched:false });
+      cards.push({ pairId:i, html:"<em>" + v.lema + "</em>: " + v.significado, label:v.lema + ": " + v.significado, el:null, matched:false });
+    });
+    // shuffle
+    for (var i = cards.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
+    }
+
+    var matchedPairs = 0;
+    var first = null, lock = false;
+
+    function updateProgress(){
+      document.getElementById("p1-progress").innerHTML = "Parejas encontradas: <strong>" + matchedPairs + " / " + VOCAB.length + "</strong>";
+      document.getElementById("btn-to-p2").disabled = matchedPairs < VOCAB.length;
+    }
+
+    cards.forEach(function(card){
+      var btn = document.createElement("button");
+      btn.type = "button"; btn.className = "mem-card";
+      btn.innerHTML = "<span>" + card.html + "</span>";
+      card.el = btn;
+
+      btn.addEventListener("click", function(){
+        if (lock || card.matched || card === first) return;
+        btn.classList.add("flipped");
+
+        if (!first){ first = card; return; }
+
+        var second = card;
+        lock = true;
+        if (first.pairId === second.pairId){
+          first.matched = true; second.matched = true;
+          first.el.classList.remove("flipped"); second.el.classList.remove("flipped");
+          first.el.classList.add("matched"); second.el.classList.add("matched");
+          matchedPairs++; updateProgress();
+          submitLog.push({ paso:"1 - Memotest", item:first.label + " / " + second.label, respuesta:"pareja encontrada", correcta:true });
+          first = null; lock = false;
+        } else {
+          first.el.classList.add("mismatch"); second.el.classList.add("mismatch");
+          submitLog.push({ paso:"1 - Memotest", item:first.label + " / " + second.label, respuesta:"no coinciden", correcta:false });
+          setTimeout(function(){
+            first.el.classList.remove("flipped", "mismatch");
+            second.el.classList.remove("flipped", "mismatch");
+            first = null; lock = false;
+          }, 800);
+        }
+      });
+
+      grid.appendChild(btn);
+    });
+
+    updateProgress();
+
+    // Botón "me cansé": revela de una todas las parejas todavía sin encontrar. Las ya
+    // encontradas por el estudiante quedan como estaban (verdes); el resto pasa a ámbar.
+    document.getElementById("btn-cansado-p1").addEventListener("click", function(){
+      cards.forEach(function(card){
+        if (card.matched) return;
+        card.matched = true;
+        card.el.classList.remove("flipped", "mismatch");
+        card.el.classList.add("revealed");
+      });
+      matchedPairs = new Set(cards.filter(function(c){ return c.matched; }).map(function(c){ return c.pairId; })).size;
+      first = null; lock = false;
+      updateProgress();
+    });
+  })();
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
+
+  // =================================================================
+  // Paso 2: elegir la imagen para cada fragmento
+  // =================================================================
+  var p2Answers = {};
+  (function(){
+    var list = document.getElementById("p2-list");
+    FRAGMENTS.forEach(function(f){
+      var block = document.createElement("div");
+      block.className = "frag-block";
+      var num = document.createElement("div"); num.className = "frag-num"; num.textContent = "Fragmento " + f.id;
+      block.appendChild(num);
+      var latin = document.createElement("div"); latin.className = "frag-latin"; latin.textContent = f.latin;
+      block.appendChild(latin);
+
+      var opts = document.createElement("div"); opts.className = "img-options";
+      IMAGES.forEach(function(img){
+        var btn = document.createElement("button");
+        btn.type = "button"; btn.className = "img-opt";
+        var im = document.createElement("img"); im.src = img.file; im.alt = img.alt;
+        var badge = document.createElement("span"); badge.className = "img-badge"; badge.textContent = "✓";
+        btn.appendChild(im); btn.appendChild(badge);
+        btn.addEventListener("click", function(){
+          p2Answers[f.id] = img.id;
+          Array.from(opts.children).forEach(function(b){ b.classList.remove("picked"); });
+          btn.classList.add("picked");
+          checkP2Ready();
+        });
+        opts.appendChild(btn);
+      });
+      block.appendChild(opts);
+      var msg = document.createElement("div"); msg.className = "frag-msg"; msg.id = "frag-msg-" + f.id;
+      block.appendChild(msg);
+      list.appendChild(block);
+    });
+  })();
+
+  function checkP2Ready(){
+    document.getElementById("btn-p2-check").disabled = Object.keys(p2Answers).length < FRAGMENTS.length;
+  }
+
+  var p2VerifyAttempt = 0;
+  var IMAGES_BY_ID = {};
+  IMAGES.forEach(function(img){ IMAGES_BY_ID[img.id] = img; });
+
+  document.getElementById("btn-p2-check").addEventListener("click", function(){
+    p2VerifyAttempt++;
+    if (p2VerifyAttempt === 1){
+      // Primer intento: marca ok/bad por fragmento sin revelar cuál era la imagen correcta
+      // ni avanzar — el estudiante puede volver a elegir (los botones de imagen no se
+      // deshabilitan) antes de verificar de nuevo.
+      FRAGMENTS.forEach(function(f){
+        var ok = p2Answers[f.id] === f.correct;
+        var msg = document.getElementById("frag-msg-" + f.id);
+        msg.className = "frag-msg " + (ok ? "ok" : "bad");
+        msg.textContent = ok ? "Recte!" : "No es correcta. Probá otra vez.";
+      });
+      document.getElementById("btn-p2-check").textContent = "Verificar de nuevo";
+      return;
+    }
+
+    var correct = 0;
+    FRAGMENTS.forEach(function(f){
+      var ok = p2Answers[f.id] === f.correct;
+      if (ok) correct++;
+      var msg = document.getElementById("frag-msg-" + f.id);
+      msg.className = "frag-msg " + (ok ? "ok" : "bad");
+      msg.textContent = ok ? "Recte!" : ("No era correcta. La imagen correcta era: " + IMAGES_BY_ID[f.correct].alt);
+      submitLog.push({ paso:"2 - Fragmento y escena", item:"Fragmento " + f.id, respuesta: p2Answers[f.id], correcta: ok });
+    });
+    document.getElementById("p2-score").innerHTML = "Resultado: <strong>" + correct + " / " + FRAGMENTS.length + "</strong>";
+    showStep("step-p2-review");
+  });
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
+
+  // =================================================================
+  // Paso 3: encontrar en Higino la forma que corresponde al verbo conocido
+  // =================================================================
+  var p3Resolved = 0;
+  function updateP3Progress(){
+    document.getElementById("btn-to-p4").disabled = p3Resolved < PAIRS.length;
+  }
+  (function(){
+    var list = document.getElementById("p3-list");
+    PAIRS.forEach(function(pair){
+      var block = document.createElement("div"); block.className = "compare-block";
+
+      var labelA = document.createElement("div"); labelA.className = "compare-label"; labelA.textContent = "Versión ya conocida";
+      block.appendChild(labelA);
+      var boxA = document.createElement("div"); boxA.className = "compare-box adaptada"; boxA.innerHTML = pair.adaptadaHTML;
+      block.appendChild(boxA);
+
+      var labelB = document.createElement("div"); labelB.className = "compare-label"; labelB.textContent = "Higino, texto real";
+      block.appendChild(labelB);
+      var boxB = document.createElement("div"); boxB.className = "compare-box higino";
+      var tokensEl = document.createElement("div"); tokensEl.className = "higino-tokens";
+      var resolved = false;
+      pair.higinoTokens.forEach(function(word){
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "htoken"; chip.textContent = word;
+        chip.addEventListener("click", function(){
+          if (resolved || chip.classList.contains("g-bad")) return;
+          var ok = word === pair.target;
+          submitLog.push({ paso:"3 - Verbo adaptado y real", item:"Par " + pair.id, respuesta: word, correcta: ok });
+          if (ok){
+            chip.classList.add("g-ok");
+            resolved = true;
+            p3Resolved++; updateP3Progress();
+            fb.className = "compare-fb ok"; fb.innerHTML = pair.feedbackOk;
+          } else {
+            chip.classList.add("g-bad");
+            fb.className = "compare-fb bad"; fb.textContent = "Probá de nuevo";
+          }
+        });
+        tokensEl.appendChild(chip);
+      });
+      boxB.appendChild(tokensEl);
+      block.appendChild(boxB);
+
+      var fb = document.createElement("div"); fb.className = "compare-fb";
+      block.appendChild(fb);
+
+      list.appendChild(block);
+    });
+    updateP3Progress();
+  })();
+  document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
+
+  // =================================================================
+  // Paso 4: marcar libremente todo lo que se reconozca — sin respuestas
+  // incorrectas. Las 4 formas verbales clave son la única condición para avanzar.
+  // =================================================================
+  var huntFound = {};
+  HUNT_TARGETS.forEach(function(t){ huntFound[t] = false; });
+  var totalMarked = 0;
+
+  function updateP4Progress(){
+    var keyCount = HUNT_TARGETS.filter(function(t){ return huntFound[t]; }).length;
+    document.getElementById("p4-progress").innerHTML =
+      "Formas verbales clave: <strong>" + keyCount + " / " + HUNT_TARGETS.length + "</strong> · Palabras marcadas: <strong>" + totalMarked + "</strong>";
+    document.getElementById("btn-to-p5").disabled = keyCount < HUNT_TARGETS.length;
+  }
+  (function(){
+    var host = document.getElementById("p4-text");
+    BLOCKS.forEach(function(block){
+      var p = document.createElement("p");
+      block.forEach(function(word){
+        var span = document.createElement("button");
+        span.type = "button"; span.className = "rtoken"; span.textContent = word + " ";
+        span.addEventListener("click", function(){
+          var nowMarked = !span.classList.contains("marked");
+          span.classList.toggle("marked");
+          totalMarked += nowMarked ? 1 : -1;
+          var isTarget = HUNT_TARGETS.indexOf(word) !== -1;
+          if (isTarget) huntFound[word] = nowMarked;
+          submitLog.push({ paso:"4 - Lo que sabemos hasta ahora", item:word, respuesta: nowMarked ? "marcada" : "desmarcada", correcta:null });
+          updateP4Progress();
+        });
+        p.appendChild(span);
+      });
+      host.appendChild(p);
+    });
+    updateP4Progress();
+  })();
+  document.getElementById("btn-to-p5").addEventListener("click", function(){ saveProgress("step-p5"); if (document.getElementById("p5-text").children.length === 0) renderP5(); showStep("step-p5"); });
+
+  // =================================================================
+  // Paso 5: texto completo glosado, sin corrección
+  // =================================================================
+  function renderP5(){
+    var host = document.getElementById("p5-text");
+    BLOCKS.forEach(function(block){
+      var p = document.createElement("p");
+      var panel = document.createElement("div");
+      panel.className = "gloss-panel";
+      panel.style.display = "none";
+      block.forEach(function(word){
+        var rawKey = word.toLowerCase();
+        var key = GLOSS.hasOwnProperty(rawKey) ? rawKey : clean(word);
+        var span = document.createElement("button");
+        span.type = "button";
+        span.className = "rtoken" + (GLOSS[key] ? " glossed" : "");
+        span.textContent = word + " ";
+        span.addEventListener("click", function(){
+          Array.from(host.querySelectorAll(".rtoken")).forEach(function(s){ s.classList.remove("open"); });
+          span.classList.add("open");
+          panel.style.display = "flex";
+          if (GLOSS[key]){
+            panel.innerHTML = '<span class="gp-word">' + word.replace(/[.,;:!?"“”]/g,"") + '</span><span class="gp-arrow">→</span><span class="gp-mean">' + GLOSS[key] + '</span>';
+          } else {
+            panel.innerHTML = '<span class="gp-word">' + word.replace(/[.,;:!?"“”]/g,"") + '</span><span class="gp-mean">— ya la conocés de las actividades anteriores…</span>';
+          }
+        });
+        p.appendChild(span);
+      });
+      host.appendChild(p);
+      host.appendChild(panel);
+    });
+  }
+  document.getElementById("btn-to-fin").addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  // El comentario es obligatorio — el resto de la evaluación queda optativo.
+  function checkEvalComplete(){
+    btnSend.disabled = !inDiffComment.value.trim();
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+
+  document.getElementById("btn-send").addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia ? ("La actividad funcionaría mejor si " + sugerencia) : "(sin responder)", correcta:null });
+      evalPushed = true;
+    }
+
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
