@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 8 — Concordancia sujeto-verbo (Odisea)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#6fb3ac; --accent-strong:#8fc9c2; --accent-ink:#0f1516;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#3c6e72; --accent-strong:#294b4e; --accent-ink:#f6f5ef;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .phrase-cast{ font-size:.98rem; color:var(--ink); margin-bottom:.6rem; }
+  .phrase-cast strong{ color:var(--accent-strong); }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token:hover{ border-color:var(--accent); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .plain-word{ font-family:var(--serif); font-size:1.15rem; padding:.35rem .2rem; color:var(--ink); }
+
+  .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .word-panel .for-word{ font-family:var(--serif); font-size:1.05rem; color:var(--ink-muted); margin-right:.2rem; }
+  .panel-stage{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; width:100%; }
+  .panel-stage + .panel-stage{ padding-top:.5rem; margin-top:.4rem; border-top:1px dashed var(--rule); }
+  .stage-label{ font-family:var(--sans); font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); margin-right:.2rem; flex:0 0 100%; }
+  .word-opt{ font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.answered-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt:disabled{ cursor:default; opacity:.6; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-feedback.ok{ color:var(--correct); } .word-feedback.bad{ color:var(--incorrect); } .word-feedback.info{ color:var(--ink-muted); font-weight:500; }
+
+  .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
+
+  .explain-box{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.75rem; font-size:1.02rem; line-height:1.65; }
+  .explain-box p{ margin:0 0 .8rem; } .explain-box p:last-child{ margin-bottom:0; }
+  .explain-box .ex-latin{ font-family:var(--serif); font-style:italic; }
+
+  .dd-row{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--serif); font-size:1.25rem; margin-bottom:.5rem; }
+  select.dd{
+    font-family:var(--sans); font-size:.95rem; font-weight:600; padding:.4rem .6rem;
+    border-radius:8px; border:2px solid var(--rule); background:var(--surface-raised); color:var(--ink);
+    cursor:pointer;
+  }
+  select.dd:disabled{ cursor:default; opacity:.9; }
+  select.dd.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  select.dd.g-bad{ border-color:var(--incorrect); }
+  .dd-msg{ font-size:.82rem; color:var(--ink-muted); margin-top:.2rem; flex:0 0 100%; }
+  .dd-msg.ok{ color:var(--correct); } .dd-msg.bad{ color:var(--incorrect); }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Latín · Actividad 8</p>
+  <h1>Concordancia de número entre sujeto y verbo (Odisea)</h1>
+  <p class="lede">Volvemos sobre las frases de la Odisea que ya conocés para identificar verbos y sujetos, y después practicamos la concordancia con frases nuevas — esta vez sumando los sustantivos neutros.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <!-- ===== Paso 1 ===== -->
+    <section class="step" id="step-p1">
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Identificá los verbos: enunciado y traducción</h2></div></div>
+      <p class="step-instructions">Tocá las palabras que identificás como formas verbales conjugadas. Para cada una, primero elegí su enunciado de diccionario y después su traducción.</p>
+      <div class="p-progress" id="p1-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p1">Me cansé, mostrame las respuestas</button>
+      <div class="exercise" id="p1-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p2" disabled>Continuar a Paso 2</button></div>
+    </section>
+
+    <!-- ===== Paso 2 ===== -->
+    <section class="step" id="step-p2">
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá los sujetos</h2></div></div>
+      <p class="step-instructions">Los verbos ya están marcados. Tocá la palabra o las palabras que funcionan como sujeto de cada oración.</p>
+      <div class="p-progress" id="p2-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
+      <div class="exercise" id="p2-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
+    </section>
+
+    <!-- ===== Explicación (entre paso 2 y 3) ===== -->
+    <section class="step" id="step-explain">
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 3</p><h2>Concordancia de número</h2></div></div>
+      <div class="explain-box">
+        <p>Repaso rápido de la semana pasada: el verbo concuerda en número con su sujeto — sujeto singular, verbo singular (<span class="ex-latin">Vlixes redit</span>); sujeto plural, verbo plural (<span class="ex-latin">Vlixes et Telemachus occidunt</span>). Esto vale aunque el sujeto no se repita en cada verbo de la frase.</p>
+        <p>Esta semana sumamos un caso nuevo: los sustantivos <strong>neutros</strong> de la 2ª declinación. En nominativo singular terminan en <strong>-um</strong> (<span class="ex-latin">navigium</span>, <span class="ex-latin">donum</span>); en nominativo plural, en <strong>-a</strong> (<span class="ex-latin">navigia</span>, <span class="ex-latin">dona</span>) — no en <em>-ī</em> como los masculinos, ni en <em>-ae</em> como los femeninos.</p>
+        <p>Ojo con esto: un neutro plural en <em>-a</em> se parece, a primera vista, a un femenino singular de 1ª declinación — pero si el sustantivo es neutro, esa <em>-a</em> es plural, y el verbo tiene que concordar en plural: <span class="ex-latin">Navigium magnum est</span> (el barco es grande) pasa a <span class="ex-latin">Navigia magna sunt</span> (los barcos son grandes).</p>
+      </div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
+    </section>
+
+    <!-- ===== Paso 3 ===== -->
+    <section class="step" id="step-p3">
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí el verbo correcto</h2></div></div>
+      <p class="step-instructions">Frases nuevas, con el vocabulario que ya conocés. Elegí, en cada desplegable, la forma del verbo que concuerda con el sujeto.</p>
+      <div class="p-progress" id="p3-progress"></div>
+      <div class="exercise" id="p3-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
+    </section>
+
+    <!-- ===== Paso 4 ===== -->
+    <section class="step" id="step-p4">
+      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Elegí sujeto y verbo</h2></div></div>
+      <p class="step-instructions">Ahora elegí, en cada frase, el sujeto y el verbo que concuerdan entre sí y con la traducción castellana.</p>
+      <div class="p-progress" id="p4-progress"></div>
+      <div class="exercise" id="p4-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+    </section>
+
+    <!-- ===== Cierre ===== -->
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="completá la idea" required /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  /*__DATA__*/var DATA = {"frasesBase": [{"id": 1, "latin": "Cyclops Polyphemus, qui unum oculum habet, Vlixem et socios in spelunca tenet et eos consumit.", "cast": "El cíclope Polifemo, que tiene un solo ojo, retiene a Ulises y a sus compañeros en la cueva y los devora.", "verbBoldCast": ["tiene", "retiene", "devora"], "tokens": ["Cyclops", "Polyphemus,", "qui", "unum", "oculum", "habet,", "Vlixem", "et", "socios", "in", "spelunca", "tenet", "eos", "consumit."], "verbIdx": [5, 11, 13], "subjectIdx": [0, 1, 2], "verbData": [{"idx": 5, "correctLemma": "habeo", "lemmaOptions": ["habeo", "teneo", "redeo"], "correctTrans": "tiene", "transOptions": ["destruye", "dice", "tiene"]}, {"idx": 11, "correctLemma": "teneo", "lemmaOptions": ["habeo", "muto", "teneo"], "correctTrans": "retiene", "transOptions": ["lleva", "retiene", "reconoce"]}, {"idx": 13, "correctLemma": "consumo", "lemmaOptions": ["reddo", "consumo", "occido"], "correctTrans": "devora", "transOptions": ["reconoce", "dice", "devora"]}], "subjectBoldCast": ["El cíclope Polifemo", "que"]}, {"id": 2, "latin": "Vlixes ad Sirenas venit; socios cera surdos facit et se ligat, et salvus praeterit.", "cast": "Ulises llega donde las sirenas; hace sordos a sus compañeros con cera y se ata a sí mismo, y pasa a salvo.", "verbBoldCast": ["llega", "hace", "ata", "pasa"], "tokens": ["Vlixes", "ad", "Sirenas", "venit;", "socios", "cera", "surdos", "facit", "et", "se", "ligat,", "salvus", "praeterit."], "verbIdx": [3, 7, 10, 12], "subjectIdx": [0], "verbData": [{"idx": 3, "correctLemma": "venio", "lemmaOptions": ["dico", "facio", "venio"], "correctTrans": "llega", "transOptions": ["ata", "devora", "llega"]}, {"idx": 7, "correctLemma": "facio", "lemmaOptions": ["ligo", "facio", "duco"], "correctTrans": "hace", "transOptions": ["hace", "da", "incendia"]}, {"idx": 10, "correctLemma": "ligo", "lemmaOptions": ["teneo", "ligo", "navigo"], "correctTrans": "ata", "transOptions": ["ata", "bebe", "¡deja ir!"]}, {"idx": 12, "correctLemma": "praetereo", "lemmaOptions": ["possum", "occido", "praetereo"], "correctTrans": "pasa de largo", "transOptions": ["pasa de largo", "transforma", "tiene"]}], "subjectBoldCast": ["Ulises"]}, {"id": 3, "latin": "Calypso, nympha pulchra, Vlixem in insula sua diutius tenet; sed Mercurius ei dicit: “Vlixem dimitte!”", "cast": "Calipso, una ninfa hermosa, tiene a Ulises mucho tiempo en su isla; pero Mercurio le dice: “¡Deja ir a Ulises!”", "verbBoldCast": ["tiene", "dice", "Deja ir"], "tokens": ["Calypso,", "nympha", "pulchra,", "Vlixem", "in", "insula", "sua", "diutius", "tenet;", "sed", "Mercurius", "ei", "dicit:", "“Vlixem", "dimitte!”"], "verbIdx": [8, 12, 14], "subjectIdx": [0, 10], "verbData": [{"idx": 8, "correctLemma": "teneo", "lemmaOptions": ["occido", "teneo", "iaceo"], "correctTrans": "tiene", "transOptions": ["bebe", "tiene", "finge"]}, {"idx": 12, "correctLemma": "dico", "lemmaOptions": ["possum", "dico", "venio"], "correctTrans": "dice", "transOptions": ["dice", "devora", "llega"]}, {"idx": 14, "correctLemma": "dimitto", "lemmaOptions": ["ligo", "incendo", "dimitto"], "correctTrans": "¡deja ir!", "transOptions": ["tiene", "¡deja ir!", "regresa"]}], "subjectBoldCast": ["Calipso", "Mercurio"]}, {"id": 4, "latin": "Vlixes nudus in ora iacet; Nausicaa eum videt, pallium dat, et ad patrem suum ducit.", "cast": "Ulises yace desnudo en la orilla; Nausícaa, lo ve, le da un manto, y lo lleva ante su padre.", "verbBoldCast": ["yace", "ve", "da", "lleva"], "tokens": ["Vlixes", "nudus", "in", "ora", "iacet;", "Nausicaa", "eum", "videt,", "pallium", "dat,", "et", "ad", "patrem", "suum", "ducit."], "verbIdx": [4, 7, 9, 14], "subjectIdx": [0, 5], "verbData": [{"idx": 4, "correctLemma": "iaceo", "lemmaOptions": ["praetereo", "iaceo", "simulo"], "correctTrans": "yace", "transOptions": ["ve", "tiene", "yace"]}, {"idx": 7, "correctLemma": "video", "lemmaOptions": ["deleo", "video", "muto"], "correctTrans": "ve", "transOptions": ["ayuda", "ve", "hace"]}, {"idx": 9, "correctLemma": "do", "lemmaOptions": ["occido", "dico", "do"], "correctTrans": "da", "transOptions": ["dice", "da", "transforma"]}, {"idx": 14, "correctLemma": "duco", "lemmaOptions": ["duco", "facio", "incendo"], "correctTrans": "lleva", "transOptions": ["destruye", "dice", "lleva"]}], "subjectBoldCast": ["Ulises", "Nausícaa"]}, {"id": 5, "latin": "Vlixes solus in patriam redit et mendicum se simulat; sed Euryclia eum statim cognoscit.", "cast": "Ulises regresa solo a su patria y finge ser un mendigo; pero Euriclea lo reconoce enseguida.", "verbBoldCast": ["regresa", "finge", "reconoce"], "tokens": ["Vlixes", "solus", "in", "patriam", "redit", "et", "mendicum", "se", "simulat;", "sed", "Euryclia", "eum", "statim", "cognoscit."], "verbIdx": [4, 8, 13], "subjectIdx": [0, 10], "verbData": [{"idx": 4, "correctLemma": "redeo", "lemmaOptions": ["habeo", "redeo", "adiuvo"], "correctTrans": "regresa", "transOptions": ["regresa", "dice", "incendia"]}, {"idx": 8, "correctLemma": "simulo", "lemmaOptions": ["dimitto", "simulo", "occido"], "correctTrans": "finge", "transOptions": ["finge", "transforma", "destruye"]}, {"idx": 13, "correctLemma": "cognosco", "lemmaOptions": ["redeo", "cognosco", "occido"], "correctTrans": "reconoce", "transOptions": ["tiene", "matan", "reconoce"]}], "subjectBoldCast": ["Ulises", "Euriclea"]}, {"id": 6, "latin": "Vlixes et Telemachus procos occidunt. Minerva eos adiuvat.", "cast": "Ulises y Telémaco matan a los pretendientes. Minerva los ayuda.", "verbBoldCast": ["matan", "ayuda"], "tokens": ["Vlixes", "et", "Telemachus", "procos", "occidunt.", "Minerva", "eos", "adiuvat."], "verbIdx": [4, 7], "subjectIdx": [0, 2, 5], "verbData": [{"idx": 4, "correctLemma": "occido", "lemmaOptions": ["video", "adiuvo", "occido"], "correctTrans": "matan", "transOptions": ["ve", "matan", "reconoce"]}, {"idx": 7, "correctLemma": "adiuvo", "lemmaOptions": ["adiuvo", "teneo", "venio"], "correctTrans": "ayuda", "transOptions": ["navega", "ata", "ayuda"]}], "subjectBoldCast": ["Ulises y Telémaco", "Minerva"]}, {"id": 7, "latin": "Circe socios in bestias mutat; sed Mercurius ei remedium dat, et Circe Vlixem mutare non potest.", "cast": "Circe transforma a los compañeros en bestias; pero Mercurio le da a Ulises un remedio, y Circe no puede transformarlo.", "verbBoldCast": ["transforma", "da", "puede"], "tokens": ["Circe", "socios", "in", "bestias", "mutat;", "sed", "Mercurius", "ei", "remedium", "dat,", "et", "Circe", "Vlixem", "mutare", "non", "potest."], "verbIdx": [4, 9, 15], "subjectIdx": [0, 6, 11], "verbData": [{"idx": 4, "correctLemma": "muto", "lemmaOptions": ["dimitto", "muto", "consumo"], "correctTrans": "transforma", "transOptions": ["finge", "tiene", "transforma"]}, {"idx": 9, "correctLemma": "do", "lemmaOptions": ["navigo", "do", "praetereo"], "correctTrans": "da", "transOptions": ["da", "tiene", "incendia"]}, {"idx": 15, "correctLemma": "possum", "lemmaOptions": ["possum", "teneo", "deleo"], "correctTrans": "puede", "transOptions": ["dice", "ayuda", "puede"]}], "subjectBoldCast": ["Circe", "Mercurio", "Circe"]}, {"id": 8, "latin": "Vlixes navigium facit et solus navigat; sed Neptunus iratus id delet.", "cast": "Ulises hace una embarcación y navega solo; pero Neptuno enojado la destruye.", "verbBoldCast": ["hace", "navega", "destruye"], "tokens": ["Vlixes", "navigium", "facit", "et", "solus", "navigat;", "sed", "Neptunus", "iratus", "id", "delet."], "verbIdx": [2, 5, 10], "subjectIdx": [0, 7], "verbData": [{"idx": 2, "correctLemma": "facio", "lemmaOptions": ["facio", "occido", "habeo"], "correctTrans": "hace", "transOptions": ["hace", "destruye", "reconoce"]}, {"idx": 5, "correctLemma": "navigo", "lemmaOptions": ["adiuvo", "navigo", "praetereo"], "correctTrans": "navega", "transOptions": ["reconoce", "devuelve", "navega"]}, {"idx": 10, "correctLemma": "deleo", "lemmaOptions": ["iaceo", "deleo", "venio"], "correctTrans": "destruye", "transOptions": ["destruye", "navega", "puede"]}], "subjectBoldCast": ["Ulises", "Neptuno"]}, {"id": 9, "latin": "Scylla sex socios Vlixis consumit; Charybdis magnas undas bibit et reddit, sed Vlixes cum sociis salvus praeterit.", "cast": "Escila devora a seis compañeros de Ulises; Caribdis bebe y devuelve grandes olas, pero Ulises con sus compañeros pasa a salvo.", "verbBoldCast": ["devora", "bebe", "devuelve", "pasa"], "tokens": ["Scylla", "sex", "socios", "Vlixis", "consumit;", "Charybdis", "magnas", "undas", "bibit", "et", "reddit,", "sed", "Vlixes", "cum", "sociis", "salvus", "praeterit."], "verbIdx": [4, 8, 10, 16], "subjectIdx": [0, 5, 12], "verbData": [{"idx": 4, "correctLemma": "consumo", "lemmaOptions": ["consumo", "dico", "occido"], "correctTrans": "devora", "transOptions": ["reconoce", "devora", "regresa"]}, {"idx": 8, "correctLemma": "bibo", "lemmaOptions": ["teneo", "video", "bibo"], "correctTrans": "bebe", "transOptions": ["bebe", "da", "está"]}, {"idx": 10, "correctLemma": "reddo", "lemmaOptions": ["reddo", "sum", "occido"], "correctTrans": "devuelve", "transOptions": ["pasa de largo", "devuelve", "ve"]}, {"idx": 16, "correctLemma": "praetereo", "lemmaOptions": ["habeo", "cognosco", "praetereo"], "correctTrans": "pasa de largo", "transOptions": ["pasa de largo", "dice", "navega"]}], "subjectBoldCast": ["Escila", "Caribdis", "Ulises"]}, {"id": 10, "latin": "Socii vaccas Solis sacras consumunt; Sol iratus est, et Iuppiter navigium incendit.", "cast": "Los compañeros comen las vacas sagradas del Sol; el Sol se enoja, y Júpiter incendia la nave.", "verbBoldCast": ["comen", "se enoja", "incendia"], "tokens": ["Socii", "vaccas", "Solis", "sacras", "consumunt;", "Sol", "iratus", "est,", "et", "Iuppiter", "navigium", "incendit."], "verbIdx": [4, 7, 11], "subjectIdx": [0, 5, 9], "verbData": [{"idx": 4, "correctLemma": "consumo", "lemmaOptions": ["teneo", "consumo", "muto"], "correctTrans": "comen", "transOptions": ["matan", "lleva", "comen"]}, {"idx": 7, "correctLemma": "sum", "lemmaOptions": ["incendo", "muto", "sum"], "correctTrans": "está", "transOptions": ["ayuda", "lleva", "está"]}, {"idx": 11, "correctLemma": "incendo", "lemmaOptions": ["dico", "incendo", "teneo"], "correctTrans": "incendia", "transOptions": ["incendia", "navega", "reconoce"]}], "subjectBoldCast": ["Los compañeros", "el Sol", "Júpiter"]}], "paso3": [{"id": 1, "cast": "Neptuno destruye el barco.", "latinPre": "Neptunus navigium", "latinPost": "", "options": ["delet", "delent", "navigat"], "correct": "delet"}, {"id": 2, "cast": "Los compañeros comen las vacas.", "latinPre": "Socii vaccas", "latinPost": "", "options": ["consumunt", "consumit", "bibunt"], "correct": "consumunt"}, {"id": 3, "cast": "El regalo es grande.", "latinPre": "Donum magnum", "latinPost": "", "options": ["est", "sunt", "delet"], "correct": "est"}, {"id": 4, "cast": "Los barcos son grandes.", "latinPre": "Navigia magna", "latinPost": "", "options": ["sunt", "est", "delent"], "correct": "sunt"}, {"id": 5, "cast": "Ulises navega solo.", "latinPre": "Vlixes solus", "latinPost": "", "options": ["navigat", "navigant", "delet"], "correct": "navigat"}], "paso4": [{"id": 1, "cast": "Circe transforma a los compañeros.", "latinMid": "socios", "subjOptions": ["Circe", "Mercurius", "Neptunus"], "subjCorrect": "Circe", "verbOptions": ["mutat", "mutant", "delet"], "verbCorrect": "mutat"}, {"id": 2, "cast": "Los compañeros comen las vacas sagradas.", "latinMid": "vaccas sacras", "subjOptions": ["Socii", "Vlixes", "Circe"], "subjCorrect": "Socii", "verbOptions": ["consumunt", "consumit", "bibunt"], "verbCorrect": "consumunt"}, {"id": 3, "cast": "El regalo es grande.", "latinMid": "magnum", "subjOptions": ["Donum", "Dona", "Oppidum"], "subjCorrect": "Donum", "verbOptions": ["est", "sunt", "delet"], "verbCorrect": "est"}, {"id": 4, "cast": "Los barcos son grandes.", "latinMid": "magna", "subjOptions": ["Navigium", "Navigia", "Dona"], "subjCorrect": "Navigia", "verbOptions": ["sunt", "est", "delent"], "verbCorrect": "sunt"}, {"id": 5, "cast": "Neptuno destruye el barco.", "latinMid": "navigium", "subjOptions": ["Neptunus", "Circe", "Socii"], "subjCorrect": "Neptunus", "verbOptions": ["delet", "delent", "navigat"], "verbCorrect": "delet"}]}
+;/*__DATA__*/
+  var FRASES = DATA.frasesBase, PASO3 = DATA.paso3, PASO4 = DATA.paso4;
+
+  function clean(s){ return s.replace(/[“”"…,.;:!?]/g, ""); }
+  function boldify(text, phrases){
+    var out = text;
+    phrases.forEach(function(ph){
+      out = out.split(ph).join("<strong>" + ph + "</strong>");
+    });
+    return out;
+  }
+
+  var identity = { email:"" };
+  var submitLog = [];
+
+  // ---------- Guardar/retomar progreso (por estudiante, en este mismo navegador) ----------
+  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo email
+  // en el mismo dispositivo retoma en el paso donde quedó, en vez de tener que empezar de
+  // nuevo. Si lo interrumpe A MITAD de un paso, ese paso puntual se rehace desde cero (no se
+  // guarda el detalle palabra por palabra) — es la opción más simple que resuelve el problema
+  // real sin agregar mucha complejidad.
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      showStep(restored.step);
+    } else {
+      showStep("step-p1");
+    }
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  // =================================================================
+  // Paso 1: identificar verbos (todas las palabras tocables) + panel
+  // de dos etapas (enunciado, traducción) con reintento.
+  // =================================================================
+  var p1Total = 0, p1Resolved = 0;
+  FRASES.forEach(function(f){ p1Total += f.verbData.length; });
+
+  function updateP1Progress(){
+    document.getElementById("p1-progress").innerHTML = "Verbos resueltos: <strong>" + p1Resolved + " / " + p1Total + "</strong>";
+    document.getElementById("btn-to-p2").disabled = p1Resolved < p1Total;
+  }
+
+  (function(){
+    var list = document.getElementById("p1-list");
+    FRASES.forEach(function(f){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast";
+      cast.innerHTML = boldify(f.cast, f.verbBoldCast);
+      block.appendChild(cast);
+
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var panelHost = document.createElement("div");
+
+      var verbByIdx = {};
+      f.verbData.forEach(function(vd){ verbByIdx[vd.idx] = vd; });
+
+      f.tokens.forEach(function(word, idx){
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        var isVerb = verbByIdx.hasOwnProperty(idx);
+        var vd = isVerb ? verbByIdx[idx] : null;
+        if (isVerb){
+          vd._lemma = null; vd._lemmaDone = false; vd._triedLemma = new Set();
+          vd._trans = null; vd._transDone = false; vd._triedTrans = new Set();
+          vd._chip = chip;
+        }
+
+        chip.addEventListener("click", function(){
+          var key = f.id + "-" + idx;
+          var existing = panelHost.querySelector('[data-panel-for="' + key + '"]');
+          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+          panelHost.innerHTML = "";
+          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+
+          var panel = document.createElement("div");
+          panel.className = "word-panel";
+          panel.dataset.panelFor = key;
+          var label = document.createElement("span"); label.className = "for-word"; label.textContent = clean(word) + " ·";
+          panel.appendChild(label);
+
+          if (!isVerb){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback info";
+            fb.textContent = "Esta palabra no es una forma verbal conjugada.";
+            panel.appendChild(fb);
+            panelHost.appendChild(panel);
+            return;
+          }
+
+          // Etapa A: enunciado
+          var stageA = document.createElement("div");
+          stageA.className = "panel-stage";
+          var labelA = document.createElement("span"); labelA.className = "stage-label"; labelA.textContent = "Enunciado";
+          stageA.appendChild(labelA);
+          vd.lemmaOptions.forEach(function(opt){
+            var ob = document.createElement("button");
+            ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
+            if (vd._lemmaDone){
+              ob.disabled = true;
+              if (opt === vd.correctLemma){ ob.classList.add("answered-ok"); }
+              else if (opt === vd._lemma){ ob.classList.add("answered-bad"); }
+            } else if (vd._triedLemma.has(opt)){
+              ob.disabled = true;
+              ob.classList.add("answered-bad");
+            }
+            ob.addEventListener("click", function(){
+              if (vd._lemmaDone || vd._triedLemma.has(opt)) return;
+              var ok = opt === vd.correctLemma;
+              submitLog.push({ paso:"1 - Verbos", item:"Frase " + f.id + " · " + word + " (enunciado)", respuesta: opt, correcta: ok });
+              if (ok){
+                vd._lemma = opt; vd._lemmaDone = true;
+              } else {
+                vd._triedLemma.add(opt);
+                if (vd._triedLemma.size >= 2){ vd._lemma = opt; vd._lemmaDone = true; }
+              }
+              chip.click(); chip.click();
+            });
+            stageA.appendChild(ob);
+          });
+          panel.appendChild(stageA);
+
+          if (!vd._lemmaDone && vd._triedLemma.size > 0){
+            var fbA = document.createElement("span");
+            fbA.className = "word-feedback bad";
+            fbA.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fbA);
+          }
+
+          // Etapa B: traducción (solo si ya se resolvió el enunciado, bien o revelado)
+          if (vd._lemmaDone){
+            var stageB = document.createElement("div");
+            stageB.className = "panel-stage";
+            var labelB = document.createElement("span"); labelB.className = "stage-label"; labelB.textContent = "Traducción";
+            stageB.appendChild(labelB);
+            vd.transOptions.forEach(function(opt){
+              var ob = document.createElement("button");
+              ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
+              if (vd._transDone){
+                ob.disabled = true;
+                if (opt === vd.correctTrans){ ob.classList.add("answered-ok"); }
+                else if (opt === vd._trans){ ob.classList.add("answered-bad"); }
+              } else if (vd._triedTrans.has(opt)){
+                ob.disabled = true;
+                ob.classList.add("answered-bad");
+              }
+              ob.addEventListener("click", function(){
+                if (vd._transDone || vd._triedTrans.has(opt)) return;
+                var ok = opt === vd.correctTrans;
+                submitLog.push({ paso:"1 - Verbos", item:"Frase " + f.id + " · " + word + " (traducción)", respuesta: opt, correcta: ok });
+                if (ok){
+                  vd._trans = opt; vd._transDone = true;
+                  p1Resolved++; updateP1Progress();
+                  chip.classList.remove("g-bad"); chip.classList.add("g-ok");
+                } else {
+                  vd._triedTrans.add(opt);
+                  chip.classList.add("g-bad");
+                  if (vd._triedTrans.size >= 2){
+                    vd._trans = opt; vd._transDone = true;
+                    p1Resolved++; updateP1Progress();
+                  }
+                }
+                chip.click(); chip.click();
+              });
+              stageB.appendChild(ob);
+            });
+            panel.appendChild(stageB);
+
+            if (!vd._transDone && vd._triedTrans.size > 0){
+              var fbB = document.createElement("span");
+              fbB.className = "word-feedback bad";
+              fbB.textContent = "No es correcta. Probá una vez más.";
+              panel.appendChild(fbB);
+            }
+          }
+
+          if (vd._lemmaDone && vd._transDone){
+            var lemmaOk = vd._lemma === vd.correctLemma;
+            var transOk = vd._trans === vd.correctTrans;
+            var fbOk = document.createElement("span");
+            fbOk.className = "word-feedback " + (lemmaOk && transOk ? "ok" : "bad");
+            fbOk.textContent = (lemmaOk && transOk) ? "¡Correcto!" :
+              ("No era correcta. Enunciado correcto: " + vd.correctLemma + " · Traducción correcta: " + vd.correctTrans);
+            panel.appendChild(fbOk);
+          }
+
+          panelHost.appendChild(panel);
+        });
+
+        tokensEl.appendChild(chip);
+      });
+
+      block.appendChild(tokensEl);
+      block.appendChild(panelHost);
+      list.appendChild(block);
+    });
+    updateP1Progress();
+  })();
+
+  // Botón "me cansé": revela de una los verbos todavía sin completar (enunciado + traducción).
+  // Los que ya tenían alguna etapa resuelta (bien o revelada) no se pisan.
+  document.getElementById("btn-cansado-p1").addEventListener("click", function(){
+    FRASES.forEach(function(f){
+      f.verbData.forEach(function(vd){
+        if (vd._transDone) return;
+        if (!vd._lemmaDone) vd._lemmaDone = true;
+        vd._transDone = true;
+        p1Resolved++;
+        if (vd._chip){
+          vd._chip.classList.remove("g-bad");
+          vd._chip.classList.add("g-revealed");
+        }
+      });
+    });
+    updateP1Progress();
+  });
+
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
+
+  // =================================================================
+  // Paso 2: identificar sujetos (multi-selección con reintento)
+  // =================================================================
+  var p2Total = 0, p2Resolved = 0;
+  FRASES.forEach(function(f){ p2Total += f.subjectIdx.length; });
+
+  function updateP2Progress(){
+    document.getElementById("p2-progress").innerHTML = "Sujetos encontrados: <strong>" + p2Resolved + " / " + p2Total + "</strong>";
+    document.getElementById("btn-to-explain").disabled = p2Resolved < p2Total;
+  }
+
+  (function(){
+    var list = document.getElementById("p2-list");
+    FRASES.forEach(function(f){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast";
+      cast.innerHTML = boldify(f.cast, f.subjectBoldCast);
+      block.appendChild(cast);
+
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var subjSet = new Set(f.subjectIdx);
+      var verbSet = new Set(f.verbIdx);
+      var found = new Set();
+      var triedWrong = new Set();
+      f._subjSet = subjSet;
+      f._found = found;
+      f._subjChipMap = {};
+
+      f.tokens.forEach(function(word, idx){
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        if (subjSet.has(idx)) f._subjChipMap[idx] = chip;
+        if (verbSet.has(idx)){
+          chip.classList.add("g-ok");
+          chip.disabled = true;
+          chip.style.opacity = ".55";
+        } else {
+          chip.addEventListener("click", function(){
+            if (found.has(idx) || triedWrong.has(idx)) return;
+            var ok = subjSet.has(idx);
+            submitLog.push({ paso:"2 - Sujetos", item:"Frase " + f.id + " · " + word, respuesta: ok ? "sujeto" : "no es sujeto", correcta: ok });
+            if (ok){
+              found.add(idx);
+              chip.classList.add("g-ok");
+              chip.disabled = true;
+              p2Resolved++; updateP2Progress();
+            } else {
+              triedWrong.add(idx);
+              chip.classList.add("g-bad");
+              chip.disabled = true;
+            }
+          });
+        }
+        tokensEl.appendChild(chip);
+      });
+
+      block.appendChild(tokensEl);
+      list.appendChild(block);
+    });
+    updateP2Progress();
+  })();
+
+  // Botón "me cansé": revela de una los sujetos todavía no encontrados en cada frase. Las
+  // palabras ya marcadas (bien o mal) quedan como estaban.
+  document.getElementById("btn-cansado-p2").addEventListener("click", function(){
+    FRASES.forEach(function(f){
+      if (!f._subjSet) return;
+      f._subjSet.forEach(function(idx){
+        if (f._found.has(idx)) return;
+        f._found.add(idx);
+        p2Resolved++;
+        var chip = f._subjChipMap[idx];
+        if (chip){
+          chip.classList.remove("g-bad");
+          chip.classList.add("g-revealed");
+          chip.disabled = true;
+        }
+      });
+    });
+    updateP2Progress();
+  });
+
+  document.getElementById("btn-to-explain").addEventListener("click", function(){ saveProgress("step-explain"); showStep("step-explain"); });
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
+
+  // =================================================================
+  // Paso 3: dropdown de verbo (5 frases nuevas)
+  // =================================================================
+  var p3Resolved = 0;
+  function updateP3Progress(){
+    document.getElementById("p3-progress").innerHTML = "Frases resueltas: <strong>" + p3Resolved + " / " + PASO3.length + "</strong>";
+    document.getElementById("btn-to-p4").disabled = p3Resolved < PASO3.length;
+  }
+
+  function buildDropdown(options, correct, onResolve, logCtx){
+    var select = document.createElement("select");
+    select.className = "dd";
+    var placeholder = document.createElement("option");
+    placeholder.textContent = "— elegí —"; placeholder.value = ""; placeholder.disabled = true; placeholder.selected = true;
+    select.appendChild(placeholder);
+    options.forEach(function(opt){
+      var o = document.createElement("option");
+      o.value = opt; o.textContent = opt;
+      select.appendChild(o);
+    });
+    var msg = document.createElement("div");
+    msg.className = "dd-msg";
+    var wrongCount = 0;
+
+    select.addEventListener("change", function(){
+      var val = select.value;
+      if (!val) return;
+      var ok = val === correct;
+      submitLog.push({ paso: logCtx.paso, item: logCtx.item, respuesta: val, correcta: ok });
+      if (ok){
+        select.classList.remove("g-bad"); select.classList.add("g-ok");
+        select.disabled = true;
+        msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
+        onResolve();
+      } else {
+        wrongCount++;
+        select.classList.add("g-bad");
+        Array.from(select.options).forEach(function(o){ if (o.value === val) o.disabled = true; });
+        // Primer error: reintenta con las opciones que quedan. Segundo error (dos intentos
+        // fallidos en total): se revela la respuesta correcta y queda resuelto.
+        if (wrongCount >= 2){
+          select.value = correct;
+          select.disabled = true;
+          msg.className = "dd-msg bad"; msg.textContent = "No era correcta. La respuesta correcta es: " + correct;
+          onResolve();
+        } else {
+          select.value = "";
+          msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá una vez más.";
+        }
+      }
+    });
+
+    return { select: select, msg: msg };
+  }
+
+  (function(){
+    var list = document.getElementById("p3-list");
+    PASO3.forEach(function(item){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = item.cast;
+      block.appendChild(cast);
+
+      var row = document.createElement("div"); row.className = "dd-row";
+      var pre = document.createElement("span"); pre.textContent = item.latinPre;
+      row.appendChild(pre);
+
+      var dd = buildDropdown(item.options, item.correct, function(){
+        p3Resolved++; updateP3Progress();
+      }, { paso:"3 - Concordancia (verbo)", item:"Frase " + item.id });
+      row.appendChild(dd.select);
+      var period = document.createElement("span"); period.textContent = "."; row.appendChild(period);
+      row.appendChild(dd.msg);
+
+      block.appendChild(row);
+      list.appendChild(block);
+    });
+    updateP3Progress();
+  })();
+
+  // =================================================================
+  // Paso 4: dropdown de sujeto + verbo (5 frases nuevas)
+  // =================================================================
+  var p4Resolved = 0;
+  function updateP4Progress(){
+    document.getElementById("p4-progress").innerHTML = "Desplegables resueltos: <strong>" + p4Resolved + " / " + (PASO4.length * 2) + "</strong>";
+    document.getElementById("btn-to-fin").disabled = p4Resolved < PASO4.length * 2;
+  }
+
+  document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
+
+  (function(){
+    var list = document.getElementById("p4-list");
+    PASO4.forEach(function(item){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id;
+      block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = item.cast;
+      block.appendChild(cast);
+
+      var row = document.createElement("div"); row.className = "dd-row";
+
+      var ddSubj = buildDropdown(item.subjOptions, item.subjCorrect, function(){
+        p4Resolved++; updateP4Progress();
+      }, { paso:"4 - Concordancia (sujeto)", item:"Frase " + item.id });
+      row.appendChild(ddSubj.select);
+
+      var mid = document.createElement("span"); mid.textContent = item.latinMid; row.appendChild(mid);
+
+      var ddVerb = buildDropdown(item.verbOptions, item.verbCorrect, function(){
+        p4Resolved++; updateP4Progress();
+      }, { paso:"4 - Concordancia (verbo)", item:"Frase " + item.id });
+      row.appendChild(ddVerb.select);
+
+      var period = document.createElement("span"); period.textContent = "."; row.appendChild(period);
+      row.appendChild(ddSubj.msg);
+      row.appendChild(ddVerb.msg);
+
+      block.appendChild(row);
+      list.appendChild(block);
+    });
+    updateP4Progress();
+  })();
+
+  document.getElementById("btn-to-fin").addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  // Comentario y sugerencia son obligatorios — Santiago pidió que no se pueda enviar sin
+  // esa reflexión, aunque sea mínima ("me fue igual que en el anterior").
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  document.getElementById("btn-send").addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return; // no debería poder llegar acá con el botón deshabilitado
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      evalPushed = true;
+    }
+
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
