@@ -77,19 +77,30 @@
 
   .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
 
-  /* ---- Paso 1: memotest ---- */
-  .memory-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(105px,1fr)); gap:.6rem; }
-  .mem-card{
-    min-height:68px; border:1.5px solid var(--rule); border-radius:8px; background:var(--surface-raised);
-    cursor:pointer; display:flex; align-items:center; justify-content:center; text-align:center; padding:.4rem .45rem;
-    font-family:var(--serif); font-size:.78rem; line-height:1.2; overflow-wrap:break-word; hyphens:none;
-    transition:border-color .15s ease, background .15s ease, color .15s ease;
+  /* ---- Paso 1: vocabulario ya visto (autorreporte de significado, calcado de
+     "Repaso nonstop" de Griego Puan, acotado a las palabras de VOCAB en vez de infinito) ---- */
+  .word-latin{ font-family:var(--serif); font-size:1.7rem; text-align:center; padding:1.1rem 1rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; margin-bottom:1.1rem; }
+  .example-block{ background:var(--warn-bg); border:1px solid var(--rule); border-radius:8px; padding:.9rem 1rem; margin-bottom:1.2rem; }
+  .example-label{ font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--warn); margin:0 0 .45rem; }
+  .example-latin{ font-family:var(--serif); font-size:1.02rem; line-height:1.5; margin:0; }
+  .example-latin b{ background:var(--warn-bg); border-bottom:2px solid var(--warn); padding:0 .1rem; }
+  .meaning-reveal{ font-family:var(--serif); font-size:1.15rem; text-align:center; margin:0 0 1rem; color:var(--accent-strong); }
+  .option-list{ display:flex; flex-direction:column; gap:.55rem; }
+  .option-btn{
+    display:flex; align-items:center; justify-content:center; text-align:center; width:100%;
+    border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:8px;
+    padding:.7rem .85rem; font-size:.94rem; font-family:var(--sans); color:var(--ink); cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
   }
-  .mem-card:hover:not(.matched){ border-color:var(--accent); }
-  .mem-card.flipped{ border-color:var(--accent); background:var(--surface); }
-  .mem-card.matched{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); cursor:default; }
-  .mem-card.mismatch{ border-color:var(--incorrect); background:var(--incorrect-bg); }
-  .mem-card:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .option-btn:hover:not(:disabled){ border-color:var(--accent); }
+  .option-btn.ghost{ border-style:dashed; color:var(--ink-muted); }
+  .option-btn.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); font-weight:600; }
+  .option-btn.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .option-btn:disabled{ cursor:default; opacity:.6; }
+  .feedback-line{ font-size:.9rem; font-weight:600; margin-top:.9rem; text-align:center; }
+  .feedback-line.ok{ color:var(--correct); }
+  .feedback-line.reveal{ color:var(--incorrect); }
+  .next-nav{ display:flex; justify-content:center; margin-top:1rem; }
 
   /* ---- Paso 2: imagen para cada fragmento ---- */
   .frag-block{ padding:1.2rem 0; border-top:1px solid var(--rule); }
@@ -200,10 +211,16 @@
         <div><p class="eyebrow">Paso 1</p><h2>Esto ya lo sabemos</h2></div>
         <span class="p-progress" id="p1-progress" style="margin:0;">—</span>
       </div>
-      <p class="step-instructions">Palabras que ya vimos en las actividades, y que vuelven a aparecer en el texto de Higino. Uní cada una con su significado en castellano.</p>
+      <p class="step-instructions">Palabras que ya vimos en las actividades, y que vuelven a aparecer en el texto de Higino. Por cada una, fijate si te acordás el significado en castellano.</p>
       <p class="step-note">Un detalle antes de empezar: en la edición de Higino figura <em>u</em> donde nosotros ponemos <em>v</em> (<em>Achiui</em> = <em>Achivi</em>). Recuerden que en latín clásico son el mismo sonido.</p>
       <div class="exercise">
-        <div class="memory-grid" id="p1-grid"></div>
+        <p class="prompt" id="p1-prompt">¿Qué significa esta palabra?</p>
+        <div id="p1-example-host"></div>
+        <div class="word-latin" id="p1-word"></div>
+        <div id="p1-meaning-host"></div>
+        <div class="option-list" id="p1-option-list"></div>
+        <div id="p1-feedback-host"></div>
+        <div class="next-nav" id="p1-next-nav"></div>
       </div>
       <div class="stage-nav"><button class="btn" id="btn-to-p2" disabled>Al Paso 2</button></div>
     </section>
@@ -464,65 +481,136 @@
   }
 
   // =================================================================
-  // Paso 1: memotest — 14 pares, 28 cartas
+  // Paso 1: vocabulario ya visto — autorreporte de significado, palabra por palabra.
+  // Dinámica calcada de "Repaso nonstop" (GRIEGO PUAN/repaso-nonstop.html), solo la parte
+  // de "significado" (sin la parte de identificar forma gramatical, que no aplica acá) y
+  // acotada a las VOCAB.length palabras de este paso en vez de loop infinito. Sin botón
+  // "me cansé" acá — 14 palabras, por debajo del umbral de 15 de la convención 9.
   // =================================================================
   (function(){
-    var grid = document.getElementById("p1-grid");
-    var cards = [];
-    VOCAB.forEach(function(v, i){
-      cards.push({ pairId:i, html:"<strong>" + v.higino + "</strong>", label:v.higino, el:null, matched:false });
-      cards.push({ pairId:i, html:"<em>" + v.lema + "</em>: " + v.significado, label:v.lema + ": " + v.significado, el:null, matched:false });
-    });
-    // shuffle
-    for (var i = cards.length - 1; i > 0; i--){
-      var j = Math.floor(Math.random() * (i + 1));
-      var tmp = cards[i]; cards[i] = cards[j]; cards[j] = tmp;
+    function shuffledIdx(n){
+      var a = []; for (var i=0;i<n;i++) a.push(i);
+      for (var j=a.length-1;j>0;j--){ var k=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[k]; a[k]=t; }
+      return a;
+    }
+    // Busca la primera frase de BLOCKS (Pasos 4/5) que contiene esta forma exacta de Higino,
+    // para la opción "Dame más contexto".
+    function findContext(form){
+      for (var b = 0; b < BLOCKS.length; b++){
+        if (BLOCKS[b].indexOf(form) !== -1) return BLOCKS[b].join(" ");
+      }
+      return null;
     }
 
-    var matchedPairs = 0;
-    var first = null, lock = false;
+    var order = shuffledIdx(VOCAB.length);
+    var idx = 0, doneCount = 0, current = null;
+
+    var exampleHostEl = document.getElementById("p1-example-host");
+    var wordEl = document.getElementById("p1-word");
+    var meaningHostEl = document.getElementById("p1-meaning-host");
+    var optionListEl = document.getElementById("p1-option-list");
+    var feedbackHostEl = document.getElementById("p1-feedback-host");
+    var nextNavEl = document.getElementById("p1-next-nav");
 
     function updateProgress(){
-      document.getElementById("p1-progress").innerHTML = "Parejas encontradas: <strong>" + matchedPairs + " / " + VOCAB.length + "</strong>";
-      document.getElementById("btn-to-p2").disabled = matchedPairs < VOCAB.length;
+      document.getElementById("p1-progress").innerHTML = "Palabras: <strong>" + doneCount + " / " + VOCAB.length + "</strong>";
+      document.getElementById("btn-to-p2").disabled = doneCount < VOCAB.length;
     }
 
-    cards.forEach(function(card){
+    function clearCard(){
+      exampleHostEl.innerHTML = ""; meaningHostEl.innerHTML = ""; optionListEl.innerHTML = "";
+      feedbackHostEl.innerHTML = ""; nextNavEl.innerHTML = "";
+    }
+
+    function showExample(v){
+      var ctx = findContext(v.higino);
+      var block = document.createElement("div");
+      block.className = "example-block";
+      var label = document.createElement("p"); label.className = "example-label"; label.textContent = "Ya aparece en el texto de Higino";
+      block.appendChild(label);
+      var p = document.createElement("p"); p.className = "example-latin";
+      if (ctx){
+        var re = new RegExp("(" + v.higino.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")");
+        p.innerHTML = ctx.replace(re, "<b>$1</b>");
+      } else {
+        p.textContent = v.higino;
+      }
+      block.appendChild(p);
+      exampleHostEl.innerHTML = "";
+      exampleHostEl.appendChild(block);
+    }
+
+    function loadNext(){
+      current = { v: VOCAB[order[idx]] };
+      clearCard();
+      wordEl.textContent = current.v.higino;
       var btn = document.createElement("button");
-      btn.type = "button"; btn.className = "mem-card";
-      btn.innerHTML = "<span>" + card.html + "</span>";
-      card.el = btn;
+      btn.type = "button"; btn.className = "btn"; btn.style.display = "block"; btn.style.margin = "0 auto";
+      btn.textContent = "Comprobar";
+      btn.addEventListener("click", function(){ revealMeaning(1); });
+      optionListEl.appendChild(btn);
+    }
 
-      btn.addEventListener("click", function(){
-        if (lock || card.matched || card === first) return;
-        btn.classList.add("flipped");
-
-        if (!first){ first = card; return; }
-
-        var second = card;
-        lock = true;
-        if (first.pairId === second.pairId){
-          first.matched = true; second.matched = true;
-          first.el.classList.remove("flipped"); second.el.classList.remove("flipped");
-          first.el.classList.add("matched"); second.el.classList.add("matched");
-          matchedPairs++; updateProgress();
-          submitLog.push({ paso:"1 - Memotest", item:first.label + " / " + second.label, respuesta:"pareja encontrada", correcta:true });
-          first = null; lock = false;
-        } else {
-          first.el.classList.add("mismatch"); second.el.classList.add("mismatch");
-          submitLog.push({ paso:"1 - Memotest", item:first.label + " / " + second.label, respuesta:"no coinciden", correcta:false });
-          setTimeout(function(){
-            first.el.classList.remove("flipped", "mismatch");
-            second.el.classList.remove("flipped", "mismatch");
-            first = null; lock = false;
-          }, 800);
-        }
+    function revealMeaning(attempt){
+      optionListEl.innerHTML = "";
+      var m = document.createElement("div"); m.className = "meaning-reveal"; m.textContent = current.v.significado;
+      meaningHostEl.innerHTML = "";
+      meaningHostEl.appendChild(m);
+      var opts = attempt === 1 ? ["La sabía", "Dame más contexto"] : ["Ahora sí", "No la sabía"];
+      opts.forEach(function(optText){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "option-btn" + (optText === "Dame más contexto" || optText === "No la sabía" ? " ghost" : "");
+        b.textContent = optText;
+        b.addEventListener("click", function(){ handleChoice(optText); });
+        optionListEl.appendChild(b);
       });
+    }
 
-      grid.appendChild(btn);
-    });
+    function handleChoice(optText){
+      var v = current.v;
+      if (optText === "La sabía" || optText === "Ahora sí"){
+        submitLog.push({ paso:"1 - Vocabulario ya visto", item:v.higino, respuesta:optText, correcta:true });
+        Array.from(optionListEl.children).forEach(function(b){ b.disabled = true; });
+        var chosen = Array.from(optionListEl.children).filter(function(b){ return b.textContent === optText; })[0];
+        if (chosen) chosen.classList.add("g-ok");
+        var fb = document.createElement("p"); fb.className = "feedback-line ok"; fb.textContent = "¡Listo!";
+        feedbackHostEl.appendChild(fb);
+        idx++; doneCount++; updateProgress();
+        if (idx < order.length) setTimeout(loadNext, 600);
+        return;
+      }
+      if (optText === "Dame más contexto"){
+        submitLog.push({ paso:"1 - Vocabulario ya visto", item:v.higino, respuesta:"Pidió contexto", correcta:null });
+        meaningHostEl.innerHTML = "";
+        showExample(v);
+        optionListEl.innerHTML = "";
+        var btn2 = document.createElement("button");
+        btn2.type = "button"; btn2.className = "btn"; btn2.style.display = "block"; btn2.style.margin = "0 auto";
+        btn2.textContent = "Comprobar";
+        btn2.addEventListener("click", function(){ revealMeaning(2); });
+        optionListEl.appendChild(btn2);
+        return;
+      }
+      // "No la sabía" (final, después de haber pedido contexto): queda un botón manual para
+      // seguir, así da tiempo a leer el significado antes de pasar a la próxima.
+      submitLog.push({ paso:"1 - Vocabulario ya visto", item:v.higino, respuesta:"No la sabía", correcta:false });
+      Array.from(optionListEl.children).forEach(function(b){ b.disabled = true; });
+      var noBtn = Array.from(optionListEl.children).filter(function(b){ return b.textContent === "No la sabía"; })[0];
+      if (noBtn) noBtn.classList.add("g-bad");
+      var fb2 = document.createElement("p"); fb2.className = "feedback-line reveal"; fb2.textContent = "La próxima seguro.";
+      feedbackHostEl.appendChild(fb2);
+      idx++; doneCount++; updateProgress();
+      if (idx < order.length){
+        var nextBtn = document.createElement("button");
+        nextBtn.type = "button"; nextBtn.className = "btn"; nextBtn.textContent = "Siguiente palabra";
+        nextBtn.addEventListener("click", loadNext);
+        nextNavEl.appendChild(nextBtn);
+      }
+    }
 
     updateProgress();
+    loadNext();
   })();
   document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
 
