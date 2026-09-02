@@ -92,6 +92,7 @@
   .example-label{ font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--warn); margin:0 0 .45rem; }
   .example-latin{ font-family:var(--serif); font-size:1.02rem; line-height:1.5; margin:0; }
   .example-latin b{ background:var(--warn-bg); border-bottom:2px solid var(--warn); padding:0 .1rem; }
+  .example-trans{ font-size:.85rem; color:var(--ink-muted); margin:.45rem 0 0; font-style:italic; }
   .meaning-reveal{ font-family:var(--serif); font-size:1.15rem; text-align:center; margin:0 0 1rem; color:var(--accent-strong); }
   .option-list{ display:flex; flex-direction:column; gap:.55rem; }
   .option-btn{
@@ -314,7 +315,14 @@
   // =================================================================
 
   // ---- Paso 1: memotest — forma de Higino / lema (nom. sg.) + traducción sin marca de caso
-  var VOCAB = [{"higino": "Cyclopem", "lema": "Cyclops", "significado": "cíclope"}, {"higino": "Polyphemum", "lema": "Polyphemus", "significado": "Polifemo"}, {"higino": "oculum", "lema": "oculus", "significado": "ojo"}, {"higino": "habebat", "lema": "habeo", "significado": "tenía"}, {"higino": "sociis", "lema": "socius", "significado": "a los compañeros / con los compañeros"}, {"higino": "Sirenas", "lema": "Sirenae", "significado": "sirenas"}, {"higino": "cera", "lema": "cera", "significado": "cera"}, {"higino": "dedit", "lema": "do", "significado": "dio"}, {"higino": "dimitteret", "lema": "dimitto", "significado": "dejara ir"}, {"higino": "uidit", "lema": "video", "significado": "vio"}, {"higino": "Nausicaa", "lema": "Nausicaa", "significado": "Nausícaa"}, {"higino": "patrem", "lema": "pater", "significado": "padre"}, {"higino": "redit,", "lema": "redeo", "significado": "regresa"}, {"higino": "simulauit", "lema": "simulo", "significado": "fingió"}, {"higino": "cognouit.", "lema": "cognosco", "significado": "reconoció"}, {"higino": "Telemacho", "lema": "Telemachus", "significado": "Telémaco"}, {"higino": "Scyllam", "lema": "Scylla", "significado": "Escila"}, {"higino": "Solis", "lema": "Sol", "significado": "del Sol"}, {"higino": "Neptuni", "lema": "Neptunus", "significado": "de Neptuno"}, {"higino": "Charybdinque", "lema": "Charybdis", "significado": "y a Caribdis"}];
+  var VOCAB = [{"higino": "Cyclopem", "lema": "Cyclops", "significado": "cíclope", "contextIdx": 0, "seenForm": "Cyclops"}, {"higino": "Polyphemum", "lema": "Polyphemus", "significado": "Polifemo", "contextIdx": 0, "seenForm": "Polyphemus"}, {"higino": "oculum", "lema": "oculus", "significado": "ojo", "contextIdx": 0, "seenForm": "oculum"}, {"higino": "habebat", "lema": "habeo", "significado": "tenía", "contextIdx": 0, "seenForm": "habet,"}, {"higino": "sociis", "lema": "socius", "significado": "a los compañeros / con los compañeros", "contextIdx": 1, "seenForm": "socios"}, {"higino": "Sirenas", "lema": "Sirenae", "significado": "sirenas", "contextIdx": 1, "seenForm": "Sirenas"}, {"higino": "cera", "lema": "cera", "significado": "cera", "contextIdx": 1, "seenForm": "cera"}, {"higino": "dedit", "lema": "do", "significado": "dio", "contextIdx": 6, "seenForm": "dat,"}, {"higino": "dimitteret", "lema": "dimitto", "significado": "dejara ir", "contextIdx": 2, "seenForm": "dimitte!”"}, {"higino": "uidit", "lema": "video", "significado": "vio", "contextIdx": 3, "seenForm": "videt,"}, {"higino": "Nausicaa", "lema": "Nausicaa", "significado": "Nausícaa", "contextIdx": 3, "seenForm": "Nausicaa"}, {"higino": "patrem", "lema": "pater", "significado": "padre", "contextIdx": 3, "seenForm": "patrem"}, {"higino": "redit,", "lema": "redeo", "significado": "regresa", "contextIdx": 4, "seenForm": "redit"}, {"higino": "simulauit", "lema": "simulo", "significado": "fingió", "contextIdx": 4, "seenForm": "simulat;"}, {"higino": "cognouit.", "lema": "cognosco", "significado": "reconoció", "contextIdx": 4, "seenForm": "cognoscit."}, {"higino": "Telemacho", "lema": "Telemachus", "significado": "Telémaco", "contextIdx": 5, "seenForm": "Telemachus"}, {"higino": "Scyllam", "lema": "Scylla", "significado": "Escila", "contextIdx": 8, "seenForm": "Scylla"}, {"higino": "Solis", "lema": "Sol", "significado": "del Sol", "contextIdx": 9, "seenForm": "Solis"}, {"higino": "Neptuni", "lema": "Neptunus", "significado": "de Neptuno", "contextIdx": 7, "seenForm": "Neptunus"}, {"higino": "Charybdinque", "lema": "Charybdis", "significado": "y a Caribdis", "contextIdx": 8, "seenForm": "Charybdis"}];
+
+  // Frases ya vistas en Actividades 6 y 7 (adaptadas), para "Dame mas contexto" del Paso 1 --
+  // NO son frases del texto original de Higino. contextIdx en VOCAB apunta a este array;
+  // seenForm es la forma literal a resaltar en esa frase adaptada (puede diferir del caso
+  // usado en Higino -- ese es justamente el punto: se reconecta con lo ya visto, no con el
+  // texto nuevo).
+  var SEEN_SENTENCES = [{"latin": "Cyclops Polyphemus, qui unum oculum habet, Vlixem et socios in spelunca tenet et eos consumit.", "spanish": "El cíclope Polifemo, que tiene un solo ojo, retiene a Ulises y a sus compañeros en la cueva y los devora."}, {"latin": "Vlixes ad Sirenas venit; socios cera surdos facit et se ligat, et salvus praeterit.", "spanish": "Ulises llega donde las sirenas; hace sordos a sus compañeros con cera y se ata a sí mismo, y pasa a salvo."}, {"latin": "Calypso, nympha pulchra, Vlixem in insula sua diutius tenet; sed Mercurius ei dicit: “Vlixem dimitte!”", "spanish": "Calipso, una ninfa hermosa, tiene a Ulises mucho tiempo en su isla; pero Mercurio le dice: “¡Deja ir a Ulises!”"}, {"latin": "Vlixes nudus in ora iacet; Nausicaa eum videt, pallium dat, et ad patrem suum ducit.", "spanish": "Ulises yace desnudo en la orilla; Nausícaa lo ve, le da un manto, y lo lleva ante su padre."}, {"latin": "Vlixes solus in patriam redit et mendicum se simulat; sed Euryclia eum statim cognoscit.", "spanish": "Ulises regresa solo a su patria y finge ser un mendigo; pero Euriclea lo reconoce enseguida."}, {"latin": "Vlixes et Telemachus procos occidunt. Minerva eos adiuvat.", "spanish": "Ulises y Telémaco matan a los pretendientes. Minerva los ayuda."}, {"latin": "Circe socios in bestias mutat; sed Mercurius ei remedium dat, et Circe Vlixem mutare non potest.", "spanish": "Circe transforma a los compañeros en bestias; pero Mercurio le da a Ulises un remedio, y Circe no puede transformarlo."}, {"latin": "Vlixes navigium facit et solus navigat; sed Neptunus iratus id delet.", "spanish": "Ulises hace una embarcación y navega solo; pero Neptuno, enojado, la destruye."}, {"latin": "Scylla sex socios Vlixis consumit; Charybdis magnas undas bibit et reddit, sed Vlixes cum sociis salvus praeterit.", "spanish": "Escila devora a seis compañeros de Ulises; Caribdis bebe grandes olas y las devuelve, pero Ulises, con sus compañeros, pasa a salvo."}, {"latin": "Socii vaccas Solis sacras consumunt; Sol iratus est, et Iuppiter navigium incendit.", "spanish": "Los compañeros comen las vacas sagradas del Sol; el Sol se enoja, y Júpiter incendia la nave."}];
 
   // ---- Paso 2: los tres párrafos de Higino + una imagen por fragmento (sin señuelo)
   var IMAGES = [{"id": "polifemo", "file": "img/01-polifemo.jpg", "alt": "El cíclope Polifemo en su cueva"}, {"id": "sirenas", "file": "img/02-sirenas.jpg", "alt": "Ulises atado al mástil, pasando frente a las sirenas"}, {"id": "calipso", "file": "img/03-calipso.jpg", "alt": "Calipso y Ulises en la isla"}, {"id": "nausicaa", "file": "img/04-nausicaa.jpg", "alt": "Nausícaa y Ulises en la orilla"}, {"id": "euriclea", "file": "img/05-euriclea.jpg", "alt": "Euriclea reconociendo a Ulises"}, {"id": "pretendientes", "file": "img/06-pretendientes.jpg", "alt": "Ulises y Telémaco contra los pretendientes"}];
@@ -400,13 +408,10 @@
       for (var j=a.length-1;j>0;j--){ var k=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[k]; a[k]=t; }
       return a;
     }
-    // Busca la primera frase de BLOCKS (Pasos 4/5) que contiene esta forma exacta de Higino,
-    // para la opción "Dame más contexto".
-    function findContext(form){
-      for (var b = 0; b < BLOCKS.length; b++){
-        if (BLOCKS[b].indexOf(form) !== -1) return BLOCKS[b].join(" ");
-      }
-      return null;
+    // "Dame más contexto" usa SEEN_SENTENCES (frases adaptadas de Actividades 6/7 ya
+    // trabajadas), NO el texto original de Higino -- la idea es reconectar con lo ya visto.
+    function getSeenSentence(v){
+      return SEEN_SENTENCES[v.contextIdx] || null;
     }
 
     var order = shuffledIdx(VOCAB.length);
@@ -431,19 +436,23 @@
     }
 
     function showExample(v){
-      var ctx = findContext(v.higino);
+      var sent = getSeenSentence(v);
       var block = document.createElement("div");
       block.className = "example-block";
-      var label = document.createElement("p"); label.className = "example-label"; label.textContent = "Ya aparece en el texto de Higino";
+      var label = document.createElement("p"); label.className = "example-label"; label.textContent = "Ya la vimos en esta frase";
       block.appendChild(label);
       var p = document.createElement("p"); p.className = "example-latin";
-      if (ctx){
-        var re = new RegExp("(" + v.higino.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")");
-        p.innerHTML = ctx.replace(re, "<b>$1</b>");
+      if (sent){
+        var re = new RegExp("(" + v.seenForm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")");
+        p.innerHTML = sent.latin.replace(re, "<b>$1</b>");
       } else {
         p.textContent = v.higino;
       }
       block.appendChild(p);
+      if (sent && sent.spanish){
+        var trans = document.createElement("p"); trans.className = "example-trans"; trans.textContent = sent.spanish;
+        block.appendChild(trans);
+      }
       exampleHostEl.innerHTML = "";
       exampleHostEl.appendChild(block);
     }

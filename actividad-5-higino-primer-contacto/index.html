@@ -84,6 +84,7 @@
   .example-label{ font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--warn); margin:0 0 .45rem; }
   .example-latin{ font-family:var(--serif); font-size:1.02rem; line-height:1.5; margin:0; }
   .example-latin b{ background:var(--warn-bg); border-bottom:2px solid var(--warn); padding:0 .1rem; }
+  .example-trans{ font-size:.85rem; color:var(--ink-muted); margin:.45rem 0 0; font-style:italic; }
   .meaning-reveal{ font-family:var(--serif); font-size:1.15rem; text-align:center; margin:0 0 1rem; color:var(--accent-strong); }
   .option-list{ display:flex; flex-direction:column; gap:.55rem; }
   .option-btn{
@@ -306,21 +307,139 @@
 
   // ---- Paso 1: memotest — forma de Higino / lema (nom. sg.) + traducción sin marca de caso
   var VOCAB = [
-    { higino:"Achiui", lema:"Achivus", significado:"aqueo" },
-    { higino:"Troiam", lema:"Troia", significado:"Troya" },
-    { higino:"Epeus", lema:"Epeus", significado:"Epeo" },
-    { higino:"Mineruae", lema:"Minerva", significado:"Minerva" },
-    { higino:"equum", lema:"equus", significado:"caballo" },
-    { higino:"Priamus", lema:"Priamus", significado:"Príamo" },
-    { higino:"Cassandra", lema:"Cassandra", significado:"Casandra" },
-    { higino:"Sinone", lema:"Sinon", significado:"Sinón" },
-    { higino:"Troiani", lema:"Troianus", significado:"troyano" },
-    { higino:"castra", lema:"castra", significado:"campamento" },
-    { higino:"socios", lema:"socius", significado:"aliado" },
-    { higino:"portarum", lema:"porta", significado:"puerta" },
-    { higino:"signo", lema:"signum", significado:"señal" },
-    { higino:"uino", lema:"vinum", significado:"vino" }
-  ];
+    {
+        "higino": "Achiui",
+        "lema": "Achivus",
+        "significado": "aqueo",
+        "contextIdx": 2,
+        "seenForm": "Achivi"
+    },
+    {
+        "higino": "Troiam",
+        "lema": "Troia",
+        "significado": "Troya",
+        "contextIdx": 2,
+        "seenForm": "Troiam"
+    },
+    {
+        "higino": "Epeus",
+        "lema": "Epeus",
+        "significado": "Epeo",
+        "contextIdx": 2,
+        "seenForm": "Epeus,"
+    },
+    {
+        "higino": "Mineruae",
+        "lema": "Minerva",
+        "significado": "Minerva",
+        "contextIdx": 0,
+        "seenForm": "Minervae"
+    },
+    {
+        "higino": "equum",
+        "lema": "equus",
+        "significado": "caballo",
+        "contextIdx": 0,
+        "seenForm": "Equus"
+    },
+    {
+        "higino": "Priamus",
+        "lema": "Priamus",
+        "significado": "Príamo",
+        "contextIdx": 1,
+        "seenForm": "Priamus"
+    },
+    {
+        "higino": "Cassandra",
+        "lema": "Cassandra",
+        "significado": "Casandra",
+        "contextIdx": 1,
+        "seenForm": "Cassandra"
+    },
+    {
+        "higino": "Sinone",
+        "lema": "Sinon",
+        "significado": "Sinón",
+        "contextIdx": 0,
+        "seenForm": "Sinon"
+    },
+    {
+        "higino": "Troiani",
+        "lema": "Troianus",
+        "significado": "troyano",
+        "contextIdx": 1,
+        "seenForm": "Troiani"
+    },
+    {
+        "higino": "castra",
+        "lema": "castra",
+        "significado": "campamento",
+        "contextIdx": 4,
+        "seenForm": "castra"
+    },
+    {
+        "higino": "socios",
+        "lema": "socius",
+        "significado": "aliado",
+        "contextIdx": 6,
+        "seenForm": "Socios"
+    },
+    {
+        "higino": "portarum",
+        "lema": "porta",
+        "significado": "puerta",
+        "contextIdx": 3,
+        "seenForm": "portas"
+    },
+    {
+        "higino": "signo",
+        "lema": "signum",
+        "significado": "señal",
+        "contextIdx": 6,
+        "seenForm": "signum"
+    },
+    {
+        "higino": "uino",
+        "lema": "vinum",
+        "significado": "vino",
+        "contextIdx": 5,
+        "seenForm": "vinum"
+    }
+];
+
+  // Frases ya vistas en Actividad 1 y Semana 1 Parte 2 (adaptadas), para "Dame mas contexto"
+  // del Paso 1 -- NO son frases del texto original de Higino. contextIdx en VOCAB apunta a
+  // este array; seenForm es la forma literal a resaltar en esa frase adaptada.
+  var SEEN_SENTENCES = [
+    {
+        "latin": "Sinon dicit Priamo “Equus donum Minervae est”",
+        "spanish": "Sinón le dice a Príamo: “El caballo es un regalo para Minerva”"
+    },
+    {
+        "latin": "Priamus equum in oppidum ducit. Cassandra dicit: “Inimici in equo sunt!”, sed Troiani Cassandrae non credunt.",
+        "spanish": "Príamo conduce el caballo a la ciudad. Casandra dice: “Hay enemigos en el caballo”, pero los troyanos no le creen."
+    },
+    {
+        "latin": "Achivi Troiam capere non poterant. Tum Epeus, Minervae consilio, equum magnum facit.",
+        "spanish": "Los aqueos no podían capturar Troya. Entonces Epeo, por consejo de Minerva, hace un caballo enorme."
+    },
+    {
+        "latin": "Sinon equum aperit, Achivi ex equo exeunt et Troianos qui portas servant occidunt.",
+        "spanish": "Sinón abre el caballo; los aqueos salen del caballo y asesinan a los troyanos que protegen las puertas."
+    },
+    {
+        "latin": "Achivi castra ad insulam movent. Troiani hoc vident et putant: “Inimici discedunt.”",
+        "spanish": "Los aqueos mueven el campamento a una isla. Los troyanos ven esto y piensan: 'Los enemigos se van'."
+    },
+    {
+        "latin": "Troiani equum in oppido ponunt et laeti vinum bibunt; fessique dormiunt.",
+        "spanish": "Los troyanos ponen el caballo en la ciudad y, alegres, beben vino; y cansados, duermen"
+    },
+    {
+        "latin": "Achivi signum dant. Socios in oppidum ducunt et Troiam capiunt.",
+        "spanish": "Los aqueos dan la señal. Llevan a sus compañeros a la ciudad y toman Troya."
+    }
+];
 
   // ---- Paso 2: los tres párrafos de Higino + una imagen por fragmento (sin señuelo)
   var IMAGES = [
@@ -493,13 +612,11 @@
       for (var j=a.length-1;j>0;j--){ var k=Math.floor(Math.random()*(j+1)); var t=a[j]; a[j]=a[k]; a[k]=t; }
       return a;
     }
-    // Busca la primera frase de BLOCKS (Pasos 4/5) que contiene esta forma exacta de Higino,
-    // para la opción "Dame más contexto".
-    function findContext(form){
-      for (var b = 0; b < BLOCKS.length; b++){
-        if (BLOCKS[b].indexOf(form) !== -1) return BLOCKS[b].join(" ");
-      }
-      return null;
+    // "Dame más contexto" usa SEEN_SENTENCES (frases adaptadas de Actividad 1 / Semana 1
+    // Parte 2 ya trabajadas), NO el texto original de Higino -- la idea es reconectar con lo
+    // ya visto.
+    function getSeenSentence(v){
+      return SEEN_SENTENCES[v.contextIdx] || null;
     }
 
     var order = shuffledIdx(VOCAB.length);
@@ -523,19 +640,23 @@
     }
 
     function showExample(v){
-      var ctx = findContext(v.higino);
+      var sent = getSeenSentence(v);
       var block = document.createElement("div");
       block.className = "example-block";
-      var label = document.createElement("p"); label.className = "example-label"; label.textContent = "Ya aparece en el texto de Higino";
+      var label = document.createElement("p"); label.className = "example-label"; label.textContent = "Ya la vimos en esta frase";
       block.appendChild(label);
       var p = document.createElement("p"); p.className = "example-latin";
-      if (ctx){
-        var re = new RegExp("(" + v.higino.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")");
-        p.innerHTML = ctx.replace(re, "<b>$1</b>");
+      if (sent){
+        var re = new RegExp("(" + v.seenForm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")");
+        p.innerHTML = sent.latin.replace(re, "<b>$1</b>");
       } else {
         p.textContent = v.higino;
       }
       block.appendChild(p);
+      if (sent && sent.spanish){
+        var trans = document.createElement("p"); trans.className = "example-trans"; trans.textContent = sent.spanish;
+        block.appendChild(trans);
+      }
       exampleHostEl.innerHTML = "";
       exampleHostEl.appendChild(block);
     }
