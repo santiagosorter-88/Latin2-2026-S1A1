@@ -234,6 +234,8 @@
   .status{ font-size:.88rem; color:var(--ink-muted); }
   .status.ok{ color:var(--correct); }
   .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
 
   footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
 </style>
@@ -364,6 +366,7 @@
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
+      <p class="score-summary" id="score-summary" hidden></p>
     </section>
 
   </main>
@@ -820,6 +823,18 @@
 
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  // Contador de aciertos al final -- vigente desde el 2026-09-02 (convencion 13). Excluye
+  // lo que no es una respuesta evaluable (correcta:null: Evaluacion, "no se") y, donde
+  // aplique, los pasos de autorreporte (no son una respuesta evaluada, es honestidad).
+  var SCORE_EXCLUDE_PASOS = [];
+  function computeScore(){
+    var items = submitLog.filter(function(e){
+      return e.correcta !== null && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+    });
+    var correct = items.filter(function(e){ return e.correcta === true; }).length;
+    return { correct: correct, total: items.length };
+  }
+
   var evalState = { dificultad:null };
   Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
     chip.addEventListener("click", function(){
@@ -875,6 +890,13 @@
     }).then(function(){
       statusEl.textContent = "Enviado. ¡Gracias!";
       statusEl.className = "status ok";
+      var score = computeScore();
+      if (score.total > 0){
+        var pct = Math.round(100 * score.correct / score.total);
+        document.getElementById("score-summary").innerHTML =
+          "Respondiste correctamente <strong>" + score.correct + " de " + score.total + "</strong> (" + pct + "%)." + " No incluye lo que marcaste \u201cno s\u00e9\u201d.";
+        document.getElementById("score-summary").hidden = false;
+      }
       clearProgress();
     }).catch(function(){
       statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
