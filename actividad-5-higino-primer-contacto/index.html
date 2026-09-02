@@ -79,7 +79,9 @@
 
   /* ---- Paso 1: vocabulario ya visto (autorreporte de significado, calcado de
      "Repaso nonstop" de Griego Puan, acotado a las palabras de VOCAB en vez de infinito) ---- */
-  .word-latin{ font-family:var(--serif); font-size:1.7rem; text-align:center; padding:1.1rem 1rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; margin-bottom:1.1rem; }
+  .word-latin{ display:flex; flex-direction:column; align-items:center; gap:.35rem; text-align:center; padding:1.1rem 1rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; margin-bottom:1.1rem; }
+  .word-form{ font-family:var(--serif); font-size:1.7rem; }
+  .word-enunciado{ font-family:var(--serif); font-size:.88rem; color:var(--ink-muted); font-style:italic; }
   .example-block{ background:var(--warn-bg); border:1px solid var(--rule); border-radius:8px; padding:.9rem 1rem; margin-bottom:1.2rem; }
   .example-label{ font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--warn); margin:0 0 .45rem; }
   .example-latin{ font-family:var(--serif); font-size:1.02rem; line-height:1.5; margin:0; }
@@ -312,98 +314,112 @@
         "lema": "Achivus",
         "significado": "aqueo",
         "contextIdx": 2,
-        "seenForm": "Achivi"
+        "seenForm": "Achivi",
+        "enunciado": "Achivi, -orum, m."
     },
     {
         "higino": "Troiam",
         "lema": "Troia",
         "significado": "Troya",
         "contextIdx": 2,
-        "seenForm": "Troiam"
+        "seenForm": "Troiam",
+        "enunciado": "Troia, -ae, f."
     },
     {
         "higino": "Epeus",
         "lema": "Epeus",
         "significado": "Epeo",
         "contextIdx": 2,
-        "seenForm": "Epeus,"
+        "seenForm": "Epeus,",
+        "enunciado": "Epeus, -i, m."
     },
     {
         "higino": "Mineruae",
         "lema": "Minerva",
         "significado": "Minerva",
         "contextIdx": 0,
-        "seenForm": "Minervae"
+        "seenForm": "Minervae",
+        "enunciado": "Minerva, -ae, f."
     },
     {
         "higino": "equum",
         "lema": "equus",
         "significado": "caballo",
         "contextIdx": 0,
-        "seenForm": "Equus"
+        "seenForm": "Equus",
+        "enunciado": "equus, -ī, m."
     },
     {
         "higino": "Priamus",
         "lema": "Priamus",
         "significado": "Príamo",
         "contextIdx": 1,
-        "seenForm": "Priamus"
+        "seenForm": "Priamus",
+        "enunciado": "Priamus, -i, m."
     },
     {
         "higino": "Cassandra",
         "lema": "Cassandra",
         "significado": "Casandra",
         "contextIdx": 1,
-        "seenForm": "Cassandra"
+        "seenForm": "Cassandra",
+        "enunciado": "Cassandra, -ae, f."
     },
     {
         "higino": "Sinone",
         "lema": "Sinon",
         "significado": "Sinón",
         "contextIdx": 0,
-        "seenForm": "Sinon"
+        "seenForm": "Sinon",
+        "enunciado": "Sinon, Sinonis, m."
     },
     {
         "higino": "Troiani",
         "lema": "Troianus",
         "significado": "troyano",
         "contextIdx": 1,
-        "seenForm": "Troiani"
+        "seenForm": "Troiani",
+        "enunciado": "Troiani, -orum, m."
     },
     {
         "higino": "castra",
         "lema": "castra",
         "significado": "campamento",
         "contextIdx": 4,
-        "seenForm": "castra"
+        "seenForm": "castra",
+        "enunciado": "castra, -orum, n."
     },
     {
         "higino": "socios",
         "lema": "socius",
         "significado": "aliado",
         "contextIdx": 6,
-        "seenForm": "Socios"
+        "seenForm": "Socios",
+        "enunciado": "socius, -a, -um."
     },
     {
         "higino": "portarum",
         "lema": "porta",
         "significado": "puerta",
         "contextIdx": 3,
-        "seenForm": "portas"
+        "seenForm": "portas",
+        "enunciado": "porta, -ae, f."
     },
     {
         "higino": "signo",
         "lema": "signum",
         "significado": "señal",
         "contextIdx": 6,
-        "seenForm": "signum"
+        "seenForm": "signum",
+        "enunciado": "signum, -ī, n."
     },
     {
         "higino": "uino",
         "lema": "vinum",
         "significado": "vino",
         "contextIdx": 5,
-        "seenForm": "vinum"
+        "seenForm": "vinum",
+        "enunciado": "vīnum, -ī, n."
     }
 ];
 
@@ -664,7 +680,13 @@
     function loadNext(){
       current = { v: VOCAB[order[idx]] };
       clearCard();
-      wordEl.textContent = current.v.higino;
+      wordEl.innerHTML = "";
+      var formEl = document.createElement("span"); formEl.className = "word-form"; formEl.textContent = current.v.higino;
+      wordEl.appendChild(formEl);
+      if (current.v.enunciado){
+        var enEl = document.createElement("span"); enEl.className = "word-enunciado"; enEl.textContent = current.v.enunciado;
+        wordEl.appendChild(enEl);
+      }
       var btn = document.createElement("button");
       btn.type = "button"; btn.className = "btn"; btn.style.display = "block"; btn.style.margin = "0 auto";
       btn.textContent = "Comprobar";
