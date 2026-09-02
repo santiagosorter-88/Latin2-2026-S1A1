@@ -57,7 +57,7 @@
   .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
   .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
 
-  button{ font-family:var(--sans); cursor:pointer; }
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
   .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
   .btn:hover{ background:var(--accent-strong); }
   .btn:disabled{ opacity:.4; cursor:not-allowed; }
@@ -156,7 +156,7 @@
   .running-text{ font-family:var(--serif); font-size:1.15rem; line-height:2.1; }
   .running-text .rtoken{
     border:1.5px solid transparent; border-radius:6px; padding:.05rem .25rem; cursor:pointer;
-    transition:border-color .15s ease, background .15s ease;
+    background:none; font:inherit; transition:border-color .15s ease, background .15s ease;
   }
   .running-text .rtoken:hover{ border-color:var(--accent); }
   .running-text .rtoken.marked{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
