@@ -1,3 +1,5 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Diccionario de latín — frases dadas en clase</title>
 <style>
   :root {
@@ -66,6 +68,21 @@
     display: flex;
     flex-direction: column;
   }
+
+  .back-to-index {
+    display: inline-flex; align-items: center; gap: .4rem; width: fit-content;
+    font-size: 14px; font-weight: 700; text-decoration: none;
+    padding: .5rem 1rem; border-radius: 999px;
+    margin: clamp(20px, 4vw, 40px) clamp(20px, 4vw, 40px) 0;
+    background: #c1611f; color: #fff8f0; box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover { background: #a8531a; }
+  @media (prefers-color-scheme: dark) {
+    .back-to-index { background: #e2914f; color: #1c1006; }
+    .back-to-index:hover { background: #eda765; }
+  }
+  :root[data-theme="dark"] .back-to-index { background: #e2914f; color: #1c1006; }
+  :root[data-theme="light"] .back-to-index { background: #c1611f; color: #fff8f0; }
 
   header {
     position: sticky;
@@ -329,6 +346,7 @@
 </style>
 
 <div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
   <header>
     <p class="eyebrow">Latín I y II (Sorter) · UNTREF</p>
     <h1>Diccionario de clase</h1>
