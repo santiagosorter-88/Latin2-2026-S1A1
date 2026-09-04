@@ -98,6 +98,8 @@
     background:var(--surface-raised); color:var(--ink-muted);
   }
   .progreso-item.ok .progreso-check{ background:var(--accent); color:var(--accent-ink); }
+  .progreso-link{ color:var(--accent-strong); text-decoration:underline dotted var(--rule); text-underline-offset:3px; }
+  .progreso-link:hover{ color:var(--accent); }
   .progreso-summary{ margin:.75rem 0 0; font-size:.9rem; color:var(--ink-muted); }
 
   .week-card{
@@ -533,19 +535,23 @@ fetch(CSV_URL)
 var PROGRESO_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
 
 // Lista fija de actividades conocidas: valor = "Actividad" tal como llega a la planilla
-// (document.title de cada HTML), texto = lo que se muestra. Al sumar una actividad nueva,
-// agregarla acá también.
+// (document.title de cada HTML), texto = lo que se muestra, link = URL publicada (se usa
+// para las que todavía NO hizo, así puede ir directo -- ver consultarProgreso()). Al sumar
+// una actividad nueva, agregarla acá también (y a la hoja "Índice de actividades" de
+// Actividades HTML/Parámetros de actividades.xlsx, que es de donde sale cada link).
+var SITE_BASE = "https://santiagosorter-88.github.io/Latin2-2026-S1A1/";
 var ACTIVIDADES_PROGRESO = [
-  { valor: "Latín · Actividad 1 — Sinón y el caballo de Troya", texto: "Actividad 1 — Caballo de Troya" },
-  { valor: "Latín · Semana 1, Parte 2 — Caballo de Troya (repaso y verbos)", texto: "Semana 1, Parte 2 — Repaso y verbos" },
-  { valor: "Latín · Actividad 3 — Concordancia sujeto-verbo", texto: "Actividad 3 — Concordancia sujeto-verbo" },
-  { valor: "Latín · Actividad 4 — Régimen verbal: sujeto y objeto directo", texto: "Actividad 4 — Régimen verbal" },
-  { valor: "Latín II · Hygini Fabula 108: Equus Trojanus", texto: "Actividad 5 — Higino, primer contacto" },
-  { valor: "Latín · Actividad 6 — Ulises y la Odisea", texto: "Actividad 6 — Ulises y la Odisea" },
-  { valor: "Latín · Actividad 7 — Odisea (repaso y verbos nuevos)", texto: "Actividad 7 — Odisea (repaso y verbos)" },
-  { valor: "Latín · Actividad 8 — Concordancia sujeto-verbo (Odisea)", texto: "Actividad 8 — Concordancia sujeto-verbo" },
-  { valor: "Latín · Actividad 9 — Régimen verbal: sujeto y objeto (Odisea)", texto: "Actividad 9 — Régimen verbal" },
-  { valor: "Latín · Actividad 10 — Hygini Fabula 125: Odyssea (Higino, primer contacto)", texto: "Actividad 10 — Higino, primer contacto" }
+  { valor: "Latín · Actividad 1 — Sinón y el caballo de Troya", texto: "Actividad 1 — Caballo de Troya", link: SITE_BASE + "actividad-1-caballo-de-troya/" },
+  { valor: "Latín · Semana 1, Parte 2 — Caballo de Troya (repaso y verbos)", texto: "Semana 1, Parte 2 — Repaso y verbos", link: SITE_BASE + "semana-1-parte-2-repaso-y-verbos/" },
+  { valor: "Latín · Actividad 3 — Concordancia sujeto-verbo", texto: "Actividad 3 — Concordancia sujeto-verbo", link: SITE_BASE + "actividad-3-concordancia-sujeto-verbo/" },
+  { valor: "Latín · Actividad 4 — Régimen verbal: sujeto y objeto directo", texto: "Actividad 4 — Régimen verbal", link: SITE_BASE + "actividad-4-regimen-verbal-sujeto-objeto/" },
+  { valor: "Latín II · Hygini Fabula 108: Equus Trojanus", texto: "Actividad 5 — Higino, primer contacto", link: SITE_BASE + "actividad-5-higino-primer-contacto/" },
+  { valor: "Latín · Actividad 6 — Ulises y la Odisea", texto: "Actividad 6 — Ulises y la Odisea", link: SITE_BASE + "actividad-6-ulises-y-la-odisea/" },
+  { valor: "Latín · Actividad 7 — Odisea (repaso y verbos nuevos)", texto: "Actividad 7 — Odisea (repaso y verbos)", link: SITE_BASE + "actividad-7-odisea-repaso-verbos-nuevos/" },
+  { valor: "Latín · Actividad 8 — Concordancia sujeto-verbo (Odisea)", texto: "Actividad 8 — Concordancia sujeto-verbo", link: SITE_BASE + "actividad-8-concordancia-sujeto-verbo-odisea/" },
+  { valor: "Latín · Actividad 9 — Régimen verbal: sujeto y objeto (Odisea)", texto: "Actividad 9 — Régimen verbal", link: SITE_BASE + "actividad-9-regimen-verbal-sujeto-objeto-odisea/" },
+  { valor: "Latín · Actividad 10 — Hygini Fabula 125: Odyssea (Higino, primer contacto)", texto: "Actividad 10 — Higino, primer contacto", link: SITE_BASE + "actividad-10-higino-odisea-primer-contacto/" },
+  { valor: "Latín · Actividad 11 — El regreso de Ulises a Ítaca", texto: "Actividad 11 — El regreso a Ítaca", link: SITE_BASE + "actividad-11-el-regreso-de-ulises-a-itaca/" }
 ];
 
 var btnProgreso = document.getElementById("btn-progreso");
@@ -579,9 +585,12 @@ function consultarProgreso(){
       var html = '<ul class="progreso-list">';
       ACTIVIDADES_PROGRESO.forEach(function(act){
         var ok = hechas.indexOf(act.valor) > -1;
+        var nombre = ok
+          ? escapeHtml(act.texto)
+          : '<a class="progreso-link" href="' + escapeHtml(act.link) + '" target="_blank" rel="noopener">' + escapeHtml(act.texto) + '</a>';
         html += '<li class="progreso-item' + (ok ? " ok" : "") + '">' +
           '<span class="progreso-check">' + (ok ? "✓" : "—") + '</span>' +
-          '<span>' + escapeHtml(act.texto) + '</span></li>';
+          '<span>' + nombre + '</span></li>';
       });
       html += '</ul><p class="progreso-summary">' + hechas.length + ' de ' + ACTIVIDADES_PROGRESO.length + ' actividades hechas.</p>';
       progresoResultado.innerHTML = html;
