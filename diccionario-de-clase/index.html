@@ -135,6 +135,35 @@
   }
   .result-count[hidden] { display: none; }
 
+  .alpha-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .alpha-btn {
+    flex: 0 0 auto;
+    min-width: 26px;
+    height: 26px;
+    padding: 0 3px;
+    border: none;
+    border-radius: 6px;
+    background: none;
+    color: var(--text-dim);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  }
+  .alpha-btn:hover:not(:disabled) { background: var(--accent-soft); color: var(--accent); }
+  .alpha-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+  .alpha-btn:disabled { opacity: 0.28; cursor: default; }
+
   .search-box {
     position: relative;
   }
@@ -360,6 +389,7 @@
       <button class="clear-btn" id="clearBtn" aria-label="Borrar búsqueda">×</button>
     </div>
     <p class="result-count" id="resultCount" hidden></p>
+    <nav class="alpha-nav" id="alphaNav" aria-label="Ir a una letra"></nav>
   </header>
 
   <main id="main"></main>
@@ -394,8 +424,37 @@
   var clearBtn = document.getElementById('clearBtn');
   var countEl = document.getElementById('count');
   var resultCountEl = document.getElementById('resultCount');
+  var alphaNavEl = document.getElementById('alphaNav');
+  var headerEl = document.querySelector('header');
 
   countEl.textContent = entries.length; // total del corpus, no cambia con la búsqueda
+
+  // --- Índice alfabético clickeable: un botón por letra (A-Z). Se arma una sola vez;
+  // en cada render() se habilitan/deshabilitan según qué letras tienen entradas
+  // visibles en ese momento (todas si no hay búsqueda, solo las que matchean si la hay).
+  var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  ALPHABET.forEach(function (letter) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'alpha-btn';
+    btn.textContent = letter;
+    btn.dataset.letter = letter;
+    btn.disabled = true;
+    btn.addEventListener('click', function () {
+      var target = document.getElementById('letter-' + letter);
+      if (!target) return;
+      var headerH = headerEl.getBoundingClientRect().height;
+      var y = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    });
+    alphaNavEl.appendChild(btn);
+  });
+
+  function updateAlphaNav(lettersPresent) {
+    Array.from(alphaNavEl.children).forEach(function (btn) {
+      btn.disabled = !lettersPresent.has(btn.dataset.letter);
+    });
+  }
 
   function escapeHtml(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -430,19 +489,22 @@
 
     if (!filtered.length) {
       main.innerHTML = '<p class="empty-state">Ninguna palabra coincide con "' + escapeHtml(term) + '".</p>';
+      updateAlphaNav(new Set());
       return;
     }
 
     var html = '';
     var currentLetter = null;
     var ul = null;
+    var lettersPresent = new Set();
     filtered.forEach(function (e) {
       var letter = e.key.charAt(0).toUpperCase();
       if (letter !== currentLetter) {
         if (ul !== null) html += '</ul>';
-        html += '<h2 class="letter-header">' + letter + '</h2><ul class="entries">';
+        html += '<h2 class="letter-header" id="letter-' + letter + '">' + letter + '</h2><ul class="entries">';
         currentLetter = letter;
         ul = true;
+        lettersPresent.add(letter);
       }
       html += '<li class="entry" data-lema="' + escapeAttr(e.l) + '" data-gloss="' + escapeAttr(e.g) + '">' +
               '<span class="entry-main"><span class="headword">' + highlight(e.l, q) +
@@ -451,6 +513,7 @@
     });
     html += '</ul>';
     main.innerHTML = html;
+    updateAlphaNav(lettersPresent);
   }
 
   searchInput.addEventListener('input', function () {
