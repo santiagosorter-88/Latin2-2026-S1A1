@@ -54,6 +54,16 @@
   :root[data-theme="dark"] .back-to-index{ background:#e2914f; color:#1c1006; }
   :root[data-theme="light"] .back-to-index{ background:#c1611f; color:#fff8f0; }
 
+  .download-btn{
+    display:inline-flex; align-items:center; gap:.5rem; width:fit-content;
+    font-family:var(--sans); font-size:.88rem; font-weight:700; text-decoration:none;
+    padding:.6rem 1.1rem; border-radius:999px; margin:0 0 1.75rem;
+    background:var(--accent); color:var(--accent-ink); box-shadow:var(--shadow);
+    transition:background .15s ease;
+  }
+  .download-btn:hover{ background:var(--accent-strong); }
+  .download-btn svg{ width:18px; height:18px; flex:0 0 auto; }
+
   .toc{ position:sticky; top:1.5rem; background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.1rem 1.2rem; box-shadow:var(--shadow); max-height:calc(100vh - 3rem); overflow-y:auto; }
   @media (max-width:900px){ .toc{ position:static; max-height:none; } }
   .toc-title{ font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-strong); margin-bottom:.75rem; }
@@ -164,6 +174,7 @@
           <li><a href="#decl3i">3ª decl. (tema en -i)</a></li>
           <li><a href="#decl4">4ª declinación</a></li>
           <li><a href="#decl5">5ª declinación</a></li>
+          <li><a href="#domus">domus (irregular)</a></li>
         </ol>
       </li>
       <li><a href="#adjetivos">2. Adjetivos</a>
@@ -175,6 +186,7 @@
       <li><a href="#pronombres">3. Pronombres</a>
         <ol class="toc-sub">
           <li><a href="#pron-personales">Personales</a></li>
+          <li><a href="#pron-posesivos">Posesivos</a></li>
           <li><a href="#pron-demostrativos">Demostrativos</a></li>
           <li><a href="#pron-relativo">Relativo</a></li>
           <li><a href="#pron-interrogativo">Interrogativo</a></li>
@@ -188,6 +200,7 @@
           <li><a href="#futuro">Futuro indicativo</a></li>
           <li><a href="#perfecto">Perfecto indicativo</a></li>
           <li><a href="#sum">sum, es, esse, fui</a></li>
+          <li><a href="#sum-compuestos">Compuestos de sum</a></li>
           <li><a href="#participios">Participios</a></li>
         </ol>
       </li>
@@ -199,8 +212,13 @@
     <h1>Fichas de morfología latina</h1>
     <p class="lede">Declinaciones, pronombres y conjugaciones para volver a consultar cuantas veces haga falta. Sin desarrollos teóricos: solo los paradigmas organizados por caso, número, persona y tiempo.</p>
 
+    <a class="download-btn" href="https://drive.google.com/file/d/1PSqCJSMJa4cXQ81K5AJxiuvd0YAxGo6l/view?usp=drive_link" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      Descargar en PDF
+    </a>
+
     <div class="method-note">
-      <strong>Fuente principal:</strong> Tursi, A. (2009) <em>Latín. Guía para el aprendizaje</em> (UNSAM edita), cuyos «Esquemas» finales reúnen la morfología nominal, pronominal y verbal completa. La organización de casos (Nominativo–Vocativo–Acusativo–Genitivo–Dativo–Ablativo) y los verbos modelo (<em>laudo, video, lego, facio, audio</em>) siguen esa fuente. Se verificó contra Valentí Fiol (1999) <em>Gramática de la lengua latina</em>, y de manera cruzada contra Kühner–Holzweissig, <em>Ausführliche Grammatik der lateinischen Sprache</em> (Formenlehre), Weiss, <em>Outline of the Historical and Comparative Grammar of Latin</em>, Allen &amp; Greenough, <em>New Latin Grammar for Schools and Colleges</em> y <em>Wheelock's Latin</em>.
+      <strong>Fuente principal:</strong> Tursi, A. (2009) <em>Latín. Guía para el aprendizaje</em> (UNSAM edita), cuyos «Esquemas» finales reúnen la morfología nominal, pronominal y verbal completa. La organización de casos (Nominativo–Vocativo–Acusativo–Genitivo–Dativo–Ablativo) y los verbos modelo (<em>laudo, video, lego, facio, audio</em>) siguen esa fuente. Se verificó contra Valentí Fiol (1999) <em>Gramática de la lengua latina</em>, y de manera cruzada contra Kühner–Holzweissig, <em>Ausführliche Grammatik der lateinischen Sprache</em> (Formenlehre), Weiss, <em>Outline of the Historical and Comparative Grammar of Latin</em>, Allen &amp; Greenough, <em>New Latin Grammar for Schools and Colleges</em> y <em>Wheelock's Latin</em>. Revisado y ampliado contra el <em>Cuadernillo de morfología y sintaxis latinas</em> de Enzo Diolaiti (IES Nº 1, Latín I y II, 2024).
     </div>
 
     <!-- ============ 1. SUSTANTIVOS ============ -->
@@ -286,6 +304,20 @@
             </tbody>
           </table></div>
         </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="lemma">deus, deī</span><span class="gloss">m. — el dios (irregular)</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">Singular</th><th class="col-group-label">Plural</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>deus</td><td>deī / diī / dī</td></tr>
+            <tr><th>Voc.</th><td>deus / dīve</td><td>deī / diī / dī</td></tr>
+            <tr><th>Ac.</th><td>deum</td><td>deōs</td></tr>
+            <tr><th>Gen.</th><td>deī</td><td>deōrum / deum</td></tr>
+            <tr><th>Dat.</th><td>deō</td><td>deīs / diīs / dīs</td></tr>
+            <tr><th>Abl.</th><td>deō</td><td>deīs / diīs / dīs</td></tr>
+          </tbody>
+        </table></div>
       </div>
 
       <h3 class="sub" id="decl3cons">3ª declinación — temas en consonante</h3>
@@ -397,6 +429,7 @@
               <tr><th>Abl.</th><td>urbe</td><td>urbibus</td></tr>
             </tbody>
           </table></div>
+          <p class="sub-note" style="margin:.7rem 0 0;">Declina el singular como los temas en consonante (abl. <em>-e</em>) y el plural como los temas en -i (gen. <em>-ium</em>). Algunas gramáticas la agrupan aparte, como <strong>«tema mixto»</strong>, en lugar de incluirla entre los temas en -i.</p>
         </div>
         <div class="card">
           <div class="card-head"><span class="lemma">animal, animālis</span><span class="gloss">n. — el animal</span></div>
@@ -439,7 +472,7 @@
               <tr><th>Voc.</th><td>cornū</td><td>cornua</td></tr>
               <tr><th>Ac.</th><td>cornū</td><td>cornua</td></tr>
               <tr><th>Gen.</th><td>cornūs</td><td>cornuum</td></tr>
-              <tr><th>Dat.</th><td>cornū</td><td>cornibus</td></tr>
+              <tr><th>Dat.</th><td>cornuī</td><td>cornibus</td></tr>
               <tr><th>Abl.</th><td>cornū</td><td>cornibus</td></tr>
             </tbody>
           </table></div>
@@ -473,6 +506,23 @@
             <tr><th>Abl.</th><td>rēbus</td><td>diēbus</td></tr>
           </tbody>
         </table></div>
+      </div>
+
+      <h3 class="sub" id="domus">domus (irregular: mezcla 2ª y 4ª declinación)</h3>
+      <div class="card">
+        <div class="card-head"><span class="lemma">domus, domūs / domī</span><span class="gloss">f. — la casa</span></div>
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">Singular</th><th class="col-group-label">Plural</th></tr></thead>
+          <tbody>
+            <tr><th>Nom.</th><td>domus</td><td>domūs</td></tr>
+            <tr><th>Voc.</th><td>domus</td><td>domūs</td></tr>
+            <tr><th>Ac.</th><td>domum</td><td>domūs / domōs</td></tr>
+            <tr><th>Gen.</th><td>domūs / domī</td><td>domuum / domōrum</td></tr>
+            <tr><th>Dat.</th><td>domuī / domō</td><td>domibus</td></tr>
+            <tr><th>Abl.</th><td>domū / domō</td><td>domibus</td></tr>
+          </tbody>
+        </table></div>
+        <p class="sub-note" style="margin:.7rem 0 0;">Tiene además un locativo propio: <em>domī</em> («en casa»).</p>
       </div>
     </section>
 
@@ -539,6 +589,82 @@
           </tbody>
         </table></div>
       </div>
+
+      <p class="sub-note">Además del tipo de dos terminaciones (<em>fortis, forte</em>), hay dos variantes más dentro de la 2ª clase:</p>
+      <div class="two-up">
+        <div class="card">
+          <div class="card-head"><span class="lemma">ācer, ācris, ācre</span><span class="gloss">agudo, -a (tres terminaciones)</span></div>
+          <p class="mini-label">Singular</p>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M.</th><th class="col-group-label">F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom.</th><td>ācer</td><td>ācris</td><td>ācre</td></tr>
+              <tr><th>Voc.</th><td>ācer</td><td>ācris</td><td>ācre</td></tr>
+              <tr><th>Ac.</th><td>ācrem</td><td>ācrem</td><td>ācre</td></tr>
+              <tr><th>Gen.</th><td colspan="3">ācris</td></tr>
+              <tr><th>Dat.</th><td colspan="3">ācrī</td></tr>
+              <tr><th>Abl.</th><td colspan="3">ācrī</td></tr>
+            </tbody>
+          </table></div>
+          <p class="mini-label">Plural</p>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom./Voc./Ac.</th><td>ācrēs</td><td>ācria</td></tr>
+              <tr><th>Gen.</th><td colspan="2">ācrium</td></tr>
+              <tr><th>Dat./Abl.</th><td colspan="2">ācribus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="lemma">ingēns, ingentis</span><span class="gloss">enorme (una terminación)</span></div>
+          <p class="mini-label">Singular</p>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom./Voc.</th><td>ingēns</td><td>ingēns</td></tr>
+              <tr><th>Ac.</th><td>ingentem</td><td>ingēns</td></tr>
+              <tr><th>Gen.</th><td>ingentis</td><td>ingentis</td></tr>
+              <tr><th>Dat.</th><td>ingentī</td><td>ingentī</td></tr>
+              <tr><th>Abl.</th><td>ingentī</td><td>ingentī</td></tr>
+            </tbody>
+          </table></div>
+          <p class="mini-label">Plural</p>
+          <div class="table-scroll"><table>
+            <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">N.</th></tr></thead>
+            <tbody>
+              <tr><th>Nom./Voc./Ac.</th><td>ingentēs</td><td>ingentia</td></tr>
+              <tr><th>Gen.</th><td colspan="2">ingentium</td></tr>
+              <tr><th>Dat./Abl.</th><td colspan="2">ingentibus</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <p class="sub-note">Un grupo chico de adjetivos de una terminación (<em>vetus, -eris</em>; <em>pauper, -eris</em>; <em>dīves, -itis</em>; <em>particeps, -ipis</em>; <em>sōspes, -itis</em>; <em>superstes, -itis</em>) no sigue el patrón de -i: se declinan como un sustantivo de tema en consonante, con ablativo singular en <em>-e</em>, genitivo plural en <em>-um</em> y nom./voc./ac. neutro plural en <em>-a</em>.</p>
+      <div class="card">
+        <div class="card-head"><span class="lemma">vetus, veteris</span><span class="gloss">viejo, -a (declina como consonántico)</span></div>
+        <p class="mini-label">Singular</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">N.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom./Voc.</th><td>vetus</td><td>vetus</td></tr>
+            <tr><th>Ac.</th><td>veterem</td><td>vetus</td></tr>
+            <tr><th>Gen.</th><td>veteris</td><td>veteris</td></tr>
+            <tr><th>Dat.</th><td>veterī</td><td>veterī</td></tr>
+            <tr><th>Abl.</th><td>vetere</td><td>vetere</td></tr>
+          </tbody>
+        </table></div>
+        <p class="mini-label">Plural</p>
+        <div class="table-scroll"><table>
+          <thead><tr><th></th><th class="col-group-label">M./F.</th><th class="col-group-label">N.</th></tr></thead>
+          <tbody>
+            <tr><th>Nom./Voc./Ac.</th><td>veterēs</td><td>vetera</td></tr>
+            <tr><th>Gen.</th><td colspan="2">veterum</td></tr>
+            <tr><th>Dat./Abl.</th><td colspan="2">veteribus</td></tr>
+          </tbody>
+        </table></div>
+      </div>
     </section>
 
     <!-- ============ 3. PRONOMBRES ============ -->
@@ -563,6 +689,19 @@
         </div>
       </div>
 
+      <h3 class="sub" id="pron-posesivos">Posesivos</h3>
+      <p class="sub-note">Se declinan como un adjetivo de 1ª clase (igual que <em>bonus, -a, -um</em>).</p>
+      <div class="card">
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th></th><th class="col-group-label">Singular</th><th class="col-group-label">Plural</th></tr></thead>
+          <tbody>
+            <tr><th>1ª persona</th><td>meus, -a, -um</td><td>noster, nostra, nostrum</td></tr>
+            <tr><th>2ª persona</th><td>tuus, -a, -um</td><td>vester, vestra, vestrum</td></tr>
+            <tr><th>3ª persona</th><td>suus, -a, -um</td><td>suus, -a, -um</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
       <h3 class="sub" id="pron-demostrativos">Demostrativos</h3>
       <div class="two-up">
         <div class="card">
@@ -576,6 +715,7 @@
               <tr><th>Dat. sg.</th><td colspan="3">huic</td></tr>
               <tr><th>Abl. sg.</th><td>hōc</td><td>hāc</td><td>hōc</td></tr>
               <tr><th>Nom. pl.</th><td>hī</td><td>hae</td><td>haec</td></tr>
+              <tr><th>Ac. pl.</th><td>hōs</td><td>hās</td><td>haec</td></tr>
               <tr><th>Gen. pl.</th><td>hōrum</td><td>hārum</td><td>hōrum</td></tr>
               <tr><th>Dat./Abl. pl.</th><td colspan="3">hīs</td></tr>
             </tbody>
@@ -591,9 +731,10 @@
               <tr><th>Gen. sg.</th><td colspan="3">eius</td></tr>
               <tr><th>Dat. sg.</th><td colspan="3">eī</td></tr>
               <tr><th>Abl. sg.</th><td>eō</td><td>eā</td><td>eō</td></tr>
-              <tr><th>Nom. pl.</th><td>iī</td><td>eae</td><td>ea</td></tr>
+              <tr><th>Nom. pl.</th><td>eī / iī / ī</td><td>eae</td><td>ea</td></tr>
+              <tr><th>Ac. pl.</th><td>eōs</td><td>eās</td><td>ea</td></tr>
               <tr><th>Gen. pl.</th><td>eōrum</td><td>eārum</td><td>eōrum</td></tr>
-              <tr><th>Dat./Abl. pl.</th><td colspan="3">iīs</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">eīs / iīs / īs</td></tr>
             </tbody>
           </table></div>
         </div>
@@ -610,6 +751,7 @@
               <tr><th>Dat. sg.</th><td colspan="3">illī</td></tr>
               <tr><th>Abl. sg.</th><td>illō</td><td>illā</td><td>illō</td></tr>
               <tr><th>Nom. pl.</th><td>illī</td><td>illae</td><td>illa</td></tr>
+              <tr><th>Ac. pl.</th><td>illōs</td><td>illās</td><td>illa</td></tr>
               <tr><th>Gen. pl.</th><td>illōrum</td><td>illārum</td><td>illōrum</td></tr>
               <tr><th>Dat./Abl. pl.</th><td colspan="3">illīs</td></tr>
             </tbody>
@@ -626,6 +768,7 @@
               <tr><th>Dat. sg.</th><td colspan="3">istī</td></tr>
               <tr><th>Abl. sg.</th><td>istō</td><td>istā</td><td>istō</td></tr>
               <tr><th>Nom. pl.</th><td>istī</td><td>istae</td><td>ista</td></tr>
+              <tr><th>Ac. pl.</th><td>istōs</td><td>istās</td><td>ista</td></tr>
               <tr><th>Gen. pl.</th><td>istōrum</td><td>istārum</td><td>istōrum</td></tr>
               <tr><th>Dat./Abl. pl.</th><td colspan="3">istīs</td></tr>
             </tbody>
@@ -644,6 +787,7 @@
               <tr><th>Dat. sg.</th><td colspan="3">ipsī</td></tr>
               <tr><th>Abl. sg.</th><td>ipsō</td><td>ipsā</td><td>ipsō</td></tr>
               <tr><th>Nom. pl.</th><td>ipsī</td><td>ipsae</td><td>ipsa</td></tr>
+              <tr><th>Ac. pl.</th><td>ipsōs</td><td>ipsās</td><td>ipsa</td></tr>
               <tr><th>Gen. pl.</th><td>ipsōrum</td><td>ipsārum</td><td>ipsōrum</td></tr>
               <tr><th>Dat./Abl. pl.</th><td colspan="3">ipsīs</td></tr>
             </tbody>
@@ -659,9 +803,10 @@
               <tr><th>Gen. sg.</th><td colspan="3">eiusdem</td></tr>
               <tr><th>Dat. sg.</th><td colspan="3">eīdem</td></tr>
               <tr><th>Abl. sg.</th><td>eōdem</td><td>eādem</td><td>eōdem</td></tr>
-              <tr><th>Nom. pl.</th><td>iīdem</td><td>eaedem</td><td>eadem</td></tr>
+              <tr><th>Nom. pl.</th><td>eīdem / iīdem / īdem</td><td>eaedem</td><td>eadem</td></tr>
+              <tr><th>Ac. pl.</th><td>eōsdem</td><td>eāsdem</td><td>eadem</td></tr>
               <tr><th>Gen. pl.</th><td>eōrundem</td><td>eārundem</td><td>eōrundem</td></tr>
-              <tr><th>Dat./Abl. pl.</th><td colspan="3">iīsdem</td></tr>
+              <tr><th>Dat./Abl. pl.</th><td colspan="3">eīsdem / iīsdem / īsdem</td></tr>
             </tbody>
           </table></div>
         </div>
@@ -717,6 +862,7 @@
 
       <h3 class="sub" id="verbo-intro">Las cuatro conjugaciones</h3>
       <p class="sub-note">Se reconoce la conjugación por la 2ª persona singular del presente y por el infinitivo. Verbos modelo usados en estas fichas:</p>
+      <p class="sub-note">El grupo en <em>-iō</em> con infinitivo en <em>-ere</em> breve (<em>faciō, facere</em>) se llama <strong>«3ª mixta»</strong> en algunas gramáticas, porque combina desinencias de la 3ª y la 4ª; otras la cuentan directamente como una <strong>«5ª conjugación»</strong> aparte. Es la misma categoría con dos nombres — las terminaciones no cambian.</p>
       <div class="card">
         <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide">
@@ -725,7 +871,7 @@
             <tr><th>1ª</th><td>laudō</td><td>laudās</td><td>laudāre</td><td>laudāvī</td><td>alabar</td></tr>
             <tr><th>2ª</th><td>videō</td><td>vidēs</td><td>vidēre</td><td>vīdī</td><td>ver</td></tr>
             <tr><th>3ª</th><td>legō</td><td>legis</td><td>legere</td><td>lēgī</td><td>leer</td></tr>
-            <tr><th>3ª mixta (-iō)</th><td>faciō</td><td>facis</td><td>facere</td><td>fēcī</td><td>hacer</td></tr>
+            <tr><th>3ª mixta / 5ª (-iō)</th><td>faciō</td><td>facis</td><td>facere</td><td>fēcī</td><td>hacer</td></tr>
             <tr><th>4ª</th><td>audiō</td><td>audīs</td><td>audīre</td><td>audīvī</td><td>oír</td></tr>
           </tbody>
         </table></div>
@@ -738,7 +884,7 @@
       <div class="card">
         <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
-          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta / 5ª (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
             <tr><th class="pers">1ª sg.</th><td>laudō</td><td>videō</td><td>legō</td><td>faciō</td><td>audiō</td></tr>
             <tr><th class="pers">2ª sg.</th><td>laudās</td><td>vidēs</td><td>legis</td><td>facis</td><td>audīs</td></tr>
@@ -757,7 +903,7 @@
       <div class="card">
         <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
-          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta / 5ª (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
             <tr><th class="pers">1ª sg.</th><td>laudābam</td><td>vidēbam</td><td>legēbam</td><td>faciēbam</td><td>audiēbam</td></tr>
             <tr><th class="pers">2ª sg.</th><td>laudābās</td><td>vidēbās</td><td>legēbās</td><td>faciēbās</td><td>audiēbās</td></tr>
@@ -777,7 +923,7 @@
       <div class="card">
         <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
-          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudō)</th><th class="col-group-label">2ª (videō)</th><th class="col-group-label">3ª (legō)</th><th class="col-group-label">3ª mixta / 5ª (faciō)</th><th class="col-group-label">4ª (audiō)</th></tr></thead>
           <tbody>
             <tr><th class="pers">1ª sg.</th><td>laudābō</td><td>vidēbō</td><td>legam</td><td>faciam</td><td>audiam</td></tr>
             <tr><th class="pers">2ª sg.</th><td>laudābis</td><td>vidēbis</td><td>legēs</td><td>faciēs</td><td>audiēs</td></tr>
@@ -797,7 +943,7 @@
       <div class="card">
         <div class="scroll-wrap sticky-first-col">
         <div class="table-scroll"><table class="wide verb-table">
-          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudāvī)</th><th class="col-group-label">2ª (vīdī)</th><th class="col-group-label">3ª (lēgī)</th><th class="col-group-label">3ª mixta (fēcī)</th><th class="col-group-label">4ª (audīvī)</th></tr></thead>
+          <thead><tr><th class="pers"></th><th class="col-group-label">1ª (laudāvī)</th><th class="col-group-label">2ª (vīdī)</th><th class="col-group-label">3ª (lēgī)</th><th class="col-group-label">3ª mixta / 5ª (fēcī)</th><th class="col-group-label">4ª (audīvī)</th></tr></thead>
           <tbody>
             <tr><th class="pers">1ª sg.</th><td>laudāvī</td><td>vīdī</td><td>lēgī</td><td>fēcī</td><td>audīvī</td></tr>
             <tr><th class="pers">2ª sg.</th><td>laudāvistī</td><td>vīdistī</td><td>lēgistī</td><td>fēcistī</td><td>audīvistī</td></tr>
@@ -832,13 +978,34 @@
         </div>
       </div>
 
+      <h3 class="sub" id="sum-compuestos">Compuestos de sum</h3>
+      <p class="sub-note">Se conjugan igual que <em>sum</em>, con el prefijo correspondiente.</p>
+      <div class="card">
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th>Compuesto</th><th>Enunciado</th><th>Significado</th></tr></thead>
+          <tbody>
+            <tr><td>absum</td><td>abes, abesse, āfuī</td><td>estar ausente</td></tr>
+            <tr><td>adsum</td><td>ades, adesse, adfuī</td><td>estar presente, asistir</td></tr>
+            <tr><td>dēsum</td><td>dees, deesse, dēfuī</td><td>faltar</td></tr>
+            <tr><td>īnsum</td><td>ines, inesse, īnfuī</td><td>estar dentro</td></tr>
+            <tr><td>intersum</td><td>interes, interesse, interfuī</td><td>estar entre, intervenir</td></tr>
+            <tr><td>obsum</td><td>obes, obesse, obfuī</td><td>oponerse, perjudicar</td></tr>
+            <tr><td>possum</td><td>potes, posse, potuī</td><td>poder</td></tr>
+            <tr><td>praesum</td><td>praees, praeesse, praefuī</td><td>estar al frente de, presidir</td></tr>
+            <tr><td>prōsum</td><td>prōdes, prōdesse, prōfuī</td><td>ser útil, aprovechar</td></tr>
+            <tr><td>subsum</td><td>subes, subesse</td><td>estar debajo</td></tr>
+            <tr><td>supersum</td><td>superes, superesse, superfuī</td><td>sobrar, sobrevivir</td></tr>
+          </tbody>
+        </table></div>
+      </div>
+
       <h3 class="sub" id="participios">Participios</h3>
       <p class="sub-note">El presente activo se declina como adjetivo de la 3ª declinación (tema en consonante, ablativo en <em>-ī</em> cuando funciona como participio puro). El perfecto y el futuro son adjetivos de 1ª clase (<em>-us, -a, -um</em>).</p>
       <div class="card">
         <div class="card-head"><span class="chip">Presente activo</span></div>
         <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
-          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta / 5ª</th><th>4ª</th></tr></thead>
           <tbody>
             <tr><td>laudāns, -antis</td><td>vidēns, -entis</td><td>legēns, -entis</td><td>faciēns, -entis</td><td>audiēns, -entis</td></tr>
           </tbody>
@@ -851,7 +1018,7 @@
         <div class="card-head"><span class="chip">Perfecto (pasivo)</span></div>
         <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
-          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta / 5ª</th><th>4ª</th></tr></thead>
           <tbody>
             <tr><td>laudātus, -a, -um</td><td>vīsus, -a, -um</td><td>lēctus, -a, -um</td><td>factus, -a, -um</td><td>audītus, -a, -um</td></tr>
           </tbody>
@@ -864,9 +1031,23 @@
         <div class="card-head"><span class="chip">Futuro activo</span></div>
         <div class="scroll-wrap">
         <div class="table-scroll"><table class="wide">
-          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta</th><th>4ª</th></tr></thead>
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta / 5ª</th><th>4ª</th></tr></thead>
           <tbody>
             <tr><td>laudātūrus, -a, -um</td><td>vīsūrus, -a, -um</td><td>lēctūrus, -a, -um</td><td>factūrus, -a, -um</td><td>audītūrus, -a, -um</td></tr>
+          </tbody>
+        </table></div>
+        <div class="fade-right"></div>
+        <div class="track-wrap"><div class="track"><div class="thumb"></div></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="chip">Futuro pasivo (gerundivo)</span></div>
+        <p class="sub-note" style="margin:0 0 .7rem;">También llamado «participio futuro pasivo»: expresa lo que debe o tiene que ser hecho.</p>
+        <div class="scroll-wrap">
+        <div class="table-scroll"><table class="wide">
+          <thead><tr><th>1ª</th><th>2ª</th><th>3ª</th><th>3ª mixta / 5ª</th><th>4ª</th></tr></thead>
+          <tbody>
+            <tr><td>laudandus, -a, -um</td><td>videndus, -a, -um</td><td>legendus, -a, -um</td><td>faciendus, -a, -um</td><td>audiendus, -a, -um</td></tr>
           </tbody>
         </table></div>
         <div class="fade-right"></div>
@@ -878,6 +1059,7 @@
     <footer>
       <h4>Fuentes consultadas</h4>
       <ul>
+        <li>Diolaiti, E. (2024) <em>Cuadernillo de morfología y sintaxis latinas</em> — Latín I y II, IES Nº 1 «Dra. Alicia Moreau de Justo» — vara de contraste usada para revisar y completar estas fichas.</li>
         <li>Tursi, A. (2009) <em>Latín. Guía para el aprendizaje</em>, 3ª ed. (San Martín: UNSAM Edita, 2019) — fuente principal de los paradigmas.</li>
         <li>Valentí Fiol, E. (1999) <em>Gramática de la lengua latina</em>.</li>
         <li>Monteil, P. (2003) <em>Elementos de Fonética y Morfología del Latín</em>.</li>
