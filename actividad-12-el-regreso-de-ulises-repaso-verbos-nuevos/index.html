@@ -107,6 +107,7 @@
   .review-answer.bad{ background:var(--incorrect-bg); color:var(--incorrect); }
   .review-correct{ font-size:.85rem; color:var(--ink-muted); margin-top:.3rem; }
   .score-line{ font-size:.92rem; color:var(--ink-muted); margin:.2rem 0 1.2rem; } .score-line strong{ color:var(--ink); }
+  .check-msg{ font-size:.9rem; font-weight:600; color:var(--ink); background:var(--warn-bg); border-left:3px solid var(--warn); border-radius:8px; padding:.65rem .95rem; margin:0 0 1rem; }
 
   .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
   .phrase-block:first-of-type{ border-top:none; }
@@ -198,6 +199,7 @@
       <p class="step-instructions">Tocá las palabras que son formas verbales conjugadas (no los infinitivos) en cada frase del relato completo.</p>
       <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p2-list"></div>
+      <p class="check-msg" id="p2-check-msg" hidden></p>
       <div class="stage-nav"><button class="btn" id="btn-verify-p2">Verificar</button></div>
     </section>
 
@@ -476,6 +478,7 @@
       // revelar todavía la lista de verbos correctos — el estudiante puede corregir sus
       // marcas (los chips siguen siendo clickeables) antes de verificar de nuevo.
       var blocks = document.getElementById("p2-list").children;
+      var missingCount = 0, wrongCount = 0;
       FULL_TEXT.forEach(function(s, i){
         var expected = new Set(s.verbIdx);
         var chosen = p2State[s.id];
@@ -483,10 +486,29 @@
         Array.from(chips).forEach(function(chip, idx){
           chip.classList.remove("g-ok", "g-bad");
           if (chosen.has(idx)){
-            chip.classList.add(expected.has(idx) ? "g-ok" : "g-bad");
+            var isVerb = expected.has(idx);
+            chip.classList.add(isVerb ? "g-ok" : "g-bad");
+            if (!isVerb) wrongCount++;
           }
         });
+        s.verbIdx.forEach(function(v){ if (!chosen.has(v)) missingCount++; });
       });
+
+      // Un elegido-vs-esperado a medias (por ejemplo, 2 de 3 verbos marcados) solo pinta
+      // en verde lo que SÍ se tocó — el verbo que falta queda igual que cualquier palabra
+      // sin tocar, sin ninguna marca que avise que falta algo. Sin este mensaje, el
+      // estudiante ve "todo verde" y no entiende por qué tiene que volver a verificar.
+      var msgEl = document.getElementById("p2-check-msg");
+      if (missingCount > 0){
+        msgEl.hidden = false;
+        msgEl.textContent = wrongCount > 0
+          ? "Todavía te falta marcar alguna forma verbal, y hay alguna marcada en rojo que no lo es — repasá la lista de nuevo antes de verificar."
+          : "Todavía te falta marcar alguna forma verbal — repasá la lista de nuevo antes de verificar (lo que ya marcaste bien quedó en verde)."
+        ;
+      } else {
+        msgEl.hidden = true;
+      }
+
       btnVerifyP2.textContent = "Verificar de nuevo";
       return;
     }
