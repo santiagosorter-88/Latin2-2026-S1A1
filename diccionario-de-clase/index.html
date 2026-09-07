@@ -220,6 +220,12 @@
     padding: 4px clamp(20px, 4vw, 40px) 40px;
   }
 
+  .letter-anchor {
+    display: block;
+    height: 0;
+    scroll-margin-top: var(--header-offset, 440px);
+  }
+
   .letter-header {
     position: sticky;
     top: 0;
@@ -429,23 +435,47 @@
 
   countEl.textContent = entries.length; // total del corpus, no cambia con la búsqueda
 
-  // --- Índice alfabético clickeable: un botón por letra (A-Z). Se arma una sola vez;
-  // en cada render() se habilitan/deshabilitan según qué letras tienen entradas
-  // visibles en ese momento (todas si no hay búsqueda, solo las que matchean si la hay).
-  var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+  // --- Índice alfabético clickeable: un botón por cada letra que REALMENTE tiene
+  // entradas en el corpus completo (nunca J/K/W/X/Y/Z si no hay ninguna palabra latina
+  // que empiece así — no tiene sentido mostrar una letra que jamás se va a poder tocar).
+  // En cada render() se deshabilitan las que no tienen resultados bajo el filtro de
+  // búsqueda activo (pero sin desaparecer del todo, para no correr el resto de botones).
+  var lettersInCorpus = new Set(entries.map(function (e) { return e.key.charAt(0).toUpperCase(); }));
+  var ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').filter(function (l) { return lettersInCorpus.has(l); });
+
+  // El salto usa un ancla NO sticky (un <span> plano) en vez del propio <h2> con
+  // position:sticky: un header sticky que ya quedó atrás reporta getBoundingClientRect().top
+  // (y hasta offsetTop) como 0 en vez de su posición real — hace que saltar "hacia atrás"
+  // en la lista apenas retroceda un par de líneas en lugar de llegar a destino. El ancla,
+  // al estar en flujo normal, no tiene ese problema.
+  //
+  // El salto en sí usa scrollIntoView (no window.scrollTo con un Y calculado a mano):
+  // en listas muy largas, window.scrollTo({top, behavior:'smooth'}) puede quedarse corto
+  // en saltos grandes (se probó y a veces frena ~1000px antes del destino);
+  // scrollIntoView llega siempre exacto. El offset por el header sticky lo resuelve
+  // scroll-margin-top (CSS, variable --header-offset recalculada abajo). Salto instantáneo
+  // (behavior:'auto'), no animado: para distancias tan largas (el diccionario tiene 500+
+  // palabras) un scroll suave tarda demasiado y además depende de que la pestaña esté
+  // visible/enfocada (si no, el navegador puede no animarlo); instantáneo es más confiable
+  // y es el patrón estándar para "ir a sección".
+  function updateHeaderOffset() {
+    var h = headerEl.getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--header-offset', (h + 10) + 'px');
+  }
+  updateHeaderOffset();
+  window.addEventListener('resize', updateHeaderOffset);
+
   ALPHABET.forEach(function (letter) {
     var btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'alpha-btn';
     btn.textContent = letter;
     btn.dataset.letter = letter;
-    btn.disabled = true;
     btn.addEventListener('click', function () {
-      var target = document.getElementById('letter-' + letter);
+      var target = document.getElementById('letter-anchor-' + letter);
       if (!target) return;
-      var headerH = headerEl.getBoundingClientRect().height;
-      var y = target.getBoundingClientRect().top + window.scrollY - headerH - 10;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      updateHeaderOffset(); // por si cambió el alto del header (search abierta, etc.)
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
     });
     alphaNavEl.appendChild(btn);
   });
@@ -501,7 +531,7 @@
       var letter = e.key.charAt(0).toUpperCase();
       if (letter !== currentLetter) {
         if (ul !== null) html += '</ul>';
-        html += '<h2 class="letter-header" id="letter-' + letter + '">' + letter + '</h2><ul class="entries">';
+        html += '<span class="letter-anchor" id="letter-anchor-' + letter + '"></span><h2 class="letter-header">' + letter + '</h2><ul class="entries">';
         currentLetter = letter;
         ul = true;
         lettersPresent.add(letter);
