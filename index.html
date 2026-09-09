@@ -380,7 +380,7 @@ var IMAGENES_INTERACTIVAS = [
     }
   },
   {
-    img: "img/imagen-interactiva/3 - Sinón - manuscrito iluminado.png",
+    img: "img/imagen-interactiva/3-sinon-manuscrito.png",
     alt: "Sinon - manuscrito iluminado",
     credito: "Biblioteca Riccardiana, Ricc. 492, Florencia, ca. 1450-1460. Manuscrito iluminado con las obras de Virgilio.",
     frase: ["Sinon", "Troianis", "falsam", "causam", "narrat,", "et", "illi", "ei", "credunt."],
@@ -458,7 +458,7 @@ var IMAGENES_INTERACTIVAS = [
     }
   },
   {
-    img: "img/imagen-interactiva/Harpías - Manuscrito.jpg",
+    img: "img/imagen-interactiva/harpias-manuscrito.jpg",
     alt: "Harpías - manuscrito iluminado",
     credito: "BnF, Latin 7939A, Ferrara, 1458. Manuscrito iluminado con las obras de Virgilio.",
     frase: ["Harpyiae", "Troianos", "vexant;", "Celaeno", "autem", "dicit:", "\"Magna", "fame", "mensas", "vestras", "edetis\""],
@@ -525,6 +525,18 @@ function wireImagenInteractiva(pick){
   });
 }
 
+function renderImagenInteractiva(pick){
+  return '<div class="img-interactiva" id="ii-wrap">' +
+    '<button type="button" class="img-interactiva__trigger" id="ii-toggle" aria-expanded="false">' +
+      '<img class="img-interactiva__img" src="' + escapeHtml(pick.img) + '" alt="' + escapeHtml(pick.alt) + '" loading="lazy" />' +
+    '</button>' +
+    '<div class="img-interactiva__body" id="ii-body" hidden>' +
+      '<p class="img-interactiva__credito">' + escapeHtml(pick.credito) + '</p>' +
+      '<div id="ii-text"></div>' +
+    '</div>' +
+  '</div>';
+}
+
 function groupBySemana(records){
   var map = {};
   records.forEach(function(rec){
@@ -566,17 +578,6 @@ function renderWeekBody(items, isActual){
         '<span>' + escapeHtml(a["Título"]) + '</span>' +
         '<span class="badge ' + (esOblig ? "badge-oblig" : "badge-opt") + '">' + escapeHtml(estado || "—") + '</span></a>';
     });
-    if (isActual && iiPick){
-      html += '<div class="img-interactiva" id="ii-wrap">' +
-        '<button type="button" class="img-interactiva__trigger" id="ii-toggle" aria-expanded="false">' +
-          '<img class="img-interactiva__img" src="' + escapeHtml(iiPick.img) + '" alt="' + escapeHtml(iiPick.alt) + '" loading="lazy" />' +
-        '</button>' +
-        '<div class="img-interactiva__body" id="ii-body" hidden>' +
-          '<p class="img-interactiva__credito">' + escapeHtml(iiPick.credito) + '</p>' +
-          '<div id="ii-text"></div>' +
-        '</div>' +
-      '</div>';
-    }
     html += '</div></div>';
   }
 
@@ -604,9 +605,10 @@ fetch(CSV_URL)
       actualEl.innerHTML = '<p class="status-msg">Todavía no hay una semana marcada como actual.</p>';
     } else {
       actualEl.innerHTML =
+        (iiPick ? renderImagenInteractiva(iiPick) : '') +
         '<div class="week-card__head"><p class="week-card__title">Esta semana</p>' +
         '<span class="week-badge">Semana ' + escapeHtml(semanaActual) + '</span></div>' +
-        renderWeekBody(bySemana[semanaActual], true);
+        renderWeekBody(bySemana[semanaActual], false);
       if (iiPick) wireImagenInteractiva(iiPick);
     }
 
