@@ -287,7 +287,7 @@
           <span class="step-progress" id="p1-progress">—</span>
         </div>
       </div>
-      <p class="step-instructions">Mirá la imagen y leé el epígrafe para ubicarte en la escena. Después elegí, entre las frases en latín, la que describe lo que está pasando.</p>
+      <p class="step-instructions">Mirá la imagen y leé el epígrafe para ubicarte en la escena. Después elegí, entre las frases en latín, la que describe lo que está pasando. A medida que avances, las opciones ya usadas se van sacando de la lista — hacia el final quedan menos para elegir.</p>
       <div id="p1-stage"></div>
     </section>
 
@@ -307,14 +307,14 @@
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 2</p>
-          <h2>Asociá cada imagen con su frase en latín</h2>
+          <h2>Asociá cada imagen con su traducción</h2>
         </div>
         <div class="step-badges">
           <span class="step-progress streak" id="p2-streak">Racha: 0</span>
           <span class="step-progress" id="p2-progress">—</span>
         </div>
       </div>
-      <p class="step-instructions">Misma imagen — ahora elegí, entre tres frases en latín muy parecidas, la única que describe exactamente lo que pasa. Las otras dos cambian algún detalle: quién hace la acción, o si pasa o no pasa.</p>
+      <p class="step-instructions">Misma imagen — ahora elegí, entre tres traducciones muy parecidas, la única que describe exactamente lo que pasa. Las otras dos cambian algún detalle: quién hace la acción, o si pasa o no pasa.</p>
       <div id="p2-stage"></div>
     </section>
 
@@ -524,22 +524,33 @@
   }
 
   // =================================================================
-  // Paso 1: una tarjeta por vez, pool de opciones COMPARTIDO entre los
-  // 5 ítems (las frases clave no comparten nombres propios entre sí,
-  // así que competir contra las otras 4 sigue exigiendo leer, no da un
-  // atajo por nombre — a diferencia de lo que pasaba antes en Pasos 2-3).
+  // Paso 1: una tarjeta por vez. El pool de opciones se ACHICA a medida
+  // que se resuelven ítems: en el ítem N solo compiten las N frases
+  // clave todavía no resueltas correctamente (las de este ítem en
+  // adelante, según el orden narrativo fijo). Es a propósito: cuando
+  // el estudiante no puede reconocer la frase por sí sola, los últimos
+  // ítems del paso terminan siendo resolubles por descarte — Santiago
+  // lo pidió así el 2026-09-13, en vez de competir contra las 5 frases
+  // siempre (lo que antes hacía muy difícil "adivinar" los últimos
+  // ítems sin ese resto de opciones ya usadas para descartar).
   // =================================================================
   function buildSingleStep(cfg){
     var idx = 0;
     var answers = {}; // phraseId -> chosen phraseId
     var wrongChoices = {}; // phraseId -> ids tried and rejected
     var resolved = {}; // phraseId -> true once feedback has been shown
-    var optionOrder = shuffled(PHRASES.map(function(p){ return p.id; }));
+    var poolCache = {}; // idx -> [ids] ya sorteados para ese ítem
     var streak = cfg.streakEl ? makeStreak(cfg.streakEl) : null;
+
+    function poolFor(i){
+      if (!poolCache[i]) poolCache[i] = shuffled(cfg.order.slice(i));
+      return poolCache[i];
+    }
 
     function renderStage(){
       var p = PHRASES.filter(function(x){ return x.id === cfg.order[idx]; })[0];
       cfg.progressEl.textContent = (idx+1) + " / " + cfg.order.length;
+      var optionOrder = poolFor(idx);
 
       var card = document.createElement("div");
       card.className = "stage-card";
@@ -877,9 +888,9 @@
         wrap.appendChild(media);
         return wrap;
       },
-      getOptions: function(p){ return { correct: p.latin, decoyA: p.latinDecoyA, decoyB: p.latinDecoyB }; },
+      getOptions: function(p){ return { correct: p.spanish, decoyA: p.spanishDecoyA, decoyB: p.spanishDecoyB }; },
       logAnswer: function(p, chosenText, ok, wrongCount, revealed){
-        submitLog.push({ paso:"2 - Imagen y frase latina", item:"Imagen " + p.id,
+        submitLog.push({ paso:"2 - Imagen y traducción", item:"Imagen " + p.id,
           respuesta: chosenText || "(sin responder)", correcta: ok,
           errores: wrongCount, respuestaRevelada: revealed });
       }
