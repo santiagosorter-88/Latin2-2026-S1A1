@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Disputatio Hadriani Augusti et Epicteti philosophi</title>
+<style>
+  :root{
+    --bg:#e8e7dd;
+    --surface:#f6f5ef;
+    --surface-raised:#ffffff;
+    --ink:#1e211d;
+    --ink-muted:#5b5f56;
+    --rule:#c9c4b3;
+    --accent:#1e4dc7;
+    --accent-strong:#17399c;
+    --accent-ink:#f6efe0;
+    --correct:#4f7a34;
+    --correct-bg:#e4ecd7;
+    --warn:#93701c;
+    --warn-bg:#f2e6c2;
+    --incorrect:#b5502e;
+    --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px;
+    --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    /* Colores de la escena: fijos en los dos temas (son la miniatura, no la interfaz). */
+    --hadrian:#b3262b;
+    --epictetus:#4a7a35;
+    --parchment:#fbf7ea;
+    --parchment-ink:#2a2016;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:760px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{
+    font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent-strong);
+  }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:60ch; margin:0 0 1.75rem; }
+
+  .identity{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card);
+    padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem;
+  }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{
+    font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px;
+    border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink);
+  }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
+  .btn{
+    border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600;
+    background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease;
+  }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  main{ display:none; }
+  main.visible{ display:block; }
+  .step{ display:none; }
+  .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:62ch; margin:0 0 1.2rem; }
+  .step-progress{
+    font-family:var(--sans); font-variant-numeric:tabular-nums; font-size:.82rem; font-weight:700;
+    background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-chip);
+    padding:.3rem .75rem; color:var(--ink-muted); white-space:nowrap;
+  }
+
+  .exercise{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card);
+    padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow);
+  }
+
+  /* ================= escena (miniatura de fondo + globos) ================= */
+  .stage{ max-width:560px; margin:0 auto; }
+  .stage-frame{
+    border:3px solid #c9a23a; outline:2px solid var(--hadrian); outline-offset:2px;
+    border-radius:3px; overflow:hidden; background:#44699f;
+  }
+  .bubbles{
+    display:grid; grid-template-columns:1.25fr 1fr; gap:.6rem; align-items:end;
+    padding:.8rem .7rem 16px; background:linear-gradient(#3f639b, #4a6fa9);
+    min-height:5.5rem;
+  }
+  .scene{
+    aspect-ratio:857/720; background:url("img/escena.jpg") center top / cover no-repeat;
+  }
+  .scene-caption{ font-size:.75rem; font-style:italic; color:var(--ink-muted); text-align:center; margin:.55rem 0 0; }
+
+  .bubble{
+    position:relative; background:var(--parchment); color:var(--parchment-ink);
+    border:2px solid var(--parchment-ink); border-radius:16px; padding:.5rem .55rem .55rem;
+    box-shadow:0 3px 0 rgba(0,0,0,.28); min-height:3.2rem;
+  }
+  .bubble .tail{
+    position:absolute; bottom:-9px; width:16px; height:16px; background:var(--parchment);
+    border-right:2px solid var(--parchment-ink); border-bottom:2px solid var(--parchment-ink);
+    transform:rotate(45deg);
+  }
+  .bubble.h .tail{ left:62%; }
+  .bubble.e .tail{ left:58%; }
+  .bubble.e{ visibility:hidden; }
+  .bubble.e.shown{ visibility:visible; animation:pop .3s cubic-bezier(.2,.9,.3,1.25) both; }
+  @keyframes pop{ from{ opacity:0; transform:translateY(12px) scale(.7); } to{ opacity:1; transform:none; } }
+  .bubble-who{
+    font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin:0 0 .15rem; text-align:center;
+  }
+  .bubble.h .bubble-who{ color:var(--hadrian); }
+  .bubble.e .bubble-who{ color:var(--epictetus); }
+
+  .slots{ display:flex; flex-wrap:wrap; justify-content:center; gap:.25rem .35rem; align-items:flex-end; }
+  .slot-wrap{ display:inline-flex; align-items:flex-end; }
+  .slot{
+    display:inline-flex; justify-content:center; min-width:2.9rem; padding:0 .2rem;
+    font-family:var(--serif); font-size:1.08rem; line-height:1.35; min-height:1.6rem;
+    border-bottom:2px dashed #a89a78; color:var(--parchment-ink);
+  }
+  .slot.current{ border-bottom:2px solid #1e4dc7; }
+  .slot.ok{ border-bottom:2px solid #4f7a34; animation:fill .2s ease-out; }
+  .slot.revealed{ border-bottom:2px solid #93701c; background:#f2e6c2; border-radius:4px 4px 0 0; animation:fill .2s ease-out; }
+  @keyframes fill{ from{ transform:scale(.7); opacity:.2; } to{ transform:none; opacity:1; } }
+  .punct{ font-family:var(--serif); font-size:1.08rem; line-height:1.35; padding-bottom:.1rem; }
+
+  /* ================= caja de diálogo (estilo RPG) ================= */
+  .dialog{
+    position:relative; max-width:560px; margin:1.5rem auto 0;
+    background:var(--surface); border:2px solid var(--rule); border-radius:12px;
+    padding:1.5rem 1.2rem 1.2rem; box-shadow:var(--shadow);
+  }
+  .dialog.swap{ animation:swap .28s ease-out both; }
+  @keyframes swap{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  .nameplate{
+    position:absolute; top:-.85rem; left:1rem; font-size:.72rem; font-weight:700; letter-spacing:.12em;
+    text-transform:uppercase; color:#fff; padding:.25rem .8rem; border-radius:6px; background:var(--hadrian);
+    box-shadow:0 2px 0 rgba(0,0,0,.2);
+  }
+  .nameplate.e{ background:var(--epictetus); }
+  .dialog.e{ border-color:var(--epictetus); }
+  .dialog.h{ border-color:var(--hadrian); }
+  .dialog-es{ font-family:var(--serif); font-size:1.2rem; margin:0 0 .9rem; }
+
+  .bank{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .wchip{
+    font-family:var(--serif); font-size:1.12rem; border:1.5px solid var(--rule);
+    background:var(--surface-raised); color:var(--ink); border-radius:var(--radius-chip);
+    padding:.4rem 1.05rem; touch-action:manipulation; -webkit-user-select:none; user-select:none;
+    transition:border-color .15s ease, background .15s ease, opacity .15s ease;
+  }
+  .wchip:hover{ border-color:var(--accent); }
+  .wchip:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .wchip.used{ opacity:.3; border-style:dashed; cursor:default; }
+  .wchip.bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); cursor:default; }
+  .wchip.flash{ animation:shake .3s ease; border-color:var(--incorrect); }
+  @keyframes shake{ 0%,100%{ transform:none; } 25%{ transform:translateX(-4px); } 75%{ transform:translateX(4px); } }
+
+  .msg{ font-size:.88rem; font-weight:600; margin:.7rem 0 0; min-height:1.3em; color:var(--ink-muted); }
+  .msg.bad{ color:var(--incorrect); }
+  .msg.warn{ color:var(--ink); }
+  .msg.ok{ color:var(--correct); }
+  .stage-nav{ display:flex; justify-content:flex-end; margin-top:.9rem; }
+
+  /* ---- diálogo reconstruido ---- */
+  .transcript{ margin-top:1.75rem; }
+  .transcript h3{ font-family:var(--serif); font-weight:400; font-size:1.2rem; margin:0 0 .8rem; }
+  .tpair{ padding:.7rem 0; border-top:1px solid var(--rule); }
+  .tpair:first-of-type{ border-top:none; }
+  .tline{ font-family:var(--serif); font-size:1.02rem; margin:0; }
+  .tline b{ font-family:var(--sans); font-size:.72rem; letter-spacing:.08em; margin-right:.4rem; }
+  .tline.h b{ color:var(--hadrian); }
+  .tline.e b{ color:var(--epictetus); }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .tline.h b{ color:#e07a6f; } :root:not([data-theme="light"]) .tline.e b{ color:#8fb35d; } }
+  :root[data-theme="dark"] .tline.h b{ color:#e07a6f; }
+  :root[data-theme="dark"] .tline.e b{ color:#8fb35d; }
+  .tmark{ font-family:var(--sans); font-size:.72rem; font-weight:700; margin-left:.45rem; padding:.05rem .45rem; border-radius:999px; white-space:nowrap; }
+  .tmark.ok{ background:var(--correct-bg); color:var(--correct); }
+  .tmark.bad{ background:var(--warn-bg); color:var(--ink); }
+  .tes{ font-size:.82rem; color:var(--ink-muted); margin:0 0 .15rem 1.6rem; }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{
+    font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule);
+    border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer;
+    background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); }
+  .status.ok{ color:var(--correct); }
+  .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <p class="eyebrow">Latín · Diálogo</p>
+  <h1>Disputatio Hadriani Augusti et Epicteti philosophi</h1>
+  <p class="lede">El emperador Adriano le hace preguntas enigmáticas al filósofo Epicteto. Poneles las palabras en la boca: reconstruí en latín cada pregunta y, cuando la resuelvas, Epicteto responde.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <section class="step" id="step-dialog">
+      <div class="step-head">
+        <div>
+          <p class="eyebrow">Diálogo</p>
+          <h2>Pregunta y respuesta</h2>
+        </div>
+        <span class="step-progress" id="pair-progress">—</span>
+      </div>
+      <p class="step-instructions">Leé la frase en castellano y tocá las palabras latinas en el orden en que van: se van escribiendo en el globo del personaje. Si una palabra no va en ese lugar, se marca; si volvés a equivocarte en el mismo lugar, se muestra la palabra que iba. En las frases de dos palabras, el orden es libre.</p>
+      <button type="button" class="btn-tired" id="btn-cansado">Me cansé, mostrame las respuestas</button>
+
+      <div class="stage" id="stage">
+        <div class="stage-frame">
+          <div class="bubbles">
+            <div class="bubble h" id="bubble-h"><p class="bubble-who">Hadrianus</p><div class="slots" id="slots-h"></div><span class="tail"></span></div>
+            <div class="bubble e" id="bubble-e"><p class="bubble-who">Epictetus</p><div class="slots" id="slots-e"></div><span class="tail"></span></div>
+          </div>
+          <div class="scene" role="img" aria-label="Miniatura: Adriano, sentado en un trono con cetro y orbe, frente al filósofo Epicteto, de pie, con barba y manto azul."></div>
+        </div>
+        <p class="scene-caption">Descriptio orbis terrarum, fol. 79r — Biblioteca Nacional de España.</p>
+      </div>
+
+      <div class="dialog h" id="dialog">
+        <span class="nameplate" id="nameplate">Adriano</span>
+        <p class="dialog-es" id="dialog-es"></p>
+        <div class="bank" id="bank"></div>
+        <p class="msg" id="msg"></p>
+        <div class="stage-nav"><button type="button" class="btn" id="btn-next" hidden>Siguiente pregunta →</button></div>
+      </div>
+    </section>
+
+    <section class="transcript exercise" id="transcript" hidden>
+      <h3>Diálogo reconstruido</h3>
+      <div id="transcript-list"></div>
+    </section>
+
+    <section class="step" id="step-final">
+      <div class="exercise">
+        <div class="step-head">
+          <div>
+            <p class="eyebrow">Cierre</p>
+            <h2>¿Cómo te resultó la actividad?</h2>
+          </div>
+        </div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field">
+          <label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label>
+          <input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required />
+        </div>
+        <div class="field" style="margin-top:1rem;">
+          <label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label>
+          <input id="in-suggestion" type="text" placeholder="completá la idea" required />
+        </div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="score-summary" id="score-summary" hidden></p>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Backend compartido de esta cátedra (Apps Script) — no tocar salvo que Santiago lo pida.
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  var PAIRS = /*__DATA__*/[
+    {"q": "Quid est epistula?", "qEs": "¿Qué es una carta?", "qDecoys": ["pictura", "Qua", "homo"], "a": "Tacitus nuntius.", "aEs": "Un mensajero silencioso.", "aDecoys": ["Falsa", "somnus", "veritas"]},
+    {"q": "Quid est pictura?", "qEs": "¿Qué es una pintura?", "qDecoys": ["epistula", "dixisti", "ratione"], "a": "Falsa veritas.", "aEs": "Una verdad falsa.", "aDecoys": ["Tacitus", "perpetua", "eventus"]},
+    {"q": "Quid est gladiator?", "qEs": "¿Qué es un gladiador?", "qDecoys": ["aurum", "aegrotant", "ratione"], "a": "Sine crimine homicida.", "aEs": "Un homicida sin delito.", "aDecoys": ["Innocentia", "Cupiditate", "eventus"]},
+    {"q": "Quid est longissimum?", "qEs": "¿Qué es lo más largo?", "qDecoys": ["amicitia", "spes", "homines"], "a": "Spes.", "aEs": "La esperanza.", "aDecoys": ["Vita", "Mors", "Brevissima"]},
+    {"q": "Quid est spes?", "qEs": "¿Qué es la esperanza?", "qDecoys": ["longissimum", "videre", "potest"], "a": "Vigilanti somnus, spectanti dubius eventus.", "aEs": "Para quien está despierto, sueño; para quien espera, un resultado incierto.", "aDecoys": ["Spes", "Tacitus", "securitas"]},
+    {"q": "Qua re peccant homines?", "qEs": "¿Por qué pecan los hombres?", "qDecoys": ["ratione", "lassus", "fit"], "a": "Cupiditate.", "aEs": "Por deseo.", "aDecoys": ["Innocentia", "Spes", "Verbum"]},
+    {"q": "Quid est libertas?", "qEs": "¿Qué es la libertad?", "qDecoys": ["commune", "Qui", "peccant"], "a": "Innocentia.", "aEs": "La inocencia.", "aDecoys": ["Cupiditate", "securitas", "Vita"]},
+    {"q": "Quid regi et misero commune est?", "qEs": "¿Qué tienen en común el rey y el desgraciado?", "qDecoys": ["libertas", "videre", "potest"], "a": "Nasci et mori.", "aEs": "Nacer y morir.", "aDecoys": ["Vita", "Mors", "Brevissima"]},
+    {"q": "Quid est optimum ac pessimum?", "qEs": "¿Qué es lo mejor y lo peor?", "qDecoys": ["placet", "displicet", "aegrotant"], "a": "Verbum.", "aEs": "La palabra.", "aDecoys": ["Vita", "Spes", "Mors"]},
+    {"q": "Quid est quod alii placet et alii displicet?", "qEs": "¿Qué es aquello que a unos agrada y a otros desagrada?", "qDecoys": ["optimum", "pessimum", "vita"], "a": "Vita.", "aEs": "La vida.", "aDecoys": ["Mors", "Verbum", "Brevissima"]},
+    {"q": "Quid est optima vita?", "qEs": "¿Cuál es la mejor vida?", "qDecoys": ["certissimum", "placet", "displicet"], "a": "Brevissima.", "aEs": "La más breve.", "aDecoys": ["Vita", "perpetua", "Spes"]},
+    {"q": "Quid est certissimum?", "qEs": "¿Qué es lo más seguro?", "qDecoys": ["optima", "vita", "mors"], "a": "Mors.", "aEs": "La muerte.", "aDecoys": ["Vita", "mori", "securitas"]},
+    {"q": "Quid est mors?", "qEs": "¿Qué es la muerte?", "qDecoys": ["certissimum", "optima", "vita"], "a": "Perpetua securitas.", "aEs": "Seguridad perpetua.", "aDecoys": ["Mors", "dubius", "eventus"]}
+  ]/*__END__*/;
+
+  var N = PAIRS.length;
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+  function tokenize(s){
+    return s.trim().split(/\s+/).map(function(w){
+      var m = w.match(/^(.*?)([,.;:?!]*)$/);
+      return { word:m[1], punct:m[2] };
+    });
+  }
+  function pasoQ(i){ return "Par " + (i + 1) + " - Pregunta de Adriano"; }
+  function pasoA(i){ return "Par " + (i + 1) + " - Respuesta de Epicteto"; }
+
+  var identity = { email:"" };
+  var submitLog = [];
+
+  // ---------- retomar progreso interrumpido (granularidad: par cerrado) ----------
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(step){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: step, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  function showStep(id){
+    document.querySelectorAll(".step").forEach(function(s){ s.classList.toggle("visible", s.id === id); });
+  }
+
+  // ---------- una frase a reconstruir ----------
+  // Los espacios viven en el globo del personaje; banco y mensajes, en la caja de diálogo.
+  // Orden estricto, salvo frases de 2 palabras (orden libre). Por espacio: primer error marca
+  // la palabra; segundo error en el mismo espacio revela la que iba ahí (convención 1).
+  // Calificación: la frase cuenta como correcta si se completó sin ninguna palabra revelada.
+  function buildPhrase(cfg){
+    var toks = tokenize(cfg.latin);
+    var free = toks.length === 2;
+    var remaining = toks.map(function(_, i){ return i; });
+    var pos = 0, wrongHere = 0, errors = 0, revealed = [], done = false;
+    var msg = cfg.msgEl;
+
+    cfg.slotsHost.innerHTML = "";
+    cfg.bankHost.innerHTML = "";
+    cfg.bankHost.hidden = false;
+    msg.textContent = ""; msg.className = "msg";
+
+    var slots = toks.map(function(t){
+      var w = document.createElement("span"); w.className = "slot-wrap";
+      var s = document.createElement("span"); s.className = "slot"; s.innerHTML = "&nbsp;";
+      w.appendChild(s);
+      if (t.punct){ var p = document.createElement("span"); p.className = "punct"; p.textContent = t.punct; w.appendChild(p); }
+      cfg.slotsHost.appendChild(w);
+      return s;
+    });
+
+    var chips = shuffled(toks.map(function(t){ return t.word; }).concat(cfg.decoys)).map(function(word){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "wchip"; b.textContent = word;
+      b.addEventListener("click", function(){ onTap(b); });
+      cfg.bankHost.appendChild(b);
+      return b;
+    });
+
+    function markCurrent(){
+      slots.forEach(function(s, i){ s.classList.toggle("current", !done && i === pos); });
+    }
+    function fill(word, cls){
+      slots[pos].textContent = word;
+      slots[pos].classList.add(cls);
+      pos++; wrongHere = 0;
+    }
+    function useChip(word){
+      for (var i = 0; i < chips.length; i++){
+        var c = chips[i];
+        if (!c.disabled && c.textContent === word){ c.disabled = true; c.classList.add("used"); return; }
+      }
+    }
+    function acceptedIndex(word){
+      if (free){
+        for (var i = 0; i < remaining.length; i++){ if (toks[remaining[i]].word === word) return i; }
+        return -1;
+      }
+      return toks[remaining[0]].word === word ? 0 : -1;
+    }
+    function stillNeeded(word){
+      return remaining.some(function(i){ return toks[i].word === word; });
+    }
+
+    function onTap(chip){
+      if (done || chip.disabled) return;
+      var word = chip.textContent;
+      var k = acceptedIndex(word);
+      if (k >= 0){
+        remaining.splice(k, 1);
+        chip.disabled = true; chip.classList.add("used");
+        fill(word, "ok");
+        msg.textContent = ""; msg.className = "msg";
+      } else {
+        errors++; wrongHere++;
+        if (stillNeeded(word)){
+          chip.classList.remove("flash"); void chip.offsetWidth; chip.classList.add("flash");
+        } else {
+          chip.disabled = true; chip.classList.add("bad");
+        }
+        if (wrongHere >= 2){
+          var target = toks[remaining.shift()].word;
+          useChip(target);
+          revealed.push(target);
+          fill(target, "revealed");
+          msg.innerHTML = "";
+          msg.appendChild(document.createTextNode("La palabra que iba ahí es: "));
+          var bb = document.createElement("strong"); bb.textContent = target; msg.appendChild(bb);
+          msg.className = "msg warn";
+        } else {
+          msg.textContent = "No va ahí. Probá una vez más.";
+          msg.className = "msg bad";
+        }
+      }
+      if (pos === toks.length) finish(false);
+      else markCurrent();
+    }
+
+    function finish(tired){
+      done = true;
+      markCurrent();
+      var ok = !tired && revealed.length === 0;
+      var resp;
+      if (tired) resp = "revelada (me cansé)" + (errors ? " — " + errors + (errors === 1 ? " error" : " errores") + " antes" : "");
+      else if (errors === 0) resp = "sin errores";
+      else resp = errors + (errors === 1 ? " error" : " errores") + (revealed.length ? "; reveladas: " + revealed.join(", ") : "");
+      var built = slots.map(function(s){ return s.textContent; }).join(" ");
+      submitLog.push({ paso: cfg.paso, item: cfg.latin, respuesta: resp + " [" + built + "]", correcta: ok });
+      if (!tired && cfg.onDone) cfg.onDone({ ok: ok, errors: errors });
+    }
+
+    function forceReveal(){
+      if (done) return;
+      while (remaining.length){
+        var target = toks[remaining.shift()].word;
+        useChip(target);
+        slots[pos].textContent = target; slots[pos].classList.add("revealed"); pos++;
+      }
+      finish(true);
+    }
+
+    markCurrent();
+    return { forceReveal: forceReveal, isDone: function(){ return done; } };
+  }
+
+  // ---------- flujo de pares ----------
+  var slotsH = document.getElementById("slots-h");
+  var slotsE = document.getElementById("slots-e");
+  var bubbleE = document.getElementById("bubble-e");
+  var dialog = document.getElementById("dialog");
+  var nameplate = document.getElementById("nameplate");
+  var dialogEs = document.getElementById("dialog-es");
+  var bank = document.getElementById("bank");
+  var msgEl = document.getElementById("msg");
+  var btnNext = document.getElementById("btn-next");
+  var pairProgress = document.getElementById("pair-progress");
+  var transcriptEl = document.getElementById("transcript");
+  var transcriptList = document.getElementById("transcript-list");
+  var current = { idx: -1, q: null, a: null, closed: false };
+  var transcribed = 0;
+
+  function setSpeaker(who, spanish, animate){
+    dialog.classList.remove("h", "e", "swap");
+    dialog.classList.add(who);
+    nameplate.className = "nameplate " + who;
+    nameplate.textContent = who === "h" ? "Adriano" : "Epicteto";
+    dialogEs.textContent = spanish;
+    if (animate){ void dialog.offsetWidth; dialog.classList.add("swap"); }
+  }
+
+  function resultFor(paso){
+    for (var k = submitLog.length - 1; k >= 0; k--){ if (submitLog[k].paso === paso) return submitLog[k].correcta; }
+    return null;
+  }
+
+  function addTranscript(i){
+    if (i < transcribed) return;
+    var p = PAIRS[i];
+    var d = document.createElement("div"); d.className = "tpair";
+    [["h", "H.", p.q, p.qEs, pasoQ(i)], ["e", "E.", p.a, p.aEs, pasoA(i)]].forEach(function(r){
+      var l = document.createElement("p"); l.className = "tline " + r[0];
+      var b = document.createElement("b"); b.textContent = r[1];
+      l.appendChild(b); l.appendChild(document.createTextNode(r[2]));
+      var ok = resultFor(r[4]);
+      var m = document.createElement("span");
+      m.className = "tmark " + (ok ? "ok" : "bad");
+      m.textContent = ok ? "✓ correcta" : "con ayuda";
+      l.appendChild(m);
+      var t = document.createElement("p"); t.className = "tes"; t.textContent = r[3];
+      d.appendChild(l); d.appendChild(t);
+    });
+    transcriptList.appendChild(d);
+    transcribed = i + 1;
+    transcriptEl.hidden = false;
+  }
+
+  function buildAnswer(i, animate){
+    var p = PAIRS[i];
+    bubbleE.classList.add("shown");
+    setSpeaker("e", p.aEs, animate);
+    current.a = buildPhrase({
+      slotsHost: slotsE, bankHost: bank, msgEl: msgEl, latin: p.a, decoys: p.aDecoys, paso: pasoA(i),
+      onDone: function(res){ closePair(i, res); }
+    });
+  }
+
+  function startPair(i){
+    var p = PAIRS[i];
+    current = { idx: i, q: null, a: null, closed: false };
+    bubbleE.classList.remove("shown");
+    slotsE.innerHTML = "";
+    btnNext.hidden = true;
+    pairProgress.textContent = "Par " + (i + 1) + " de " + N;
+    setSpeaker("h", p.qEs, i > 0);
+    current.q = buildPhrase({
+      slotsHost: slotsH, bankHost: bank, msgEl: msgEl, latin: p.q, decoys: p.qDecoys, paso: pasoQ(i),
+      onDone: function(){ buildAnswer(i, true); }
+    });
+  }
+
+  function closePair(i, res){
+    current.closed = true;
+    bank.hidden = true;
+    if (res.ok){
+      msgEl.textContent = res.errors === 0 ? "¡Par completo, sin errores!" : "¡Par completo!";
+      msgEl.className = "msg ok";
+    }
+    addTranscript(i);
+    saveProgress(i + 1);
+    btnNext.textContent = i + 1 < N ? "Siguiente pregunta →" : "Terminar →";
+    btnNext.hidden = false;
+  }
+
+  btnNext.addEventListener("click", function(){
+    var next = current.idx + 1;
+    if (next < N){
+      startPair(next);
+      document.getElementById("stage").scrollIntoView({ block: "start", behavior: "smooth" });
+    } else goFinal();
+  });
+
+  function goFinal(){
+    pairProgress.textContent = "Par " + N + " de " + N;
+    showStep("step-final");
+    transcriptEl.parentNode.insertBefore(transcriptEl, document.getElementById("step-final"));
+    transcriptEl.scrollIntoView({ block: "start", behavior: "smooth" });
+  }
+
+  // "Me cansé" (convención 9): 26 respuestas en total. Completa solo lo pendiente.
+  document.getElementById("btn-cansado").addEventListener("click", function(){
+    var i = current.idx;
+    if (i >= 0 && !current.closed){
+      if (!current.q.isDone()) current.q.forceReveal();
+      if (!current.a) buildAnswer(i, false);
+      current.a.forceReveal();
+      addTranscript(i);
+    }
+    for (var j = Math.max(i + 1, transcribed); j < N; j++){
+      submitLog.push({ paso: pasoQ(j), item: PAIRS[j].q, respuesta: "revelada (me cansé)", correcta: false });
+      submitLog.push({ paso: pasoA(j), item: PAIRS[j].a, respuesta: "revelada (me cansé)", correcta: false });
+      addTranscript(j);
+    }
+    saveProgress(N);
+    goFinal();
+  });
+
+  // ---------- identidad ----------
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    var startAt = 0;
+    if (restored && typeof restored.step === "number"){
+      submitLog = restored.submitLog || [];
+      startAt = Math.min(restored.step, N);
+      for (var j = 0; j < startAt; j++) addTranscript(j);
+    }
+    if (startAt >= N) goFinal();
+    else { showStep("step-dialog"); startPair(startAt); }
+  });
+
+  // ---------- cierre y envío ----------
+  function computeScore(){
+    var items = submitLog.filter(function(e){ return e.correcta !== null && e.paso.indexOf("Par ") === 0; });
+    var correct = items.filter(function(e){ return e.correcta === true; }).length;
+    return { correct: correct, total: items.length };
+  }
+
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida",
+        respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia",
+        respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      evalPushed = true;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…";
+    statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!";
+      statusEl.className = "status ok";
+      var score = computeScore();
+      if (score.total > 0){
+        var pct = Math.round(100 * score.correct / score.total);
+        document.getElementById("score-summary").innerHTML =
+          "Armaste correctamente <strong>" + score.correct + " de " + score.total + "</strong> frases (" + pct + "%). " +
+          "Cuenta como correcta cada frase que completaste sin que se revelara ninguna palabra; los errores que corregiste en el segundo intento no restan.";
+        document.getElementById("score-summary").hidden = false;
+      }
+      clearProgress();
+    }).catch(function(){
+      sendInFlight = false;
+      btnSend.disabled = false;
+      statusEl.textContent = "No se pudo enviar. Revisá la conexión y podés reintentar con el mismo botón.";
+      statusEl.className = "status err";
+    });
+  });
+})();
+</script>
+</body>
+</html>
