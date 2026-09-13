@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>Latín · Disputatio Hadriani Augusti et Epicteti philosophi</title>
+<title>Latín · Altercatio Hadriani Augusti et Epicteti philosophi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Uncial+Antiqua&display=swap" rel="stylesheet" />
@@ -254,7 +254,12 @@
     animation:swap .3s ease-out both;
   }
   .tour-note b{ font-weight:600; }
-  .tour-ok{ position:absolute; margin:0; font-size:1.05rem; animation:swap .3s ease-out both; }
+  .tour-actions{ position:absolute; display:flex; align-items:center; gap:.9rem; animation:swap .3s ease-out both; }
+  .tour-ok{ margin:0; font-size:1.05rem; }
+  .tour-skip{
+    background:transparent; border:none; color:var(--g-text); font-size:.95rem; font-weight:600;
+    text-decoration:underline; text-underline-offset:3px; padding:.4rem .2rem;
+  }
 
   /* ================= cierre ================= */
   .recap{ margin-bottom:2rem; }
@@ -314,7 +319,7 @@
 <!-- ===== Portada: consigna + email (desaparece al comenzar) ===== -->
 <div class="wrap" id="intro">
   <p class="eyebrow">Latín · Diálogo</p>
-  <h1>Disputatio Hadriani Augusti et Epicteti philosophi</h1>
+  <h1>Altercatio Hadriani Augusti et Epicteti philosophi</h1>
   <p class="lede">La <em>Altercatio Hadriani Augusti et Epicteti philosophi</em> es un diálogo latino anónimo de los siglos II o III. En él, el emperador Adriano formula preguntas breves, muchas veces como acertijos, y el filósofo estoico Epicteto responde con ocurrencias, imágenes y sentencias ingeniosas.</p>
   <p class="lede">En esta actividad vas a reconstruir una versión breve de esa conversación: primero pregunta Adriano; después responde Epicteto. Las palabras de cada intervención están abajo, esperando que las pongas en orden.</p>
   <img class="intro-img" src="img/escena.jpg" alt="Miniatura: Adriano, sentado en un trono con cetro y orbe, frente al filósofo Epicteto, de pie, con barba y manto azul." />
@@ -335,7 +340,7 @@
 <!-- ===== Juego: escena fija + caja de diálogo ===== -->
 <div class="game" id="game" hidden>
   <header class="hud">
-    <span class="hud-title">Disputatio</span>
+    <span class="hud-title">Altercatio</span>
     <span class="hud-progress" id="pair-progress">—</span>
     <span class="hud-actions">
       <button type="button" class="hud-tired hud-help" id="btn-help" aria-label="Ver cómo se juega">?</button>
@@ -367,7 +372,10 @@
   <div class="tour" id="tour" role="dialog" aria-label="Cómo se juega" hidden>
     <svg class="tour-svg" id="tour-svg" aria-hidden="true"></svg>
     <div id="tour-notes"></div>
-    <button type="button" class="btn-next tour-ok" id="btn-tour-ok">Entendido, ¡a jugar!</button>
+    <div class="tour-actions" id="tour-actions">
+      <button type="button" class="tour-skip" id="btn-tour-skip">Saltar</button>
+      <button type="button" class="btn-next tour-ok" id="btn-tour-ok">Entendido, ¡a jugar!</button>
+    </div>
   </div>
 </div>
 
@@ -819,6 +827,9 @@
   var tourSvg = document.getElementById("tour-svg");
   var tourNotes = document.getElementById("tour-notes");
   var btnTourOk = document.getElementById("btn-tour-ok");
+  var btnTourSkip = document.getElementById("btn-tour-skip");
+  var tourActions = document.getElementById("tour-actions");
+  var tourStep = 0, tourTotal = 0;
   var SVGNS = "http://www.w3.org/2000/svg";
   function svgEl(name, attrs){
     var el = document.createElementNS(SVGNS, name);
@@ -851,6 +862,10 @@
     var shade = svgEl("rect", { x: 0, y: 0, width: W, height: H, fill: "rgba(0,0,0,.62)", mask: "url(#tour-mask)" });
     tourSvg.appendChild(shade);
 
+    // Pantalla angosta (celular): una nota por vez, en orden de uso. Ancha: todas juntas.
+    var stepped = W < 700;
+    if (stepped) notes = [notes[0], notes[2], notes[3], notes[1]];
+
     var placed = [], rings = [];
     function hits(a, b){ return a.x < b.x + b.w + GAP && b.x < a.x + a.w + GAP && a.y < b.y + b.h + GAP && b.y < a.y + a.h + GAP; }
     notes = notes.filter(function(n){
@@ -858,19 +873,25 @@
       n.els.forEach(function(el){
         var r = el.getBoundingClientRect();
         if (!r.width || !r.height) return;
-        var t = { x: r.left - PAD, y: r.top - PAD, w: r.width + 2 * PAD, h: r.height + 2 * PAD };
-        n.ts.push(t); rings.push(t);
+        n.ts.push({ x: r.left - PAD, y: r.top - PAD, w: r.width + 2 * PAD, h: r.height + 2 * PAD });
+      });
+      return n.ts.length > 0;
+    });
+    tourTotal = notes.length;
+    tourStep = Math.min(tourStep, tourTotal - 1);
+    if (stepped) notes = [notes[tourStep]];
+    notes.forEach(function(n){
+      n.ts.forEach(function(t){
+        rings.push(t);
         mask.appendChild(svgEl("rect", { x: t.x, y: t.y, width: t.w, height: t.h, rx: 8, fill: "#000" }));
         tourSvg.appendChild(svgEl("rect", { "class": "tour-ring", x: t.x, y: t.y, width: t.w, height: t.h, rx: 8 }));
       });
-      if (!n.ts.length) return false;
       // Rectángulo que abarca todas las zonas de la nota: sirve para ubicarla.
       var x1 = Math.min.apply(null, n.ts.map(function(t){ return t.x; }));
       var y1 = Math.min.apply(null, n.ts.map(function(t){ return t.y; }));
       var x2 = Math.max.apply(null, n.ts.map(function(t){ return t.x + t.w; }));
       var y2 = Math.max.apply(null, n.ts.map(function(t){ return t.y + t.h; }));
       n.t = { x: x1, y: y1, w: x2 - x1, h: y2 - y1 };
-      return true;
     });
     notes.forEach(function(n){
       var t = n.t;
@@ -904,26 +925,42 @@
       });
     });
 
-    // Botón para arrancar: en el hueco entre las notas de arriba y las de abajo.
-    var topEnd = 0, bottomStart = H;
-    placed.forEach(function(p){
-      if (p.dir === "down") topEnd = Math.max(topEnd, p.y + p.h);
-      else bottomStart = Math.min(bottomStart, p.y);
-    });
-    var bw = btnTourOk.offsetWidth, bh = btnTourOk.offsetHeight;
-    var by2 = topEnd + (bottomStart - topEnd) / 2 - bh / 2;
-    by2 = Math.max(8, Math.min(H - bh - 8, by2));
-    btnTourOk.style.left = (W / 2 - bw / 2) + "px";
-    btnTourOk.style.top = by2 + "px";
+    var last = !stepped || tourStep >= tourTotal - 1;
+    btnTourOk.textContent = last ? "Entendido, ¡a jugar!" : "Siguiente (" + (tourStep + 1) + "/" + tourTotal + ") →";
+    btnTourSkip.hidden = last;
+    var aw = tourActions.offsetWidth, ah = tourActions.offsetHeight, ax, ay;
+    if (stepped){
+      // Botones pegados a la nota, del lado opuesto a la zona señalada.
+      var p = placed[0];
+      ax = Math.max(8, Math.min(W - aw - 8, p.x + p.w - aw));
+      ay = p.dir === "down" ? p.y + p.h + 12 : p.y - 12 - ah;
+    } else {
+      // Botón para arrancar: en el hueco entre las notas de arriba y las de abajo.
+      var topEnd = 0, bottomStart = H;
+      placed.forEach(function(p){
+        if (p.dir === "down") topEnd = Math.max(topEnd, p.y + p.h);
+        else bottomStart = Math.min(bottomStart, p.y);
+      });
+      ax = W / 2 - aw / 2;
+      ay = topEnd + (bottomStart - topEnd) / 2 - ah / 2;
+    }
+    tourActions.style.left = ax + "px";
+    tourActions.style.top = Math.max(8, Math.min(H - ah - 8, ay)) + "px";
   }
   function openTour(){
+    tourStep = 0;
     tour.hidden = false;
     layoutTour();
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutTour);
     btnTourOk.focus({ preventScroll: true });
   }
   function closeTour(){ tour.hidden = true; }
-  btnTourOk.addEventListener("click", closeTour);
+  btnTourOk.addEventListener("click", function(){
+    if (btnTourSkip.hidden) { closeTour(); return; }
+    tourStep++;
+    layoutTour();
+  });
+  btnTourSkip.addEventListener("click", closeTour);
   document.getElementById("btn-help").addEventListener("click", openTour);
   window.addEventListener("resize", layoutTour);
   document.addEventListener("keydown", function(ev){ if (!tour.hidden && ev.key === "Escape") closeTour(); });
