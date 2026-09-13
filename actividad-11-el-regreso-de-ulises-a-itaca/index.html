@@ -213,6 +213,10 @@
   .word-feedback.bad{ color:var(--incorrect); }
   .word-feedback.idk{ color:var(--warn); }
 
+  .retry-card{ padding:1.2rem 0; border-top:1px solid var(--rule); }
+  .retry-card:first-child{ border-top:none; }
+  .retry-context{ font-family:var(--serif); font-size:1.15rem; margin-bottom:.8rem; }
+
   .p4-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; }
   .p4-progress strong{ color:var(--ink); }
 
@@ -340,6 +344,16 @@
       <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
+    <section class="step" id="step-p4-retry">
+      <div class="step-head">
+        <div><p class="eyebrow">Repaso léxico</p><h2>Volvé a intentar estas palabras</h2></div>
+        <span class="step-progress" id="p4-retry-progress">—</span>
+      </div>
+      <p class="step-instructions">Marcaste que todavía no conocías estas palabras. Ahora volvé a verlas dentro de su frase.</p>
+      <div class="exercise" id="p4-retry-list"></div>
+      <div class="stage-nav"><button class="btn" id="btn-to-fin-after-retry">Continuar al cierre</button></div>
+    </section>
+
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
       <div class="exercise" id="evaluacion">
@@ -418,6 +432,11 @@
     if (stepId === "step-p2") buildP2();
     else if (stepId === "step-p3") buildP3();
     else if (stepId === "step-p4"){ if (p4List.children.length === 0) renderP4(); }
+    else if (stepId === "step-p4-retry"){
+      if (p4List.children.length === 0) renderP4();
+      buildP4RetryQueue();
+      renderP4Retry();
+    }
   }
 
   // ---------- identidad ----------
@@ -458,6 +477,8 @@
     //       reviewList, reviewScore, onDone}
     var idx = 0;
     var answers = {}; // phraseId -> chosen phraseId
+    var wrongChoices = {}; // phraseId -> ids tried and rejected
+    var resolved = {}; // phraseId -> true once feedback has been shown
     var optionOrder = shuffled(PHRASES.map(function(p){ return p.id; }));
 
     function renderStage(){
@@ -474,9 +495,15 @@
         var op = PHRASES.filter(function(x){ return x.id === oid; })[0];
         var btn = document.createElement("button");
         btn.type = "button";
-        btn.className = "option-btn" + (answers[p.id] === oid ? " picked" : "");
+        var isWrong = (wrongChoices[p.id] || []).indexOf(oid) !== -1;
+        var isCorrect = resolved[p.id] && oid === p.id;
+        var isChosen = answers[p.id] === oid;
+        btn.className = "option-btn" + (isChosen ? " picked" : "") +
+          (isWrong ? " g-bad" : "") + (isCorrect ? " g-ok" : "");
+        btn.disabled = !!resolved[p.id] || isWrong;
         btn.innerHTML = '<span class="dot"></span><span>' + cfg.optionLabel(op) + '</span>';
         btn.addEventListener("click", function(){
+          if (resolved[p.id] || isWrong) return;
           answers[p.id] = oid;
           renderStage();
         });
@@ -484,19 +511,51 @@
       });
       card.appendChild(list);
 
+      var feedback = document.createElement("div");
+      if (resolved[p.id]){
+        feedback.className = "word-feedback " + (answers[p.id] === p.id ? "ok" : "bad");
+        feedback.textContent = answers[p.id] === p.id
+          ? "¡Correcto!"
+          : "La respuesta correcta es: " + cfg.optionLabel(p);
+        feedback.style.marginTop = ".8rem";
+        card.appendChild(feedback);
+      } else if ((wrongChoices[p.id] || []).length){
+        feedback.className = "word-feedback bad";
+        feedback.textContent = "No es correcta. Probá una vez más.";
+        feedback.style.marginTop = ".8rem";
+        card.appendChild(feedback);
+      }
+
       var nav = document.createElement("div");
       nav.className = "stage-nav";
       var btn = document.createElement("button");
       btn.className = "btn";
-      btn.disabled = answers[p.id] == null;
-      btn.textContent = (idx === cfg.order.length - 1) ? "Verificar" : "Confirmar y continuar";
+      btn.disabled = answers[p.id] == null || (!resolved[p.id] && (wrongChoices[p.id] || []).length > 0 && answers[p.id] == null);
+      btn.textContent = resolved[p.id]
+        ? ((idx === cfg.order.length - 1) ? "Ver resultados" : "Continuar")
+        : "Confirmar";
       btn.addEventListener("click", function(){
-        if (idx === cfg.order.length - 1){
-          renderReview();
-        } else {
-          idx++;
+        if (!resolved[p.id]){
+          var chosenId = answers[p.id];
+          if (chosenId === p.id){
+            resolved[p.id] = true;
+            cfg.logAnswer(p, p, true, (wrongChoices[p.id] || []).length, false);
+          } else {
+            wrongChoices[p.id] = wrongChoices[p.id] || [];
+            if (wrongChoices[p.id].indexOf(chosenId) === -1) wrongChoices[p.id].push(chosenId);
+            answers[p.id] = null;
+            if (wrongChoices[p.id].length >= 2){
+              resolved[p.id] = true;
+              answers[p.id] = chosenId;
+              cfg.logAnswer(p, PHRASES.filter(function(x){ return x.id === chosenId; })[0], false,
+                wrongChoices[p.id].length, true);
+            }
+          }
           renderStage();
+          return;
         }
+        if (idx === cfg.order.length - 1) renderReview();
+        else { idx++; renderStage(); }
       });
       nav.appendChild(btn);
       card.appendChild(nav);
@@ -536,7 +595,6 @@
         row.appendChild(body);
         cfg.reviewList.appendChild(row);
 
-        cfg.logAnswer(p, chosenP, ok);
       });
       cfg.reviewScore.innerHTML = "Resultado: <strong>" + correct + " / " + cfg.order.length + "</strong>";
       showStep(cfg.reviewStepId);
@@ -567,9 +625,10 @@
       return wrap;
     },
     optionLabel: function(p){ return p.epigraph; },
-    logAnswer: function(p, chosen, ok){
+    logAnswer: function(p, chosen, ok, wrongCount, revealed){
       submitLog.push({ paso:"1 - Imagen y epígrafe", item:"Imagen " + p.id,
-        respuesta: chosen ? chosen.epigraph : "(sin responder)", correcta: ok });
+        respuesta: chosen ? chosen.epigraph : "(sin responder)", correcta: ok,
+        errores: wrongCount, respuestaRevelada: revealed });
     }
   });
 
@@ -600,9 +659,10 @@
         return wrap;
       },
       optionLabel: function(p){ return p.latin; },
-      logAnswer: function(p, chosen, ok){
+      logAnswer: function(p, chosen, ok, wrongCount, revealed){
         submitLog.push({ paso:"2 - Imagen y frase latina", item:"Imagen " + p.id,
-          respuesta: chosen ? chosen.latin : "(sin responder)", correcta: ok });
+          respuesta: chosen ? chosen.latin : "(sin responder)", correcta: ok,
+          errores: wrongCount, respuestaRevelada: revealed });
       }
     });
   }
@@ -631,9 +691,10 @@
         return wrap;
       },
       optionLabel: function(p){ return p.spanish; },
-      logAnswer: function(p, chosen, ok){
+      logAnswer: function(p, chosen, ok, wrongCount, revealed){
         submitLog.push({ paso:"3 - Frase y traducción", item:"Frase " + p.id,
-          respuesta: chosen ? chosen.spanish : "(sin responder)", correcta: ok });
+          respuesta: chosen ? chosen.spanish : "(sin responder)", correcta: ok,
+          errores: wrongCount, respuestaRevelada: revealed });
       }
     });
   }
@@ -647,6 +708,115 @@
   var p4List = document.getElementById("p4-list");
   var p4Progress = document.getElementById("p4-progress");
   var btnToFin = document.getElementById("btn-to-fin");
+  var p4RetryQueue = [];
+  var p4RetryIndex = 0;
+  var p4RetryState = {};
+  var p4RetryProgress = document.getElementById("p4-retry-progress");
+  var p4RetryList = document.getElementById("p4-retry-list");
+  var btnToFinAfterRetry = document.getElementById("btn-to-fin-after-retry");
+  function buildP4RetryQueue(){
+    p4RetryQueue = [];
+    PHRASES.forEach(function(p){
+      p.tokens.forEach(function(tok, idx){
+        if (tok._selfReportedIdk) p4RetryQueue.push({ key:p.id + "-" + idx, phrase:p, token:tok });
+      });
+    });
+  }
+
+  function renderP4Retry(){
+    p4RetryList.innerHTML = "";
+    if (!p4RetryQueue.length){
+      saveProgress("step-fin");
+      showStep("step-fin");
+      return;
+    }
+    var item = p4RetryQueue[p4RetryIndex];
+    var tok = item.token;
+    var state = p4RetryState[item.key] || (p4RetryState[item.key] = { tried:[], resolved:false, revealed:false });
+    p4RetryProgress.textContent = (p4RetryIndex + 1) + " / " + p4RetryQueue.length;
+
+    var card = document.createElement("div");
+    card.className = "retry-card";
+    var context = document.createElement("div");
+    context.className = "retry-context";
+    context.textContent = item.phrase.latin;
+    card.appendChild(context);
+
+    var label = document.createElement("p");
+    label.textContent = "¿Qué significa “" + tok.display.replace(/[“”\"…,.;:!?]/g, "") + "” acá?";
+    card.appendChild(label);
+
+    var options = document.createElement("div");
+    options.className = "option-list";
+    shuffled(tok.options.concat([IDK])).forEach(function(optText){
+      var option = document.createElement("button");
+      option.type = "button";
+      option.className = "option-btn";
+      option.textContent = optText;
+      option.disabled = state.resolved || state.tried.indexOf(optText) !== -1;
+      option.addEventListener("click", function(){
+        if (state.resolved || state.tried.indexOf(optText) !== -1) return;
+        var isIdk = optText === IDK;
+        var isCorrect = optText === tok.correct;
+        if (isIdk) tok._selfReportedIdk = true;
+        if (isCorrect){
+          state.resolved = true;
+          submitLog.push({ paso:"4 - Recuperación léxica", item:"Frase " + item.phrase.id + " · " + tok.display,
+            respuesta:optText, correcta:true, recuperacion:true });
+        } else {
+          state.tried.push(optText);
+          if (state.tried.length >= 2){
+            state.resolved = true;
+            state.revealed = true;
+            submitLog.push({ paso:"4 - Recuperación léxica", item:"Frase " + item.phrase.id + " · " + tok.display,
+              respuesta:isIdk ? optText : tok.correct, correcta:isIdk ? null : false,
+              respuestaRevelada:true, recuperacion:true });
+          }
+        }
+        renderP4Retry();
+      });
+      options.appendChild(option);
+    });
+    card.appendChild(options);
+
+    var feedback = document.createElement("div");
+    feedback.style.marginTop = ".8rem";
+    if (state.resolved){
+      feedback.className = "word-feedback " + (state.revealed ? "bad" : "ok");
+      feedback.textContent = state.revealed ? "La respuesta correcta es: " + tok.correct : "¡Correcto!";
+    } else if (state.tried.length){
+      feedback.className = "word-feedback bad";
+      feedback.textContent = "No es correcta. Probá una vez más.";
+    }
+    if (feedback.textContent) card.appendChild(feedback);
+    p4RetryList.appendChild(card);
+    btnToFinAfterRetry.disabled = !state.resolved;
+    btnToFinAfterRetry.textContent = p4RetryIndex === p4RetryQueue.length - 1 ? "Continuar al cierre" : "Siguiente palabra";
+  }
+
+  document.getElementById("btn-to-fin").addEventListener("click", function(){
+    buildP4RetryQueue();
+    if (p4RetryQueue.length){
+      p4RetryIndex = 0;
+      saveProgress("step-p4-retry");
+      renderP4Retry();
+      showStep("step-p4-retry");
+    } else {
+      saveProgress("step-fin");
+      showStep("step-fin");
+    }
+  });
+  btnToFinAfterRetry.addEventListener("click", function(){
+    var state = p4RetryState[p4RetryQueue[p4RetryIndex].key];
+    if (!state || !state.resolved) return;
+    if (p4RetryIndex === p4RetryQueue.length - 1){
+      saveProgress("step-fin");
+      showStep("step-fin");
+    } else {
+      p4RetryIndex++;
+      renderP4Retry();
+    }
+  });
 
   function updateP4Progress(){
     p4Progress.innerHTML = "Palabras recorridas: <strong>" + resolvedCount + " / " + totalTokens + "</strong>";
@@ -742,6 +912,7 @@
               if (tok._answered || tok._tried.has(optText)) return;
               var wasIdk = optText === IDK;
               var wasOk = optText === tok.correct;
+              if (wasIdk) tok._selfReportedIdk = true;
 
               submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
                 respuesta: optText, correcta: wasOk ? true : (wasIdk ? null : false) });
@@ -810,6 +981,8 @@
         tok._answered = "revealed";
         tok._chosen = null;
         resolvedCount++;
+        submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+          respuesta:tok.correct, correcta:null, respuestaRevelada:true, revelacionMasiva:true });
         if (tok._chip){
           tok._chip.classList.remove("g-bad");
           tok._chip.classList.add("g-idk");
@@ -819,20 +992,30 @@
     updateP4Progress();
   });
 
-  btnToFin.addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
-
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
   // Contador de aciertos al final -- vigente desde el 2026-09-02 (convencion 13). Excluye
   // lo que no es una respuesta evaluable (correcta:null: Evaluacion, "no se") y, donde
   // aplique, los pasos de autorreporte (no son una respuesta evaluada, es honestidad).
-  var SCORE_EXCLUDE_PASOS = [];
+  var SCORE_EXCLUDE_PASOS = ["4 - Recuperación léxica"];
   function computeScore(){
     var items = submitLog.filter(function(e){
       return e.correcta !== null && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
     });
     var correct = items.filter(function(e){ return e.correcta === true; }).length;
-    return { correct: correct, total: items.length };
+    function sectionScore(sectionItems){
+      return {
+        correct: sectionItems.filter(function(e){ return e.correcta === true; }).length,
+        total: sectionItems.length
+      };
+    }
+    return {
+      correct: correct,
+      total: items.length,
+      associations: sectionScore(items.filter(function(e){ return e.paso.indexOf("1 -") === 0 || e.paso.indexOf("2 -") === 0 || e.paso.indexOf("3 -") === 0; })),
+      vocabulary: sectionScore(items.filter(function(e){ return e.paso === "4 - Vocabulario"; })),
+      recovery: sectionScore(submitLog.filter(function(e){ return e.paso === "4 - Recuperación léxica" && e.correcta !== null; }))
+    };
   }
 
   var evalState = { dificultad:null };
@@ -894,7 +1077,10 @@
       if (score.total > 0){
         var pct = Math.round(100 * score.correct / score.total);
         document.getElementById("score-summary").innerHTML =
-          "Respondiste correctamente <strong>" + score.correct + " de " + score.total + "</strong> (" + pct + "%)." + " No incluye lo que marcaste \u201cno s\u00e9\u201d.";
+          "Resultado principal: <strong>" + score.correct + " de " + score.total + "</strong> (" + pct + "%). " +
+          "Asociaciones: <strong>" + score.associations.correct + "/" + score.associations.total + "</strong> · " +
+          "Vocabulario: <strong>" + score.vocabulary.correct + "/" + score.vocabulary.total + "</strong>. " +
+          "La recuperación léxica se muestra aparte y no modifica este resultado.";
         document.getElementById("score-summary").hidden = false;
       }
       clearProgress();
