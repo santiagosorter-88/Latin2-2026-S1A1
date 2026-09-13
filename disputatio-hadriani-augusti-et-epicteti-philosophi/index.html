@@ -176,6 +176,7 @@
   .slot.current{ border-bottom:2px solid #1e4dc7; }
   .slot.ok{ border-bottom:2px solid #3f6b28; animation:fill .2s ease-out; }
   .slot.revealed{ border-bottom:2px solid #93701c; background:#f5e3a8; border-radius:3px 3px 0 0; animation:fill .2s ease-out; }
+  .slot.completed{ border-bottom-color:transparent; }
   @keyframes fill{ from{ transform:scale(.7); opacity:.2; } to{ transform:none; opacity:1; } }
   .punct{ font-family:var(--display); font-size:1em; line-height:1.35; }
 
@@ -244,8 +245,13 @@
   .recap-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7rem; }
   .recap-item{
     background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card);
-    padding:.85rem 1rem; box-shadow:var(--shadow);
+    padding:.85rem 1rem; box-shadow:var(--shadow); color:var(--ink); text-align:left;
   }
+  .recap-pair{ display:block; width:100%; cursor:default; }
+  .recap-dialogue{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  .recap-side{ min-width:0; }
+  .recap-side + .recap-side{ border-left:1px solid var(--rule); padding-left:1rem; }
+  .recap-side .recap-speaker{ margin-bottom:.4rem; }
   .recap-speaker{
     display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
     color:#fff; padding:.16rem .6rem; border-radius:5px; margin-bottom:.45rem;
@@ -253,10 +259,14 @@
   .recap-speaker.h{ background:var(--g-hadrian); }
   .recap-speaker.e{ background:var(--g-epictetus); }
   .recap-es{ font-family:var(--serif); font-size:1.05rem; line-height:1.42; margin:0 0 .25rem; color:var(--ink); }
-  .recap-lat{ font-family:var(--serif); font-style:italic; font-size:.92rem; color:var(--ink-muted); margin:0; }
+  .recap-lat{ font-family:var(--display); font-size:.98rem; line-height:1.35; color:var(--ink); margin:0; }
   .recap-help{
     font-style:normal; font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
     color:var(--warn); background:var(--warn-bg); padding:.08rem .4rem; border-radius:4px; margin-left:.4rem;
+  }
+  @media (max-width:520px){
+    .recap-dialogue{ grid-template-columns:1fr; gap:.8rem; }
+    .recap-side + .recap-side{ border-left:none; border-top:1px solid var(--rule); padding: .8rem 0 0; }
   }
 
   .exercise{
@@ -378,19 +388,19 @@
 
   var PAIRS = /*__DATA__*/[
     {"q": "Quid est epistula?", "qEs": "¿Qué es una carta?", "qDecoys": ["pictura", "Quare", "homo"], "a": "Tacitus nuntius.", "aEs": "Un mensajero silencioso.", "aDecoys": ["Falsa", "Iter", "veritas"], "qAl": "¿{0:Qué} {1:es} {2:una carta}?", "aAl": "{1:Un mensajero} {0:silencioso}."},
-    {"q": "Quid est pictura?", "qEs": "¿Qué es una pintura?", "qDecoys": ["epistula", "dicis", "sol"], "a": "Falsa veritas.", "aEs": "Una verdad falsa.", "aDecoys": ["Tacitus", "picta", "vera"], "qAl": "¿{0:Qué} {1:es} {2:una pintura}?", "aAl": "{1:Una verdad} {0:falsa}."},
-    {"q": "Quare hoc dicis?", "qEs": "¿Por qué dijiste esto?", "qDecoys": ["Quid", "est", "sunt"], "a": "Poma enim picta vera non sunt.", "aEs": "Porque las frutas pintadas no son reales.", "aDecoys": ["Falsa", "veritas", "Quia"], "qAl": "¿{0:Por qué} {2:dijiste} {1:esto}?", "aAl": "{1:Porque} {0:las frutas} {2:pintadas} {4:no} {5:son} {3:reales}."},
+    {"q": "Quid est pictura?", "qEs": "¿Qué es una pintura?", "qDecoys": ["epistula", "dicis", "sol"], "a": "Falsa veritas.", "aEs": "Una verdad falsa.", "aDecoys": ["Tacitus", "picta", "Mors"], "qAl": "¿{0:Qué} {1:es} {2:una pintura}?", "aAl": "{1:Una verdad} {0:falsa}."},
+    {"q": "Quare hoc dicis?", "qEs": "¿Por qué dijiste esto?", "qDecoys": ["Quid", "est", "sunt"], "a": "Poma enim picta vera non sunt.", "aEs": "Porque las frutas pintadas no son reales.", "aDecoys": ["Mors", "Spes", "Quia"], "qAl": "¿{0:Por qué} {2:dijiste} {1:esto}?", "aAl": "{1:Porque} {0:las frutas} {2:pintadas} {4:no} {5:son} {3:reales}."},
     {"q": "Quid est longissimum?", "qEs": "¿Qué es lo más largo?", "qDecoys": ["certissimum", "spes", "homines"], "a": "Spes.", "aEs": "La esperanza.", "aDecoys": ["Mors", "Verbum", "Brevissima"], "qAl": "¿{0:Qué} {1:es} {2:lo más largo}?", "aAl": "{0:La esperanza}."},
-    {"q": "Quid est spes?", "qEs": "¿Qué es la esperanza?", "qDecoys": ["longissimum", "mors", "somnus"], "a": "Vigilanti somnus, spectanti dubius eventus.", "aEs": "Para quien está despierto, sueño; para quien espera, un resultado incierto.", "aDecoys": ["incertum", "imago", "Mortis"], "qAl": "¿{0:Qué} {1:es} {2:la esperanza}?", "aAl": "{0:Para quien está despierto}, {1:sueño}; {2:para quien espera}, {4:un resultado} {3:incierto}."},
+    {"q": "Quid est spes?", "qEs": "¿Qué es la esperanza?", "qDecoys": ["longissimum", "mors", "somnus"], "a": "Vigilanti somnus, spectanti dubius eventus.", "aEs": "Para quien está despierto, un sueño; para quien espera, un resultado incierto.", "aDecoys": ["certum", "imago", "Mortis"], "qAl": "¿{0:Qué} {1:es} {2:la esperanza}?", "aAl": "{0:Para quien está despierto}, {1:un sueño}; {2:para quien espera}, {4:un resultado} {3:incierto}."},
     {"q": "Quare peccant homines?", "qEs": "¿Por qué pecan los hombres?", "qDecoys": ["Quid", "hoc", "sunt"], "a": "Cupiditate.", "aEs": "Por deseo.", "aDecoys": ["Innocentia", "Verbum", "Spes"], "qAl": "¿{0:Por qué} {1:pecan} {2:los hombres}?", "aAl": "{0:Por deseo}."},
     {"q": "Quid est libertas?", "qEs": "¿Qué es la libertad?", "qDecoys": ["optimum", "peccant", "Quot"], "a": "Innocentia.", "aEs": "La inocencia.", "aDecoys": ["Cupiditate", "Verbum", "Mors"], "qAl": "¿{0:Qué} {1:es} {2:la libertad}?", "aAl": "{0:La inocencia}."},
-    {"q": "Quid est optimum ac pessimum?", "qEs": "¿Qué es lo mejor y lo peor?", "qDecoys": ["optima", "vita", "certissimum"], "a": "Verbum.", "aEs": "La palabra.", "aDecoys": ["Spes", "Innocentia", "Brevissima"], "qAl": "¿{0:Qué} {1:es} {2:lo mejor} {3:y} {4:lo peor}?", "aAl": "{0:La palabra}."},
-    {"q": "Quid est optima vita?", "qEs": "¿Cuál es la mejor vida?", "qDecoys": ["optimum", "certissimum", "pessimum"], "a": "Brevissima.", "aEs": "La más breve.", "aDecoys": ["Spes", "Mors", "pravus"], "qAl": "¿{0:Cuál} {1:es} {2:la mejor} {3:vida}?", "aAl": "{0:La más breve}."},
+    {"q": "Quid est optimum ac pessimum?", "qEs": "¿Qué es lo mejor y lo peor?", "qDecoys": ["mors", "vita", "certissimum"], "a": "Verbum.", "aEs": "La palabra.", "aDecoys": ["Spes", "Innocentia", "Brevissima"], "qAl": "¿{0:Qué} {1:es} {2:lo mejor} {3:y} {4:lo peor}?", "aAl": "{0:La palabra}."},
+    {"q": "Quid est optima vita?", "qEs": "¿Cuál es la mejor vida?", "qDecoys": ["longissimum", "certissimum", "pessimum"], "a": "Brevissima.", "aEs": "La más breve.", "aDecoys": ["Spes", "Mors", "pravus"], "qAl": "¿{0:Cuál} {1:es} {2:la mejor} {3:vida}?", "aAl": "{0:La más breve}."},
     {"q": "Quid est certissimum?", "qEs": "¿Qué es lo más seguro?", "qDecoys": ["longissimum", "optima", "mors"], "a": "Mors.", "aEs": "La muerte.", "aDecoys": ["Spes", "Verbum", "Fata"], "qAl": "¿{0:Qué} {1:es} {2:lo más seguro}?", "aAl": "{0:La muerte}."},
-    {"q": "Quid est mors?", "qEs": "¿Qué es la muerte?", "qDecoys": ["vita", "somnus", "certissimum"], "a": "Mors omnium malorum finis est.", "aEs": "La muerte es el fin de todos los males.", "aDecoys": ["Mortis", "imago", "vitae"], "qAl": "¿{0:Qué} {1:es} {2:la muerte}?", "aAl": "{0:La muerte} {4:es} {3:el fin} {2:de} {1:todos} {2:los males}."},
+    {"q": "Quid est mors?", "qEs": "¿Qué es la muerte?", "qDecoys": ["vita", "somnus", "certissimum"], "a": "Mors omnium malorum finis est.", "aEs": "La muerte es el fin de todos los males.", "aDecoys": ["Somnus", "imago", "vitae"], "qAl": "¿{0:Qué} {1:es} {2:la muerte}?", "aAl": "{0:La muerte} {4:es} {3:el fin} {2:de} {1:todos} {2:los males}."},
     {"q": "Quid est homo?", "qEs": "¿Qué es el hombre?", "qDecoys": ["homines", "stellae", "sunt"], "a": "Sicut lucerna in vento posita.", "aEs": "Como una lámpara puesta al viento.", "aDecoys": ["Domus", "erratica", "orbis"], "qAl": "¿{0:Qué} {1:es} {2:el hombre}?", "aAl": "{0:Como} {1:una lámpara} {4:puesta} {2:al} {3:viento}."},
     {"q": "Quid est homo?", "qEs": "¿Qué es el hombre?", "qDecoys": ["navis", "mare", "Quot"], "a": "Calamitatis fabula.", "aEs": "Un relato de la calamidad.", "aDecoys": ["Mortis", "imago", "lucerna"], "qAl": "¿{0:Qué} {1:es} {2:el hombre}?", "aAl": "{1:Un relato} {0:de la calamidad}."},
-    {"q": "Quot sunt autem fortunae?", "qEs": "¿Cuántas son las fortunas?", "qDecoys": ["Quid", "stellae", "est"], "a": "Tres: una caeca, alia insana, tertia surda.", "aEs": "Tres: una ciega, otra loca, la tercera, sorda.", "aDecoys": [], "qAl": "¿{0:Cuántas} {1:son} {3:las fortunas}?", "aAl": "{0:Tres}: {1:una} {2:ciega}, {3:otra} {4:loca}, {5:la tercera}, {6:sorda}."},
+    {"q": "Quot sunt fortunae?", "qEs": "¿Cuántas son las fortunas?", "qDecoys": ["Quid", "stellae", "est"], "a": "Tres: una caeca, alia insana, tertia surda.", "aEs": "Tres: una ciega, otra loca, la tercera, sorda.", "aDecoys": [], "qAl": "¿{0:Cuántas} {1:son} {3:las fortunas}?", "aAl": "{0:Tres}: {1:una} {2:ciega}, {3:otra} {4:loca}, {5:la tercera}, {6:sorda}."},
     {"q": "Quid est sol?", "qEs": "¿Qué es el sol?", "qDecoys": ["stellae", "terra", "sunt"], "a": "Splendor orbis.", "aEs": "El resplandor del mundo.", "aDecoys": ["Cellarium", "vitae", "Fata"], "qAl": "¿{0:Qué} {1:es} {2:el sol}?", "aAl": "{0:El resplandor} {1:del mundo}."},
     {"q": "Quid sunt stellae?", "qEs": "¿Qué son las estrellas?", "qDecoys": ["sol", "est", "Quot"], "a": "Fata hominum.", "aEs": "Los destinos de los hombres.", "aDecoys": ["Splendor", "orbis", "vitae"], "qAl": "¿{0:Qué} {1:son} {2:las estrellas}?", "aAl": "{0:Los destinos} {1:de los hombres}."},
     {"q": "Quid est terra?", "qEs": "¿Qué es la tierra?", "qDecoys": ["mare", "sol", "sunt"], "a": "Cellarium vitae.", "aEs": "La despensa de la vida.", "aDecoys": ["Splendor", "hominum", "Domus"], "qAl": "¿{0:Qué} {1:es} {2:la tierra}?", "aAl": "{0:La despensa} {1:de la vida}."},
@@ -550,6 +560,10 @@
     function finish(tired){
       done = true;
       markCurrent();
+      slots.forEach(function(s){
+        s.classList.remove("current", "ok", "revealed");
+        s.classList.add("completed");
+      });
       var ok = !tired && revealed.length === 0;
       var resp;
       if (tired) resp = "revelada (me cansé)" + (errors ? " — " + errors + (errors === 1 ? " error" : " errores") + " antes" : "");
@@ -683,31 +697,45 @@
     var rows = submitLog.filter(function(e){ return e.esp !== undefined; });
     if (!rows.length){ recap.hidden = true; return; }
     list.innerHTML = "";
-    rows.forEach(function(e){
+    for (var i = 0; i < rows.length; i += 2){
+      var question = rows[i];
+      var answer = rows[i + 1];
       var li = document.createElement("li");
-      li.className = "recap-item";
+      li.className = "recap-item recap-pair";
+      li.type = "button";
+      li.setAttribute("role", "group");
 
-      var badge = document.createElement("span");
-      badge.className = "recap-speaker " + (e.speaker === "h" ? "h" : "e");
-      badge.textContent = e.speaker === "h" ? "Adriano" : "Epicteto";
+      var dialogue = document.createElement("div");
+      dialogue.className = "recap-dialogue";
+      [question, answer].forEach(function(e){
+        if (!e) return;
+        var side = document.createElement("div");
+        side.className = "recap-side";
 
-      var esp = document.createElement("p");
-      esp.className = "recap-es";
-      esp.textContent = e.esp;
+        var badge = document.createElement("span");
+        badge.className = "recap-speaker " + (e.speaker === "h" ? "h" : "e");
+        badge.textContent = e.speaker === "h" ? "Adriano" : "Epicteto";
 
-      var lat = document.createElement("p");
-      lat.className = "recap-lat";
-      lat.textContent = e.latin || e.item;
-      if (e.correcta === false){
-        var help = document.createElement("span");
-        help.className = "recap-help";
-        help.textContent = "con ayuda";
-        lat.appendChild(help);
-      }
+        var lat = document.createElement("p");
+        lat.className = "recap-lat";
+        lat.textContent = e.latin || e.item;
+        if (e.correcta === false){
+          var help = document.createElement("span");
+          help.className = "recap-help";
+          help.textContent = "con ayuda";
+          lat.appendChild(help);
+        }
 
-      li.appendChild(badge); li.appendChild(esp); li.appendChild(lat);
+        var esp = document.createElement("p");
+        esp.className = "recap-es";
+        esp.textContent = e.esp;
+
+        side.appendChild(badge); side.appendChild(lat); side.appendChild(esp);
+        dialogue.appendChild(side);
+      });
+      li.appendChild(dialogue);
       list.appendChild(li);
-    });
+    }
     recap.hidden = false;
   }
 
