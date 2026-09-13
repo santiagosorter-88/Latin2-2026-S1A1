@@ -97,6 +97,10 @@
   .option-btn.g-bad .dot{ border-color:var(--incorrect); } .option-btn.g-bad .dot::after{ background:var(--incorrect); }
 
   .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  /* top and bottom step navigation */
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
 
   .review-row{ display:grid; grid-template-columns:auto 1fr; gap:0 1rem; padding:.85rem 0; border-top:1px solid var(--rule); }
   .review-row:first-of-type{ border-top:none; }
@@ -187,41 +191,46 @@
     </section>
 
     <section class="step" id="step-p1-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1 — resultado</p><h2>¿Cómo te fue?</h2></div></div>
       <div class="score-line" id="p1-score"></div>
       <div class="exercise" id="p1-review-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
     </section>
 
     <!-- ===== Paso 2: texto completo, marcar verbos ===== -->
     <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1-review">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Leé el texto completo y marcá los verbos</h2></div></div>
       <p class="step-instructions">Tocá las palabras que son formas verbales conjugadas (no los infinitivos) en cada frase del relato completo.</p>
       <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p2-list"></div>
       <p class="check-msg" id="p2-check-msg" hidden></p>
-      <div class="stage-nav"><button class="btn" id="btn-verify-p2">Verificar</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1-review">↑ Paso anterior</button><button class="btn" id="btn-verify-p2">Verificar</button></div>
     </section>
 
     <section class="step" id="step-p2-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2 — resultado</p><h2>¿Cómo te fue?</h2></div></div>
       <div class="score-line" id="p2-score"></div>
       <div class="exercise" id="p2-review-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
     </section>
 
     <!-- ===== Paso 3: enunciado + traducción de los verbos nuevos ===== -->
     <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Identificá el enunciado y la traducción de cada verbo nuevo</h2></div></div>
       <p class="step-instructions">Tocá cada forma verbal marcada (solo las de las frases nuevas). Primero elegí su enunciado y después su traducción — vas a ver el resultado apenas elijas cada una.</p>
       <div class="p4-progress" id="p3-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p3">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p3-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Paso anterior</button><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
     </section>
 
     <!-- ===== Paso 4: emparejar frase nueva - traducción ===== -->
     <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Paso 4</p><h2>Asociá cada frase nueva con su traducción</h2></div>
         <span class="step-progress" id="p4-progress">—</span>
@@ -231,24 +240,27 @@
     </section>
 
     <section class="step" id="step-p4-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 4 — resultado</p><h2>¿Cómo te fue?</h2></div></div>
       <div class="score-line" id="p4-score"></div>
       <div class="exercise" id="p4-review-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p5">Continuar a Paso 5</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button><button class="btn" id="btn-to-p5">Continuar a Paso 5</button></div>
     </section>
 
     <!-- ===== Paso 5: exploración léxica de las frases nuevas ===== -->
     <section class="step" id="step-p5">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4-review">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 5</p><h2>Explorá el vocabulario de las frases nuevas</h2></div></div>
       <p class="step-instructions">Tocá cada palabra y elegí qué significa acá. Si no la conocés todavía, está bien decirlo — para eso está la opción.</p>
       <div class="p4-progress" id="p5-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p5">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p5-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4-review">↑ Paso anterior</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p5">↑ Paso anterior</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
         <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido.</p>
@@ -262,6 +274,7 @@
         <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si…</label><input id="in-suggestion" type="text" placeholder="completá la idea" /></div>
       </div>
       <div class="submit-bar">
+        <button type="button" class="btn btn-ghost" data-back-step="step-p5">↑ Paso anterior</button>
         <button class="btn" id="btn-send">Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -336,6 +349,14 @@
     document.getElementById(id).classList.add("visible");
     window.scrollTo({ top:0, behavior:"smooth" });
   }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      if (typeof saveProgress === "function") saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
 
   // =================================================================
   // Paso 1: repaso — una frase por vez, 3 opciones propias (correcta + 2 decoys)

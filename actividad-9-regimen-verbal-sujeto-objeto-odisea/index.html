@@ -140,6 +140,10 @@
   .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
 
   .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  /* top and bottom step navigation */
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
   .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
   .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
   .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
@@ -185,43 +189,48 @@
 
     <!-- ===== Paso 2 ===== -->
     <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá sujeto y objeto directo</h2></div></div>
       <p class="step-instructions">El verbo ya está marcado. Tocá la palabra que es sujeto y la que es objeto directo — atención, en algunas frases el orden está cambiado.</p>
       <div class="p-progress" id="p2-progress"></div>
       <div class="exercise" id="p2-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p3" disabled>Continuar a Paso 3</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button><button class="btn" id="btn-to-p3" disabled>Continuar a Paso 3</button></div>
     </section>
 
     <!-- ===== Paso 3 ===== -->
     <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí sujeto y objeto (orden habitual)</h2></div></div>
       <p class="step-instructions">Frases nuevas, orden sujeto-verbo-objeto. Elegí la forma correcta en cada desplegable.</p>
       <div class="p-progress" id="p3-progress"></div>
       <div class="exercise" id="p3-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
     </section>
 
     <!-- ===== Explicación (antes del paso 4) ===== -->
     <section class="step" id="step-explain">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Antes del Paso 4</p><h2>El orden de las palabras en latín</h2></div></div>
       <div class="explain-box">
         <p>En latín el orden de las palabras es mucho más flexible que en castellano, porque la función de cada palabra en la oración queda determinada por su <strong>caso</strong> (su terminación) y no por su posición.</p>
         <p>Por eso el objeto puede aparecer antes que el sujeto sin que cambie el sentido de la frase: <span class="ex-latin">Vlixem Minerva adiuvat</span> significa exactamente lo mismo que <span class="ex-latin">Minerva Vlixem adiuvat</span>.</p>
       </div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
     </section>
 
     <!-- ===== Paso 4 ===== -->
     <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Elegí sujeto y objeto (objeto antepuesto)</h2></div></div>
       <p class="step-instructions">Las mismas dos opciones por desplegable, pero ahora el objeto aparece primero en la frase.</p>
       <div class="p-progress" id="p4-progress"></div>
       <div class="exercise" id="p4-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Paso anterior</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
         <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
@@ -235,6 +244,7 @@
         <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="completá la idea" required /></div>
       </div>
       <div class="submit-bar">
+        <button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button>
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -313,6 +323,14 @@
     document.getElementById(id).classList.add("visible");
     window.scrollTo({ top:0, behavior:"smooth" });
   }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      if (typeof saveProgress === "function") saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
 
   // =================================================================
   // Paso 1: clasificar sustantivos en Nominativo / Acusativo

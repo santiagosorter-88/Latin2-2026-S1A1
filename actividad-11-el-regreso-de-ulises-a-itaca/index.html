@@ -162,6 +162,10 @@
   .option-btn.g-bad .dot::after{ background:var(--incorrect); }
 
   .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  /* top and bottom step navigation */
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
 
   /* ---- resultados de paso ---- */
   .review-row{
@@ -288,16 +292,18 @@
     </section>
 
     <section class="step" id="step-p1-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Paso 1 — resultado</p><h2>¿Cómo te fue?</h2></div>
       </div>
       <div class="score-line" id="p1-score"></div>
       <div class="exercise" id="p1-review-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
     </section>
 
     <!-- ===== Paso 2 ===== -->
     <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1-review">↑ Paso anterior</button></div>
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 2</p>
@@ -313,16 +319,18 @@
     </section>
 
     <section class="step" id="step-p2-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Paso 2 — resultado</p><h2>¿Cómo te fue?</h2></div>
       </div>
       <div class="score-line" id="p2-score"></div>
       <div class="exercise" id="p2-review-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
     </section>
 
     <!-- ===== Paso 3 ===== -->
     <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Paso anterior</button></div>
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 3</p>
@@ -338,16 +346,18 @@
     </section>
 
     <section class="step" id="step-p3-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Paso 3 — resultado</p><h2>¿Cómo te fue?</h2></div>
       </div>
       <div class="score-line" id="p3-score"></div>
       <div class="exercise" id="p3-review-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
     </section>
 
     <!-- ===== Paso 4 ===== -->
     <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3-review">↑ Paso anterior</button></div>
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 4</p>
@@ -358,21 +368,23 @@
       <div class="p4-progress" id="p4-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p4">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p4-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3-review">↑ Paso anterior</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
     <section class="step" id="step-p4-retry">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Repaso léxico</p><h2>Volvé a intentar estas palabras</h2></div>
         <span class="step-progress" id="p4-retry-progress">—</span>
       </div>
       <p class="step-instructions">Marcaste que todavía no conocías estas palabras. Ahora volvé a verlas dentro de su frase.</p>
       <div class="exercise" id="p4-retry-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-fin-after-retry">Continuar al cierre</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button><button class="btn" id="btn-to-fin-after-retry">Continuar al cierre</button></div>
     </section>
 
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4-retry">↑ Paso anterior</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head">
           <div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div>
@@ -394,6 +406,7 @@
         </div>
       </div>
       <div class="submit-bar">
+        <button type="button" class="btn btn-ghost" data-back-step="step-p4-retry">↑ Paso anterior</button>
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -412,7 +425,7 @@
   // Backend compartido de esta cátedra (Apps Script) — no tocar salvo que Santiago lo pida.
   var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
 
-  var PHRASES = [{"id": 1, "image": "img/01-argos.jpg", "epigraph": "Óleo del pintor victoriano británico Briton Rivière. Ulises, disfrazado de mendigo y ya de regreso en Ítaca, se detiene ante su viejo perro Argos, tendido y famélico junto a las columnas del palacio.", "latin": "Canis eum statim agnoscit, sed Eumaeus eum non agnoscit, quod Minerva formam eius mutat.", "spanish": "El perro lo reconoce inmediatamente, pero Eumeo no lo reconoce, porque Minerva cambia su apariencia.", "tokens": [{"display": "Canis", "correct": "el perro", "options": ["el perro", "la apariencia", "el palacio"]}, {"display": "eum", "correct": "lo", "options": ["porque", "quien", "lo"]}, {"display": "statim", "correct": "enseguida", "options": ["porque", "enseguida", "él mismo"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["recibe", "reconoce", "da"]}, {"display": "sed", "correct": "pero", "options": ["durante la noche", "pero", "porque"], "skip": true}, {"display": "Eumaeus", "correct": "Eumeo", "options": ["a Penélope", "Eumeo", "Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["quien", "lo", "durante el día"], "skip": true}, {"display": "non", "correct": "no", "options": ["durante el día", "él mismo", "no"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["reconoce", "cambia", "tensa"], "skip": true}, {"display": "quod", "correct": "porque", "options": ["no", "quien", "porque"], "skip": true}, {"display": "Minerva", "correct": "Minerva", "options": ["Ulises", "Penélope", "Minerva"], "skip": true}, {"display": "formam", "correct": "la apariencia", "options": ["la apariencia", "la casa", "el palacio"]}, {"display": "eius", "correct": "su (de él)", "options": ["su (de él)", "pero", "durante la noche"]}, {"display": "mutat.", "correct": "cambia", "options": ["cambia", "puede", "lleva"]}], "keyLatin": "Canis eum agnoscit", "latinDecoyA": "Canis eum non agnoscit, sed Eumaeus eum statim agnoscit, quod Minerva formam eius non mutat.", "latinDecoyB": "Canis eum statim agnoscit, et Eumaeus eum agnoscit, quod Minerva formam eius mutat.", "spanishDecoyA": "El perro no lo reconoce, pero Eumeo lo reconoce inmediatamente, porque Minerva no cambia su apariencia.", "spanishDecoyB": "El perro lo reconoce inmediatamente, y Eumeo también lo reconoce, porque Minerva cambia su apariencia."}, {"id": 2, "image": "img/02-eumeo.jpg", "epigraph": "Grisalla del pintor alemán Friedrich Preller el Viejo, parte de su ciclo de paisajes de la Odisea pintado para la Casa Romana de Leipzig. Muestra la choza del porquero Eumeo, entre rocas y árboles junto al mar, con las figuras reunidas en la entrada.", "latin": "Eumaeus eum in casam recipit et cibum dat.", "spanish": "Eumeo lo recibe en su casa y le da comida.", "tokens": [{"display": "Eumaeus", "correct": "Eumeo", "options": ["Minerva", "Eumeo", "a Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["lo", "durante la noche", "no"], "skip": true}, {"display": "in", "correct": "en", "options": ["durante la noche", "en", "durante el día"], "skip": true}, {"display": "casam", "correct": "la casa", "options": ["una tela", "comida", "la casa"]}, {"display": "recipit", "correct": "recibe", "options": ["tensar", "recibe", "puede"]}, {"display": "et", "correct": "y", "options": ["quien", "porque", "y"], "skip": true}, {"display": "cibum", "correct": "comida", "options": ["comida", "a los pretendientes", "el palacio"]}, {"display": "dat.", "correct": "da", "options": ["cambia", "recibe", "da"]}], "keyLatin": "In casam recipit", "latinDecoyA": "Eumaeus eum in casam non recipit, sed cibum dat.", "latinDecoyB": "Eumaeus eum in casam recipit, sed cibum non dat.", "spanishDecoyA": "Eumeo no lo recibe en su casa, pero le da comida.", "spanishDecoyB": "Eumeo lo recibe en su casa, pero no le da comida."}, {"id": 3, "image": "img/03-penelope.jpg", "epigraph": "Óleo del pintor prerrafaelita John William Waterhouse. Penélope hila junto a su telar mientras, desde una ventana, los pretendientes le ofrecen flores y regalos.", "latin": "In regia, Penelope procos fallit: interdiu telam texit, noctu eam detexit.", "spanish": "En el palacio, Penélope engaña a los pretendientes: durante el día teje una tela, durante la noche la desteje.", "tokens": [{"display": "In", "correct": "en", "options": ["la", "y", "en"], "skip": true}, {"display": "regia,", "correct": "el palacio", "options": ["el perro", "el palacio", "a los pretendientes"]}, {"display": "Penelope", "correct": "Penélope", "options": ["Minerva", "Penélope", "a Penélope"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["a los pretendientes", "el arco", "la casa"]}, {"display": "fallit:", "correct": "engaña", "options": ["recibe", "engaña", "da"]}, {"display": "interdiu", "correct": "durante el día", "options": ["durante el día", "durante la noche", "lo"]}, {"display": "telam", "correct": "una tela", "options": ["comida", "a los pretendientes", "una tela"]}, {"display": "texit,", "correct": "teje", "options": ["tensa", "tensar", "teje"]}, {"display": "noctu", "correct": "durante la noche", "options": ["durante la noche", "la", "enseguida"]}, {"display": "eam", "correct": "la", "options": ["la", "quien", "durante el día"]}, {"display": "detexit.", "correct": "desteje", "options": ["recibe", "da", "desteje"]}], "keyLatin": "Telam texit", "latinDecoyA": "In regia, Penelope procos non fallit: interdiu telam texit et noctu eam non detexit.", "latinDecoyB": "In regia, Penelope procos fallit: noctu telam texit, interdiu eam detexit.", "spanishDecoyA": "En el palacio, Penélope no engaña a los pretendientes: durante el día teje una tela y durante la noche no la desteje.", "spanishDecoyB": "En el palacio, Penélope engaña a los pretendientes: durante la noche teje una tela, durante el día la desteje."}, {"id": 4, "image": "img/04-arco.jpg", "epigraph": "Escena en un skyphos ático de figuras rojas, atribuido al llamado Pintor de Penélope (ca. 440 a.C.). Un hombre tensa un arco ante la mirada de dos mujeres — la prueba del arco que Ulises impone a los pretendientes.", "latin": "Vlixes procis arcum dat: qui arcum intendere potest, Penelopen ducit; sed nemo potest.", "spanish": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Minerva", "Ulises", "Penélope"], "skip": true}, {"display": "procis", "correct": "a los pretendientes", "options": ["a los pretendientes", "la apariencia", "comida"]}, {"display": "arcum", "correct": "el arco", "options": ["el perro", "la apariencia", "el arco"]}, {"display": "dat:", "correct": "da", "options": ["engaña", "da", "tensa"], "skip": true}, {"display": "qui", "correct": "quien", "options": ["en", "quien", "su (de él)"]}, {"display": "arcum", "correct": "el arco", "options": ["una tela", "la apariencia", "el arco"], "skip": true}, {"display": "intendere", "correct": "tensar", "options": ["reconoce", "desteje", "tensar"]}, {"display": "potest,", "correct": "puede", "options": ["tensa", "reconoce", "puede"]}, {"display": "Penelopen", "correct": "a Penélope", "options": ["Eumeo", "Ulises", "a Penélope"], "skip": true}, {"display": "ducit;", "correct": "lleva", "options": ["mata", "teje", "lleva"]}, {"display": "sed", "correct": "pero", "options": ["pero", "la", "nadie"], "skip": true}, {"display": "nemo", "correct": "nadie", "options": ["la", "porque", "nadie"]}, {"display": "potest.", "correct": "puede", "options": ["engaña", "puede", "desteje"], "skip": true}], "keyLatin": "Arcum intendere potest", "latinDecoyA": "Vlixes procis arcum dat: qui arcum intendere potest, Penelopen ducit; sed Vlixes potest.", "latinDecoyB": "Vlixes procis arcum non dat: qui arcum intendere potest, Penelopen ducit; sed nemo potest.", "spanishDecoyA": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero solo Ulises puede hacerlo.", "spanishDecoyB": "Ulises no les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo."}, {"id": 5, "image": "img/05-pretendientes.jpg", "epigraph": "Óleo del pintor neoclásico francés Thomas Degeorge. Ulises, arco en mano, y Telémaco con una lanza dan muerte a los pretendientes en el salón del palacio, mientras uno de ellos yace ya en el suelo.", "latin": "Vlixes ipse arcum intendit et procos occidit.", "spanish": "El mismo Ulises tensa el arco y mata a los pretendientes.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Penélope", "Eumeo", "Ulises"], "skip": true}, {"display": "ipse", "correct": "él mismo", "options": ["él mismo", "la", "durante la noche"]}, {"display": "arcum", "correct": "el arco", "options": ["comida", "a los pretendientes", "el arco"], "skip": true}, {"display": "intendit", "correct": "tensa", "options": ["lleva", "tensa", "mata"]}, {"display": "et", "correct": "y", "options": ["lo", "durante la noche", "y"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["el palacio", "a los pretendientes", "la casa"], "skip": true}, {"display": "occidit.", "correct": "mata", "options": ["cambia", "tensa", "mata"]}], "keyLatin": "Procos occidit", "latinDecoyA": "Vlixes ipse arcum intendit, sed procos non occidit.", "latinDecoyB": "Eumaeus ipse arcum intendit et procos occidit.", "spanishDecoyA": "El mismo Ulises tensa el arco, pero no mata a los pretendientes.", "spanishDecoyB": "El mismo Eumeo tensa el arco y mata a los pretendientes."}];
+  var PHRASES = [{"id": 1, "image": "img/01-argos.jpg", "epigraph": "Óleo del pintor victoriano británico Briton Rivière. Ulises, disfrazado de mendigo y ya de regreso en Ítaca, se detiene ante su viejo perro Argos, tendido y famélico junto a las columnas del palacio.", "latin": "Canis eum statim agnoscit, sed Eumaeus eum non agnoscit, quod Minerva formam eius mutat.", "spanish": "El perro lo reconoce inmediatamente, pero Eumeo no lo reconoce, porque Minerva cambia su apariencia.", "tokens": [{"display": "Canis", "correct": "el perro", "options": ["el perro", "la apariencia", "el palacio"]}, {"display": "eum", "correct": "lo", "options": ["porque", "quien", "lo"]}, {"display": "statim", "correct": "enseguida", "options": ["porque", "enseguida", "él mismo"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["recibe", "reconoce", "da"]}, {"display": "sed", "correct": "pero", "options": ["durante la noche", "pero", "porque"], "skip": true}, {"display": "Eumaeus", "correct": "Eumeo", "options": ["a Penélope", "Eumeo", "Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["quien", "lo", "durante el día"], "skip": true}, {"display": "non", "correct": "no", "options": ["durante el día", "él mismo", "no"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["reconoce", "cambia", "tensa"], "skip": true}, {"display": "quod", "correct": "porque", "options": ["no", "quien", "porque"], "skip": true}, {"display": "Minerva", "correct": "Minerva", "options": ["Ulises", "Penélope", "Minerva"], "skip": true}, {"display": "formam", "correct": "la apariencia", "options": ["la apariencia", "la casa", "el palacio"]}, {"display": "eius", "correct": "su (de él)", "options": ["su (de él)", "pero", "durante la noche"]}, {"display": "mutat.", "correct": "cambia", "options": ["cambia", "puede", "lleva"]}], "keyLatin": "Canis eum agnoscit", "spanishDecoyA": "El perro no lo reconoce, pero Eumeo lo reconoce inmediatamente, porque Minerva no cambia su apariencia.", "spanishDecoyB": "El perro lo reconoce inmediatamente, y Eumeo también lo reconoce, porque Minerva cambia su apariencia."}, {"id": 2, "image": "img/02-eumeo.jpg", "epigraph": "Grisalla del pintor alemán Friedrich Preller el Viejo, parte de su ciclo de paisajes de la Odisea pintado para la Casa Romana de Leipzig. Muestra la choza del porquero Eumeo, entre rocas y árboles junto al mar, con las figuras reunidas en la entrada.", "latin": "Eumaeus eum in casam recipit et cibum dat.", "spanish": "Eumeo lo recibe en su casa y le da comida.", "tokens": [{"display": "Eumaeus", "correct": "Eumeo", "options": ["Minerva", "Eumeo", "a Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["lo", "durante la noche", "no"], "skip": true}, {"display": "in", "correct": "en", "options": ["durante la noche", "en", "durante el día"], "skip": true}, {"display": "casam", "correct": "la casa", "options": ["una tela", "comida", "la casa"]}, {"display": "recipit", "correct": "recibe", "options": ["tensar", "recibe", "puede"]}, {"display": "et", "correct": "y", "options": ["quien", "porque", "y"], "skip": true}, {"display": "cibum", "correct": "comida", "options": ["comida", "a los pretendientes", "el palacio"]}, {"display": "dat.", "correct": "da", "options": ["cambia", "recibe", "da"]}], "keyLatin": "In casam recipit", "spanishDecoyA": "Eumeo no lo recibe en su casa, pero le da comida.", "spanishDecoyB": "Eumeo lo recibe en su casa, pero no le da comida."}, {"id": 3, "image": "img/03-penelope.jpg", "epigraph": "Óleo del pintor prerrafaelita John William Waterhouse. Penélope hila junto a su telar mientras, desde una ventana, los pretendientes le ofrecen flores y regalos.", "latin": "In regia, Penelope procos fallit: interdiu telam texit, noctu eam detexit.", "spanish": "En el palacio, Penélope engaña a los pretendientes: durante el día teje una tela, durante la noche la desteje.", "tokens": [{"display": "In", "correct": "en", "options": ["la", "y", "en"], "skip": true}, {"display": "regia,", "correct": "el palacio", "options": ["el perro", "el palacio", "a los pretendientes"]}, {"display": "Penelope", "correct": "Penélope", "options": ["Minerva", "Penélope", "a Penélope"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["a los pretendientes", "el arco", "la casa"]}, {"display": "fallit:", "correct": "engaña", "options": ["recibe", "engaña", "da"]}, {"display": "interdiu", "correct": "durante el día", "options": ["durante el día", "durante la noche", "lo"]}, {"display": "telam", "correct": "una tela", "options": ["comida", "a los pretendientes", "una tela"]}, {"display": "texit,", "correct": "teje", "options": ["tensa", "tensar", "teje"]}, {"display": "noctu", "correct": "durante la noche", "options": ["durante la noche", "la", "enseguida"]}, {"display": "eam", "correct": "la", "options": ["la", "quien", "durante el día"]}, {"display": "detexit.", "correct": "desteje", "options": ["recibe", "da", "desteje"]}], "keyLatin": "Telam texit", "spanishDecoyA": "En el palacio, Penélope no engaña a los pretendientes: durante el día teje una tela y durante la noche no la desteje.", "spanishDecoyB": "En el palacio, Penélope engaña a los pretendientes: durante la noche teje una tela, durante el día la desteje."}, {"id": 4, "image": "img/04-arco.jpg", "epigraph": "Escena en un skyphos ático de figuras rojas, atribuido al llamado Pintor de Penélope (ca. 440 a.C.). Un hombre tensa un arco ante la mirada de dos mujeres — la prueba del arco que Ulises impone a los pretendientes.", "latin": "Vlixes procis arcum dat: qui arcum intendere potest, Penelopen ducit; sed nemo potest.", "spanish": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Minerva", "Ulises", "Penélope"], "skip": true}, {"display": "procis", "correct": "a los pretendientes", "options": ["a los pretendientes", "la apariencia", "comida"]}, {"display": "arcum", "correct": "el arco", "options": ["el perro", "la apariencia", "el arco"]}, {"display": "dat:", "correct": "da", "options": ["engaña", "da", "tensa"], "skip": true}, {"display": "qui", "correct": "quien", "options": ["en", "quien", "su (de él)"]}, {"display": "arcum", "correct": "el arco", "options": ["una tela", "la apariencia", "el arco"], "skip": true}, {"display": "intendere", "correct": "tensar", "options": ["reconoce", "desteje", "tensar"]}, {"display": "potest,", "correct": "puede", "options": ["tensa", "reconoce", "puede"]}, {"display": "Penelopen", "correct": "a Penélope", "options": ["Eumeo", "Ulises", "a Penélope"], "skip": true}, {"display": "ducit;", "correct": "lleva", "options": ["mata", "teje", "lleva"]}, {"display": "sed", "correct": "pero", "options": ["pero", "la", "nadie"], "skip": true}, {"display": "nemo", "correct": "nadie", "options": ["la", "porque", "nadie"]}, {"display": "potest.", "correct": "puede", "options": ["engaña", "puede", "desteje"], "skip": true}], "keyLatin": "Arcum intendere potest", "spanishDecoyA": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero solo Ulises puede hacerlo.", "spanishDecoyB": "Ulises no les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo."}, {"id": 5, "image": "img/05-pretendientes.jpg", "epigraph": "Óleo del pintor neoclásico francés Thomas Degeorge. Ulises, arco en mano, y Telémaco con una lanza dan muerte a los pretendientes en el salón del palacio, mientras uno de ellos yace ya en el suelo.", "latin": "Vlixes ipse arcum intendit et procos occidit.", "spanish": "El mismo Ulises tensa el arco y mata a los pretendientes.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Penélope", "Eumeo", "Ulises"], "skip": true}, {"display": "ipse", "correct": "él mismo", "options": ["él mismo", "la", "durante la noche"]}, {"display": "arcum", "correct": "el arco", "options": ["comida", "a los pretendientes", "el arco"], "skip": true}, {"display": "intendit", "correct": "tensa", "options": ["lleva", "tensa", "mata"]}, {"display": "et", "correct": "y", "options": ["lo", "durante la noche", "y"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["el palacio", "a los pretendientes", "la casa"], "skip": true}, {"display": "occidit.", "correct": "mata", "options": ["cambia", "tensa", "mata"]}], "keyLatin": "Procos occidit", "spanishDecoyA": "El mismo Ulises tensa el arco, pero no mata a los pretendientes.", "spanishDecoyB": "El mismo Eumeo tensa el arco y mata a los pretendientes."}];
 
   var N = PHRASES.length;
   var IDK = "No la conozco todavía";
@@ -484,6 +497,14 @@
     document.getElementById(id).classList.add("visible");
     window.scrollTo({ top:0, behavior:"smooth" });
   }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      if (typeof saveProgress === "function") saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
 
   // ---------- racha: contador de aciertos consecutivos al primer intento ----------
   // Se resetea apenas hay un primer error en un ítem (no espera a la revelación del

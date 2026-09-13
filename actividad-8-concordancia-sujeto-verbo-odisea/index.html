@@ -134,6 +134,10 @@
   .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
 
   .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  /* top and bottom step navigation */
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
   .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
   .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
   .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
@@ -173,45 +177,50 @@
 
     <!-- ===== Paso 2 ===== -->
     <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá los sujetos</h2></div></div>
       <p class="step-instructions">Los verbos ya están marcados. Tocá la palabra o las palabras que funcionan como sujeto de cada oración.</p>
       <div class="p-progress" id="p2-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p2-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
     </section>
 
     <!-- ===== Explicación (entre paso 2 y 3) ===== -->
     <section class="step" id="step-explain">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Antes del Paso 3</p><h2>Concordancia de número</h2></div></div>
       <div class="explain-box">
         <p>Repaso rápido de la semana pasada: el verbo concuerda en número con su sujeto — sujeto singular, verbo singular (<span class="ex-latin">Vlixes redit</span>); sujeto plural, verbo plural (<span class="ex-latin">Vlixes et Telemachus occidunt</span>). Esto vale aunque el sujeto no se repita en cada verbo de la frase.</p>
         <p>Esta semana sumamos un caso nuevo: los sustantivos <strong>neutros</strong> de la 2ª declinación. En nominativo singular terminan en <strong>-um</strong> (<span class="ex-latin">navigium</span>, <span class="ex-latin">donum</span>); en nominativo plural, en <strong>-a</strong> (<span class="ex-latin">navigia</span>, <span class="ex-latin">dona</span>) — no en <em>-ī</em> como los masculinos, ni en <em>-ae</em> como los femeninos.</p>
         <p>Ojo con esto: un neutro plural en <em>-a</em> se parece, a primera vista, a un femenino singular de 1ª declinación — pero si el sustantivo es neutro, esa <em>-a</em> es plural, y el verbo tiene que concordar en plural: <span class="ex-latin">Navigium magnum est</span> (el barco es grande) pasa a <span class="ex-latin">Navigia magna sunt</span> (los barcos son grandes).</p>
       </div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
     </section>
 
     <!-- ===== Paso 3 ===== -->
     <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí el verbo correcto</h2></div></div>
       <p class="step-instructions">Frases nuevas, con el vocabulario que ya conocés. Elegí, en cada desplegable, la forma del verbo que concuerda con el sujeto.</p>
       <div class="p-progress" id="p3-progress"></div>
       <div class="exercise" id="p3-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Paso anterior</button><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
     </section>
 
     <!-- ===== Paso 4 ===== -->
     <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Elegí sujeto y verbo</h2></div></div>
       <p class="step-instructions">Ahora elegí, en cada frase, el sujeto y el verbo que concuerdan entre sí y con la traducción castellana.</p>
       <div class="p-progress" id="p4-progress"></div>
       <div class="exercise" id="p4-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
         <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
@@ -225,6 +234,7 @@
         <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="completá la idea" required /></div>
       </div>
       <div class="submit-bar">
+        <button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button>
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -300,6 +310,14 @@
     document.getElementById(id).classList.add("visible");
     window.scrollTo({ top:0, behavior:"smooth" });
   }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      if (typeof saveProgress === "function") saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
 
   // =================================================================
   // Paso 1: identificar verbos (todas las palabras tocables) + panel

@@ -190,6 +190,10 @@
   .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
 
   .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  /* top and bottom step navigation */
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
   .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
   .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
   .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
@@ -240,49 +244,55 @@
 
     <!-- ===== Paso 2: Higino en imágenes ===== -->
     <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Higino en imágenes</h2></div></div>
       <p class="step-instructions">Seis fragmentos del texto de Higino, cada uno con la escena que ya conocés. No hace falta traducir: para cada fragmento, elegí qué imagen le corresponde.</p>
       <div class="exercise" id="p2-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-p2-check" disabled>Verificar</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Paso anterior</button><button class="btn" id="btn-p2-check" disabled>Verificar</button></div>
     </section>
 
     <section class="step" id="step-p2-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2 — resultados</p><h2>¿Cómo te fue?</h2></div></div>
       <div class="p-progress" id="p2-score"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p3">Al Paso 3</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button><button class="btn" id="btn-to-p3">Al Paso 3</button></div>
     </section>
 
     <!-- ===== Paso 3: comparación lado a lado ===== -->
     <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Algunos cambios dignos de mención</h2></div></div>
       <p class="step-instructions">Tres frases que ya tradujimos, ahora las frases originales de Higino. Tocá los verbos de Higino que corresponden a los verbos en negrita de las frases adaptadas.</p>
       <div class="exercise" id="p3-list"></div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p4" disabled>Al Paso 4</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Paso anterior</button><button class="btn" id="btn-to-p4" disabled>Al Paso 4</button></div>
     </section>
 
     <!-- ===== Paso 4: lo que sabemos hasta ahora ===== -->
     <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Lo que sabemos hasta ahora</h2></div></div>
       <p class="step-instructions">Ubicá todas las formas que ya conocés y las cinco formas verbales del paso anterior en el texto entero de Higino.</p>
       <div class="exercise">
         <div class="p-progress" id="p4-progress"></div>
         <div class="running-text" id="p4-text"></div>
       </div>
-      <div class="stage-nav"><button class="btn" id="btn-to-p5" disabled>Al Paso 5</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button><button class="btn" id="btn-to-p5" disabled>Al Paso 5</button></div>
     </section>
 
     <!-- ===== Paso 5: lectura completa glosada ===== -->
     <section class="step" id="step-p5">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 5</p><h2>Ahora, leerlo entero</h2></div></div>
       <p class="step-instructions">El mismo texto, completo. Tocá cualquier palabra que no reconozcas y vas a ver qué significa acá. No hay corrección en este paso — es solo para leer. Si apretás click sobre una palabra nueva aparece su significado.</p>
       <div class="exercise">
         <div class="running-text" id="p5-text"></div>
       </div>
-      <div class="stage-nav"><button class="btn" id="btn-to-fin">Cerrar</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button><button class="btn" id="btn-to-fin">Cerrar</button></div>
     </section>
 
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p5">↑ Paso anterior</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó este primer contacto?</h2></div></div>
         <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido.</p>
@@ -296,6 +306,7 @@
         <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (opcional)</label><input id="in-suggestion" type="text" placeholder="completá la idea" /></div>
       </div>
       <div class="submit-bar">
+        <button type="button" class="btn btn-ghost" data-back-step="step-p5">↑ Paso anterior</button>
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -409,6 +420,14 @@
     document.getElementById(id).classList.add("visible");
     window.scrollTo({ top:0, behavior:"smooth" });
   }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      if (typeof saveProgress === "function") saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
 
   // =================================================================
   // Paso 1: vocabulario ya visto — autorreporte de significado, palabra por palabra.
