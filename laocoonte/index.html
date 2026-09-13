@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Latín · Mors Laocoontis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600&family=Uncial+Antiqua&display=swap" rel="stylesheet" />
 <style>
   :root{
     --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
@@ -12,7 +15,8 @@
     --incorrect:#b5502e; --incorrect-bg:#f3ded4;
     --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
     --radius-card: 10px; --radius-chip: 999px;
-    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --serif: 'EB Garamond','Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --display: 'Uncial Antiqua','Iowan Old Style','Palatino Linotype',serif;
     --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
     /* Pantalla de juego: paleta fija en los dos temas. */
     --g-dark:#17130d; --g-darker:#0d0b07; --g-gold:#c9a23a; --g-text:#f3ead3; --g-muted:#cfc3a6;
@@ -51,7 +55,7 @@
 
   .wrap{ max-width:760px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
   .eyebrow{ font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
-  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  h1{ font-family:var(--display); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
   h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .8rem; }
   .lede{ color:var(--ink-muted); font-size:1rem; max-width:60ch; margin:0 0 1.25rem; }
 
@@ -83,7 +87,7 @@
   /* ================= pantalla de juego (fija, sin scroll) ================= */
   .game{ position:fixed; inset:0; z-index:10; display:flex; flex-direction:column; background:var(--g-darker); color:var(--g-text); }
   .hud{ flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:.6rem; padding:calc(.4rem + env(safe-area-inset-top)) .8rem .4rem; background:var(--g-dark); border-bottom:3px solid var(--g-gold); font-size:.8rem; }
-  .hud-title{ font-family:var(--serif); font-style:italic; font-size:.95rem; }
+  .hud-title{ font-family:var(--display); font-size:.95rem; }
   .hud-progress{ font-weight:700; font-variant-numeric:tabular-nums; color:var(--g-gold); letter-spacing:.06em; }
   .hud-tired{ background:transparent; color:var(--g-muted); border:1px solid #6e6450; border-radius:999px; padding:.22rem .75rem; font-size:.75rem; font-weight:600; }
   .hud-tired:hover{ color:var(--g-text); border-color:var(--g-gold); }
@@ -112,9 +116,10 @@
   .scene{ position:relative; width:100%; aspect-ratio:1800/851; background:url("img/escena.jpg") center / cover no-repeat; -webkit-tap-highlight-color:transparent; }
   .scene.tappable{ cursor:crosshair; }
 
-  .zone{ position:absolute; border-radius:6px; pointer-events:none; }
-  .gray-zone{ position:absolute; inset:0; background:url("img/escena.jpg") center / 100% 100% no-repeat; filter:grayscale(1); pointer-events:none; z-index:1; transition:opacity .35s ease; }
-  .gray-zone.fade-out{ opacity:0; }
+  .zone{ position:absolute; border-radius:6px; pointer-events:none; z-index:3; }
+  .gray-scene{ position:absolute; inset:0; background:url("img/escena.jpg") center / 100% 100% no-repeat; filter:grayscale(1); pointer-events:none; z-index:1; }
+  .color-zone{ position:absolute; inset:0; background:url("img/escena.jpg") center / 100% 100% no-repeat; pointer-events:none; z-index:2; animation:colorIn .45s ease-out both; }
+  @keyframes colorIn{ from{ opacity:0; } to{ opacity:1; } }
   .zone.ok{ border:3px solid #7ee05a; background:rgba(126,224,90,.18); animation:fill .25s ease-out; }
   .zone.reveal{ border:3px solid #ffd24a; background:rgba(255,210,74,.2); animation:fill .25s ease-out; }
   .zone.hint{ border:2.5px dashed #fffdf6; box-shadow:0 0 0 2px rgba(0,0,0,.55); }
@@ -124,12 +129,13 @@
   .mark.ok{ background:#3f6b28; color:#fff; border:2px solid #fff; }
 
   .bubble{ position:absolute; bottom:12px; left:6px; max-width:calc(100% - 12px); z-index:2;
-    background:#fffdf6; color:#15110b; border:2.5px solid #15110b; border-radius:14px;
-    padding:.3em .5em .4em; box-shadow:3px 4px 0 rgba(0,0,0,.5); font-size:clamp(14px, 3cqw, 22px); }
+    background:#f4e7c5; color:#2b1b0e; border:2px solid #8f6b2d; border-radius:5px;
+    padding:.38em .62em .46em; box-shadow:inset 0 0 0 2px rgba(255,250,224,.75), 3px 4px 0 rgba(0,0,0,.38);
+    font-size:clamp(14px, 3cqw, 22px); }
   .bubble.pop{ animation:pop .3s cubic-bezier(.2,.9,.3,1.25) both; }
   @keyframes pop{ from{ opacity:0; transform:translateY(10px) scale(.8); } to{ opacity:1; transform:none; } }
-  .bubble .tail{ position:absolute; bottom:-10px; left:20px; width:16px; height:16px; background:#fffdf6;
-    border-right:2.5px solid #15110b; border-bottom:2.5px solid #15110b; transform:rotate(45deg); }
+  .bubble .tail{ position:absolute; bottom:-9px; left:20px; width:15px; height:15px; background:#f4e7c5;
+    border-right:2px solid #8f6b2d; border-bottom:2px solid #8f6b2d; transform:rotate(45deg); }
 
   .slots{ display:flex; flex-wrap:wrap; justify-content:center; gap:.15em .3em; align-items:flex-end; }
   .slot-wrap{ display:inline-flex; align-items:flex-end; }
@@ -365,20 +371,18 @@
       host.appendChild(d);
     });
   }
-  function drawGrayZones(host, ids){
+  function drawGrayScene(host){
+    var d = document.createElement("div");
+    d.className = "gray-scene";
+    host.appendChild(d);
+  }
+  function restoreColorZones(host, ids){
     zoneRects(ids).forEach(function(r){
       var d = document.createElement("div");
-      d.className = "gray-zone";
+      d.className = "color-zone";
       d.dataset.zoneKey = ids.join("|");
       d.style.clipPath = "inset(" + r[1] + "% " + (100 - r[0] - r[2]) + "% " + (100 - r[1] - r[3]) + "% " + r[0] + "% )";
       host.appendChild(d);
-    });
-  }
-  function restoreGrayZones(ids){
-    var key = ids.join("|");
-    Array.from(scene.querySelectorAll('.gray-zone[data-zone-key="' + key + '"]')).forEach(function(d){
-      d.classList.add("fade-out");
-      setTimeout(function(){ d.remove(); }, 380);
     });
   }
   function zoneCenterX(ids){
@@ -659,8 +663,8 @@
     current = { step: N1 + j, closed: false, phrase: null, anchor: p.hint ? zoneCenterX([p.hint]) : 50 };
     stage.classList.remove("no-band");
     clearScene();
+    drawGrayScene(scene);
     if (p.hint){
-      drawGrayZones(scene, [p.hint]);
       drawZones(scene, [p.hint], "hint");
     }
     resetDialog(true);
@@ -682,7 +686,7 @@
     bank.hidden = true;
     dialogTag.hidden = true;
     dialogEs.textContent = p.es;
-    if (p.hint) restoreGrayZones([p.hint]);
+    if (p.hint) restoreColorZones(scene, [p.hint]);
     if (res.ok) setMsg(res.errors === 0 ? "¡Frase completa, sin errores!" : "¡Frase completa!", "ok");
     else setMsg("Frase completa, con ayuda.", "warn");
     saveProgress(N1 + j + 1);
