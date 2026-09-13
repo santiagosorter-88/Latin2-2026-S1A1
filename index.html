@@ -197,6 +197,29 @@
   .status-msg{ color:var(--ink-muted); font-size:.95rem; padding:1rem 0; }
   .status-msg--error{ color:#a3402f; }
 
+  .imagen-drop{
+    flex:1 1 100%; border:2px dashed var(--rule); border-radius:8px; padding:1rem;
+    text-align:center; font-size:.88rem; color:var(--ink-muted); cursor:pointer;
+    transition:border-color .15s, background .15s;
+  }
+  .imagen-drop:hover, .imagen-drop.imagen-drop--over{
+    border-color:var(--accent-strong); background:var(--bg-opt);
+  }
+  .imagen-drop input[type="file"]{ display:none; }
+  .imagen-preview{
+    flex:1 1 100%; display:flex; align-items:center; gap:.6rem; padding:.4rem 0;
+  }
+  .imagen-preview[hidden]{ display:none; }
+  .imagen-preview img{
+    width:3.2rem; height:3.2rem; object-fit:cover; border-radius:6px; border:1px solid var(--rule);
+  }
+  .imagen-preview__nombre{ flex:1; font-size:.85rem; color:var(--ink-muted); word-break:break-all; }
+  .imagen-quitar{
+    font-family:inherit; cursor:pointer; border:none; border-radius:999px; padding:.3rem .7rem;
+    font-size:.78rem; font-weight:600; background:var(--surface-raised); color:var(--ink-muted); flex:none;
+  }
+  .imagen-quitar:hover{ color:var(--ink); }
+
   /* Imagen interactiva: segunda vía opcional de reencuentro con el vocabulario de la semana */
   .img-interactiva__trigger{
     display:block; width:100%; padding:0; margin:0; border:2px solid var(--accent); border-radius:var(--radius-card);
@@ -262,6 +285,15 @@
     <div class="progreso-form">
       <input type="email" id="consulta-email" placeholder="tu@email.com" autocomplete="email" />
       <textarea id="consulta-texto" placeholder="Escribí tu pregunta o propuesta..."></textarea>
+      <label class="imagen-drop" id="consulta-imagen-zona">
+        Arrastrá una imagen acá o hacé clic para elegirla (opcional)
+        <input type="file" id="consulta-imagen-input" accept="image/*" />
+      </label>
+      <div class="imagen-preview" id="consulta-imagen-preview" hidden>
+        <img id="consulta-imagen-miniatura" alt="" />
+        <span class="imagen-preview__nombre" id="consulta-imagen-nombre"></span>
+        <button type="button" class="imagen-quitar" id="consulta-imagen-quitar">Quitar</button>
+      </div>
       <button type="button" id="consulta-enviar" disabled>Enviar</button>
     </div>
     <div id="consulta-resultado"></div>
@@ -715,6 +747,86 @@ var consultaTexto = document.getElementById("consulta-texto");
 var consultaEnviar = document.getElementById("consulta-enviar");
 var consultaResultado = document.getElementById("consulta-resultado");
 var consultaSendInFlight = false;
+var consultaImagenZona = document.getElementById("consulta-imagen-zona");
+var consultaImagenInput = document.getElementById("consulta-imagen-input");
+var consultaImagenPreview = document.getElementById("consulta-imagen-preview");
+var consultaImagenMiniatura = document.getElementById("consulta-imagen-miniatura");
+var consultaImagenNombre = document.getElementById("consulta-imagen-nombre");
+var consultaImagenQuitar = document.getElementById("consulta-imagen-quitar");
+var consultaImagenDataUrl = null; // imagen ya comprimida, lista para mandar en el POST
+
+// Comprime la imagen en el navegador (máx. 1600px de lado mayor, jpg calidad .8) antes de
+// mandarla — así una foto de celular de varios MB no rompe ni demora el POST al Apps Script.
+function comprimirImagen(file) {
+  return new Promise(function (resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      var img = new Image();
+      img.onload = function () {
+        var maxDim = 1600;
+        var w = img.width, h = img.height;
+        if (w > maxDim || h > maxDim) {
+          if (w >= h) { h = Math.round(h * maxDim / w); w = maxDim; }
+          else { w = Math.round(w * maxDim / h); h = maxDim; }
+        }
+        var canvas = document.createElement("canvas");
+        canvas.width = w; canvas.height = h;
+        canvas.getContext("2d").drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL("image/jpeg", .8));
+      };
+      img.onerror = reject;
+      img.src = ev.target.result;
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+function mostrarImagenElegida(file, dataUrl) {
+  consultaImagenDataUrl = dataUrl;
+  consultaImagenMiniatura.src = dataUrl;
+  consultaImagenNombre.textContent = file.name;
+  consultaImagenPreview.hidden = false;
+  consultaImagenZona.hidden = true;
+}
+
+function procesarArchivoImagen(file) {
+  if (!file || file.type.indexOf("image/") !== 0) return;
+  comprimirImagen(file).then(function (dataUrl) {
+    mostrarImagenElegida(file, dataUrl);
+  }).catch(function () {
+    consultaResultado.innerHTML = '<p class="status-msg status-msg--error">No se pudo procesar la imagen. Probá con otra.</p>';
+  });
+}
+
+consultaImagenZona.addEventListener("click", function () { consultaImagenInput.click(); });
+consultaImagenInput.addEventListener("change", function () {
+  if (consultaImagenInput.files && consultaImagenInput.files[0]) {
+    procesarArchivoImagen(consultaImagenInput.files[0]);
+  }
+});
+["dragenter", "dragover"].forEach(function (evName) {
+  consultaImagenZona.addEventListener(evName, function (ev) {
+    ev.preventDefault();
+    consultaImagenZona.classList.add("imagen-drop--over");
+  });
+});
+["dragleave", "drop"].forEach(function (evName) {
+  consultaImagenZona.addEventListener(evName, function (ev) {
+    ev.preventDefault();
+    consultaImagenZona.classList.remove("imagen-drop--over");
+  });
+});
+consultaImagenZona.addEventListener("drop", function (ev) {
+  var files = ev.dataTransfer && ev.dataTransfer.files;
+  if (files && files[0]) procesarArchivoImagen(files[0]);
+});
+consultaImagenQuitar.addEventListener("click", function () {
+  consultaImagenDataUrl = null;
+  consultaImagenInput.value = "";
+  consultaImagenPreview.hidden = true;
+  consultaImagenZona.hidden = false;
+});
 
 btnConsulta.addEventListener("click", function(){
   consultaPanel.hidden = !consultaPanel.hidden;
@@ -741,13 +853,16 @@ consultaEnviar.addEventListener("click", function(){
   consultaSendInFlight = true;
   consultaEnviar.disabled = true;
   consultaResultado.innerHTML = '<p class="status-msg">Enviando…</p>';
+  var payload = { actividad: "Preguntas y sugerencias espontáneas", email: email, consulta: consulta };
+  if (consultaImagenDataUrl) payload.imagenBase64 = consultaImagenDataUrl;
   fetch(PROGRESO_URL, {
     method: "POST",
     headers: { "Content-Type": "text/plain;charset=utf-8" },
-    body: JSON.stringify({ actividad: "Preguntas y sugerencias espontáneas", email: email, consulta: consulta })
+    body: JSON.stringify(payload)
   }).then(function(){
     consultaResultado.innerHTML = '<p class="status-msg">Enviado. ¡Gracias!</p>';
     consultaTexto.value = "";
+    consultaImagenQuitar.click();
   }).catch(function(){
     consultaResultado.innerHTML = '<p class="status-msg status-msg--error">No se pudo enviar (revisá tu conexión). Podés reintentar con "Enviar".</p>';
     consultaSendInFlight = false;
