@@ -605,8 +605,6 @@
         feedback.textContent = answers[p.id] === p.id
           ? "¡Correcto!"
           : "La respuesta correcta es: " + cfg.optionLabel(p);
-        if (cfg.feedbackMode) feedback.textContent += " " + feedbackHint(cfg.feedbackMode);
-        if (cfg.shrink && optionOrder.length === 1) feedback.textContent += " Se resolvió con la última opción disponible.";
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       } else if ((wrongChoices[p.id] || []).length){
@@ -633,6 +631,9 @@
             if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
             cfg.logAnswer(p, p, true, (wrongChoices[p.id] || []).length, false,
               cfg.shrink && optionOrder.length === 1);
+            if (idx === cfg.order.length - 1) renderReview();
+            else { idx++; renderStage(); }
+            return;
           } else {
             var isFirstMiss = !(wrongChoices[p.id] || []).length;
             if (streak && isFirstMiss) streak.reset();
@@ -644,6 +645,9 @@
               answers[p.id] = chosenId;
               cfg.logAnswer(p, PHRASES.filter(function(x){ return x.id === chosenId; })[0], false,
                 wrongChoices[p.id].length, true, false);
+              if (idx === cfg.order.length - 1) renderReview();
+              else { idx++; renderStage(); }
+              return;
             }
           }
           renderStage();
@@ -760,7 +764,6 @@
         feedback.textContent = answers[p.id] === opts.correct
           ? "¡Correcto!"
           : "La respuesta correcta es: " + opts.correct;
-        feedback.textContent += " " + feedbackHint("latin-translation");
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       } else if ((wrongChoices[p.id] || []).length){
@@ -786,6 +789,9 @@
             var wasFirstTry = (wrongChoices[p.id] || []).length === 0;
             if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
             cfg.logAnswer(p, chosenText, true, (wrongChoices[p.id] || []).length, false, false);
+            if (idx === cfg.order.length - 1) renderReview();
+            else { idx++; renderStage(); }
+            return;
           } else {
             var isFirstMiss = !(wrongChoices[p.id] || []).length;
             if (streak && isFirstMiss) streak.reset();
@@ -796,6 +802,9 @@
               resolved[p.id] = true;
               answers[p.id] = chosenText;
               cfg.logAnswer(p, chosenText, false, wrongChoices[p.id].length, true, false);
+              if (idx === cfg.order.length - 1) renderReview();
+              else { idx++; renderStage(); }
+              return;
             }
           }
           renderStage();
@@ -1204,9 +1213,34 @@
                 }
               }
 
-              // re-render panel: si acertó o se reveló, queda bloqueado con feedback; si no,
-              // la opción recién probada queda deshabilitada y el resto sigue disponible.
-              chip.click(); chip.click();
+              // Actualiza el panel abierto sin cerrarlo ni volver a sortear/reconstruir la lista.
+              Array.from(panel.querySelectorAll(".word-opt")).forEach(function(optionButton){
+                var optionValue = optionButton.textContent;
+                optionButton.disabled = !!tok._answered || tok._tried.has(optionValue);
+                optionButton.classList.remove("answered-ok", "answered-bad", "answered-idk");
+                if (tok._answered === "revealed"){
+                  if (optionValue === tok.correct) optionButton.classList.add("answered-ok");
+                  else if (optionValue === tok._chosen) optionButton.classList.add("answered-bad");
+                } else if (tok._answered && optionValue === tok._chosen){
+                  optionButton.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
+                } else if (tok._tried.has(optionValue)){
+                  optionButton.classList.add("answered-bad");
+                }
+              });
+              var oldFeedback = panel.querySelector(".word-feedback");
+              if (oldFeedback) oldFeedback.remove();
+              var refreshedFeedback = document.createElement("span");
+              if (tok._answered === "revealed"){
+                refreshedFeedback.className = "word-feedback bad";
+                refreshedFeedback.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+              } else if (tok._answered){
+                refreshedFeedback.className = "word-feedback " + tok._answered;
+                refreshedFeedback.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
+              } else if (tok._tried.size > 0){
+                refreshedFeedback.className = "word-feedback bad";
+                refreshedFeedback.textContent = "No es correcta. Probá una vez más.";
+              }
+              if (refreshedFeedback.textContent) panel.appendChild(refreshedFeedback);
             });
             panel.appendChild(ob);
           });
