@@ -312,12 +312,23 @@
   .score-summary strong{ color:var(--ink); }
 
   footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  /* Botón "Volver al índice" (convención 7, color dorado de la convención 15) */
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+  .hud-home{ text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap; }
 </style>
 </head>
 <body>
 
 <!-- ===== Portada: consigna + email (desaparece al comenzar) ===== -->
 <div class="wrap" id="intro">
+  <a class="back-to-index" href="../">← Volver al índice</a>
   <p class="eyebrow">Latín · Diálogo</p>
   <h1>Altercatio Hadriani Augusti et Epicteti philosophi</h1>
   <p class="lede">La <em>Altercatio Hadriani Augusti et Epicteti philosophi</em> es un diálogo latino anónimo de los siglos II o III. En él, el emperador Adriano formula preguntas breves, muchas veces como acertijos, y el filósofo estoico Epicteto responde con ocurrencias, imágenes y sentencias ingeniosas.</p>
@@ -340,6 +351,7 @@
 <!-- ===== Juego: escena fija + caja de diálogo ===== -->
 <div class="game" id="game" hidden>
   <header class="hud">
+    <a class="hud-tired hud-home" href="../">← Índice</a>
     <span class="hud-title">Altercatio</span>
     <span class="hud-progress" id="pair-progress">—</span>
     <span class="hud-actions">

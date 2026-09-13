@@ -198,12 +198,23 @@
   .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
   .score-summary strong{ color:var(--ink); }
   footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  /* Botón "Volver al índice" (convención 7, color dorado de la convención 15) */
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+  .hud-home{ text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap; }
 </style>
 </head>
 <body>
 
 <!-- ===== Portada ===== -->
 <div class="wrap" id="intro">
+  <a class="back-to-index" href="../">← Volver al índice</a>
   <p class="eyebrow">Latín · Imagen y frases</p>
   <h1>Mors Laocoontis</h1>
   <p class="lede">Laocoonte, sacerdote troyano, desconfía del caballo que dejaron los griegos. Desde el mar llegan dos serpientes. Primero vas a localizar en la imagen lo que dicen las frases; después, vas a reconstruirlas en latín.</p>
@@ -226,6 +237,7 @@
 <!-- ===== Juego ===== -->
 <div class="game" id="game" hidden>
   <header class="hud">
+    <a class="hud-tired hud-home" href="../">← Índice</a>
     <span class="hud-title">Mors Laocoontis</span>
     <span class="hud-progress" id="hud-progress">—</span>
     <button type="button" class="hud-zoom" id="btn-zoom">Ampliar imagen</button>

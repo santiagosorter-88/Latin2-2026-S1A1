@@ -144,10 +144,21 @@
   .score-summary strong{ color:var(--ink); }
 
   footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  /* Botón "Volver al índice" (convención 7, color dorado de la convención 15) */
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+  .hud-home{ text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap; }
 </style>
 </head>
 <body>
 <div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
 
   <p class="eyebrow">Latín · Actividad 3</p>
   <h1>Concordancia de número entre sujeto y verbo</h1>
