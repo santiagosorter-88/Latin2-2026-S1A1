@@ -199,6 +199,14 @@
     padding:.55rem .8rem; border-radius:0 8px 8px 0;
   }
 
+  /* Pista de orden: se ilumina el tramo del castellano que corresponde al espacio activo. */
+  .dialog-es .seg{ border-radius:3px; transition:background .15s ease, color .15s ease; }
+  .dialog-es .seg.on{ background:var(--g-gold); color:var(--g-dark); padding:0 .12em; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .dialog-es .seg.done{ color:var(--g-muted); }
+  .dialog-es .line{ display:block; }
+  .dialog-es .line + .line{ margin-top:.35rem; }
+  .msg.note{ color:var(--g-muted); font-weight:500; font-style:italic; }
+
   .bank{ display:flex; flex-wrap:wrap; gap:.5rem; }
   .wchip{
     font-family:var(--serif); font-size:1.05rem; line-height:1.2;
@@ -281,7 +289,8 @@
   <ol class="howto">
     <li>Abajo aparece la frase en castellano y un banco de palabras latinas.</li>
     <li>Tocá las palabras en el orden en que van: se escriben en el globo del personaje.</li>
-    <li>Si una palabra no va en ese lugar, se marca. Si volvés a equivocarte en el mismo lugar, se muestra la palabra que iba.</li>
+    <li>En la traducción se ilumina la parte que corresponde a la palabra que toca ahora.</li>
+    <li>Si tocás una palabra que sí va pero más adelante, te avisamos sin contarlo como error. Si tocás una que no va en la frase, se marca; si te equivocás dos veces en el mismo lugar, se muestra la palabra que iba.</li>
     <li>Cuando completás la pregunta de Adriano, responde Epicteto. En las frases de dos palabras, el orden es libre.</li>
   </ol>
   <p class="howto-note">Imagen: Descriptio orbis terrarum, fol. 79r — Biblioteca Nacional de España.</p>
@@ -316,7 +325,7 @@
   <section class="dialog" id="dialog">
     <div class="dialog-inner">
       <span class="nameplate" id="nameplate">Adriano</span>
-      <span class="dialog-tag">Traducí esta frase</span>
+      <span class="dialog-tag" id="dialog-tag">Traducí esta frase</span>
       <p class="dialog-es" id="dialog-es"></p>
       <div class="bank" id="bank"></div>
       <div class="msg-row">
@@ -370,28 +379,28 @@
   var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
 
   var PAIRS = /*__DATA__*/[
-    {"q": "Quid est epistula?", "qEs": "¿Qué es una carta?", "qDecoys": ["pictura", "Quare", "homo"], "a": "Tacitus nuntius.", "aEs": "Un mensajero silencioso.", "aDecoys": ["Falsa", "Iter", "veritas"]},
-    {"q": "Quid est pictura?", "qEs": "¿Qué es una pintura?", "qDecoys": ["epistula", "dicis", "sol"], "a": "Falsa veritas.", "aEs": "Una verdad falsa.", "aDecoys": ["Tacitus", "picta", "vera"]},
-    {"q": "Quare hoc dicis?", "qEs": "¿Por qué dijiste esto?", "qDecoys": ["Quid", "est", "sunt"], "a": "Poma enim picta vera non sunt.", "aEs": "Porque las frutas pintadas no son reales.", "aDecoys": ["Falsa", "veritas", "Quia"]},
-    {"q": "Quid est longissimum?", "qEs": "¿Qué es lo más largo?", "qDecoys": ["certissimum", "spes", "homines"], "a": "Spes.", "aEs": "La esperanza.", "aDecoys": ["Mors", "Verbum", "Brevissima"]},
-    {"q": "Quid est spes?", "qEs": "¿Qué es la esperanza?", "qDecoys": ["longissimum", "mors", "somnus"], "a": "Vigilanti somnus, spectanti dubius eventus.", "aEs": "Para quien está despierto, sueño; para quien espera, un resultado incierto.", "aDecoys": ["incertum", "imago", "Mortis"]},
-    {"q": "Quare peccant homines?", "qEs": "¿Por qué pecan los hombres?", "qDecoys": ["Quid", "hoc", "sunt"], "a": "Cupiditate.", "aEs": "Por deseo.", "aDecoys": ["Innocentia", "Verbum", "Spes"]},
-    {"q": "Quid est libertas?", "qEs": "¿Qué es la libertad?", "qDecoys": ["optimum", "peccant", "Quot"], "a": "Innocentia.", "aEs": "La inocencia.", "aDecoys": ["Cupiditate", "Verbum", "Mors"]},
-    {"q": "Quid est optimum ac pessimum?", "qEs": "¿Qué es lo mejor y lo peor?", "qDecoys": ["optima", "vita", "certissimum"], "a": "Verbum.", "aEs": "La palabra.", "aDecoys": ["Spes", "Innocentia", "Brevissima"]},
-    {"q": "Quid est optima vita?", "qEs": "¿Cuál es la mejor vida?", "qDecoys": ["optimum", "certissimum", "pessimum"], "a": "Brevissima.", "aEs": "La más breve.", "aDecoys": ["Spes", "Mors", "pravus"]},
-    {"q": "Quid est certissimum?", "qEs": "¿Qué es lo más seguro?", "qDecoys": ["longissimum", "optima", "mors"], "a": "Mors.", "aEs": "La muerte.", "aDecoys": ["Spes", "Verbum", "Fata"]},
-    {"q": "Quid est mors?", "qEs": "¿Qué es la muerte?", "qDecoys": ["vita", "somnus", "certissimum"], "a": "Mors omnium malorum finis est.", "aEs": "La muerte es el fin de todos los males.", "aDecoys": ["Mortis", "imago", "vitae"]},
-    {"q": "Quid est homo?", "qEs": "¿Qué es el hombre?", "qDecoys": ["homines", "stellae", "sunt"], "a": "Sicut lucerna in vento posita.", "aEs": "Como una lámpara puesta al viento.", "aDecoys": ["Domus", "erratica", "orbis"]},
-    {"q": "Quid est homo?", "qEs": "¿Qué es el hombre?", "qDecoys": ["navis", "mare", "Quot"], "a": "Calamitatis fabula.", "aEs": "Un relato de la calamidad.", "aDecoys": ["Mortis", "imago", "lucerna"]},
-    {"q": "Quot sunt autem fortunae?", "qEs": "¿Cuántas son las fortunas?", "qDecoys": ["Quid", "stellae", "est"], "a": "Tres: una caeca, alia insana, tertia surda.", "aEs": "Tres: una ciega, otra loca, la tercera, sorda.", "aDecoys": []},
-    {"q": "Quid est sol?", "qEs": "¿Qué es el sol?", "qDecoys": ["stellae", "terra", "sunt"], "a": "Splendor orbis.", "aEs": "El resplandor del mundo.", "aDecoys": ["Cellarium", "vitae", "Fata"]},
-    {"q": "Quid sunt stellae?", "qEs": "¿Qué son las estrellas?", "qDecoys": ["sol", "est", "Quot"], "a": "Fata hominum.", "aEs": "Los destinos de los hombres.", "aDecoys": ["Splendor", "orbis", "vitae"]},
-    {"q": "Quid est terra?", "qEs": "¿Qué es la tierra?", "qDecoys": ["mare", "sol", "sunt"], "a": "Cellarium vitae.", "aEs": "La despensa de la vida.", "aDecoys": ["Splendor", "hominum", "Domus"]},
-    {"q": "Quid est mare?", "qEs": "¿Qué es el mar?", "qDecoys": ["terra", "navis", "stellae"], "a": "Iter incertum.", "aEs": "Un camino incierto.", "aDecoys": ["Domus", "erratica", "dubius"]},
-    {"q": "Quid est navis?", "qEs": "¿Qué es una nave?", "qDecoys": ["mare", "somnus", "amor"], "a": "Domus erratica.", "aEs": "Una casa errante.", "aDecoys": ["Iter", "incertum", "lucerna"]},
-    {"q": "Quid est somnus?", "qEs": "¿Qué es el sueño?", "qDecoys": ["mors", "spes", "navis"], "a": "Mortis imago.", "aEs": "La imagen de la muerte.", "aDecoys": ["Fata", "hominum", "Calamitatis"]},
-    {"q": "Quare Venus straba est?", "qEs": "¿Por qué Venus es bizca?", "qDecoys": ["Quid", "amor", "sunt"], "a": "Quia pravus est amor.", "aEs": "Porque el amor es torcido.", "aDecoys": ["enim", "vera", "non"]},
-    {"q": "Quid est amor?", "qEs": "¿Qué es el amor?", "qDecoys": ["Venus", "spes", "sunt"], "a": "In puero pudor, in virgine rubor, in femina furor, in iuvene ardor, in sene risus.", "aEs": "En el niño, pudor; en la joven, rubor; en la mujer, furor; en el joven, ardor; en el anciano, risa.", "aDecoys": []}
+    {"q": "Quid est epistula?", "qEs": "¿Qué es una carta?", "qDecoys": ["pictura", "Quare", "homo"], "a": "Tacitus nuntius.", "aEs": "Un mensajero silencioso.", "aDecoys": ["Falsa", "Iter", "veritas"], "qAl": "¿{0:Qué} {1:es} {2:una carta}?", "aAl": "{1:Un mensajero} {0:silencioso}."},
+    {"q": "Quid est pictura?", "qEs": "¿Qué es una pintura?", "qDecoys": ["epistula", "dicis", "sol"], "a": "Falsa veritas.", "aEs": "Una verdad falsa.", "aDecoys": ["Tacitus", "picta", "vera"], "qAl": "¿{0:Qué} {1:es} {2:una pintura}?", "aAl": "{1:Una verdad} {0:falsa}."},
+    {"q": "Quare hoc dicis?", "qEs": "¿Por qué dijiste esto?", "qDecoys": ["Quid", "est", "sunt"], "a": "Poma enim picta vera non sunt.", "aEs": "Porque las frutas pintadas no son reales.", "aDecoys": ["Falsa", "veritas", "Quia"], "qAl": "¿{0:Por qué} {2:dijiste} {1:esto}?", "aAl": "{1:Porque} {0:las frutas} {2:pintadas} {4:no} {5:son} {3:reales}."},
+    {"q": "Quid est longissimum?", "qEs": "¿Qué es lo más largo?", "qDecoys": ["certissimum", "spes", "homines"], "a": "Spes.", "aEs": "La esperanza.", "aDecoys": ["Mors", "Verbum", "Brevissima"], "qAl": "¿{0:Qué} {1:es} {2:lo más largo}?", "aAl": "{0:La esperanza}."},
+    {"q": "Quid est spes?", "qEs": "¿Qué es la esperanza?", "qDecoys": ["longissimum", "mors", "somnus"], "a": "Vigilanti somnus, spectanti dubius eventus.", "aEs": "Para quien está despierto, sueño; para quien espera, un resultado incierto.", "aDecoys": ["incertum", "imago", "Mortis"], "qAl": "¿{0:Qué} {1:es} {2:la esperanza}?", "aAl": "{0:Para quien está despierto}, {1:sueño}; {2:para quien espera}, {4:un resultado} {3:incierto}."},
+    {"q": "Quare peccant homines?", "qEs": "¿Por qué pecan los hombres?", "qDecoys": ["Quid", "hoc", "sunt"], "a": "Cupiditate.", "aEs": "Por deseo.", "aDecoys": ["Innocentia", "Verbum", "Spes"], "qAl": "¿{0:Por qué} {1:pecan} {2:los hombres}?", "aAl": "{0:Por deseo}."},
+    {"q": "Quid est libertas?", "qEs": "¿Qué es la libertad?", "qDecoys": ["optimum", "peccant", "Quot"], "a": "Innocentia.", "aEs": "La inocencia.", "aDecoys": ["Cupiditate", "Verbum", "Mors"], "qAl": "¿{0:Qué} {1:es} {2:la libertad}?", "aAl": "{0:La inocencia}."},
+    {"q": "Quid est optimum ac pessimum?", "qEs": "¿Qué es lo mejor y lo peor?", "qDecoys": ["optima", "vita", "certissimum"], "a": "Verbum.", "aEs": "La palabra.", "aDecoys": ["Spes", "Innocentia", "Brevissima"], "qAl": "¿{0:Qué} {1:es} {2:lo mejor} {3:y} {4:lo peor}?", "aAl": "{0:La palabra}."},
+    {"q": "Quid est optima vita?", "qEs": "¿Cuál es la mejor vida?", "qDecoys": ["optimum", "certissimum", "pessimum"], "a": "Brevissima.", "aEs": "La más breve.", "aDecoys": ["Spes", "Mors", "pravus"], "qAl": "¿{0:Cuál} {1:es} {2:la mejor} {3:vida}?", "aAl": "{0:La más breve}."},
+    {"q": "Quid est certissimum?", "qEs": "¿Qué es lo más seguro?", "qDecoys": ["longissimum", "optima", "mors"], "a": "Mors.", "aEs": "La muerte.", "aDecoys": ["Spes", "Verbum", "Fata"], "qAl": "¿{0:Qué} {1:es} {2:lo más seguro}?", "aAl": "{0:La muerte}."},
+    {"q": "Quid est mors?", "qEs": "¿Qué es la muerte?", "qDecoys": ["vita", "somnus", "certissimum"], "a": "Mors omnium malorum finis est.", "aEs": "La muerte es el fin de todos los males.", "aDecoys": ["Mortis", "imago", "vitae"], "qAl": "¿{0:Qué} {1:es} {2:la muerte}?", "aAl": "{0:La muerte} {4:es} {3:el fin} {2:de} {1:todos} {2:los males}."},
+    {"q": "Quid est homo?", "qEs": "¿Qué es el hombre?", "qDecoys": ["homines", "stellae", "sunt"], "a": "Sicut lucerna in vento posita.", "aEs": "Como una lámpara puesta al viento.", "aDecoys": ["Domus", "erratica", "orbis"], "qAl": "¿{0:Qué} {1:es} {2:el hombre}?", "aAl": "{0:Como} {1:una lámpara} {4:puesta} {2:al} {3:viento}."},
+    {"q": "Quid est homo?", "qEs": "¿Qué es el hombre?", "qDecoys": ["navis", "mare", "Quot"], "a": "Calamitatis fabula.", "aEs": "Un relato de la calamidad.", "aDecoys": ["Mortis", "imago", "lucerna"], "qAl": "¿{0:Qué} {1:es} {2:el hombre}?", "aAl": "{1:Un relato} {0:de la calamidad}."},
+    {"q": "Quot sunt autem fortunae?", "qEs": "¿Cuántas son las fortunas?", "qDecoys": ["Quid", "stellae", "est"], "a": "Tres: una caeca, alia insana, tertia surda.", "aEs": "Tres: una ciega, otra loca, la tercera, sorda.", "aDecoys": [], "qAl": "¿{0:Cuántas} {1:son} {3:las fortunas}?", "aAl": "{0:Tres}: {1:una} {2:ciega}, {3:otra} {4:loca}, {5:la tercera}, {6:sorda}."},
+    {"q": "Quid est sol?", "qEs": "¿Qué es el sol?", "qDecoys": ["stellae", "terra", "sunt"], "a": "Splendor orbis.", "aEs": "El resplandor del mundo.", "aDecoys": ["Cellarium", "vitae", "Fata"], "qAl": "¿{0:Qué} {1:es} {2:el sol}?", "aAl": "{0:El resplandor} {1:del mundo}."},
+    {"q": "Quid sunt stellae?", "qEs": "¿Qué son las estrellas?", "qDecoys": ["sol", "est", "Quot"], "a": "Fata hominum.", "aEs": "Los destinos de los hombres.", "aDecoys": ["Splendor", "orbis", "vitae"], "qAl": "¿{0:Qué} {1:son} {2:las estrellas}?", "aAl": "{0:Los destinos} {1:de los hombres}."},
+    {"q": "Quid est terra?", "qEs": "¿Qué es la tierra?", "qDecoys": ["mare", "sol", "sunt"], "a": "Cellarium vitae.", "aEs": "La despensa de la vida.", "aDecoys": ["Splendor", "hominum", "Domus"], "qAl": "¿{0:Qué} {1:es} {2:la tierra}?", "aAl": "{0:La despensa} {1:de la vida}."},
+    {"q": "Quid est mare?", "qEs": "¿Qué es el mar?", "qDecoys": ["terra", "navis", "stellae"], "a": "Iter incertum.", "aEs": "Un camino incierto.", "aDecoys": ["Domus", "erratica", "dubius"], "qAl": "¿{0:Qué} {1:es} {2:el mar}?", "aAl": "{0:Un camino} {1:incierto}."},
+    {"q": "Quid est navis?", "qEs": "¿Qué es una nave?", "qDecoys": ["mare", "somnus", "amor"], "a": "Domus erratica.", "aEs": "Una casa errante.", "aDecoys": ["Iter", "incertum", "lucerna"], "qAl": "¿{0:Qué} {1:es} {2:una nave}?", "aAl": "{0:Una casa} {1:errante}."},
+    {"q": "Quid est somnus?", "qEs": "¿Qué es el sueño?", "qDecoys": ["mors", "spes", "navis"], "a": "Mortis imago.", "aEs": "La imagen de la muerte.", "aDecoys": ["Fata", "hominum", "Calamitatis"], "qAl": "¿{0:Qué} {1:es} {2:el sueño}?", "aAl": "{1:La imagen} {0:de la muerte}."},
+    {"q": "Quare Venus straba est?", "qEs": "¿Por qué Venus es bizca?", "qDecoys": ["Quid", "amor", "sunt"], "a": "Quia pravus est amor.", "aEs": "Porque el amor es torcido.", "aDecoys": ["enim", "vera", "non"], "qAl": "¿{0:Por qué} {1:Venus} {3:es} {2:bizca}?", "aAl": "{0:Porque} {3:el amor} {2:es} {1:torcido}."},
+    {"q": "Quid est amor?", "qEs": "¿Qué es el amor?", "qDecoys": ["Venus", "spes", "sunt"], "a": "In puero pudor, in virgine rubor, in femina furor, in iuvene ardor, in sene risus.", "aEs": "En el niño, pudor; en la joven, rubor; en la mujer, furor; en el joven, ardor; en el anciano, risa.", "aDecoys": [], "qAl": "¿{0:Qué} {1:es} {2:el amor}?", "aAl": "{0:En} {1:el niño}, {2:pudor}; {3:en} {4:la joven}, {5:rubor}; {6:en} {7:la mujer}, {8:furor}; {9:en} {10:el joven}, {11:ardor}; {12:en} {13:el anciano}, {14:risa}."}
   ]/*__END__*/;
 
   var N = PAIRS.length;
@@ -468,6 +477,19 @@
 
     function markCurrent(){
       slots.forEach(function(s, i){ s.classList.toggle("current", !done && i === pos); });
+      var segs = cfg.segEls || [];
+      var active = done ? [] : (free ? remaining : [remaining[0]]);
+      var hasSeg = false;
+      segs.forEach(function(el){
+        var on = el._ids.some(function(i){ return active.indexOf(i) !== -1; });
+        if (on) hasSeg = true;
+        el.classList.toggle("on", on);
+        el.classList.toggle("done", el._ids.every(function(i){ return remaining.indexOf(i) === -1; }));
+      });
+      if (!done && !free && segs.length && !hasSeg && !msg.textContent){
+        msg.textContent = "Esta palabra no tiene un equivalente directo en la traducción.";
+        msg.className = "msg note";
+      }
     }
     function fill(word, cls){
       slots[pos].textContent = word;
@@ -500,14 +522,15 @@
         chip.disabled = true; chip.classList.add("used");
         fill(word, "ok");
         msg.textContent = ""; msg.className = "msg";
+      } else if (stillNeeded(word)){
+        // Palabra de la frase pero de más adelante: avisa sin contar como error.
+        chip.classList.remove("flash"); void chip.offsetWidth; chip.classList.add("flash");
+        setTimeout(function(){ chip.classList.remove("flash"); }, 350);
+        msg.textContent = "Esa palabra sí va, pero más adelante. ¿Qué va primero?";
+        msg.className = "msg warn";
       } else {
         errors++; wrongHere++;
-        if (stillNeeded(word)){
-          chip.classList.remove("flash"); void chip.offsetWidth; chip.classList.add("flash");
-          setTimeout(function(){ chip.classList.remove("flash"); }, 350);
-        } else {
-          chip.disabled = true; chip.classList.add("bad");
-        }
+        chip.disabled = true; chip.classList.add("bad");
         if (wrongHere >= 2){
           var target = toks[remaining.shift()].word;
           useChip(target);
@@ -518,7 +541,7 @@
           var bb = document.createElement("strong"); bb.textContent = target; msg.appendChild(bb);
           msg.className = "msg warn";
         } else {
-          msg.textContent = "No va ahí. Probá una vez más.";
+          msg.textContent = "Esa palabra no va en esta frase. Probá otra.";
           msg.className = "msg bad";
         }
       }
@@ -572,20 +595,39 @@
   var pairProgress = document.getElementById("pair-progress");
   var current = { idx: -1, q: null, a: null, closed: false };
 
-  function setSpeaker(who, spanish, animate){
+  var dialogTag = document.getElementById("dialog-tag");
+  // Traducción con marcas {i,j:texto}: cada tramo sabe a qué palabra(s) latina(s) corresponde.
+  function renderAligned(aligned){
+    dialogEs.innerHTML = "";
+    var segs = [], re = /\{([\d,]+):([^}]*)\}/g, last = 0, m;
+    while ((m = re.exec(aligned))){
+      if (m.index > last) dialogEs.appendChild(document.createTextNode(aligned.slice(last, m.index)));
+      var sp = document.createElement("span");
+      sp.className = "seg"; sp.textContent = m[2];
+      sp._ids = m[1].split(",").map(Number);
+      dialogEs.appendChild(sp); segs.push(sp);
+      last = re.lastIndex;
+    }
+    if (last < aligned.length) dialogEs.appendChild(document.createTextNode(aligned.slice(last)));
+    return segs;
+  }
+  function setSpeaker(who, aligned, animate){
     dialog.classList.remove("swap");
+    nameplate.hidden = false; dialogTag.hidden = false;
     nameplate.className = "nameplate " + who;
     nameplate.textContent = who === "h" ? "Adriano" : "Epicteto";
-    dialogEs.textContent = spanish;
+    var segs = renderAligned(aligned);
     dialog.scrollTop = 0;
     if (animate){ void dialog.offsetWidth; dialog.classList.add("swap"); }
+    return segs;
   }
 
   function buildAnswer(i, animate){
     var p = PAIRS[i];
     bubbleE.classList.add("shown");
-    setSpeaker("e", p.aEs, animate);
+    var segs = setSpeaker("e", p.aAl, animate);
     current.a = buildPhrase({
+      segEls: segs,
       slotsHost: slotsE, bankHost: bank, msgEl: msgEl, latin: p.a, decoys: p.aDecoys, paso: pasoA(i),
       esp: p.aEs, speaker: "e",
       onDone: function(res){ closePair(i, res); }
@@ -599,8 +641,9 @@
     slotsE.innerHTML = "";
     btnNext.hidden = true;
     pairProgress.textContent = (i + 1) + " / " + N;
-    setSpeaker("h", p.qEs, i > 0);
+    var segs = setSpeaker("h", p.qAl, i > 0);
     current.q = buildPhrase({
+      segEls: segs,
       slotsHost: slotsH, bankHost: bank, msgEl: msgEl, latin: p.q, decoys: p.qDecoys, paso: pasoQ(i),
       esp: p.qEs, speaker: "h",
       onDone: function(){ buildAnswer(i, true); }
@@ -610,6 +653,12 @@
   function closePair(i, res){
     current.closed = true;
     bank.hidden = true;
+    // Placa final: solo pregunta y respuesta en castellano (el latín queda en los globos).
+    nameplate.hidden = true; dialogTag.hidden = true;
+    dialogEs.innerHTML = "";
+    [PAIRS[i].qEs, PAIRS[i].aEs].forEach(function(t){
+      var l = document.createElement("span"); l.className = "line"; l.textContent = t; dialogEs.appendChild(l);
+    });
     if (res.ok){
       msgEl.textContent = res.errors === 0 ? "¡Par completo, sin errores!" : "¡Par completo!";
       msgEl.className = "msg ok";
