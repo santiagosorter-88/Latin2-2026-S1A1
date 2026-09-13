@@ -246,6 +246,7 @@
   /* Extras fuera de programa: carrusel horizontal. La imagen interactiva es la primera tarjeta (fija);
      el resto sale de las filas con Tipo = "Extra" de la planilla (Título, Link, Estado = etiqueta). */
   .extras{ margin:1.5rem 0; }
+  .extras-head{ text-align:center; margin:0; }
   .extras-label{
     display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
     color:var(--ink-muted); background:var(--surface); padding:.2rem .7rem; border-radius:var(--radius-chip); margin:0 0 .6rem;
@@ -336,7 +337,7 @@
     <a class="frases-analizadas-btn" href="https://docs.google.com/document/d/1yZOhLKEOeZXfyn4YrsZiLxr3gfg4dh7LAGxhm6UGJco/edit?usp=sharing" target="_blank" rel="noopener">Frases analizadas y traducidas</a>
 
     <section class="extras" id="extras" hidden>
-      <p class="extras-label">Extra · fuera de programa</p>
+      <p class="extras-head"><span class="extras-label">Ludenda</span></p>
       <div class="extras-track" id="extras-track"></div>
       <div id="extras-panel"></div>
     </section>
@@ -624,8 +625,12 @@ function renderExtras(extras){
   var section = document.getElementById("extras");
   var track = document.getElementById("extras-track");
   var panel = document.getElementById("extras-panel");
-  var html = iiPick ? renderImagenInteractivaCard(iiPick) : "";
-  extras.forEach(function(x){
+  // Orden: primero lo marcado como novedad en Estado, después el resto de los extras (orden de la planilla)
+  // y al final la imagen aleatoria.
+  function esNovedad(x){ return /novedad/i.test(x.Estado || ""); }
+  var ordenados = extras.filter(esNovedad).concat(extras.filter(function(x){ return !esNovedad(x); }));
+  var html = "";
+  ordenados.forEach(function(x){
     var thumb = extraThumb(x.Link);
     html += '<a class="extra-card" href="' + escapeHtml(x.Link) + '" target="_blank" rel="noopener">' +
       (thumb
@@ -634,6 +639,7 @@ function renderExtras(extras){
       '<span class="extra-card__body"><span class="extra-card__title">' + escapeHtml(x["Título"]) + '</span>' +
       (x.Estado ? '<span class="badge badge-opt">' + escapeHtml(x.Estado) + '</span>' : '') + '</span></a>';
   });
+  if (iiPick) html += renderImagenInteractivaCard(iiPick);
   if (!html) return;
   track.innerHTML = html;
   panel.innerHTML = iiPick ? renderImagenInteractivaPanel(iiPick) : "";
