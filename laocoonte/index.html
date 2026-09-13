@@ -754,7 +754,24 @@
     });
     recap.hidden = false;
   }
+  // Pantalla completa en celulares (Android/Chrome): la pantalla de juego no scrollea, así que el
+  // navegador nunca achica sus barras. Se pide al tocar "Comenzar" (requiere un gesto del usuario).
+  // En iPhone no existe esta función para páginas: no hace nada.
+  function enterFullscreen(){
+    if (!window.matchMedia || !window.matchMedia("(pointer: coarse)").matches) return;
+    var el = document.documentElement;
+    var fn = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (!fn) return;
+    try { var p = fn.call(el, { navigationUI: "hide" }); if (p && p.catch) p.catch(function(){}); } catch(e){}
+  }
+  function exitFullscreen(){
+    if (!(document.fullscreenElement || document.webkitFullscreenElement)) return;
+    var fn = document.exitFullscreen || document.webkitExitFullscreen;
+    try { var p = fn.call(document); if (p && p.catch) p.catch(function(){}); } catch(e){}
+  }
+
   function goFinal(){
+    exitFullscreen();
     game.hidden = true; intro.hidden = true;
     document.body.classList.remove("playing");
     finalEl.hidden = false;
@@ -801,6 +818,7 @@
     }
     if (startAt >= TOTAL){ goFinal(); return; }
     intro.hidden = true; game.hidden = false;
+    enterFullscreen();
     document.body.classList.add("playing");
     goStep(startAt);
   });
