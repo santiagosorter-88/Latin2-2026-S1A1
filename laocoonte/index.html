@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Latín · Mors Laocoontis</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    /* Pantalla de juego: paleta fija en los dos temas. */
+    --g-dark:#17130d; --g-darker:#0d0b07; --g-gold:#c9a23a; --g-text:#f3ead3; --g-muted:#cfc3a6;
+    --g-red:#b3262b; --g-green:#4a7a35;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  body.playing{ overflow:hidden; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:760px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+  .eyebrow{ font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .8rem; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:60ch; margin:0 0 1.25rem; }
+
+  /* ================= portada ================= */
+  .intro-img{ display:block; width:100%; margin:0 auto 1.4rem; border-radius:6px; border:1px solid var(--rule); box-shadow:var(--shadow); }
+  .howto{ margin:0 0 1.75rem; padding-left:1.2rem; font-size:.95rem; }
+  .howto li{ margin-bottom:.45rem; }
+  .howto-note{ color:var(--ink-muted); font-size:.85rem; margin:-1rem 0 1.75rem; }
+  .rotate-note{ display:none; color:var(--g-muted); font-size:.78rem; margin:.35rem 0 0; }
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+
+  /* Revisión de zonas (?zonas en la URL): solo para el docente. */
+  .review{ position:relative; margin:0 0 1.75rem; }
+  .review img{ display:block; width:100%; border-radius:6px; }
+  .review .zone{ border:2px solid #ff2d55; background:rgba(255,45,85,.12); }
+  .review .zone-label{ position:absolute; left:0; top:0; font-size:11px; font-weight:700; background:#ff2d55; color:#fff; padding:0 .3em; white-space:nowrap; }
+
+  /* ================= pantalla de juego (fija, sin scroll) ================= */
+  .game{ position:fixed; inset:0; z-index:10; display:flex; flex-direction:column; background:var(--g-darker); color:var(--g-text); }
+  .hud{ flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:.6rem; padding:calc(.4rem + env(safe-area-inset-top)) .8rem .4rem; background:var(--g-dark); border-bottom:3px solid var(--g-gold); font-size:.8rem; }
+  .hud-title{ font-family:var(--serif); font-style:italic; font-size:.95rem; }
+  .hud-progress{ font-weight:700; font-variant-numeric:tabular-nums; color:var(--g-gold); letter-spacing:.06em; }
+  .hud-tired{ background:transparent; color:var(--g-muted); border:1px solid #6e6450; border-radius:999px; padding:.22rem .75rem; font-size:.75rem; font-weight:600; }
+  .hud-tired:hover{ color:var(--g-text); border-color:var(--g-gold); }
+  .hud-zoom{ background:transparent; color:var(--g-muted); border:1px solid #6e6450; border-radius:999px; padding:.22rem .75rem; font-size:.75rem; font-weight:600; }
+  .hud-zoom:hover{ color:var(--g-text); border-color:var(--g-gold); }
+
+  .scene-wrap{ flex:1 1 auto; min-height:0; display:flex; align-items:center; justify-content:center; overflow:hidden; container-type:size; }
+  /* La miniatura es muy apaisada: el globo va en una franja propia ARRIBA de la imagen
+     (encima taparía la escena) con la cola apuntando a la zona. En la Parte 1 no hay franja. */
+  .stage{ --band:5.6rem; position:relative; width:100%; width:min(100cqw, calc((100cqh - var(--band)) * 1800 / 851)); }
+  .stage.no-band{ --band:0rem; }
+  @media (orientation:portrait){
+    .hud{ flex-wrap:wrap; }
+    .hud-title{ flex:1 1 auto; }
+    .scene-wrap{ align-items:flex-start; overflow:auto; padding-top:.6rem; }
+    .stage{ width:145%; max-width:none; flex:0 0 auto; }
+    .stage.zoomed{ width:220%; }
+    .rotate-note{ display:block; }
+  }
+  @media (orientation:landscape){
+    .scene-wrap{ padding:0 .5rem; }
+    .stage{ max-height:100%; }
+  }
+  .stage.no-band .band{ display:none; }
+  .band{ position:relative; height:var(--band); }
+  .scene{ position:relative; width:100%; aspect-ratio:1800/851; background:url("img/escena.jpg") center / cover no-repeat; -webkit-tap-highlight-color:transparent; }
+  .scene.tappable{ cursor:crosshair; }
+
+  .zone{ position:absolute; border-radius:6px; pointer-events:none; }
+  .zone.ok{ border:3px solid #7ee05a; background:rgba(126,224,90,.18); animation:fill .25s ease-out; }
+  .zone.reveal{ border:3px solid #ffd24a; background:rgba(255,210,74,.2); animation:fill .25s ease-out; }
+  .zone.hint{ border:2.5px dashed #fffdf6; box-shadow:0 0 0 2px rgba(0,0,0,.55); }
+  .mark{ position:absolute; width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%; pointer-events:none;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; line-height:1; animation:fill .2s ease-out; }
+  .mark.bad{ background:#b5502e; color:#fff; border:2px solid #fff; }
+  .mark.ok{ background:#3f6b28; color:#fff; border:2px solid #fff; }
+
+  .bubble{ position:absolute; bottom:12px; left:6px; max-width:calc(100% - 12px); z-index:2;
+    background:#fffdf6; color:#15110b; border:2.5px solid #15110b; border-radius:14px;
+    padding:.3em .5em .4em; box-shadow:3px 4px 0 rgba(0,0,0,.5); font-size:clamp(14px, 3cqw, 22px); }
+  .bubble.pop{ animation:pop .3s cubic-bezier(.2,.9,.3,1.25) both; }
+  @keyframes pop{ from{ opacity:0; transform:translateY(10px) scale(.8); } to{ opacity:1; transform:none; } }
+  .bubble .tail{ position:absolute; bottom:-10px; left:20px; width:16px; height:16px; background:#fffdf6;
+    border-right:2.5px solid #15110b; border-bottom:2.5px solid #15110b; transform:rotate(45deg); }
+
+  .slots{ display:flex; flex-wrap:wrap; justify-content:center; gap:.15em .3em; align-items:flex-end; }
+  .slot-wrap{ display:inline-flex; align-items:flex-end; }
+  .slot{ display:inline-flex; justify-content:center; min-width:2.6em; padding:0 .15em; font-family:var(--serif); line-height:1.35; min-height:1.4em; border-bottom:2px dashed #9a8f78; color:#15110b; }
+  .slot.current{ border-bottom:2px solid #1e4dc7; }
+  .slot.ok{ border-bottom:2px solid #3f6b28; animation:fill .2s ease-out; }
+  .slot.revealed{ border-bottom:2px solid #93701c; background:#f5e3a8; border-radius:3px 3px 0 0; animation:fill .2s ease-out; }
+  @keyframes fill{ from{ transform:scale(.7); opacity:.2; } to{ transform:none; opacity:1; } }
+  .punct{ font-family:var(--serif); line-height:1.35; }
+
+  .dialog{ flex:0 0 auto; max-height:52%; overflow-y:auto; background:var(--g-dark); border-top:3px solid var(--g-gold); padding:.75rem 1rem calc(.85rem + env(safe-area-inset-bottom)); }
+  .dialog-inner{ max-width:640px; margin:0 auto; }
+  .dialog.swap .dialog-inner{ animation:swap .26s ease-out both; }
+  @keyframes swap{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+  .nameplate{ display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#fff; padding:.2rem .7rem; border-radius:5px; background:var(--g-red); margin:0 .35rem .35rem 0; }
+  .nameplate.p2{ background:var(--g-green); }
+  .dialog-tag{ display:inline-block; font-size:.68rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--g-dark); background:var(--g-gold); padding:.2rem .6rem; border-radius:4px; margin-bottom:.5rem; }
+  .dialog-la{ font-family:var(--serif); font-style:italic; font-size:1.45rem; line-height:1.35; margin:0 0 .5rem; color:#fff; }
+  .dialog-es{ font-family:var(--serif); font-size:1.2rem; line-height:1.42; margin:0 0 .8rem; color:#fff; background:rgba(201,162,58,.12); border-left:3px solid var(--g-gold); padding:.55rem .8rem; border-radius:0 8px 8px 0; }
+  .dialog-es.small{ font-size:1rem; color:var(--g-muted); }
+  .dialog-es .seg{ border-radius:3px; transition:background .15s ease, color .15s ease; }
+  .dialog-es .seg.on{ background:var(--g-gold); color:var(--g-dark); padding:0 .12em; -webkit-box-decoration-break:clone; box-decoration-break:clone; }
+  .dialog-es .seg.done{ color:var(--g-muted); }
+  .dialog-text{ font-size:.95rem; line-height:1.5; margin:0 0 .6rem; color:var(--g-text); }
+
+  .bank{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .wchip{ font-family:var(--serif); font-size:1.05rem; line-height:1.2; background:var(--g-text); color:var(--g-dark); border:2px solid var(--g-text); border-radius:8px; padding:.38rem .8rem; box-shadow:0 3px 0 #8a7a55; touch-action:manipulation; -webkit-user-select:none; user-select:none; transition:background .12s ease, opacity .12s ease; }
+  .wchip:active{ transform:translateY(2px); box-shadow:0 1px 0 #8a7a55; }
+  .wchip:focus-visible{ outline:2px solid var(--g-gold); outline-offset:2px; }
+  .wchip.used{ background:transparent; color:#6e6450; border:2px dashed #4a4130; box-shadow:none; cursor:default; }
+  .wchip.bad{ background:#5a2219; color:#ffb4a3; border-color:#e0735c; box-shadow:none; cursor:default; }
+  .wchip.flash{ animation:shake .3s ease; background:#5a2219; color:#ffb4a3; border-color:#e0735c; }
+  @keyframes shake{ 0%,100%{ transform:none; } 25%{ transform:translateX(-4px); } 75%{ transform:translateX(4px); } }
+
+  .msg-row{ display:flex; align-items:center; justify-content:space-between; gap:.8rem; margin-top:.6rem; min-height:1.6rem; flex-wrap:wrap; }
+  .msg{ font-size:.88rem; font-weight:600; margin:0; color:var(--g-muted); }
+  .msg strong{ color:#fff; }
+  .msg.bad{ color:#ff9f8a; } .msg.warn{ color:#f0cf6a; } .msg.ok{ color:#a9d98a; }
+  .msg.note{ color:var(--g-muted); font-weight:500; font-style:italic; }
+  .btn-next{ margin-left:auto; border:none; border-radius:8px; padding:.55rem 1.1rem; font-size:.92rem; font-weight:700; background:var(--g-gold); color:var(--g-dark); box-shadow:0 3px 0 #7c6320; }
+  .btn-next:active{ transform:translateY(2px); box-shadow:0 1px 0 #7c6320; }
+
+  /* ================= cierre ================= */
+  .recap{ margin-bottom:2rem; }
+  .recap-title{ font-family:var(--serif); font-weight:400; font-size:1.35rem; margin:0 0 .3rem; }
+  .recap-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7rem; }
+  .recap-item{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:.85rem 1rem; box-shadow:var(--shadow); }
+  .recap-lat{ font-family:var(--serif); font-style:italic; font-size:1.05rem; margin:0 0 .2rem; color:var(--ink); }
+  .recap-es{ font-family:var(--serif); font-size:.95rem; margin:0; color:var(--ink-muted); }
+  .recap-help{ font-style:normal; font-family:var(--sans); font-size:.68rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--warn); background:var(--warn-bg); padding:.08rem .4rem; border-radius:4px; margin-left:.4rem; }
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.25rem; box-shadow:var(--shadow); }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:62ch; margin:0 0 1.2rem; }
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); }
+  .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+</style>
+</head>
+<body>
+
+<!-- ===== Portada ===== -->
+<div class="wrap" id="intro">
+  <p class="eyebrow">Latín · Imagen y frases</p>
+  <h1>Mors Laocoontis</h1>
+  <p class="lede">Laocoonte, sacerdote troyano, desconfía del caballo que dejaron los griegos. Desde el mar llegan dos serpientes. Primero vas a localizar en la imagen lo que dicen las frases; después, vas a reconstruirlas en latín.</p>
+  <img class="intro-img" src="img/escena.jpg" alt="Miniatura: a la izquierda, dos serpientes salen del mar junto a la isla de Ténedos; en el centro, Laocoonte junto al altar y su hijo atrapado por una serpiente, otro muchacho tendido en el suelo; troyanos que huyen y gente en las murallas; a la derecha, el caballo." />
+  <p class="rotate-note">Girá el celular para ver la escena más grande.</p>
+  <div class="review" id="review" hidden></div>
+  <p class="howto-note">Imagen: Virgilio, <em>Opera</em>. Biblioteca Riccardiana, Ricc. 492, Florencia, ca. 1450-1460.</p>
+
+  <section class="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<!-- ===== Juego ===== -->
+<div class="game" id="game" hidden>
+  <header class="hud">
+    <span class="hud-title">Mors Laocoontis</span>
+    <span class="hud-progress" id="hud-progress">—</span>
+    <button type="button" class="hud-zoom" id="btn-zoom">Ampliar imagen</button>
+    <button type="button" class="hud-tired" id="btn-cansado">Me cansé</button>
+  </header>
+
+  <div class="scene-wrap">
+    <div class="stage no-band" id="stage">
+      <div class="band">
+        <div class="bubble" id="bubble" hidden aria-live="polite"><div class="slots" id="slots"></div><span class="tail" id="tail"></span></div>
+      </div>
+      <div class="scene" id="scene" role="img" aria-label="Miniatura de la muerte de Laocoonte."></div>
+    </div>
+  </div>
+
+  <section class="dialog" id="dialog">
+    <div class="dialog-inner">
+      <span class="nameplate" id="nameplate">Parte 1</span><span class="dialog-tag" id="dialog-tag">Tocá en la imagen</span>
+      <p class="dialog-text" id="dialog-text" hidden></p>
+      <p class="dialog-la" id="dialog-la" hidden></p>
+      <p class="dialog-es" id="dialog-es" hidden></p>
+      <div class="bank" id="bank" hidden></div>
+      <div class="msg-row">
+        <p class="msg" id="msg"></p>
+        <button type="button" class="btn-next" id="btn-next" hidden>Siguiente →</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== Cierre ===== -->
+<div class="wrap" id="final" hidden>
+  <section class="recap" id="recap" hidden>
+    <h2 class="recap-title">Repaso de las frases</h2>
+    <p class="step-instructions">Las frases que armaste, con su traducción. Podés releerlas antes de responder abajo.</p>
+    <ol class="recap-list" id="recap-list"></ol>
+  </section>
+
+  <p class="eyebrow">Cierre</p>
+  <h2>¿Cómo te resultó la actividad?</h2>
+  <div class="exercise">
+    <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+    <div class="diff-group">
+      <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+      <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+      <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+      <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+    </div>
+    <div class="field">
+      <label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label>
+      <input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required />
+    </div>
+    <div class="field" style="margin-top:1rem;">
+      <label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label>
+      <input id="in-suggestion" type="text" placeholder="completá la idea" required />
+    </div>
+  </div>
+  <div class="submit-bar">
+    <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+    <span class="status" id="status"></span>
+  </div>
+  <p class="score-summary" id="score-summary" hidden></p>
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Backend compartido de esta cátedra (Apps Script) — no tocar salvo que Santiago lo pida.
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  // Zonas de la miniatura, en % de la imagen: [x, y, ancho, alto]. Revisarlas con ?zonas en la URL.
+  var ZONES = /*__ZONES__*/{
+    "serpientes": [[11, 52, 17, 37]],
+    "tenedos":    [[2.5, 44, 11.5, 38]],
+    "laocoonte":  [[49, 13, 16, 68]],
+    "altar":      [[64, 46, 12, 39]],
+    "hijo":       [[32.5, 30, 18, 46]],
+    "suelo":      [[30, 71, 25.5, 25]],
+    "huyen":      [[11, 12, 22, 38], [33, 12, 9, 22]],
+    "murallas":   [[44, 2, 28, 13]],
+    "caballo":    [[68, 13, 10, 18], [77, 5, 19, 42]]
+  }/*__END__*/;
+
+  // Frases. "zones": dónde vale tocar en la Parte 1 (vacío = no entra en la Parte 1).
+  // "hint": zona que señala el globo en la Parte 2 (null = la escena entera). "al": traducción alineada.
+  var PHRASES = /*__DATA__*/[
+    {"id":"insula",  "latin":"Insula in mari est.", "es":"Hay una isla en el mar.", "zones":["tenedos"], "hint":"tenedos",
+     "decoys":["insulam","mare","sunt"], "al":"{3:Hay} {0:una isla} {1:en} {2:el mar}."},
+    {"id":"equus",   "latin":"Magnus equus in oppido est.", "es":"Hay un caballo grande en la ciudad.", "zones":["caballo"], "hint":"caballo",
+     "decoys":["magnum","equum","sunt"], "al":"{4:Hay} {1:un caballo} {0:grande} {2:en} {3:la ciudad}."},
+    {"id":"ara",     "latin":"Laocoon ad aram est.", "es":"Laocoonte está junto al altar.", "zones":["laocoonte","altar"], "hint":"altar",
+     "decoys":["ara","sunt","in"], "al":"{0:Laocoonte} {3:está} {1:junto al} {2:altar}."},
+    {"id":"clamat",  "latin":"Laocoon clamat: «Timeo Danaos!»", "es":"Laocoonte grita: «¡Temo a los dánaos!»", "zones":["laocoonte"], "hint":"laocoonte",
+     "decoys":["clamant","timet","Danai"], "al":"{0:Laocoonte} {1:grita}: «{2:¡Temo} {3:a los dánaos}!»"},
+    {"id":"monstra", "latin":"Duo monstra ex mari veniunt.", "es":"Dos monstruos salen del mar.", "zones":["serpientes"], "hint":"serpientes",
+     "decoys":["monstrum","venit","mare"], "al":"{0:Dos} {1:monstruos} {4:salen} {2,3:del mar}."},
+    {"id":"fugiunt", "latin":"Troiani timent et fugiunt.", "es":"Los troyanos temen y huyen.", "zones":["huyen"], "hint":"huyen",
+     "decoys":["Troianos","timet","fugit"], "al":"{0:Los troyanos} {1:temen} {2:y} {3:huyen}."},
+    {"id":"vident",  "latin":"Viri ex oppido monstra vident.", "es":"Unos hombres ven los monstruos desde la ciudad.", "zones":["murallas"], "hint":"murallas",
+     "decoys":["vir","oppidum","videt"], "al":"{0:Unos hombres} {4:ven} {3:los monstruos} {1:desde} {2:la ciudad}."},
+    {"id":"filium",  "latin":"Monstrum filium eius tenet.", "es":"Un monstruo sujeta a su hijo.", "zones":["hijo"], "hint":"hijo",
+     "decoys":["monstra","filius","tenent"], "al":"{0:Un monstruo} {3:sujeta} a {2:su} {1:hijo}."},
+    {"id":"puer",    "latin":"Puer in terra iacet.", "es":"Un muchacho yace en el suelo.", "zones":["suelo"], "hint":"suelo",
+     "decoys":["pueri","terram","iacent"], "al":"{0:Un muchacho} {3:yace} {1:en} {2:el suelo}."},
+    {"id":"occidunt","latin":"Monstra eum cum filiis occidunt.", "es":"Los monstruos lo matan junto con sus hijos.", "zones":[], "hint":null,
+     "decoys":["monstrum","filios","occidit"], "al":"{0:Los monstruos} {1:lo} {4:matan} {2:junto con} {3:sus hijos}."}
+  ]/*__END__*/;
+
+  // Parte 1: orden mezclado a mano (fijo, para que retomar progreso funcione); Laocoonte no seguido.
+  var P1_ORDER = ["equus","monstra","filium","fugiunt","ara","puer","vident","insula","clamat"];
+  // Parte 2: orden narrativo (el de PHRASES).
+  var P2_ORDER = PHRASES.map(function(p){ return p.id; });
+
+  var BY_ID = {}; PHRASES.forEach(function(p){ BY_ID[p.id] = p; });
+  var N1 = P1_ORDER.length, N2 = P2_ORDER.length, TOTAL = N1 + N2;
+  var PASO1 = "Parte 1 - Ubicar en la imagen", PASO2 = "Parte 2 - Armar la frase";
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+  // Separa comillas/puntuación iniciales y finales de cada palabra.
+  function tokenize(s){
+    return s.trim().split(/\s+/).map(function(w){
+      var m = w.match(/^([«"(]*)(.*?)([,.;:?!»")]*)$/);
+      return { pre:m[1], word:m[2], punct:m[3] };
+    });
+  }
+  function zoneRects(ids){
+    var out = [];
+    ids.forEach(function(id){ (ZONES[id] || []).forEach(function(r){ out.push(r); }); });
+    return out;
+  }
+  function drawZones(host, ids, cls){
+    zoneRects(ids).forEach(function(r){
+      var d = document.createElement("div");
+      d.className = "zone " + cls;
+      d.style.left = r[0] + "%"; d.style.top = r[1] + "%"; d.style.width = r[2] + "%"; d.style.height = r[3] + "%";
+      host.appendChild(d);
+    });
+  }
+  function zoneCenterX(ids){
+    var rs = zoneRects(ids);
+    if (!rs.length) return 50;
+    var x0 = Math.min.apply(null, rs.map(function(r){ return r[0]; }));
+    var x1 = Math.max.apply(null, rs.map(function(r){ return r[0] + r[2]; }));
+    return (x0 + x1) / 2;
+  }
+  function zoneDirection(ids){
+    var x = zoneCenterX(ids);
+    if (x < 35) return "Buscá hacia la izquierda de la imagen.";
+    if (x > 65) return "Buscá hacia la derecha de la imagen.";
+    return "Buscá en la zona central de la imagen.";
+  }
+
+  var identity = { email:"" };
+  var submitLog = [];
+
+  // ---------- retomar progreso (granularidad: ítem resuelto; step = cantidad de ítems cerrados) ----------
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(step){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: step, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  // ---------- elementos ----------
+  var intro = document.getElementById("intro");
+  var game = document.getElementById("game");
+  var finalEl = document.getElementById("final");
+  var stage = document.getElementById("stage");
+  var scene = document.getElementById("scene");
+  var bubble = document.getElementById("bubble");
+  var tail = document.getElementById("tail");
+  var slotsEl = document.getElementById("slots");
+  var dialog = document.getElementById("dialog");
+  var nameplate = document.getElementById("nameplate");
+  var dialogTag = document.getElementById("dialog-tag");
+  var dialogText = document.getElementById("dialog-text");
+  var dialogLa = document.getElementById("dialog-la");
+  var dialogEs = document.getElementById("dialog-es");
+  var bank = document.getElementById("bank");
+  var msgEl = document.getElementById("msg");
+  var btnNext = document.getElementById("btn-next");
+  var hudProgress = document.getElementById("hud-progress");
+  var btnZoom = document.getElementById("btn-zoom");
+
+  btnZoom.addEventListener("click", function(){
+    var zoomed = stage.classList.toggle("zoomed");
+    btnZoom.textContent = zoomed ? "Reducir imagen" : "Ampliar imagen";
+  });
+
+  // step: 0..N1-1 Parte 1 · N1 interludio · N1..TOTAL-1 Parte 2 · TOTAL cierre
+  var current = { step: -1, closed: false, phrase: null, anchor: 50 };
+
+  function clearScene(){ scene.innerHTML = ""; scene.classList.remove("tappable"); scene.onclick = null; }
+  function setMsg(text, cls){ msgEl.textContent = text; msgEl.className = "msg" + (cls ? " " + cls : ""); }
+  function resetDialog(animate){
+    dialog.classList.remove("swap");
+    dialogText.hidden = true; dialogLa.hidden = true; dialogEs.hidden = true; bank.hidden = true;
+    dialogEs.className = "dialog-es";
+    nameplate.hidden = false; dialogTag.hidden = false;
+    btnNext.hidden = true;
+    setMsg("");
+    dialog.scrollTop = 0;
+    if (animate){ void dialog.offsetWidth; dialog.classList.add("swap"); }
+  }
+  function showNext(label){
+    btnNext.textContent = label;
+    btnNext.hidden = false;
+    btnNext.focus({ preventScroll: true });
+  }
+
+  // ================= PARTE 1: detective de imágenes =================
+  function startP1(k){
+    var p = BY_ID[P1_ORDER[k]];
+    current = { step: k, closed: false, phrase: null };
+    stage.classList.add("no-band"); bubble.hidden = true;
+    clearScene();
+    resetDialog(k > 0);
+    hudProgress.textContent = "Parte 1 · " + (k + 1) + " / " + N1;
+    nameplate.className = "nameplate"; nameplate.textContent = "Parte 1";
+    dialogTag.textContent = "Tocá en la imagen lo que dice la frase";
+    dialogLa.textContent = p.latin; dialogLa.hidden = false;
+
+    var wrong = 0;
+    scene.classList.add("tappable");
+    scene.onclick = function(ev){
+      if (current.closed) return;
+      var r = scene.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width * 100, y = (ev.clientY - r.top) / r.height * 100;
+      var hit = zoneRects(p.zones).some(function(z){ return x >= z[0] && x <= z[0] + z[2] && y >= z[1] && y <= z[1] + z[3]; });
+      if (hit){
+        drawZones(scene, p.zones, "ok");
+        closeP1(k, p, wrong === 0 ? "primer intento" : "segundo intento", true);
+        setMsg(wrong === 0 ? "¡Exacto!" : "¡Ahora sí!", "ok");
+      } else {
+        wrong++;
+        var m = document.createElement("span");
+        m.className = "mark bad"; m.textContent = "×";
+        m.style.left = x + "%"; m.style.top = y + "%";
+        scene.appendChild(m);
+        if (wrong >= 2){
+          drawZones(scene, p.zones, "reveal");
+          closeP1(k, p, "revelada", false);
+          setMsg("No era ahí. El lugar correcto quedó marcado en amarillo.", "warn");
+        } else {
+          setMsg("No es ahí. " + zoneDirection(p.zones) + " Probá una vez más.", "bad");
+        }
+      }
+    };
+  }
+  function closeP1(k, p, resp, ok){
+    current.closed = true;
+    scene.classList.remove("tappable");
+    dialogEs.textContent = p.es; dialogEs.className = "dialog-es small"; dialogEs.hidden = false;
+    submitLog.push({ paso: PASO1, item: p.latin, respuesta: resp, correcta: ok });
+    saveProgress(k + 1);
+    showNext(k + 1 < N1 ? "Siguiente →" : "Continuar →");
+  }
+
+  // ================= interludio =================
+  function startInterlude(){
+    current = { step: N1, closed: true, phrase: null };
+    stage.classList.add("no-band"); bubble.hidden = true;
+    clearScene();
+    resetDialog(true);
+    hudProgress.textContent = "Parte 2";
+    nameplate.className = "nameplate p2"; nameplate.textContent = "Parte 2";
+    dialogTag.textContent = "Globos";
+    dialogText.textContent = "Ahora al revés: vas a ver cada frase en castellano y armarla en latín con el banco de palabras. El globo señala la parte de la escena de la que habla.";
+    dialogText.hidden = false;
+    showNext("Empezar →");
+  }
+
+  // ================= PARTE 2: globos =================
+  function renderAligned(aligned){
+    dialogEs.innerHTML = "";
+    var segs = [], re = /\{([\d,]+):([^}]*)\}/g, last = 0, m;
+    while ((m = re.exec(aligned))){
+      if (m.index > last) dialogEs.appendChild(document.createTextNode(aligned.slice(last, m.index)));
+      var sp = document.createElement("span");
+      sp.className = "seg"; sp.textContent = m[2];
+      sp._ids = m[1].split(",").map(Number);
+      dialogEs.appendChild(sp); segs.push(sp);
+      last = re.lastIndex;
+    }
+    if (last < aligned.length) dialogEs.appendChild(document.createTextNode(aligned.slice(last)));
+    return segs;
+  }
+
+  // Globo en la franja superior, centrado sobre la zona y dentro del ancho de la escena.
+  function placeBubble(){
+    if (bubble.hidden) return;
+    var sw = stage.clientWidth;
+    bubble.style.left = "6px";
+    var bw = bubble.offsetWidth;
+    var ax = sw * current.anchor / 100;
+    var left = Math.max(6, Math.min(sw - bw - 6, ax - bw / 2));
+    bubble.style.left = left + "px";
+    tail.style.left = Math.max(12, Math.min(bw - 28, ax - left - 8)) + "px";
+  }
+  window.addEventListener("resize", placeBubble);
+
+  // Orden estricto. Por espacio: primer error marca la palabra; segundo revela la que iba (convención 1).
+  // Palabra correcta pero de más adelante: aviso sin error. Correcta = completada sin palabras reveladas.
+  function buildPhrase(cfg){
+    var toks = tokenize(cfg.latin);
+    var remaining = toks.map(function(_, i){ return i; });
+    var pos = 0, wrongHere = 0, errors = 0, revealed = [], done = false;
+
+    slotsEl.innerHTML = ""; bank.innerHTML = ""; bank.hidden = false; setMsg("");
+
+    var slots = toks.map(function(t){
+      var w = document.createElement("span"); w.className = "slot-wrap";
+      if (t.pre){ var q = document.createElement("span"); q.className = "punct"; q.textContent = t.pre; w.appendChild(q); }
+      var s = document.createElement("span"); s.className = "slot"; s.innerHTML = "&nbsp;";
+      w.appendChild(s);
+      if (t.punct){ var p = document.createElement("span"); p.className = "punct"; p.textContent = t.punct; w.appendChild(p); }
+      slotsEl.appendChild(w);
+      return s;
+    });
+
+    var chips = shuffled(toks.map(function(t){ return t.word; }).concat(cfg.decoys)).map(function(word){
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "wchip"; b.textContent = word;
+      b.addEventListener("click", function(){ onTap(b); });
+      bank.appendChild(b);
+      return b;
+    });
+
+    function markCurrent(){
+      slots.forEach(function(s, i){ s.classList.toggle("current", !done && i === pos); });
+      var active = done ? [] : [remaining[0]];
+      var hasSeg = false;
+      cfg.segEls.forEach(function(el){
+        var on = el._ids.some(function(i){ return active.indexOf(i) !== -1; });
+        if (on) hasSeg = true;
+        el.classList.toggle("on", on);
+        el.classList.toggle("done", el._ids.every(function(i){ return remaining.indexOf(i) === -1; }));
+      });
+      if (!done && !hasSeg && !msgEl.textContent) setMsg("Esta palabra no tiene un equivalente directo en la traducción.", "note");
+      placeBubble();
+    }
+    function fill(word, cls){ slots[pos].textContent = word; slots[pos].classList.add(cls); pos++; wrongHere = 0; }
+    function useChip(word){
+      for (var i = 0; i < chips.length; i++){
+        var c = chips[i];
+        if (!c.disabled && c.textContent === word){ c.disabled = true; c.classList.add("used"); return; }
+      }
+    }
+    function stillNeeded(word){ return remaining.some(function(i){ return toks[i].word === word; }); }
+
+    function onTap(chip){
+      if (done || chip.disabled) return;
+      var word = chip.textContent;
+      if (toks[remaining[0]].word === word){
+        remaining.shift();
+        chip.disabled = true; chip.classList.add("used");
+        fill(word, "ok");
+        setMsg("");
+      } else if (stillNeeded(word)){
+        chip.classList.remove("flash"); void chip.offsetWidth; chip.classList.add("flash");
+        setTimeout(function(){ chip.classList.remove("flash"); }, 350);
+        setMsg("Esa palabra sí va, pero más adelante. ¿Qué va primero?", "warn");
+      } else {
+        errors++; wrongHere++;
+        chip.disabled = true; chip.classList.add("bad");
+        if (wrongHere >= 2){
+          var target = toks[remaining.shift()].word;
+          useChip(target); revealed.push(target); fill(target, "revealed");
+          msgEl.innerHTML = ""; msgEl.className = "msg warn";
+          msgEl.appendChild(document.createTextNode("La palabra que iba ahí es: "));
+          var bb = document.createElement("strong"); bb.textContent = target; msgEl.appendChild(bb);
+        } else {
+          setMsg("Esa palabra no va en esta frase. Probá otra.", "bad");
+        }
+      }
+      if (pos === toks.length) finish(false);
+      else markCurrent();
+    }
+
+    function finish(tired){
+      done = true;
+      markCurrent();
+      var ok = !tired && revealed.length === 0;
+      var resp;
+      if (tired) resp = "revelada (me cansé)" + (errors ? " — " + errors + (errors === 1 ? " error" : " errores") + " antes" : "");
+      else if (errors === 0) resp = "sin errores";
+      else resp = errors + (errors === 1 ? " error" : " errores") + (revealed.length ? "; reveladas: " + revealed.join(", ") : "");
+      var built = toks.map(function(t, i){ return t.pre + slots[i].textContent + t.punct; }).join(" ");
+      submitLog.push({ paso: PASO2, item: cfg.latin, respuesta: resp + " [" + built + "]", correcta: ok, esp: cfg.esp, latin: built });
+      if (!tired && cfg.onDone) cfg.onDone({ ok: ok, errors: errors });
+    }
+    function forceReveal(){
+      if (done) return;
+      while (remaining.length){
+        var target = toks[remaining.shift()].word;
+        useChip(target);
+        slots[pos].textContent = target; slots[pos].classList.add("revealed"); pos++;
+      }
+      finish(true);
+    }
+
+    markCurrent();
+    return { forceReveal: forceReveal, isDone: function(){ return done; } };
+  }
+
+  function startP2(j){
+    var p = BY_ID[P2_ORDER[j]];
+    current = { step: N1 + j, closed: false, phrase: null, anchor: p.hint ? zoneCenterX([p.hint]) : 50 };
+    stage.classList.remove("no-band");
+    clearScene();
+    if (p.hint) drawZones(scene, [p.hint], "hint");
+    resetDialog(true);
+    hudProgress.textContent = "Parte 2 · " + (j + 1) + " / " + N2;
+    nameplate.className = "nameplate p2"; nameplate.textContent = "Parte 2";
+    dialogTag.textContent = "Armá la frase en latín";
+    dialogEs.hidden = false;
+    var segs = renderAligned(p.al);
+    bubble.hidden = false;
+    bubble.classList.remove("pop"); void bubble.offsetWidth; bubble.classList.add("pop");
+    current.phrase = buildPhrase({
+      segEls: segs, latin: p.latin, decoys: p.decoys, esp: p.es,
+      onDone: function(res){ closeP2(j, p, res); }
+    });
+    placeBubble();
+  }
+  function closeP2(j, p, res){
+    current.closed = true;
+    bank.hidden = true;
+    dialogTag.hidden = true;
+    dialogEs.textContent = p.es;
+    if (res.ok) setMsg(res.errors === 0 ? "¡Frase completa, sin errores!" : "¡Frase completa!", "ok");
+    else setMsg("Frase completa, con ayuda.", "warn");
+    saveProgress(N1 + j + 1);
+    showNext(j + 1 < N2 ? "Siguiente →" : "Terminar →");
+  }
+
+  function goStep(step){
+    if (step < N1) startP1(step);
+    else if (step === N1 && !submitLog.some(function(e){ return e.paso === PASO2; })) startInterlude();
+    else if (step < TOTAL) startP2(Math.max(0, step - N1));
+    else goFinal();
+  }
+  btnNext.addEventListener("click", function(){
+    var s = current.step;
+    if (s < N1 - 1) startP1(s + 1);
+    else if (s === N1 - 1) startInterlude();
+    else if (s === N1 && current.phrase === null && bubble.hidden) startP2(0);
+    else if (s - N1 + 1 < N2) startP2(s - N1 + 1);
+    else goFinal();
+  });
+
+  // ---------- repaso en el cierre ----------
+  function buildRecap(){
+    var recap = document.getElementById("recap");
+    var list = document.getElementById("recap-list");
+    var rows = submitLog.filter(function(e){ return e.paso === PASO2; });
+    if (!rows.length){ recap.hidden = true; return; }
+    list.innerHTML = "";
+    rows.forEach(function(e){
+      var li = document.createElement("li"); li.className = "recap-item";
+      var lat = document.createElement("p"); lat.className = "recap-lat"; lat.textContent = e.latin || e.item;
+      if (e.correcta === false){ var h = document.createElement("span"); h.className = "recap-help"; h.textContent = "con ayuda"; lat.appendChild(h); }
+      var es = document.createElement("p"); es.className = "recap-es"; es.textContent = e.esp;
+      li.appendChild(lat); li.appendChild(es); list.appendChild(li);
+    });
+    recap.hidden = false;
+  }
+  function goFinal(){
+    game.hidden = true; intro.hidden = true;
+    document.body.classList.remove("playing");
+    finalEl.hidden = false;
+    buildRecap();
+    window.scrollTo(0, 0);
+  }
+
+  // "Me cansé" (convención 9): completa lo pendiente de las dos partes y pasa al cierre.
+  document.getElementById("btn-cansado").addEventListener("click", function(){
+    if (!window.confirm("¿Mostrar todas las respuestas que faltan y pasar al cierre?")) return;
+    var s = current.step;
+    if (s < N1){
+      if (!current.closed) submitLog.push({ paso: PASO1, item: BY_ID[P1_ORDER[s]].latin, respuesta: "revelada (me cansé)", correcta: false });
+      for (var k = s + 1; k < N1; k++) submitLog.push({ paso: PASO1, item: BY_ID[P1_ORDER[k]].latin, respuesta: "revelada (me cansé)", correcta: false });
+    }
+    var firstP2 = 0;
+    if (s > N1 || (s === N1 && current.phrase)){
+      var j = s - N1;
+      if (current.phrase && !current.phrase.isDone()) current.phrase.forceReveal();
+      firstP2 = j + 1;
+    }
+    for (var m = firstP2; m < N2; m++){
+      var p = BY_ID[P2_ORDER[m]];
+      submitLog.push({ paso: PASO2, item: p.latin, respuesta: "revelada (me cansé)", correcta: false, esp: p.es, latin: p.latin });
+    }
+    saveProgress(TOTAL);
+    goFinal();
+  });
+
+  // ---------- identidad ----------
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    var startAt = 0;
+    if (restored && typeof restored.step === "number"){
+      submitLog = restored.submitLog || [];
+      startAt = Math.min(restored.step, TOTAL);
+    }
+    if (startAt >= TOTAL){ goFinal(); return; }
+    intro.hidden = true; game.hidden = false;
+    document.body.classList.add("playing");
+    goStep(startAt);
+  });
+
+  // ---------- revisión de zonas para el docente (?zonas) ----------
+  if (/[?&]zonas\b/.test(location.search)){
+    var rev = document.getElementById("review");
+    var img = document.createElement("img"); img.src = "img/escena.jpg"; img.alt = "";
+    rev.appendChild(img);
+    Object.keys(ZONES).forEach(function(id){
+      drawZones(rev, [id], "");
+      var r = ZONES[id][0], lab = document.createElement("span");
+      lab.className = "zone-label"; lab.textContent = id;
+      lab.style.left = r[0] + "%"; lab.style.top = r[1] + "%";
+      rev.appendChild(lab);
+    });
+    rev.hidden = false;
+    document.querySelector(".intro-img").hidden = true;
+  }
+
+  // ---------- cierre y envío ----------
+  function computeScore(paso){
+    var items = submitLog.filter(function(e){ return e.correcta !== null && (!paso || e.paso === paso); });
+    return { correct: items.filter(function(e){ return e.correcta === true; }).length, total: items.length };
+  }
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false, evalPushed = false;
+  function checkEvalComplete(){ btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim()); }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim(), sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      evalPushed = true;
+    }
+    sendInFlight = true; btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      var s1 = computeScore(PASO1), s2 = computeScore(PASO2), all = computeScore();
+      if (all.total > 0){
+        document.getElementById("score-summary").innerHTML =
+          "Acertaste <strong>" + all.correct + " de " + all.total + "</strong> (" + Math.round(100 * all.correct / all.total) + "%): " +
+          s1.correct + " de " + s1.total + " lugares encontrados en la imagen y " + s2.correct + " de " + s2.total + " frases armadas. " +
+          "Cuenta como correcto encontrar el lugar en uno de los dos intentos, y cada frase completada sin que se revelara ninguna palabra.";
+        document.getElementById("score-summary").hidden = false;
+      }
+      clearProgress();
+    }).catch(function(){
+      sendInFlight = false; btnSend.disabled = false;
+      statusEl.textContent = "No se pudo enviar. Revisá la conexión y podés reintentar con el mismo botón.";
+      statusEl.className = "status err";
+    });
+  });
+})();
+</script>
+</body>
+</html>
