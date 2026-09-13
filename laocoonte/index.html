@@ -98,9 +98,9 @@
   @media (orientation:portrait){
     .hud{ flex-wrap:wrap; }
     .hud-title{ flex:1 1 auto; }
-    .scene-wrap{ align-items:flex-start; overflow:auto; padding-top:.6rem; }
-    .stage{ width:145%; max-width:none; flex:0 0 auto; }
-    .stage.zoomed{ width:220%; }
+    .scene-wrap{ align-items:flex-start; justify-content:flex-start; overflow:auto; padding-top:.6rem; }
+    .stage{ width:190%; max-width:none; flex:0 0 auto; }
+    .stage.zoomed{ width:270%; }
     .rotate-note{ display:block; }
   }
   @media (orientation:landscape){
@@ -113,6 +113,8 @@
   .scene.tappable{ cursor:crosshair; }
 
   .zone{ position:absolute; border-radius:6px; pointer-events:none; }
+  .gray-zone{ position:absolute; inset:0; background:url("img/escena.jpg") center / 100% 100% no-repeat; filter:grayscale(1); pointer-events:none; z-index:1; transition:opacity .35s ease; }
+  .gray-zone.fade-out{ opacity:0; }
   .zone.ok{ border:3px solid #7ee05a; background:rgba(126,224,90,.18); animation:fill .25s ease-out; }
   .zone.reveal{ border:3px solid #ffd24a; background:rgba(255,210,74,.2); animation:fill .25s ease-out; }
   .zone.hint{ border:2.5px dashed #fffdf6; box-shadow:0 0 0 2px rgba(0,0,0,.55); }
@@ -362,6 +364,22 @@
       d.className = "zone " + cls;
       d.style.left = r[0] + "%"; d.style.top = r[1] + "%"; d.style.width = r[2] + "%"; d.style.height = r[3] + "%";
       host.appendChild(d);
+    });
+  }
+  function drawGrayZones(host, ids){
+    zoneRects(ids).forEach(function(r){
+      var d = document.createElement("div");
+      d.className = "gray-zone";
+      d.dataset.zoneKey = ids.join("|");
+      d.style.clipPath = "inset(" + r[1] + "% " + (100 - r[0] - r[2]) + "% " + (100 - r[1] - r[3]) + "% " + r[0] + "% )";
+      host.appendChild(d);
+    });
+  }
+  function restoreGrayZones(ids){
+    var key = ids.join("|");
+    Array.from(scene.querySelectorAll('.gray-zone[data-zone-key="' + key + '"]')).forEach(function(d){
+      d.classList.add("fade-out");
+      setTimeout(function(){ d.remove(); }, 380);
     });
   }
   function zoneCenterX(ids){
@@ -642,7 +660,10 @@
     current = { step: N1 + j, closed: false, phrase: null, anchor: p.hint ? zoneCenterX([p.hint]) : 50 };
     stage.classList.remove("no-band");
     clearScene();
-    if (p.hint) drawZones(scene, [p.hint], "hint");
+    if (p.hint){
+      drawGrayZones(scene, [p.hint]);
+      drawZones(scene, [p.hint], "hint");
+    }
     resetDialog(true);
     hudProgress.textContent = "Parte 2 · " + (j + 1) + " / " + N2;
     nameplate.className = "nameplate p2"; nameplate.textContent = "Parte 2";
@@ -662,6 +683,7 @@
     bank.hidden = true;
     dialogTag.hidden = true;
     dialogEs.textContent = p.es;
+    if (p.hint) restoreGrayZones([p.hint]);
     if (res.ok) setMsg(res.errors === 0 ? "¡Frase completa, sin errores!" : "¡Frase completa!", "ok");
     else setMsg("Frase completa, con ayuda.", "warn");
     saveProgress(N1 + j + 1);
