@@ -239,6 +239,23 @@
   }
   .btn-next:active{ transform:translateY(2px); box-shadow:0 1px 0 #7c6320; }
 
+  /* ================= guía rápida (sobre la pantalla de juego real) ================= */
+  .hud-actions{ display:flex; align-items:center; gap:.4rem; }
+  .hud-help{ padding:.34rem .7rem; }
+  .tour{ position:absolute; inset:0; z-index:50; }
+  .tour-svg{ position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .tour-ring{ fill:none; stroke:var(--g-gold); stroke-width:2.5; }
+  .tour-line{ stroke:var(--g-gold); stroke-width:2; stroke-dasharray:4 4; }
+  .tour-dot{ fill:var(--g-gold); }
+  .tour-note{
+    position:absolute; max-width:min(280px, 78vw); padding:.45rem .75rem;
+    background:var(--g-text); color:var(--g-dark); border:2px solid var(--g-gold); border-radius:8px;
+    font-family:var(--serif); font-size:1.08rem; line-height:1.25; box-shadow:0 4px 14px rgba(0,0,0,.45);
+    animation:swap .3s ease-out both;
+  }
+  .tour-note b{ font-weight:600; }
+  .tour-ok{ position:absolute; margin:0; font-size:1.05rem; animation:swap .3s ease-out both; }
+
   /* ================= cierre ================= */
   .recap{ margin-bottom:2rem; }
   .recap-title{ font-family:var(--serif); font-weight:400; font-size:1.35rem; margin:0 0 .3rem; }
@@ -320,7 +337,10 @@
   <header class="hud">
     <span class="hud-title">Disputatio</span>
     <span class="hud-progress" id="pair-progress">—</span>
-    <button type="button" class="hud-tired" id="btn-cansado">Me cansé</button>
+    <span class="hud-actions">
+      <button type="button" class="hud-tired hud-help" id="btn-help" aria-label="Ver cómo se juega">?</button>
+      <button type="button" class="hud-tired" id="btn-cansado">Me cansé</button>
+    </span>
   </header>
 
   <div class="scene-wrap">
@@ -342,6 +362,13 @@
       </div>
     </div>
   </section>
+
+  <!-- Guía rápida: se superpone a la primera frase real y señala cada zona. -->
+  <div class="tour" id="tour" role="dialog" aria-label="Cómo se juega" hidden>
+    <svg class="tour-svg" id="tour-svg" aria-hidden="true"></svg>
+    <div id="tour-notes"></div>
+    <button type="button" class="btn-next tour-ok" id="btn-tour-ok">Entendido, ¡a jugar!</button>
+  </div>
 </div>
 
 <!-- ===== Cierre ===== -->
@@ -784,7 +811,122 @@
     game.hidden = false;
     document.body.classList.add("playing");
     startPair(startAt);
+    if (startAt === 0) openTour();
   });
+
+  // ---------- guía rápida: notas sobre el layout real, sin texto previo largo ----------
+  var tour = document.getElementById("tour");
+  var tourSvg = document.getElementById("tour-svg");
+  var tourNotes = document.getElementById("tour-notes");
+  var btnTourOk = document.getElementById("btn-tour-ok");
+  var SVGNS = "http://www.w3.org/2000/svg";
+  function svgEl(name, attrs){
+    var el = document.createElementNS(SVGNS, name);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function layoutTour(){
+    if (tour.hidden) return;
+    var W = tour.clientWidth, H = tour.clientHeight, PAD = 5, GAP = 10;
+    var dialogTop = dialog.getBoundingClientRect().top;
+    var bubbleOn = bubbleE.classList.contains("shown") && !current.closed ? bubbleE : document.getElementById("bubble-h");
+    var bubbleLow = bubbleOn.classList.contains("long");
+    var notes = [
+      { els: [bubbleOn], dir: bubbleLow ? "up" : "down", align: "center",
+        html: "Acá se arma el <b>latín</b>: pregunta Adriano, responde Epicteto" },
+      { els: [pairProgress, document.getElementById("btn-cansado")], dir: "down", align: "right",
+        html: "<b>" + N + " diálogos</b>, cada vez más difíciles. Seguí hasta el final o cortá con <b>Me cansé</b>" },
+      { els: [dialogEs], dir: "up", align: "left", base: dialogTop,
+        html: "Lo <b>iluminado</b> es lo que va ahora" },
+      { els: [bank], dir: "up", align: "right", base: dialogTop,
+        html: "Tocá las palabras <b>en orden</b> (algunas sobran)" }
+    ];
+
+    tourSvg.innerHTML = "";
+    tourNotes.innerHTML = "";
+    tourSvg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    var mask = svgEl("mask", { id: "tour-mask" });
+    mask.appendChild(svgEl("rect", { x: 0, y: 0, width: W, height: H, fill: "#fff" }));
+    var defs = svgEl("defs", {}); defs.appendChild(mask); tourSvg.appendChild(defs);
+    var shade = svgEl("rect", { x: 0, y: 0, width: W, height: H, fill: "rgba(0,0,0,.62)", mask: "url(#tour-mask)" });
+    tourSvg.appendChild(shade);
+
+    var placed = [], rings = [];
+    function hits(a, b){ return a.x < b.x + b.w + GAP && b.x < a.x + a.w + GAP && a.y < b.y + b.h + GAP && b.y < a.y + a.h + GAP; }
+    notes = notes.filter(function(n){
+      n.ts = [];
+      n.els.forEach(function(el){
+        var r = el.getBoundingClientRect();
+        if (!r.width || !r.height) return;
+        var t = { x: r.left - PAD, y: r.top - PAD, w: r.width + 2 * PAD, h: r.height + 2 * PAD };
+        n.ts.push(t); rings.push(t);
+        mask.appendChild(svgEl("rect", { x: t.x, y: t.y, width: t.w, height: t.h, rx: 8, fill: "#000" }));
+        tourSvg.appendChild(svgEl("rect", { "class": "tour-ring", x: t.x, y: t.y, width: t.w, height: t.h, rx: 8 }));
+      });
+      if (!n.ts.length) return false;
+      // Rectángulo que abarca todas las zonas de la nota: sirve para ubicarla.
+      var x1 = Math.min.apply(null, n.ts.map(function(t){ return t.x; }));
+      var y1 = Math.min.apply(null, n.ts.map(function(t){ return t.y; }));
+      var x2 = Math.max.apply(null, n.ts.map(function(t){ return t.x + t.w; }));
+      var y2 = Math.max.apply(null, n.ts.map(function(t){ return t.y + t.h; }));
+      n.t = { x: x1, y: y1, w: x2 - x1, h: y2 - y1 };
+      return true;
+    });
+    notes.forEach(function(n){
+      var t = n.t;
+
+      var box = document.createElement("div");
+      box.className = "tour-note"; box.innerHTML = n.html;
+      tourNotes.appendChild(box);
+      var b = { w: box.offsetWidth, h: box.offsetHeight };
+      b.x = n.align === "left" ? t.x : n.align === "right" ? t.x + t.w - b.w : t.x + t.w / 2 - b.w / 2;
+      b.x = Math.max(8, Math.min(W - b.w - 8, b.x));
+      b.y = n.dir === "down" ? t.y + t.h + 16 : (n.base !== undefined ? n.base : t.y) - 16 - b.h;
+      for (var guard = 0; guard < 12; guard++){
+        // Las notas no tapan ni otras notas ni las zonas señaladas.
+        var clash = placed.concat(rings).filter(function(p){ return hits(b, p); })[0];
+        if (!clash) break;
+        b.y = n.dir === "down" ? clash.y + clash.h + GAP : clash.y - GAP - b.h;
+      }
+      b.y = Math.max(8, Math.min(H - b.h - 8, b.y));
+      b.dir = n.dir;
+      placed.push(b);
+      box.style.left = b.x + "px"; box.style.top = b.y + "px";
+
+      // Línea punteada de la nota a cada una de sus zonas.
+      n.ts.forEach(function(z){
+        var lx = n.ts.length > 1 ? z.x + z.w / 2 : Math.max(z.x + 12, Math.min(z.x + z.w - 12, b.x + b.w / 2));
+        var bx = Math.max(b.x + 12, Math.min(b.x + b.w - 12, lx));
+        var ly = n.dir === "down" ? z.y + z.h : z.y;
+        var by = n.dir === "down" ? b.y : b.y + b.h;
+        tourSvg.appendChild(svgEl("line", { "class": "tour-line", x1: bx, y1: by, x2: lx, y2: ly }));
+        tourSvg.appendChild(svgEl("circle", { "class": "tour-dot", cx: lx, cy: ly, r: 4 }));
+      });
+    });
+
+    // Botón para arrancar: en el hueco entre las notas de arriba y las de abajo.
+    var topEnd = 0, bottomStart = H;
+    placed.forEach(function(p){
+      if (p.dir === "down") topEnd = Math.max(topEnd, p.y + p.h);
+      else bottomStart = Math.min(bottomStart, p.y);
+    });
+    var bw = btnTourOk.offsetWidth, bh = btnTourOk.offsetHeight;
+    var by2 = topEnd + (bottomStart - topEnd) / 2 - bh / 2;
+    by2 = Math.max(8, Math.min(H - bh - 8, by2));
+    btnTourOk.style.left = (W / 2 - bw / 2) + "px";
+    btnTourOk.style.top = by2 + "px";
+  }
+  function openTour(){
+    tour.hidden = false;
+    layoutTour();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layoutTour);
+    btnTourOk.focus({ preventScroll: true });
+  }
+  function closeTour(){ tour.hidden = true; }
+  btnTourOk.addEventListener("click", closeTour);
+  document.getElementById("btn-help").addEventListener("click", openTour);
+  window.addEventListener("resize", layoutTour);
+  document.addEventListener("keydown", function(ev){ if (!tour.hidden && ev.key === "Escape") closeTour(); });
 
   // ---------- cierre y envío ----------
   function computeScore(){
