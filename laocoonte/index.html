@@ -385,6 +385,12 @@
       host.appendChild(d);
     });
   }
+  function restoreProgressZones(){
+    Object.keys(coloredHints).forEach(function(id){
+      restoreColorZones(scene, [id]);
+      drawZones(scene, [id], "ok");
+    });
+  }
   function zoneCenterX(ids){
     var rs = zoneRects(ids);
     if (!rs.length) return 50;
@@ -415,6 +421,12 @@
   function clearProgress(){
     if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
   }
+  function restoreColoredHintsFromLog(){
+    submitLog.filter(function(entry){ return entry.paso === PASO2; }).forEach(function(entry){
+      var phrase = PHRASES.filter(function(p){ return p.latin === entry.item; })[0];
+      if (phrase && phrase.hint) coloredHints[phrase.hint] = true;
+    });
+  }
 
   // ---------- elementos ----------
   var intro = document.getElementById("intro");
@@ -444,6 +456,7 @@
 
   // step: 0..N1-1 Parte 1 · N1 interludio · N1..TOTAL-1 Parte 2 · TOTAL cierre
   var current = { step: -1, closed: false, phrase: null, anchor: 50 };
+  var coloredHints = {};
 
   function clearScene(){ scene.innerHTML = ""; scene.classList.remove("tappable"); scene.onclick = null; }
   function setMsg(text, cls){ msgEl.textContent = text; msgEl.className = "msg" + (cls ? " " + cls : ""); }
@@ -664,6 +677,7 @@
     stage.classList.remove("no-band");
     clearScene();
     drawGrayScene(scene);
+    restoreProgressZones();
     if (p.hint){
       drawZones(scene, [p.hint], "hint");
     }
@@ -686,7 +700,11 @@
     bank.hidden = true;
     dialogTag.hidden = true;
     dialogEs.textContent = p.es;
-    if (p.hint) restoreColorZones(scene, [p.hint]);
+    if (p.hint){
+      coloredHints[p.hint] = true;
+      restoreColorZones(scene, [p.hint]);
+      drawZones(scene, [p.hint], "ok");
+    }
     if (res.ok) setMsg(res.errors === 0 ? "¡Frase completa, sin errores!" : "¡Frase completa!", "ok");
     else setMsg("Frase completa, con ayuda.", "warn");
     saveProgress(N1 + j + 1);
@@ -766,6 +784,7 @@
     var startAt = 0;
     if (restored && typeof restored.step === "number"){
       submitLog = restored.submitLog || [];
+      restoreColoredHintsFromLog();
       startAt = Math.min(restored.step, TOTAL);
     }
     if (startAt >= TOTAL){ goFinal(); return; }
