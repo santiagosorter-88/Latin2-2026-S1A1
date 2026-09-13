@@ -116,6 +116,7 @@
   .step-badges{ display:flex; gap:.5rem; flex-wrap:wrap; }
   .step-progress.streak{ border-color:var(--accent); color:var(--accent-strong); }
   .step-progress.streak.zero{ border-color:var(--rule); color:var(--ink-muted); }
+  .streak-note{ color:var(--ink-muted); font-size:.78rem; margin:.35rem 0 0; }
 
   .stage-caption{
     font-family:var(--sans); font-size:.85rem; font-style:italic; color:var(--ink-muted);
@@ -280,14 +281,15 @@
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 1</p>
-          <h2>Asociá cada imagen con la frase clave en latín</h2>
+          <h2>Asociá cada imagen con su traducción</h2>
         </div>
         <div class="step-badges">
           <span class="step-progress streak" id="p1-streak">Racha: 0</span>
           <span class="step-progress" id="p1-progress">—</span>
         </div>
       </div>
-      <p class="step-instructions">Mirá la imagen y leé el epígrafe para ubicarte en la escena. Después elegí, entre las frases en latín, la que describe lo que está pasando. A medida que avances, las opciones ya usadas se van sacando de la lista — hacia el final quedan menos para elegir.</p>
+      <p class="streak-note">La racha cuenta respuestas correctas consecutivas al primer intento.</p>
+      <p class="step-instructions">Mirá la imagen y elegí, entre las traducciones de las 5 frases de esta semana, la que corresponde. Es para que te vayas familiarizando con lo que dicen — no hace falta acertar de entrada.</p>
       <div id="p1-stage"></div>
     </section>
 
@@ -303,23 +305,24 @@
 
     <!-- ===== Paso 2 ===== -->
     <section class="step" id="step-p2">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1-review">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 2</p>
-          <h2>Asociá cada imagen con su traducción</h2>
+          <h2>Asociá cada imagen con la frase clave en latín</h2>
         </div>
         <div class="step-badges">
           <span class="step-progress streak" id="p2-streak">Racha: 0</span>
           <span class="step-progress" id="p2-progress">—</span>
         </div>
       </div>
-      <p class="step-instructions">Misma imagen — ahora elegí, entre tres traducciones muy parecidas, la única que describe exactamente lo que pasa. Las otras dos cambian algún detalle: quién hace la acción, o si pasa o no pasa.</p>
+      <p class="streak-note">La racha cuenta respuestas correctas consecutivas al primer intento.</p>
+      <p class="step-instructions">Misma imagen — ahora elegí, entre las frases en latín, la que corresponde. A medida que avances, las opciones ya usadas se van sacando de la lista — hacia el final quedan menos para elegir.</p>
       <div id="p2-stage"></div>
     </section>
 
     <section class="step" id="step-p2-review">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Paso 2 — resultado</p><h2>¿Cómo te fue?</h2></div>
       </div>
@@ -330,7 +333,7 @@
 
     <!-- ===== Paso 3 ===== -->
     <section class="step" id="step-p3">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 3</p>
@@ -341,12 +344,13 @@
           <span class="step-progress" id="p3-progress">—</span>
         </div>
       </div>
+      <p class="streak-note">La racha cuenta respuestas correctas consecutivas al primer intento.</p>
       <p class="step-instructions">Sin la imagen esta vez. Elegí, entre tres traducciones muy parecidas, la única que es exactamente correcta — prestá atención a quién hace la acción y si la frase la niega o no.</p>
       <div id="p3-stage"></div>
     </section>
 
     <section class="step" id="step-p3-review">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Paso 3 — resultado</p><h2>¿Cómo te fue?</h2></div>
       </div>
@@ -357,7 +361,7 @@
 
     <!-- ===== Paso 4 ===== -->
     <section class="step" id="step-p4">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3-review">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button></div>
       <div class="step-head">
         <div>
           <p class="eyebrow">Paso 4</p>
@@ -368,11 +372,11 @@
       <div class="p4-progress" id="p4-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p4">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p4-list"></div>
-      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3-review">↑ Paso anterior</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
     <section class="step" id="step-p4-retry">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button></div>
       <div class="step-head">
         <div><p class="eyebrow">Repaso léxico</p><h2>Volvé a intentar estas palabras</h2></div>
         <span class="step-progress" id="p4-retry-progress">—</span>
@@ -384,7 +388,7 @@
 
     <!-- ===== Cierre ===== -->
     <section class="step" id="step-fin">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4-retry">↑ Paso anterior</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head">
           <div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div>
@@ -406,7 +410,7 @@
         </div>
       </div>
       <div class="submit-bar">
-        <button type="button" class="btn btn-ghost" data-back-step="step-p4-retry">↑ Paso anterior</button>
+        <button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button>
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -425,7 +429,7 @@
   // Backend compartido de esta cátedra (Apps Script) — no tocar salvo que Santiago lo pida.
   var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
 
-  var PHRASES = [{"id": 1, "image": "img/01-argos.jpg", "epigraph": "Óleo del pintor victoriano británico Briton Rivière. Ulises, disfrazado de mendigo y ya de regreso en Ítaca, se detiene ante su viejo perro Argos, tendido y famélico junto a las columnas del palacio.", "latin": "Canis eum statim agnoscit, sed Eumaeus eum non agnoscit, quod Minerva formam eius mutat.", "spanish": "El perro lo reconoce inmediatamente, pero Eumeo no lo reconoce, porque Minerva cambia su apariencia.", "tokens": [{"display": "Canis", "correct": "el perro", "options": ["el perro", "la apariencia", "el palacio"]}, {"display": "eum", "correct": "lo", "options": ["porque", "quien", "lo"]}, {"display": "statim", "correct": "enseguida", "options": ["porque", "enseguida", "él mismo"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["recibe", "reconoce", "da"]}, {"display": "sed", "correct": "pero", "options": ["durante la noche", "pero", "porque"], "skip": true}, {"display": "Eumaeus", "correct": "Eumeo", "options": ["a Penélope", "Eumeo", "Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["quien", "lo", "durante el día"], "skip": true}, {"display": "non", "correct": "no", "options": ["durante el día", "él mismo", "no"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["reconoce", "cambia", "tensa"], "skip": true}, {"display": "quod", "correct": "porque", "options": ["no", "quien", "porque"], "skip": true}, {"display": "Minerva", "correct": "Minerva", "options": ["Ulises", "Penélope", "Minerva"], "skip": true}, {"display": "formam", "correct": "la apariencia", "options": ["la apariencia", "la casa", "el palacio"]}, {"display": "eius", "correct": "su (de él)", "options": ["su (de él)", "pero", "durante la noche"]}, {"display": "mutat.", "correct": "cambia", "options": ["cambia", "puede", "lleva"]}], "keyLatin": "Canis eum agnoscit", "spanishDecoyA": "El perro no lo reconoce, pero Eumeo lo reconoce inmediatamente, porque Minerva no cambia su apariencia.", "spanishDecoyB": "El perro lo reconoce inmediatamente, y Eumeo también lo reconoce, porque Minerva cambia su apariencia."}, {"id": 2, "image": "img/02-eumeo.jpg", "epigraph": "Grisalla del pintor alemán Friedrich Preller el Viejo, parte de su ciclo de paisajes de la Odisea pintado para la Casa Romana de Leipzig. Muestra la choza del porquero Eumeo, entre rocas y árboles junto al mar, con las figuras reunidas en la entrada.", "latin": "Eumaeus eum in casam recipit et cibum dat.", "spanish": "Eumeo lo recibe en su casa y le da comida.", "tokens": [{"display": "Eumaeus", "correct": "Eumeo", "options": ["Minerva", "Eumeo", "a Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["lo", "durante la noche", "no"], "skip": true}, {"display": "in", "correct": "en", "options": ["durante la noche", "en", "durante el día"], "skip": true}, {"display": "casam", "correct": "la casa", "options": ["una tela", "comida", "la casa"]}, {"display": "recipit", "correct": "recibe", "options": ["tensar", "recibe", "puede"]}, {"display": "et", "correct": "y", "options": ["quien", "porque", "y"], "skip": true}, {"display": "cibum", "correct": "comida", "options": ["comida", "a los pretendientes", "el palacio"]}, {"display": "dat.", "correct": "da", "options": ["cambia", "recibe", "da"]}], "keyLatin": "In casam recipit", "spanishDecoyA": "Eumeo no lo recibe en su casa, pero le da comida.", "spanishDecoyB": "Eumeo lo recibe en su casa, pero no le da comida."}, {"id": 3, "image": "img/03-penelope.jpg", "epigraph": "Óleo del pintor prerrafaelita John William Waterhouse. Penélope hila junto a su telar mientras, desde una ventana, los pretendientes le ofrecen flores y regalos.", "latin": "In regia, Penelope procos fallit: interdiu telam texit, noctu eam detexit.", "spanish": "En el palacio, Penélope engaña a los pretendientes: durante el día teje una tela, durante la noche la desteje.", "tokens": [{"display": "In", "correct": "en", "options": ["la", "y", "en"], "skip": true}, {"display": "regia,", "correct": "el palacio", "options": ["el perro", "el palacio", "a los pretendientes"]}, {"display": "Penelope", "correct": "Penélope", "options": ["Minerva", "Penélope", "a Penélope"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["a los pretendientes", "el arco", "la casa"]}, {"display": "fallit:", "correct": "engaña", "options": ["recibe", "engaña", "da"]}, {"display": "interdiu", "correct": "durante el día", "options": ["durante el día", "durante la noche", "lo"]}, {"display": "telam", "correct": "una tela", "options": ["comida", "a los pretendientes", "una tela"]}, {"display": "texit,", "correct": "teje", "options": ["tensa", "tensar", "teje"]}, {"display": "noctu", "correct": "durante la noche", "options": ["durante la noche", "la", "enseguida"]}, {"display": "eam", "correct": "la", "options": ["la", "quien", "durante el día"]}, {"display": "detexit.", "correct": "desteje", "options": ["recibe", "da", "desteje"]}], "keyLatin": "Telam texit", "spanishDecoyA": "En el palacio, Penélope no engaña a los pretendientes: durante el día teje una tela y durante la noche no la desteje.", "spanishDecoyB": "En el palacio, Penélope engaña a los pretendientes: durante la noche teje una tela, durante el día la desteje."}, {"id": 4, "image": "img/04-arco.jpg", "epigraph": "Escena en un skyphos ático de figuras rojas, atribuido al llamado Pintor de Penélope (ca. 440 a.C.). Un hombre tensa un arco ante la mirada de dos mujeres — la prueba del arco que Ulises impone a los pretendientes.", "latin": "Vlixes procis arcum dat: qui arcum intendere potest, Penelopen ducit; sed nemo potest.", "spanish": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Minerva", "Ulises", "Penélope"], "skip": true}, {"display": "procis", "correct": "a los pretendientes", "options": ["a los pretendientes", "la apariencia", "comida"]}, {"display": "arcum", "correct": "el arco", "options": ["el perro", "la apariencia", "el arco"]}, {"display": "dat:", "correct": "da", "options": ["engaña", "da", "tensa"], "skip": true}, {"display": "qui", "correct": "quien", "options": ["en", "quien", "su (de él)"]}, {"display": "arcum", "correct": "el arco", "options": ["una tela", "la apariencia", "el arco"], "skip": true}, {"display": "intendere", "correct": "tensar", "options": ["reconoce", "desteje", "tensar"]}, {"display": "potest,", "correct": "puede", "options": ["tensa", "reconoce", "puede"]}, {"display": "Penelopen", "correct": "a Penélope", "options": ["Eumeo", "Ulises", "a Penélope"], "skip": true}, {"display": "ducit;", "correct": "lleva", "options": ["mata", "teje", "lleva"]}, {"display": "sed", "correct": "pero", "options": ["pero", "la", "nadie"], "skip": true}, {"display": "nemo", "correct": "nadie", "options": ["la", "porque", "nadie"]}, {"display": "potest.", "correct": "puede", "options": ["engaña", "puede", "desteje"], "skip": true}], "keyLatin": "Arcum intendere potest", "spanishDecoyA": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero solo Ulises puede hacerlo.", "spanishDecoyB": "Ulises no les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo."}, {"id": 5, "image": "img/05-pretendientes.jpg", "epigraph": "Óleo del pintor neoclásico francés Thomas Degeorge. Ulises, arco en mano, y Telémaco con una lanza dan muerte a los pretendientes en el salón del palacio, mientras uno de ellos yace ya en el suelo.", "latin": "Vlixes ipse arcum intendit et procos occidit.", "spanish": "El mismo Ulises tensa el arco y mata a los pretendientes.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Penélope", "Eumeo", "Ulises"], "skip": true}, {"display": "ipse", "correct": "él mismo", "options": ["él mismo", "la", "durante la noche"]}, {"display": "arcum", "correct": "el arco", "options": ["comida", "a los pretendientes", "el arco"], "skip": true}, {"display": "intendit", "correct": "tensa", "options": ["lleva", "tensa", "mata"]}, {"display": "et", "correct": "y", "options": ["lo", "durante la noche", "y"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["el palacio", "a los pretendientes", "la casa"], "skip": true}, {"display": "occidit.", "correct": "mata", "options": ["cambia", "tensa", "mata"]}], "keyLatin": "Procos occidit", "spanishDecoyA": "El mismo Ulises tensa el arco, pero no mata a los pretendientes.", "spanishDecoyB": "El mismo Eumeo tensa el arco y mata a los pretendientes."}];
+  var PHRASES = [{"id": 1, "image": "img/01-argos.jpg", "latin": "Canis eum statim agnoscit, sed Eumaeus eum non agnoscit, quod Minerva formam eius mutat.", "spanish": "El perro lo reconoce inmediatamente, pero Eumeo no lo reconoce, porque Minerva cambia su apariencia.", "tokens": [{"display": "Canis", "correct": "el perro", "options": ["el perro", "la apariencia", "el palacio"]}, {"display": "eum", "correct": "lo", "options": ["porque", "quien", "lo"]}, {"display": "statim", "correct": "enseguida", "options": ["porque", "enseguida", "él mismo"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["recibe", "reconoce", "da"]}, {"display": "sed", "correct": "pero", "options": ["durante la noche", "pero", "porque"], "skip": true}, {"display": "Eumaeus", "correct": "Eumeo", "options": ["a Penélope", "Eumeo", "Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["quien", "lo", "durante el día"], "skip": true}, {"display": "non", "correct": "no", "options": ["durante el día", "él mismo", "no"]}, {"display": "agnoscit,", "correct": "reconoce", "options": ["reconoce", "cambia", "tensa"], "skip": true}, {"display": "quod", "correct": "porque", "options": ["no", "quien", "porque"], "skip": true}, {"display": "Minerva", "correct": "Minerva", "options": ["Ulises", "Penélope", "Minerva"], "skip": true}, {"display": "formam", "correct": "la apariencia", "options": ["la apariencia", "la casa", "el palacio"]}, {"display": "eius", "correct": "su (de él)", "options": ["su (de él)", "pero", "durante la noche"]}, {"display": "mutat.", "correct": "cambia", "options": ["cambia", "puede", "lleva"]}], "keyLatin": "Canis eum agnoscit", "spanishDecoyA": "El perro no lo reconoce, pero Eumeo lo reconoce inmediatamente, porque Minerva no cambia su apariencia.", "spanishDecoyB": "El perro lo reconoce inmediatamente, y Eumeo también lo reconoce, porque Minerva cambia su apariencia.", "shortCaption": "Óleo del pintor victoriano británico Briton Rivière."}, {"id": 2, "image": "img/02-eumeo.jpg", "latin": "Eumaeus eum in casam recipit et cibum dat.", "spanish": "Eumeo lo recibe en su casa y le da comida.", "tokens": [{"display": "Eumaeus", "correct": "Eumeo", "options": ["Minerva", "Eumeo", "a Penélope"], "skip": true}, {"display": "eum", "correct": "lo", "options": ["lo", "durante la noche", "no"], "skip": true}, {"display": "in", "correct": "en", "options": ["durante la noche", "en", "durante el día"], "skip": true}, {"display": "casam", "correct": "la casa", "options": ["una tela", "comida", "la casa"]}, {"display": "recipit", "correct": "recibe", "options": ["tensar", "recibe", "puede"]}, {"display": "et", "correct": "y", "options": ["quien", "porque", "y"], "skip": true}, {"display": "cibum", "correct": "comida", "options": ["comida", "a los pretendientes", "el palacio"]}, {"display": "dat.", "correct": "da", "options": ["cambia", "recibe", "da"]}], "keyLatin": "In casam recipit", "spanishDecoyA": "Eumeo no lo recibe en su casa, pero le da comida.", "spanishDecoyB": "Eumeo lo recibe en su casa, pero no le da comida.", "shortCaption": "Grisalla del pintor alemán Friedrich Preller el Viejo, parte de su ciclo de paisajes de la Odisea pintado para la Casa Romana de Leipzig."}, {"id": 3, "image": "img/03-penelope.jpg", "latin": "In regia, Penelope procos fallit: interdiu telam texit, noctu eam detexit.", "spanish": "En el palacio, Penélope engaña a los pretendientes: durante el día teje una tela, durante la noche la desteje.", "tokens": [{"display": "In", "correct": "en", "options": ["la", "y", "en"], "skip": true}, {"display": "regia,", "correct": "el palacio", "options": ["el perro", "el palacio", "a los pretendientes"]}, {"display": "Penelope", "correct": "Penélope", "options": ["Minerva", "Penélope", "a Penélope"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["a los pretendientes", "el arco", "la casa"]}, {"display": "fallit:", "correct": "engaña", "options": ["recibe", "engaña", "da"]}, {"display": "interdiu", "correct": "durante el día", "options": ["durante el día", "durante la noche", "lo"]}, {"display": "telam", "correct": "una tela", "options": ["comida", "a los pretendientes", "una tela"]}, {"display": "texit,", "correct": "teje", "options": ["tensa", "tensar", "teje"]}, {"display": "noctu", "correct": "durante la noche", "options": ["durante la noche", "la", "enseguida"]}, {"display": "eam", "correct": "la", "options": ["la", "quien", "durante el día"]}, {"display": "detexit.", "correct": "desteje", "options": ["recibe", "da", "desteje"]}], "keyLatin": "Telam texit", "spanishDecoyA": "En el palacio, Penélope no engaña a los pretendientes: durante el día teje una tela y durante la noche no la desteje.", "spanishDecoyB": "En el palacio, Penélope engaña a los pretendientes: durante la noche teje una tela, durante el día la desteje.", "shortCaption": "Óleo del pintor prerrafaelita John William Waterhouse."}, {"id": 4, "image": "img/04-arco.jpg", "latin": "Vlixes procis arcum dat: qui arcum intendere potest, Penelopen ducit; sed nemo potest.", "spanish": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Minerva", "Ulises", "Penélope"], "skip": true}, {"display": "procis", "correct": "a los pretendientes", "options": ["a los pretendientes", "la apariencia", "comida"]}, {"display": "arcum", "correct": "el arco", "options": ["el perro", "la apariencia", "el arco"]}, {"display": "dat:", "correct": "da", "options": ["engaña", "da", "tensa"], "skip": true}, {"display": "qui", "correct": "quien", "options": ["en", "quien", "su (de él)"]}, {"display": "arcum", "correct": "el arco", "options": ["una tela", "la apariencia", "el arco"], "skip": true}, {"display": "intendere", "correct": "tensar", "options": ["reconoce", "desteje", "tensar"]}, {"display": "potest,", "correct": "puede", "options": ["tensa", "reconoce", "puede"]}, {"display": "Penelopen", "correct": "a Penélope", "options": ["Eumeo", "Ulises", "a Penélope"], "skip": true}, {"display": "ducit;", "correct": "lleva", "options": ["mata", "teje", "lleva"]}, {"display": "sed", "correct": "pero", "options": ["pero", "la", "nadie"], "skip": true}, {"display": "nemo", "correct": "nadie", "options": ["la", "porque", "nadie"]}, {"display": "potest.", "correct": "puede", "options": ["engaña", "puede", "desteje"], "skip": true}], "keyLatin": "Arcum intendere potest", "spanishDecoyA": "Ulises les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero solo Ulises puede hacerlo.", "spanishDecoyB": "Ulises no les da el arco a los pretendientes: quien pueda tensar el arco se llevará a Penélope; pero nadie puede hacerlo.", "shortCaption": "Escena en un skyphos ático de figuras rojas, atribuido al llamado Pintor de Penélope (ca. 440 a.C.)."}, {"id": 5, "image": "img/05-pretendientes.jpg", "latin": "Vlixes ipse arcum intendit et procos occidit.", "spanish": "El mismo Ulises tensa el arco y mata a los pretendientes.", "tokens": [{"display": "Vlixes", "correct": "Ulises", "options": ["Penélope", "Eumeo", "Ulises"], "skip": true}, {"display": "ipse", "correct": "él mismo", "options": ["él mismo", "la", "durante la noche"]}, {"display": "arcum", "correct": "el arco", "options": ["comida", "a los pretendientes", "el arco"], "skip": true}, {"display": "intendit", "correct": "tensa", "options": ["lleva", "tensa", "mata"]}, {"display": "et", "correct": "y", "options": ["lo", "durante la noche", "y"], "skip": true}, {"display": "procos", "correct": "a los pretendientes", "options": ["el palacio", "a los pretendientes", "la casa"], "skip": true}, {"display": "occidit.", "correct": "mata", "options": ["cambia", "tensa", "mata"]}], "keyLatin": "Procos occidit", "spanishDecoyA": "El mismo Ulises tensa el arco, pero no mata a los pretendientes.", "spanishDecoyB": "El mismo Eumeo tensa el arco y mata a los pretendientes.", "shortCaption": "Óleo del pintor neoclásico francés Thomas Degeorge."}];
 
   var N = PHRASES.length;
   var IDK = "No la conozco todavía";
@@ -513,7 +517,7 @@
   function makeStreak(el){
     var n = 0;
     function render(){
-      el.textContent = "Racha: " + n;
+      el.textContent = "Primer intento: " + n;
       el.classList.toggle("zero", n === 0);
     }
     render();
@@ -523,26 +527,36 @@
     };
   }
 
+  function feedbackHint(mode){
+    if (mode === "image-translation") return "Pista: volvé a mirar qué acción central muestra la escena.";
+    if (mode === "image-latin") return "Pista: buscá el verbo y quién realiza la acción.";
+    return "Pista: comprobá quién realiza la acción y si la frase incluye una negación.";
+  }
+
   // =================================================================
-  // Paso 1: una tarjeta por vez. El pool de opciones se ACHICA a medida
-  // que se resuelven ítems: en el ítem N solo compiten las N frases
-  // clave todavía no resueltas correctamente (las de este ítem en
-  // adelante, según el orden narrativo fijo). Es a propósito: cuando
-  // el estudiante no puede reconocer la frase por sí sola, los últimos
-  // ítems del paso terminan siendo resolubles por descarte — Santiago
-  // lo pidió así el 2026-09-13, en vez de competir contra las 5 frases
-  // siempre (lo que antes hacía muy difícil "adivinar" los últimos
-  // ítems sin ese resto de opciones ya usadas para descartar).
+  // Motor de una tarjeta por vez con pool de opciones compartido entre
+  // los ítems del paso (todas las respuestas reales, sin señuelos
+  // inventados). Dos modos según cfg.shrink:
+  //  - shrink:false (Paso 1) -> el pool completo queda disponible en
+  //    todos los ítems, para que se familiaricen con las 5 traducciones.
+  //  - shrink:true (Paso 2) -> el pool se ACHICA a medida que se
+  //    resuelven ítems: en el ítem N solo compiten las opciones
+  //    todavía no resueltas correctamente. Es a propósito: cuando el
+  //    estudiante no puede reconocer la respuesta por sí sola, los
+  //    últimos ítems terminan siendo resolubles por descarte — Santiago
+  //    lo pidió así el 2026-09-13.
   // =================================================================
   function buildSingleStep(cfg){
     var idx = 0;
     var answers = {}; // phraseId -> chosen phraseId
     var wrongChoices = {}; // phraseId -> ids tried and rejected
     var resolved = {}; // phraseId -> true once feedback has been shown
-    var poolCache = {}; // idx -> [ids] ya sorteados para ese ítem
+    var poolCache = {}; // idx -> [ids] ya sorteados para ese ítem (solo si cfg.shrink)
+    var fullPool = shuffled(cfg.order.slice()); // usado si !cfg.shrink: mismo pool completo siempre
     var streak = cfg.streakEl ? makeStreak(cfg.streakEl) : null;
 
     function poolFor(i){
+      if (!cfg.shrink) return fullPool;
       if (!poolCache[i]) poolCache[i] = shuffled(cfg.order.slice(i));
       return poolCache[i];
     }
@@ -591,11 +605,13 @@
         feedback.textContent = answers[p.id] === p.id
           ? "¡Correcto!"
           : "La respuesta correcta es: " + cfg.optionLabel(p);
+        if (cfg.feedbackMode) feedback.textContent += " " + feedbackHint(cfg.feedbackMode);
+        if (cfg.shrink && optionOrder.length === 1) feedback.textContent += " Se resolvió con la última opción disponible.";
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       } else if ((wrongChoices[p.id] || []).length){
         feedback.className = "word-feedback bad";
-        feedback.textContent = "No es correcta. Probá una vez más.";
+        feedback.textContent = "No es correcta. Probá una vez más. " + (cfg.feedbackMode ? feedbackHint(cfg.feedbackMode) : "");
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       }
@@ -615,7 +631,8 @@
             resolved[p.id] = true;
             var wasFirstTry = (wrongChoices[p.id] || []).length === 0;
             if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
-            cfg.logAnswer(p, p, true, (wrongChoices[p.id] || []).length, false);
+            cfg.logAnswer(p, p, true, (wrongChoices[p.id] || []).length, false,
+              cfg.shrink && optionOrder.length === 1);
           } else {
             var isFirstMiss = !(wrongChoices[p.id] || []).length;
             if (streak && isFirstMiss) streak.reset();
@@ -626,7 +643,7 @@
               resolved[p.id] = true;
               answers[p.id] = chosenId;
               cfg.logAnswer(p, PHRASES.filter(function(x){ return x.id === chosenId; })[0], false,
-                wrongChoices[p.id].length, true);
+                wrongChoices[p.id].length, true, false);
             }
           }
           renderStage();
@@ -683,12 +700,14 @@
   }
 
   // =================================================================
-  // Motor para Pasos 2-3: cada ítem compite contra DOS señuelos propios
+  // Motor de señuelos: cada ítem compite contra DOS señuelos propios
   // (mismos personajes, cambia la acción/el resultado — nunca las
   // traducciones/frases reales de otros ítems) en vez de un pool
-  // compartido. Evita el atajo de "reconozco el nombre propio" que tenía
-  // la versión anterior. El orden de las 3 opciones se sortea una sola
-  // vez por ítem (queda cacheado) para que no cambie entre renders.
+  // compartido. Evita el atajo de "reconozco el nombre propio". El orden
+  // de las 3 opciones se sortea una sola vez por ítem (queda cacheado)
+  // para que no cambie entre renders. Usado en Paso 3 (frase latina ->
+  // traducción, sin imagen), donde sí hace falta obligar a revisar bien
+  // el latín en vez de reconocer la traducción real de otra frase.
   // =================================================================
   function buildDecoyStep(cfg){
     // cfg.getOptions(p) -> { correct, decoyA, decoyB }
@@ -741,11 +760,12 @@
         feedback.textContent = answers[p.id] === opts.correct
           ? "¡Correcto!"
           : "La respuesta correcta es: " + opts.correct;
+        feedback.textContent += " " + feedbackHint("latin-translation");
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       } else if ((wrongChoices[p.id] || []).length){
         feedback.className = "word-feedback bad";
-        feedback.textContent = "No es correcta. Probá una vez más.";
+        feedback.textContent = "No es correcta. Probá una vez más. " + feedbackHint("latin-translation");
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       }
@@ -765,7 +785,7 @@
             resolved[p.id] = true;
             var wasFirstTry = (wrongChoices[p.id] || []).length === 0;
             if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
-            cfg.logAnswer(p, chosenText, true, (wrongChoices[p.id] || []).length, false);
+            cfg.logAnswer(p, chosenText, true, (wrongChoices[p.id] || []).length, false, false);
           } else {
             var isFirstMiss = !(wrongChoices[p.id] || []).length;
             if (streak && isFirstMiss) streak.reset();
@@ -775,7 +795,7 @@
             if (wrongChoices[p.id].length >= 2){
               resolved[p.id] = true;
               answers[p.id] = chosenText;
-              cfg.logAnswer(p, chosenText, false, wrongChoices[p.id].length, true);
+              cfg.logAnswer(p, chosenText, false, wrongChoices[p.id].length, true, false);
             }
           }
           renderStage();
@@ -831,10 +851,17 @@
     return { getAnswers: function(){ return answers; } };
   }
 
-  // ---------- Paso 1: imagen -> frase clave en latín (orden narrativo fijo) ----------
+  // ---------- Paso 1: imagen -> traducción real (pool completo, orden narrativo fijo) ----------
+  // Primer contacto, todavía sin exigir latín: familiarizarse con las 5 traducciones
+  // reales (sin señuelos inventados) y reconocer cuál corresponde a cada imagen. El
+  // epígrafe muestra solo autoría (sin describir la escena, para no regalar la
+  // respuesta) y el pool queda completo en los 5 ítems — a diferencia de Paso 2, acá
+  // no se va achicando. Orden narrativo fijo para reconstruir la escena en secuencia.
   var order1 = PHRASES.map(function(p){ return p.id; }); // sin shuffle: se reconstruye la escena en orden
   buildSingleStep({
     order: order1,
+    shrink: false,
+    feedbackMode: "image-translation",
     stageEl: document.getElementById("p1-stage"),
     progressEl: document.getElementById("p1-progress"),
     streakEl: document.getElementById("p1-streak"),
@@ -852,16 +879,17 @@
       wrap.appendChild(media);
       return wrap;
     },
-    caption: function(p){ return p.epigraph; },
-    optionLabel: function(p){ return p.keyLatin; },
-    logAnswer: function(p, chosen, ok, wrongCount, revealed){
-      submitLog.push({ paso:"1 - Imagen y frase clave", item:"Imagen " + p.id,
-        respuesta: chosen ? chosen.keyLatin : "(sin responder)", correcta: ok,
-        errores: wrongCount, respuestaRevelada: revealed });
+    caption: function(p){ return p.shortCaption; },
+    optionLabel: function(p){ return p.spanish; },
+    logAnswer: function(p, chosen, ok, wrongCount, revealed, assisted){
+      submitLog.push({ paso:"1 - Imagen y traducción", item:"Imagen " + p.id,
+        respuesta: chosen ? chosen.spanish : "(sin responder)", correcta: ok,
+        errores: wrongCount, respuestaRevelada: revealed, primerIntento: wrongCount === 0,
+        ayudaDescarte: !!assisted });
     }
   });
 
-  // ---------- Paso 2: imagen -> frase latina (contra 2 señuelos propios) ----------
+  // ---------- Paso 2: imagen -> frase clave en latín (pool que se achica) ----------
   document.getElementById("btn-to-p2").addEventListener("click", function(){
     buildP2();
     saveProgress("step-p2");
@@ -869,8 +897,10 @@
   });
   function buildP2(){
     var order2 = shuffled(PHRASES.map(function(p){ return p.id; }));
-    buildDecoyStep({
+    buildSingleStep({
       order: order2,
+      shrink: true,
+      feedbackMode: "image-latin",
       stageEl: document.getElementById("p2-stage"),
       progressEl: document.getElementById("p2-progress"),
       streakEl: document.getElementById("p2-streak"),
@@ -888,11 +918,12 @@
         wrap.appendChild(media);
         return wrap;
       },
-      getOptions: function(p){ return { correct: p.spanish, decoyA: p.spanishDecoyA, decoyB: p.spanishDecoyB }; },
-      logAnswer: function(p, chosenText, ok, wrongCount, revealed){
-        submitLog.push({ paso:"2 - Imagen y traducción", item:"Imagen " + p.id,
-          respuesta: chosenText || "(sin responder)", correcta: ok,
-          errores: wrongCount, respuestaRevelada: revealed });
+      optionLabel: function(p){ return p.keyLatin; },
+      logAnswer: function(p, chosen, ok, wrongCount, revealed, assisted){
+        submitLog.push({ paso:"2 - Imagen y frase clave", item:"Imagen " + p.id,
+          respuesta: chosen ? chosen.keyLatin : "(sin responder)", correcta: ok,
+          errores: wrongCount, respuestaRevelada: revealed, primerIntento: wrongCount === 0,
+          ayudaDescarte: !!assisted });
       }
     });
   }
@@ -925,7 +956,7 @@
       logAnswer: function(p, chosenText, ok, wrongCount, revealed){
         submitLog.push({ paso:"3 - Frase y traducción", item:"Frase " + p.id,
           respuesta: chosenText || "(sin responder)", correcta: ok,
-          errores: wrongCount, respuestaRevelada: revealed });
+          errores: wrongCount, respuestaRevelada: revealed, primerIntento: wrongCount === 0 });
       }
     });
   }
@@ -993,7 +1024,7 @@
         if (isCorrect){
           state.resolved = true;
           submitLog.push({ paso:"4 - Recuperación léxica", item:"Frase " + item.phrase.id + " · " + tok.display,
-            respuesta:optText, correcta:true, recuperacion:true });
+            respuesta:optText, correcta:true, recuperacion:true, primerIntento:false, final:true });
         } else {
           state.tried.push(optText);
           if (state.tried.length >= 2){
@@ -1001,7 +1032,7 @@
             state.revealed = true;
             submitLog.push({ paso:"4 - Recuperación léxica", item:"Frase " + item.phrase.id + " · " + tok.display,
               respuesta:isIdk ? optText : tok.correct, correcta:isIdk ? null : false,
-              respuestaRevelada:true, recuperacion:true });
+              respuestaRevelada:true, recuperacion:true, primerIntento:false, final:true });
           }
         }
         renderP4Retry();
@@ -1145,24 +1176,29 @@
               var wasOk = optText === tok.correct;
               if (wasIdk) tok._selfReportedIdk = true;
 
-              submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
-                respuesta: optText, correcta: wasOk ? true : (wasIdk ? null : false) });
-
               if (wasOk || wasIdk){
                 tok._chosen = optText;
                 tok._answered = wasOk ? "ok" : "idk";
+                submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+                  respuesta: optText, correcta: wasOk ? true : null,
+                  primerIntento: wasOk, respuestaAutorreferida: wasIdk });
                 resolvedCount++;
                 updateP4Progress();
                 chip.classList.remove("g-bad");
                 chip.classList.add(wasOk ? "g-ok" : "g-idk");
               } else {
                 tok._tried.add(optText);
+                submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+                  respuesta: optText, correcta: false, final: false, primerIntento: false });
                 chip.classList.add("g-bad"); // pista visual de que tuvo un intento fallido
                 // Primer error: puede reintentar. Segundo error (dos intentos fallidos en
                 // total): se revela la respuesta correcta y queda resuelto.
                 if (tok._tried.size >= 2){
                   tok._chosen = optText;
                   tok._answered = "revealed";
+                  submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+                    respuesta: tok.correct, correcta: false, respuestaRevelada: true,
+                    primerIntento: false, final: true });
                   resolvedCount++;
                   updateP4Progress();
                 }
@@ -1213,7 +1249,8 @@
         tok._chosen = null;
         resolvedCount++;
         submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
-          respuesta:tok.correct, correcta:null, respuestaRevelada:true, revelacionMasiva:true });
+          respuesta:tok.correct, correcta:null, respuestaRevelada:true, revelacionMasiva:true,
+          primerIntento:false, final:true });
         if (tok._chip){
           tok._chip.classList.remove("g-bad");
           tok._chip.classList.add("g-idk");
@@ -1231,7 +1268,7 @@
   var SCORE_EXCLUDE_PASOS = ["4 - Recuperación léxica"];
   function computeScore(){
     var items = submitLog.filter(function(e){
-      return e.correcta !== null && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+      return e.correcta !== null && e.final !== false && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
     });
     var correct = items.filter(function(e){ return e.correcta === true; }).length;
     function sectionScore(sectionItems){
@@ -1243,9 +1280,11 @@
     return {
       correct: correct,
       total: items.length,
+      firstTry: items.filter(function(e){ return e.primerIntento === true; }).length,
+      assisted: items.filter(function(e){ return e.ayudaDescarte || e.respuestaRevelada || e.revelacionMasiva; }).length,
       associations: sectionScore(items.filter(function(e){ return e.paso.indexOf("1 -") === 0 || e.paso.indexOf("2 -") === 0 || e.paso.indexOf("3 -") === 0; })),
       vocabulary: sectionScore(items.filter(function(e){ return e.paso === "4 - Vocabulario"; })),
-      recovery: sectionScore(submitLog.filter(function(e){ return e.paso === "4 - Recuperación léxica" && e.correcta !== null; }))
+      recovery: sectionScore(submitLog.filter(function(e){ return e.paso === "4 - Recuperación léxica" && e.correcta !== null && e.final !== false; }))
     };
   }
 
@@ -1311,7 +1350,10 @@
           "Resultado principal: <strong>" + score.correct + " de " + score.total + "</strong> (" + pct + "%). " +
           "Asociaciones: <strong>" + score.associations.correct + "/" + score.associations.total + "</strong> · " +
           "Vocabulario: <strong>" + score.vocabulary.correct + "/" + score.vocabulary.total + "</strong>. " +
-          "La recuperación léxica se muestra aparte y no modifica este resultado.";
+          "Primer intento: <strong>" + score.firstTry + "/" + score.total + "</strong> · " +
+          "Con ayuda: <strong>" + score.assisted + "</strong>. " +
+          "Palabras recuperadas: <strong>" + score.recovery.correct + "/" + score.recovery.total + "</strong>. " +
+          "La recuperación no modifica el resultado principal.";
         document.getElementById("score-summary").hidden = false;
       }
       clearProgress();
