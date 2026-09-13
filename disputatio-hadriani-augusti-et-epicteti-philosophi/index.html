@@ -122,13 +122,13 @@
   .hud{
     flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:.6rem;
     padding:calc(.4rem + env(safe-area-inset-top)) .8rem .4rem;
-    background:var(--g-dark); border-bottom:3px solid var(--g-gold); font-size:.8rem;
+    background:var(--g-dark); border-bottom:3px solid var(--g-gold); font-size:.95rem;
   }
-  .hud-title{ font-family:var(--serif); font-style:italic; font-size:.95rem; color:var(--g-text); }
-  .hud-progress{ font-weight:700; font-variant-numeric:tabular-nums; color:var(--g-gold); letter-spacing:.06em; }
+  .hud-title{ font-family:var(--serif); font-style:italic; font-size:1.1rem; color:var(--g-text); }
+  .hud-progress{ font-size:.98rem; font-weight:700; font-variant-numeric:tabular-nums; color:var(--g-gold); letter-spacing:.06em; }
   .hud-tired{
     background:transparent; color:var(--g-muted); border:1px solid #6e6450; border-radius:999px;
-    padding:.22rem .75rem; font-size:.75rem; font-weight:600;
+    padding:.34rem .85rem; font-size:.88rem; font-weight:600;
   }
   .hud-tired:hover{ color:var(--g-text); border-color:var(--g-gold); }
 
@@ -147,8 +147,8 @@
   .bubble{
     position:absolute; top:2.5%; width:47%; z-index:2;
     background:#f4e7c5; color:#2b1b0e; border:2px solid #8f6b2d; border-radius:5px;
-    padding:.38em .62em .46em; box-shadow:inset 0 0 0 2px rgba(255,250,224,.75), 3px 4px 0 rgba(0,0,0,.38);
-    font-size:clamp(13px, 4cqw, 21px);
+    padding:.42em .68em .5em; box-shadow:inset 0 0 0 2px rgba(255,250,224,.75), 3px 4px 0 rgba(0,0,0,.38);
+    font-size:clamp(15px, 4.5cqw, 24px);
   }
   .bubble.h{ left:2%; }
   .bubble.e{ right:2%; visibility:hidden; }
@@ -189,17 +189,17 @@
   .dialog.swap .dialog-inner{ animation:swap .26s ease-out both; }
   @keyframes swap{ from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
   .nameplate{
-    display:inline-block; font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
+    display:inline-block; font-size:.82rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase;
     color:#fff; padding:.2rem .7rem; border-radius:5px; background:var(--g-hadrian); margin-bottom:.35rem;
   }
   .nameplate.e{ background:var(--g-epictetus); }
   .dialog-tag{
-    display:flex; align-items:center; gap:.35rem; font-size:.68rem; font-weight:700;
+    display:flex; align-items:center; gap:.35rem; font-size:.8rem; font-weight:700;
     letter-spacing:.12em; text-transform:uppercase; color:var(--g-dark); background:var(--g-gold);
     padding:.2rem .6rem; border-radius:4px; margin-bottom:.5rem; width:fit-content;
   }
   .dialog-es{
-    font-family:var(--serif); font-size:1.2rem; line-height:1.42; margin:0 0 .8rem; color:#fff;
+    font-family:var(--serif); font-size:1.42rem; line-height:1.42; margin:0 0 .9rem; color:#fff;
     background:rgba(201,162,58,.12); border-left:3px solid var(--g-gold);
     padding:.55rem .8rem; border-radius:0 8px 8px 0;
   }
@@ -214,7 +214,7 @@
 
   .bank{ display:flex; flex-wrap:wrap; gap:.5rem; }
   .wchip{
-    font-family:var(--serif); font-size:1.05rem; line-height:1.2;
+    font-family:var(--serif); font-size:1.22rem; line-height:1.2;
     background:var(--g-text); color:var(--g-dark); border:2px solid var(--g-text); border-radius:8px;
     padding:.38rem .8rem; box-shadow:0 3px 0 #8a7a55;
     touch-action:manipulation; -webkit-user-select:none; user-select:none;
@@ -228,13 +228,13 @@
   @keyframes shake{ 0%,100%{ transform:none; } 25%{ transform:translateX(-4px); } 75%{ transform:translateX(4px); } }
 
   .msg-row{ display:flex; align-items:center; justify-content:space-between; gap:.8rem; margin-top:.6rem; min-height:1.6rem; flex-wrap:wrap; }
-  .msg{ font-size:.88rem; font-weight:600; margin:0; color:var(--g-muted); }
+  .msg{ font-size:1rem; font-weight:600; margin:0; color:var(--g-muted); }
   .msg strong{ color:#fff; }
   .msg.bad{ color:#ff9f8a; }
   .msg.warn{ color:#f0cf6a; }
   .msg.ok{ color:#a9d98a; }
   .btn-next{
-    margin-left:auto; border:none; border-radius:8px; padding:.55rem 1.1rem; font-size:.92rem; font-weight:700;
+    margin-left:auto; border:none; border-radius:8px; padding:.65rem 1.25rem; font-size:1rem; font-weight:700;
     background:var(--g-gold); color:var(--g-dark); box-shadow:0 3px 0 #7c6320;
   }
   .btn-next:active{ transform:translateY(2px); box-shadow:0 1px 0 #7c6320; }
