@@ -371,12 +371,14 @@
       chip.type = "button"; chip.className = "token"; chip.textContent = noun.word;
       var tried = new Set();
       var resolved = false;
+      var refreshing = false; // 2026-09-14: faltaba declararla (ReferenceError en modo estricto al errar o al cerrar el panel)
       noun._wrap = wrap;
 
       chip.addEventListener("click", function(){
         if (resolved) return;
         var existing = wrap.querySelector(".word-panel");
         if (existing && !refreshing){ existing.remove(); chip.classList.remove("open"); return; }
+        if (existing) existing.remove(); // al refrescar tras un error, reemplaza el panel en vez de duplicarlo
         chip.classList.add("open");
 
         var panel = document.createElement("div");
