@@ -84,12 +84,29 @@
   :root[data-theme="dark"] .back-to-index { background: #face53; color: #2a2016; }
   :root[data-theme="light"] .back-to-index { background: #face53; color: #2a2016; }
 
-  header {
+  /* Fijos al hacer scroll: solo "Volver al índice" (.topbar) y la búsqueda + letras
+     (.toolbar). El título y la descripción (header) se van con el scroll para no
+     comerse la pantalla del celular. */
+  .topbar {
     position: sticky;
     top: 0;
+    z-index: 11;
+    background: var(--bg);
+    padding: 12px clamp(20px, 4vw, 40px) 6px;
+  }
+  .topbar .back-to-index { margin: 0; }
+
+  header {
+    background: var(--bg);
+    padding: 12px clamp(20px, 4vw, 40px) 0;
+  }
+
+  .toolbar {
+    position: sticky;
+    top: var(--topbar-h, 0px);
     z-index: 10;
     background: var(--bg);
-    padding: clamp(20px, 4vw, 40px) clamp(20px, 4vw, 40px) 16px;
+    padding: 6px clamp(20px, 4vw, 40px) 12px;
     border-bottom: 1px solid var(--border);
   }
 
@@ -381,7 +398,7 @@
 </style>
 
 <div class="wrap">
-  <a class="back-to-index" href="../">← Volver al índice</a>
+  <div class="topbar" id="topbar"><a class="back-to-index" href="../">← Volver al índice</a></div>
   <header>
     <p class="eyebrow">Latín I y II (Sorter) · UNTREF</p>
     <h1>Diccionario de clase</h1>
@@ -389,6 +406,8 @@
       <strong id="count">656</strong> palabras… y contando!<br>
       <span class="motto">Ecce cognita et cognoscenda verba</span><span class="motto-tr"> — «he aquí las palabras conocidas y por conocer»</span>: con cada actividad, las palabras que no estaban acá se van a cargar automáticamente.
     </p>
+  </header>
+  <div class="toolbar" id="toolbar">
     <div class="search-box" id="searchBox">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
       <input id="search" type="text" placeholder="Buscar una palabra…" autocomplete="off" spellcheck="false">
@@ -396,7 +415,7 @@
     </div>
     <p class="result-count" id="resultCount" hidden></p>
     <nav class="alpha-nav" id="alphaNav" aria-label="Ir a una letra"></nav>
-  </header>
+  </div>
 
   <main id="main"></main>
 
@@ -431,7 +450,8 @@
   var countEl = document.getElementById('count');
   var resultCountEl = document.getElementById('resultCount');
   var alphaNavEl = document.getElementById('alphaNav');
-  var headerEl = document.querySelector('header');
+  var topbarEl = document.getElementById('topbar');
+  var headerEl = document.getElementById('toolbar'); // la parte fija que tapa el contenido
 
   countEl.textContent = entries.length; // total del corpus, no cambia con la búsqueda
 
@@ -459,11 +479,19 @@
   // visible/enfocada (si no, el navegador puede no animarlo); instantáneo es más confiable
   // y es el patrón estándar para "ir a sección".
   function updateHeaderOffset() {
+    // topbar mide 0 cuando está oculta (p. ej. dentro del panel de consulta de una actividad).
+    var t = topbarEl.getBoundingClientRect().height;
     var h = headerEl.getBoundingClientRect().height;
-    document.documentElement.style.setProperty('--header-offset', (h + 10) + 'px');
+    document.documentElement.style.setProperty('--topbar-h', t + 'px');
+    document.documentElement.style.setProperty('--header-offset', (t + h + 10) + 'px');
   }
   updateHeaderOffset();
   window.addEventListener('resize', updateHeaderOffset);
+  if (window.ResizeObserver) {
+    var ro = new ResizeObserver(updateHeaderOffset);
+    ro.observe(topbarEl);
+    ro.observe(headerEl);
+  }
 
   ALPHABET.forEach(function (letter) {
     var btn = document.createElement('button');
