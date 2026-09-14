@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 18 — Dédalo e Ícaro (régimen verbal y pronombres)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .phrase-cast{ font-size:.98rem; color:var(--ink); margin-bottom:.6rem; }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token:hover{ border-color:var(--accent); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .token-verb{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); border-radius:var(--radius-chip); padding:.35rem 1.05rem; }
+
+  .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .word-panel .for-word{ font-family:var(--serif); font-size:1.05rem; color:var(--ink-muted); margin-right:.2rem; }
+  .word-opt{ font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.answered-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt:disabled{ cursor:default; opacity:.6; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-feedback.ok{ color:var(--correct); } .word-feedback.bad{ color:var(--incorrect); } .word-feedback.info{ color:var(--ink-muted); font-weight:500; }
+
+  .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
+
+  .explain-box{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.75rem; font-size:1.02rem; line-height:1.65; }
+  .explain-box p{ margin:0 0 .8rem; } .explain-box p:last-child{ margin-bottom:0; }
+  .explain-box .ex-latin{ font-family:var(--serif); font-style:italic; }
+
+  .dd-row{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--serif); font-size:1.25rem; margin-bottom:.5rem; }
+  select.dd{
+    font-family:var(--sans); font-size:.95rem; font-weight:600; padding:.4rem .6rem;
+    border-radius:8px; border:2px solid var(--rule); background:var(--surface-raised); color:var(--ink);
+    cursor:pointer;
+  }
+  select.dd:disabled{ cursor:default; opacity:.9; }
+  select.dd.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  select.dd.g-bad{ border-color:var(--incorrect); }
+  .dd-msg{ font-size:.82rem; color:var(--ink-muted); margin-top:.2rem; flex:0 0 100%; }
+  .dd-msg.ok{ color:var(--correct); } .dd-msg.bad{ color:var(--incorrect); }
+
+  .noun-pool{ display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:1.5rem; }
+  .noun-pool:empty::after{ content:'Todas las palabras están clasificadas.'; color:var(--ink-muted); font-size:.9rem; }
+  .noun-item{ display:flex; flex-direction:column; align-items:flex-start; }
+  .noun-columns{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+  @media (max-width:520px){ .noun-columns{ grid-template-columns:1fr; } }
+  .noun-column{ border:1px solid var(--rule); border-radius:8px; padding:1rem; background:var(--surface-raised); min-height:120px; }
+  .noun-column h3{ font-family:var(--serif); font-weight:400; font-size:1.1rem; margin:0 0 .7rem; color:var(--accent-strong); }
+  .noun-column .tokens{ gap:.4rem; }
+  .noun-column .token{ font-size:1rem; padding:.28rem .8rem; cursor:default; }
+  .noun-column:empty p, .noun-column .noun-empty{ color:var(--ink-muted); font-size:.85rem; font-style:italic; }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{ font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer; background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  /* Botón "Volver al índice" (convención 7, color dorado de la convención 15) */
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+  .hud-home{ text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap; }
+
+  /* ---- Agregados Actividad 17/18 (flujo de Actividad 15: primer intento, no lo sé, repaso final) ---- */
+  .streak{ display:inline-block; font-size:.8rem; font-weight:700; border:1.5px solid var(--accent); color:var(--accent-strong); border-radius:999px; padding:.2rem .75rem; white-space:nowrap; }
+  .streak.zero{ border-color:var(--rule); color:var(--ink-muted); }
+  .streak-note{ color:var(--ink-muted); font-size:.78rem; margin:-.6rem 0 .8rem; }
+  select.dd.g-idk, select.dd.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--ink); }
+  .dd-msg.idk{ color:var(--ink-muted); font-style:italic; }
+  .cast-after{ font-size:.92rem; color:var(--ink-muted); margin:.45rem 0 0; font-style:italic; }
+  .item-note{ font-size:.85rem; background:var(--warn-bg); border-left:3px solid var(--warn); color:var(--ink); padding:.35rem .65rem; margin:.1rem 0 .7rem; border-radius:4px; }
+  .noun-columns.cols-3{ grid-template-columns:1fr 1fr 1fr; }
+  @media (max-width:620px){ .noun-columns.cols-3{ grid-template-columns:1fr; } }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .check-msg{ background:var(--warn-bg); border-left:3px solid var(--warn); color:var(--ink); padding:.5rem .8rem; border-radius:4px; font-size:.88rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
+
+  <p class="eyebrow">Latín · Actividad 18</p>
+  <h1>Dédalo e Ícaro — régimen verbal y pronombres</h1>
+  <p class="lede">Con las frases de Dédalo e Ícaro: nominativo y acusativo (singular y plural) en la 3ª declinación, y reemplazo del objeto directo por <span class="ex-latin">eum, eam, eos, eas</span>.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <section class="step" id="step-p1">
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>¿Nominativo, acusativo… o las dos?</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Palabras del relato de Dédalo e Ícaro. Tocá cada una y elegí su caso. <strong>Ojo:</strong> en la 3ª declinación, el plural en <strong>-es</strong> sirve tanto para el nominativo como para el acusativo (<span class="ex-latin">aves</span> = «las aves» sujeto u objeto) — esas van en la tercera columna.</p>
+      <div class="p-progress" id="p1-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p1">Me cansé, mostrame las respuestas</button>
+      <div class="exercise">
+        <div class="noun-pool" id="p1-pool"></div>
+        <div class="noun-columns cols-3" id="p1-columns"></div>
+      </div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-to-p2" disabled>Continuar a Paso 2</button></div>
+    </section>
+
+    <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá sujeto y objeto directo</h2></div></div>
+      <p class="step-instructions">Frases del relato. El verbo ya está marcado. Tocá la palabra que es sujeto y la que es objeto directo — atención al orden, y a los acusativos que van con preposición (<span class="ex-latin">in avem</span>, <span class="ex-latin">in custodiam</span>): esos indican hacia dónde, no son objeto directo.</p>
+      <div class="p-progress" id="p2-progress"></div>
+      <div class="exercise" id="p2-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p3" disabled>Continuar a Paso 3</button></div>
+    </section>
+
+    <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí la forma: ¿sujeto u objeto?</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Con la traducción a la vista, elegí la forma correcta: nominativo si es el sujeto, acusativo si es el objeto directo, singular o plural. El orden de las palabras cambia de una frase a otra. Si no lo sabés, elegí «No lo sé todavía»: esa frase vuelve al final.</p>
+      <div class="p-progress" id="p3-progress"></div>
+      <div class="exercise" id="p3-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-explain">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 4</p><h2>Los pronombres <span class="ex-latin">eum, eam, eos, eas</span></h2></div></div>
+      <div class="explain-box">
+        <p>Cuando ya sabemos de quién o de qué estamos hablando, el latín —como el castellano— evita repetir el nombre y pone un <strong>pronombre</strong> en su lugar. Para el <strong>objeto directo</strong> (acusativo) se usan estas formas de <span class="ex-latin">is, ea, id</span>:</p>
+        <p style="margin-left:1rem;">
+          <span class="ex-latin">eum</span> = lo (masculino singular) &nbsp;·&nbsp; <span class="ex-latin">Perdicem → eum</span><br />
+          <span class="ex-latin">eam</span> = la (femenino singular) &nbsp;·&nbsp; <span class="ex-latin">uxorem → eam</span><br />
+          <span class="ex-latin">eos</span> = los (masculino plural) &nbsp;·&nbsp; <span class="ex-latin">Daedalum et Icarum → eos</span><br />
+          <span class="ex-latin">eas</span> = las (femenino plural) &nbsp;·&nbsp; <span class="ex-latin">pennas → eas</span>
+        </p>
+        <p><strong>¿Cómo sé el género?</strong> En las personas, por el significado (<span class="ex-latin">uxor</span> es «esposa» → <span class="ex-latin">eam</span>). En la 1ª y la 2ª declinación ayuda la terminación (<span class="ex-latin">penna</span> femenino, <span class="ex-latin">taurus</span> masculino). En la <strong>3ª declinación la terminación no alcanza</strong>: hay que mirar el enunciado del diccionario (<span class="ex-latin">ars, artis, f.</span> → <span class="ex-latin">eam</span>, aunque en castellano digamos «el arte»).</p>
+        <p>En el Paso 4 la traducción tiene un hueco en el lugar del pronombre; la frase completa aparece cuando lo resolvés.</p>
+      </div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
+    </section>
+
+    <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Reemplazá el objeto directo por un pronombre</h2></div><span class="streak zero" id="p4-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">El objeto directo ya se nombró en la primera parte de la frase. Elegí el pronombre que lo reemplaza en la segunda (<span class="ex-latin">eum, eam, eos, eas</span>).</p>
+      <div class="p-progress" id="p4-progress"></div>
+      <div class="exercise" id="p4-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+    </section>
+
+
+    <section class="step" id="step-retry">
+      <div class="step-head"><div><p class="eyebrow">Repaso final</p><h2>Volvé a intentar estas frases</h2></div><span class="streak zero" id="retry-progress"></span></div>
+      <p class="step-instructions">Son las frases en las que elegiste «No lo sé todavía» o en las que se reveló la respuesta. Este repaso no cambia tu resultado principal.</p>
+      <div class="exercise" id="retry-list"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-retry-next" disabled>Siguiente frase</button></div>
+    </section>
+
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="respuesta libre" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="respuesta libre" required /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="score-summary" id="score-summary" hidden></p>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  /*{"sections": [["1 -", "Paso 1"], ["2 -", "Paso 2"], ["3 -", "Paso 3"], ["4 -", "Paso 4"]], "paso1": {"paso": "1 - Nominativo/Acusativo", "hint": "Pista: -m suele marcar el acusativo singular; -as, el acusativo plural de la 1ª; -es puede ser las dos cosas.", "columns": [{"key": "nominativo", "label": "Nominativo"}, {"key": "acusativo", "label": "Acusativo"}, {"key": "ambos", "label": "Nom. o ac. (plural en -es)"}], "words": [{"word": "ars", "correct": "nominativo"}, {"word": "Perdix", "correct": "nominativo"}, {"word": "nepos", "correct": "nominativo"}, {"word": "avis", "correct": "nominativo"}, {"word": "rex", "correct": "nominativo"}, {"word": "uxor", "correct": "nominativo"}, {"word": "Venus", "correct": "nominativo"}, {"word": "Minotaurus", "correct": "nominativo"}, {"word": "artem", "correct": "acusativo"}, {"word": "Perdicem", "correct": "acusativo"}, {"word": "nepotem", "correct": "acusativo"}, {"word": "avem", "correct": "acusativo"}, {"word": "regem", "correct": "acusativo"}, {"word": "uxorem", "correct": "acusativo"}, {"word": "Venerem", "correct": "acusativo"}, {"word": "Minotaurum", "correct": "acusativo"}, {"word": "vaccam", "correct": "acusativo"}, {"word": "pennas", "correct": "acusativo"}, {"word": "reges", "correct": "ambos"}, {"word": "aves", "correct": "ambos"}, {"word": "nepotes", "correct": "ambos"}]}, "paso2": [{"id": 1, "src": "F140", "tokens": ["Daedalus", "artem", "a", "Minerva", "accipit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "cast": "Dédalo recibe de Minerva su arte."}, {"id": 2, "src": "F140", "tokens": ["Perdicem", "Daedalus", "de", "tecto", "deicit."], "verbIdx": 4, "subjectIdx": 1, "objectIdx": 0, "cast": "Dédalo arroja del techo a Pérdix."}, {"id": 3, "src": "F140", "tokens": ["Minerva", "Perdicem", "in", "avem", "mutat."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Minerva transforma a Pérdix en ave."}, {"id": 4, "src": "F144", "tokens": ["Pasiphae", "taurum", "amat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "Pasífae ama a un toro."}, {"id": 5, "src": "F142", "tokens": ["Uxorem", "Minos", "habet."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Minos tiene una esposa."}, {"id": 6, "src": "F143", "tokens": ["Venerem", "Pasiphae", "non", "colit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0, "cast": "Pasífae no venera a Venus."}, {"id": 7, "src": "F148", "tokens": ["Minos", "Daedalum", "in", "custodiam", "mittit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Minos encierra a Dédalo."}], "paso3": {"paso": "3 - Sujeto y objeto (formas)", "hint": "Pista: en la traducción, ¿quién hace la acción (nominativo) y quién la recibe (acusativo)? ¿Es uno o varios?", "items": [{"id": 1, "src": "F142", "castBefore": "Minos tiene una esposa.", "parts": ["Minos", {"options": ["uxor", "uxorem", "uxores"], "correct": "uxorem", "label": "objeto"}, "habet."]}, {"id": 2, "src": "F140", "castBefore": "Dédalo recibe de Minerva su arte.", "parts": [{"options": ["ars", "artem", "artes"], "correct": "artem", "label": "objeto"}, "Daedalus a Minerva accipit."]}, {"id": 3, "src": "F140", "castBefore": "Minerva transforma a Pérdix en ave.", "parts": ["Minerva", {"options": ["Perdix", "Perdicem", "Perdices"], "correct": "Perdicem", "label": "objeto"}, "in avem mutat."]}, {"id": 4, "src": "F140", "castBefore": "Dédalo arroja del techo a su sobrino.", "parts": [{"options": ["nepos", "nepotem", "nepotes"], "correct": "nepotem", "label": "objeto"}, "suum Daedalus de tecto deicit."]}, {"id": 5, "src": "F150", "castBefore": "El sol calienta la cera.", "parts": [{"options": ["sol", "solem", "soles"], "correct": "sol", "label": "sujeto"}, {"options": ["cera", "ceram", "cerae"], "correct": "ceram", "label": "objeto"}, "calefacit."]}, {"id": 6, "src": "F144", "castBefore": "Pasífae ama a un toro.", "parts": [{"options": ["taurus", "taurum", "tauri"], "correct": "taurum", "label": "objeto"}, "Pasiphae amat."]}]}, "paso4": {"paso": "4 - Pronombre objeto", "hint": "Pista: ¿qué palabra reemplaza el pronombre? ¿Es masculina o femenina? ¿Singular o plural?", "items": [{"id": 1, "src": "F143", "castBefore": "Durante muchos años, Pasífae no venera a Venus; por eso la diosa ___ castiga.", "castAfter": "Durante muchos años, Pasífae no venera a Venus; por eso la diosa la castiga.", "parts": ["Pasiphae multos annos Venerem non colit; dea igitur", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "poena afficit."]}, {"id": 2, "src": "F140", "castBefore": "Dédalo arroja del techo a Pérdix; Minerva ___ transforma en ave.", "castAfter": "Dédalo arroja del techo a Pérdix; Minerva lo transforma en ave.", "parts": ["Daedalus Perdicem de tecto deicit; Minerva", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "in avem mutat."]}, {"id": 3, "src": "F146+F147", "castBefore": "Pasífae da a luz al Minotauro; Minos ___ quiere esconder.", "castAfter": "Pasífae da a luz al Minotauro; Minos lo quiere esconder.", "parts": ["Pasiphae Minotaurum parit; Minos", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "abscondere vult."]}, {"id": 4, "src": "F141+F148", "castBefore": "Dédalo e Ícaro llegan a Creta; Minos ___ encierra.", "castAfter": "Dédalo e Ícaro llegan a Creta; Minos los encierra.", "parts": ["Daedalus et Icarus in Cretam veniunt; Minos", {"options": ["eum", "eam", "eos", "eas"], "correct": "eos"}, "in custodiam mittit."]}, {"id": 5, "src": "F149+F150", "castBefore": "Dédalo hace alas; pero el sol ___ calienta.", "castAfter": "Dédalo hace alas; pero el sol las calienta.", "parts": ["Daedalus pennas facit; sol autem", {"options": ["eum", "eam", "eos", "eas"], "correct": "eas"}, "calefacit."]}, {"id": 6, "src": "F142+F144", "castBefore": "Minos tiene una esposa y ___ ama.", "castAfter": "Minos tiene una esposa y la ama.", "parts": ["Minos uxorem habet et", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "amat."]}, {"id": 7, "src": "F140", "note": "Ojo: ars, artis, f. — mirá el género en el enunciado del diccionario, no en el castellano.", "castBefore": "Minerva le da el arte a Dédalo; Dédalo ___ recibe.", "castAfter": "Minerva le da el arte a Dédalo; Dédalo lo recibe (en latín eam, porque ars es femenino).", "parts": ["Minerva artem Daedalo dat; Daedalus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "accipit."]}]}}*/var DATA = {"sections": [["1 -", "Paso 1"], ["2 -", "Paso 2"], ["3 -", "Paso 3"], ["4 -", "Paso 4"]], "paso1": {"paso": "1 - Nominativo/Acusativo", "hint": "Pista: -m suele marcar el acusativo singular; -as, el acusativo plural de la 1ª; -es puede ser las dos cosas.", "columns": [{"key": "nominativo", "label": "Nominativo"}, {"key": "acusativo", "label": "Acusativo"}, {"key": "ambos", "label": "Nom. o ac. (plural en -es)"}], "words": [{"word": "ars", "correct": "nominativo"}, {"word": "Perdix", "correct": "nominativo"}, {"word": "nepos", "correct": "nominativo"}, {"word": "avis", "correct": "nominativo"}, {"word": "rex", "correct": "nominativo"}, {"word": "uxor", "correct": "nominativo"}, {"word": "Venus", "correct": "nominativo"}, {"word": "Minotaurus", "correct": "nominativo"}, {"word": "artem", "correct": "acusativo"}, {"word": "Perdicem", "correct": "acusativo"}, {"word": "nepotem", "correct": "acusativo"}, {"word": "avem", "correct": "acusativo"}, {"word": "regem", "correct": "acusativo"}, {"word": "uxorem", "correct": "acusativo"}, {"word": "Venerem", "correct": "acusativo"}, {"word": "Minotaurum", "correct": "acusativo"}, {"word": "vaccam", "correct": "acusativo"}, {"word": "pennas", "correct": "acusativo"}, {"word": "reges", "correct": "ambos"}, {"word": "aves", "correct": "ambos"}, {"word": "nepotes", "correct": "ambos"}]}, "paso2": [{"id": 1, "src": "F140", "tokens": ["Daedalus", "artem", "a", "Minerva", "accipit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "cast": "Dédalo recibe de Minerva su arte."}, {"id": 2, "src": "F140", "tokens": ["Perdicem", "Daedalus", "de", "tecto", "deicit."], "verbIdx": 4, "subjectIdx": 1, "objectIdx": 0, "cast": "Dédalo arroja del techo a Pérdix."}, {"id": 3, "src": "F140", "tokens": ["Minerva", "Perdicem", "in", "avem", "mutat."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Minerva transforma a Pérdix en ave."}, {"id": 4, "src": "F144", "tokens": ["Pasiphae", "taurum", "amat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "Pasífae ama a un toro."}, {"id": 5, "src": "F142", "tokens": ["Uxorem", "Minos", "habet."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Minos tiene una esposa."}, {"id": 6, "src": "F143", "tokens": ["Venerem", "Pasiphae", "non", "colit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0, "cast": "Pasífae no venera a Venus."}, {"id": 7, "src": "F148", "tokens": ["Minos", "Daedalum", "in", "custodiam", "mittit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Minos encierra a Dédalo."}], "paso3": {"paso": "3 - Sujeto y objeto (formas)", "hint": "Pista: en la traducción, ¿quién hace la acción (nominativo) y quién la recibe (acusativo)? ¿Es uno o varios?", "items": [{"id": 1, "src": "F142", "castBefore": "Minos tiene una esposa.", "parts": ["Minos", {"options": ["uxor", "uxorem", "uxores"], "correct": "uxorem", "label": "objeto"}, "habet."]}, {"id": 2, "src": "F140", "castBefore": "Dédalo recibe de Minerva su arte.", "parts": [{"options": ["ars", "artem", "artes"], "correct": "artem", "label": "objeto"}, "Daedalus a Minerva accipit."]}, {"id": 3, "src": "F140", "castBefore": "Minerva transforma a Pérdix en ave.", "parts": ["Minerva", {"options": ["Perdix", "Perdicem", "Perdices"], "correct": "Perdicem", "label": "objeto"}, "in avem mutat."]}, {"id": 4, "src": "F140", "castBefore": "Dédalo arroja del techo a su sobrino.", "parts": [{"options": ["nepos", "nepotem", "nepotes"], "correct": "nepotem", "label": "objeto"}, "suum Daedalus de tecto deicit."]}, {"id": 5, "src": "F150", "castBefore": "El sol calienta la cera.", "parts": [{"options": ["sol", "solem", "soles"], "correct": "sol", "label": "sujeto"}, {"options": ["cera", "ceram", "cerae"], "correct": "ceram", "label": "objeto"}, "calefacit."]}, {"id": 6, "src": "F144", "castBefore": "Pasífae ama a un toro.", "parts": [{"options": ["taurus", "taurum", "tauri"], "correct": "taurum", "label": "objeto"}, "Pasiphae amat."]}]}, "paso4": {"paso": "4 - Pronombre objeto", "hint": "Pista: ¿qué palabra reemplaza el pronombre? ¿Es masculina o femenina? ¿Singular o plural?", "items": [{"id": 1, "src": "F143", "castBefore": "Durante muchos años, Pasífae no venera a Venus; por eso la diosa ___ castiga.", "castAfter": "Durante muchos años, Pasífae no venera a Venus; por eso la diosa la castiga.", "parts": ["Pasiphae multos annos Venerem non colit; dea igitur", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "poena afficit."]}, {"id": 2, "src": "F140", "castBefore": "Dédalo arroja del techo a Pérdix; Minerva ___ transforma en ave.", "castAfter": "Dédalo arroja del techo a Pérdix; Minerva lo transforma en ave.", "parts": ["Daedalus Perdicem de tecto deicit; Minerva", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "in avem mutat."]}, {"id": 3, "src": "F146+F147", "castBefore": "Pasífae da a luz al Minotauro; Minos ___ quiere esconder.", "castAfter": "Pasífae da a luz al Minotauro; Minos lo quiere esconder.", "parts": ["Pasiphae Minotaurum parit; Minos", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "abscondere vult."]}, {"id": 4, "src": "F141+F148", "castBefore": "Dédalo e Ícaro llegan a Creta; Minos ___ encierra.", "castAfter": "Dédalo e Ícaro llegan a Creta; Minos los encierra.", "parts": ["Daedalus et Icarus in Cretam veniunt; Minos", {"options": ["eum", "eam", "eos", "eas"], "correct": "eos"}, "in custodiam mittit."]}, {"id": 5, "src": "F149+F150", "castBefore": "Dédalo hace alas; pero el sol ___ calienta.", "castAfter": "Dédalo hace alas; pero el sol las calienta.", "parts": ["Daedalus pennas facit; sol autem", {"options": ["eum", "eam", "eos", "eas"], "correct": "eas"}, "calefacit."]}, {"id": 6, "src": "F142+F144", "castBefore": "Minos tiene una esposa y ___ ama.", "castAfter": "Minos tiene una esposa y la ama.", "parts": ["Minos uxorem habet et", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "amat."]}, {"id": 7, "src": "F140", "note": "Ojo: ars, artis, f. — mirá el género en el enunciado del diccionario, no en el castellano.", "castBefore": "Minerva le da el arte a Dédalo; Dédalo ___ recibe.", "castAfter": "Minerva le da el arte a Dédalo; Dédalo lo recibe (en latín eam, porque ars es femenino).", "parts": ["Minerva artem Daedalo dat; Daedalus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "accipit."]}]}};/*{"sections": [["1 -", "Paso 1"], ["2 -", "Paso 2"], ["3 -", "Paso 3"], ["4 -", "Paso 4"]], "paso1": {"paso": "1 - Nominativo/Acusativo", "hint": "Pista: -m suele marcar el acusativo singular; -as, el acusativo plural de la 1ª; -es puede ser las dos cosas.", "columns": [{"key": "nominativo", "label": "Nominativo"}, {"key": "acusativo", "label": "Acusativo"}, {"key": "ambos", "label": "Nom. o ac. (plural en -es)"}], "words": [{"word": "ars", "correct": "nominativo"}, {"word": "Perdix", "correct": "nominativo"}, {"word": "nepos", "correct": "nominativo"}, {"word": "avis", "correct": "nominativo"}, {"word": "rex", "correct": "nominativo"}, {"word": "uxor", "correct": "nominativo"}, {"word": "Venus", "correct": "nominativo"}, {"word": "Minotaurus", "correct": "nominativo"}, {"word": "artem", "correct": "acusativo"}, {"word": "Perdicem", "correct": "acusativo"}, {"word": "nepotem", "correct": "acusativo"}, {"word": "avem", "correct": "acusativo"}, {"word": "regem", "correct": "acusativo"}, {"word": "uxorem", "correct": "acusativo"}, {"word": "Venerem", "correct": "acusativo"}, {"word": "Minotaurum", "correct": "acusativo"}, {"word": "vaccam", "correct": "acusativo"}, {"word": "pennas", "correct": "acusativo"}, {"word": "reges", "correct": "ambos"}, {"word": "aves", "correct": "ambos"}, {"word": "nepotes", "correct": "ambos"}]}, "paso2": [{"id": 1, "src": "F140", "tokens": ["Daedalus", "artem", "a", "Minerva", "accipit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "cast": "Dédalo recibe de Minerva su arte."}, {"id": 2, "src": "F140", "tokens": ["Perdicem", "Daedalus", "de", "tecto", "deicit."], "verbIdx": 4, "subjectIdx": 1, "objectIdx": 0, "cast": "Dédalo arroja del techo a Pérdix."}, {"id": 3, "src": "F140", "tokens": ["Minerva", "Perdicem", "in", "avem", "mutat."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Minerva transforma a Pérdix en ave."}, {"id": 4, "src": "F144", "tokens": ["Pasiphae", "taurum", "amat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "Pasífae ama a un toro."}, {"id": 5, "src": "F142", "tokens": ["Uxorem", "Minos", "habet."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Minos tiene una esposa."}, {"id": 6, "src": "F143", "tokens": ["Venerem", "Pasiphae", "non", "colit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0, "cast": "Pasífae no venera a Venus."}, {"id": 7, "src": "F148", "tokens": ["Minos", "Daedalum", "in", "custodiam", "mittit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Minos encierra a Dédalo."}], "paso3": {"paso": "3 - Sujeto y objeto (formas)", "hint": "Pista: en la traducción, ¿quién hace la acción (nominativo) y quién la recibe (acusativo)? ¿Es uno o varios?", "items": [{"id": 1, "src": "F142", "castBefore": "Minos tiene una esposa.", "parts": ["Minos", {"options": ["uxor", "uxorem", "uxores"], "correct": "uxorem", "label": "objeto"}, "habet."]}, {"id": 2, "src": "F140", "castBefore": "Dédalo recibe de Minerva su arte.", "parts": [{"options": ["ars", "artem", "artes"], "correct": "artem", "label": "objeto"}, "Daedalus a Minerva accipit."]}, {"id": 3, "src": "F140", "castBefore": "Minerva transforma a Pérdix en ave.", "parts": ["Minerva", {"options": ["Perdix", "Perdicem", "Perdices"], "correct": "Perdicem", "label": "objeto"}, "in avem mutat."]}, {"id": 4, "src": "F140", "castBefore": "Dédalo arroja del techo a su sobrino.", "parts": [{"options": ["nepos", "nepotem", "nepotes"], "correct": "nepotem", "label": "objeto"}, "suum Daedalus de tecto deicit."]}, {"id": 5, "src": "F150", "castBefore": "El sol calienta la cera.", "parts": [{"options": ["sol", "solem", "soles"], "correct": "sol", "label": "sujeto"}, {"options": ["cera", "ceram", "cerae"], "correct": "ceram", "label": "objeto"}, "calefacit."]}, {"id": 6, "src": "F144", "castBefore": "Pasífae ama a un toro.", "parts": [{"options": ["taurus", "taurum", "tauri"], "correct": "taurum", "label": "objeto"}, "Pasiphae amat."]}]}, "paso4": {"paso": "4 - Pronombre objeto", "hint": "Pista: ¿qué palabra reemplaza el pronombre? ¿Es masculina o femenina? ¿Singular o plural?", "items": [{"id": 1, "src": "F143", "castBefore": "Durante muchos años, Pasífae no venera a Venus; por eso la diosa ___ castiga.", "castAfter": "Durante muchos años, Pasífae no venera a Venus; por eso la diosa la castiga.", "parts": ["Pasiphae multos annos Venerem non colit; dea igitur", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "poena afficit."]}, {"id": 2, "src": "F140", "castBefore": "Dédalo arroja del techo a Pérdix; Minerva ___ transforma en ave.", "castAfter": "Dédalo arroja del techo a Pérdix; Minerva lo transforma en ave.", "parts": ["Daedalus Perdicem de tecto deicit; Minerva", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "in avem mutat."]}, {"id": 3, "src": "F146+F147", "castBefore": "Pasífae da a luz al Minotauro; Minos ___ quiere esconder.", "castAfter": "Pasífae da a luz al Minotauro; Minos lo quiere esconder.", "parts": ["Pasiphae Minotaurum parit; Minos", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "abscondere vult."]}, {"id": 4, "src": "F141+F148", "castBefore": "Dédalo e Ícaro llegan a Creta; Minos ___ encierra.", "castAfter": "Dédalo e Ícaro llegan a Creta; Minos los encierra.", "parts": ["Daedalus et Icarus in Cretam veniunt; Minos", {"options": ["eum", "eam", "eos", "eas"], "correct": "eos"}, "in custodiam mittit."]}, {"id": 5, "src": "F149+F150", "castBefore": "Dédalo hace alas; pero el sol ___ calienta.", "castAfter": "Dédalo hace alas; pero el sol las calienta.", "parts": ["Daedalus pennas facit; sol autem", {"options": ["eum", "eam", "eos", "eas"], "correct": "eas"}, "calefacit."]}, {"id": 6, "src": "F142+F144", "castBefore": "Minos tiene una esposa y ___ ama.", "castAfter": "Minos tiene una esposa y la ama.", "parts": ["Minos uxorem habet et", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "amat."]}, {"id": 7, "src": "F140", "note": "Ojo: ars, artis, f. — mirá el género en el enunciado del diccionario, no en el castellano.", "castBefore": "Minerva le da el arte a Dédalo; Dédalo ___ recibe.", "castAfter": "Minerva le da el arte a Dédalo; Dédalo lo recibe (en latín eam, porque ars es femenino).", "parts": ["Minerva artem Daedalo dat; Daedalus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "accipit."]}]}}*/
+
+  var IDK = "No lo sé todavía";
+  var IDK_VALUE = "__idk__";
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+
+  var identity = { email:"" };
+  var submitLog = [];
+  // Frases de los pasos 3-4 que quedaron para el repaso final ("No lo sé todavía" o respuesta revelada).
+  var flagged = {};
+  var retryQueue = [], retryIndex = 0;
+
+  // ---------- Guardar/retomar progreso (convención 3) ----------
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog, flagged: Object.keys(flagged) })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      (restored.flagged || []).forEach(function(k){ flagged[k] = true; });
+      if (restored.step === "step-retry") goToEnd();
+      else showStep(restored.step);
+    } else {
+      showStep("step-p1");
+    }
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
+
+  // ---------- "Primer intento": aciertos seguidos sin ningún error (como Actividad 15) ----------
+  function makeStreak(el){
+    var n = 0;
+    function render(){ el.textContent = "Primer intento: " + n; el.classList.toggle("zero", n === 0); }
+    render();
+    return { hit: function(){ n++; render(); }, reset: function(){ n = 0; render(); } };
+  }
+
+  // =================================================================
+  // Paso 1: clasificación en columnas (2 o 3). Convención 1: al segundo
+  // error se revela (con 2 columnas nunca llega a pasar).
+  // =================================================================
+  (function(){
+    var cfg = DATA.paso1;
+    var streak = makeStreak(document.getElementById("p1-streak"));
+    var pool = document.getElementById("p1-pool");
+    var colsHost = document.getElementById("p1-columns");
+    var colEls = {};
+    cfg.columns.forEach(function(c){
+      var col = document.createElement("div"); col.className = "noun-column";
+      var h = document.createElement("h3"); h.textContent = c.label; col.appendChild(h);
+      var t = document.createElement("div"); t.className = "tokens"; col.appendChild(t);
+      colEls[c.key] = t; colsHost.appendChild(col);
+    });
+    var total = cfg.words.length, resolved = 0;
+    function upd(){
+      document.getElementById("p1-progress").innerHTML = "Palabras clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-to-p2").disabled = resolved < total;
+    }
+    function place(w, cls){
+      w._resolved = true; resolved++;
+      var done = document.createElement("button");
+      done.type = "button"; done.className = "token " + cls; done.disabled = true; done.textContent = w.word;
+      colEls[w.correct].appendChild(done);
+      if (w._wrap && w._wrap.parentNode) w._wrap.parentNode.removeChild(w._wrap);
+      upd();
+    }
+    shuffled(cfg.words).forEach(function(w){
+      var wrap = document.createElement("div"); wrap.className = "noun-item"; w._wrap = wrap;
+      var chip = document.createElement("button"); chip.type = "button"; chip.className = "token"; chip.textContent = w.word;
+      var tried = new Set();
+      function renderPanel(){
+        var old = wrap.querySelector(".word-panel"); if (old) old.remove();
+        chip.classList.add("open");
+        var panel = document.createElement("div"); panel.className = "word-panel";
+        cfg.columns.forEach(function(c){
+          var ob = document.createElement("button"); ob.type = "button"; ob.className = "word-opt"; ob.textContent = c.label;
+          if (tried.has(c.key)){ ob.disabled = true; ob.classList.add("answered-bad"); }
+          ob.addEventListener("click", function(){
+            if (w._resolved || tried.has(c.key)) return;
+            var ok = c.key === w.correct;
+            if (ok){
+              submitLog.push({ paso:cfg.paso, item:w.word, respuesta:c.label, correcta:true, primerIntento: tried.size === 0, final:true });
+              if (tried.size === 0) streak.hit();
+              place(w, "g-ok");
+              return;
+            }
+            tried.add(c.key);
+            submitLog.push({ paso:cfg.paso, item:w.word, respuesta:c.label, correcta:false, primerIntento:false, final:false });
+            if (tried.size === 1) streak.reset();
+            if (tried.size >= 2){
+              submitLog.push({ paso:cfg.paso, item:w.word, respuesta:w.correct, correcta:false, respuestaRevelada:true, primerIntento:false, final:true });
+              place(w, "g-revealed");
+            } else {
+              renderPanel();
+            }
+          });
+          panel.appendChild(ob);
+        });
+        if (tried.size > 0){
+          var fb = document.createElement("span"); fb.className = "word-feedback bad";
+          fb.textContent = "No es correcta. Probá una vez más. " + cfg.hint;
+          panel.appendChild(fb);
+        }
+        wrap.appendChild(panel);
+      }
+      chip.addEventListener("click", function(){
+        if (w._resolved) return;
+        var existing = wrap.querySelector(".word-panel");
+        if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+        renderPanel();
+      });
+      wrap.appendChild(chip);
+      pool.appendChild(wrap);
+    });
+    upd();
+    document.getElementById("btn-cansado-p1").addEventListener("click", function(){
+      cfg.words.forEach(function(w){
+        if (w._resolved) return;
+        submitLog.push({ paso:cfg.paso, item:w.word, respuesta:"revelada (me cansé)", correcta:null, revelacionMasiva:true, respuestaRevelada:true, final:true });
+        place(w, "g-revealed");
+      });
+    });
+  })();
+
+
+  // =================================================================
+  // Paso 2: sujeto y objeto directo (verbo fijo). Acusativos con preposición
+  // (prepIdx) dan un mensaje propio: son acusativo, pero no objeto directo.
+  // =================================================================
+  (function(){
+    var FR = DATA.paso2;
+    var list = document.getElementById("p2-list");
+    var resolved = 0, total = FR.length * 2;
+    function upd(){
+      document.getElementById("p2-progress").innerHTML = "Roles encontrados: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-to-p3").disabled = resolved < total;
+    }
+    FR.forEach(function(f){
+      var block = document.createElement("div"); block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id; block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = f.cast; block.appendChild(cast);
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var panelHost = document.createElement("div");
+      f.tokens.forEach(function(word, idx){
+        if (idx === f.verbIdx){
+          var vspan = document.createElement("span"); vspan.className = "token-verb"; vspan.textContent = word;
+          tokensEl.appendChild(vspan); return;
+        }
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        var tried = new Set(); var resolvedChip = false;
+        function openPanel(){
+          panelHost.innerHTML = "";
+          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+          var panel = document.createElement("div"); panel.className = "word-panel";
+          var isRole = (idx === f.subjectIdx || idx === f.objectIdx);
+          if (!isRole){
+            var info = document.createElement("span"); info.className = "word-feedback info";
+            info.textContent = (f.prepIdx && f.prepIdx.indexOf(idx) !== -1)
+              ? "Es un acusativo, pero va con preposición («" + f.tokens[idx-1] + "»): indica hacia dónde, no es el objeto directo."
+              : "Esta palabra no es el sujeto ni el objeto directo de la frase.";
+            panel.appendChild(info); panelHost.appendChild(panel); return;
+          }
+          var correctRole = idx === f.subjectIdx ? "sujeto" : "objeto";
+          ["sujeto","objeto"].forEach(function(role){
+            var ob = document.createElement("button");
+            ob.type = "button"; ob.className = "word-opt";
+            ob.textContent = role === "sujeto" ? "Es el sujeto" : "Es el objeto directo";
+            if (resolvedChip){ ob.disabled = true; if (role === correctRole) ob.classList.add("answered-ok"); }
+            else if (tried.has(role)){ ob.disabled = true; ob.classList.add("answered-bad"); }
+            ob.addEventListener("click", function(){
+              if (resolvedChip || tried.has(role)) return;
+              var ok = role === correctRole;
+              submitLog.push({ paso:"2 - Sujeto y objeto", item:"Frase " + f.id + " · " + word, respuesta: role, correcta: ok, final:true });
+              if (ok){ resolvedChip = true; resolved++; upd(); chip.classList.remove("g-bad"); chip.classList.add("g-ok"); }
+              else { tried.add(role); chip.classList.add("g-bad"); }
+              openPanel();
+            });
+            panel.appendChild(ob);
+          });
+          if (resolvedChip){
+            var fb = document.createElement("span"); fb.className = "word-feedback ok";
+            fb.textContent = correctRole === "sujeto" ? "¡Correcto! Es el sujeto." : "¡Correcto! Es el objeto directo.";
+            panel.appendChild(fb);
+          }
+          panelHost.appendChild(panel);
+        }
+        chip.addEventListener("click", function(){
+          if (chip.classList.contains("open") && panelHost.firstChild){ panelHost.innerHTML = ""; chip.classList.remove("open"); return; }
+          openPanel();
+        });
+        tokensEl.appendChild(chip);
+      });
+      block.appendChild(tokensEl); block.appendChild(panelHost);
+      list.appendChild(block);
+    });
+    upd();
+  })();
+
+
+  // =================================================================
+  // Desplegable genérico: opciones mezcladas + "No lo sé todavía".
+  // Convención 1: primer error deshabilita esa opción (con pista), segundo revela.
+  // =================================================================
+  function buildDropdown(options, correct, ctx){
+    var select = document.createElement("select");
+    select.className = "dd";
+    var ph = document.createElement("option");
+    ph.textContent = "— elegí —"; ph.value = ""; ph.disabled = true; ph.selected = true;
+    select.appendChild(ph);
+    shuffled(options).forEach(function(opt){
+      var o = document.createElement("option"); o.value = opt; o.textContent = opt; select.appendChild(o);
+    });
+    var oi = document.createElement("option"); oi.value = IDK_VALUE; oi.textContent = IDK; select.appendChild(oi);
+    var msg = document.createElement("div"); msg.className = "dd-msg";
+    var wrong = 0;
+    function log(extra){
+      var e = { paso: ctx.paso, item: ctx.item };
+      for (var k in extra) e[k] = extra[k];
+      if (ctx.recovery) e.recuperacion = true;
+      submitLog.push(e);
+    }
+    select.addEventListener("change", function(){
+      var val = select.value;
+      if (!val) return;
+      if (val === IDK_VALUE){
+        log({ respuesta: IDK, correcta: null, respuestaAutorreferida: true, primerIntento: false, final: true });
+        select.disabled = true; select.classList.remove("g-bad"); select.classList.add("g-idk");
+        msg.className = "dd-msg idk";
+        if (ctx.recovery){ select.value = correct; msg.textContent = "La respuesta correcta es: " + correct + "."; }
+        else { msg.textContent = "Quedó marcada para repasar al final."; }
+        if (ctx.streak) ctx.streak.reset();
+        ctx.onResolve("idk");
+        return;
+      }
+      if (val === correct){
+        log({ respuesta: val, correcta: true, primerIntento: wrong === 0, final: true });
+        select.classList.remove("g-bad"); select.classList.add("g-ok"); select.disabled = true;
+        msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
+        if (ctx.streak && wrong === 0) ctx.streak.hit();
+        ctx.onResolve("ok");
+        return;
+      }
+      wrong++;
+      log({ respuesta: val, correcta: false, primerIntento: false, final: false });
+      Array.from(select.options).forEach(function(o){ if (o.value === val) o.disabled = true; });
+      if (ctx.streak && wrong === 1) ctx.streak.reset();
+      if (wrong >= 2){
+        log({ respuesta: correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+        select.value = correct; select.classList.remove("g-bad"); select.classList.add("g-revealed"); select.disabled = true;
+        msg.className = "dd-msg bad"; msg.textContent = "No era correcta. La respuesta correcta es: " + correct + ".";
+        ctx.onResolve("revealed");
+      } else {
+        select.classList.add("g-bad"); select.value = "";
+        msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá una vez más." + (ctx.hint ? " " + ctx.hint : "");
+      }
+    });
+    return { select: select, msg: msg };
+  }
+
+  // Una frase con uno o más desplegables. castBefore = traducción visible antes;
+  // castAfter = traducción que aparece recién al resolver todos los desplegables.
+  function renderItem(item, host, cfg){
+    var block = document.createElement("div"); block.className = "phrase-block";
+    var num = document.createElement("div"); num.className = "phrase-num";
+    num.textContent = (cfg.itemPrefix || "") + "Frase " + item.id; block.appendChild(num);
+    if (item.castBefore){ var cb = document.createElement("div"); cb.className = "phrase-cast"; cb.textContent = item.castBefore; block.appendChild(cb); }
+    if (item.note){ var nt = document.createElement("div"); nt.className = "item-note"; nt.textContent = item.note; block.appendChild(nt); }
+    var row = document.createElement("div"); row.className = "dd-row";
+    var after = document.createElement("div"); after.className = "cast-after"; after.hidden = true;
+    var msgs = [], total = 0, done = 0, needsRetry = false;
+    item.parts.forEach(function(part){
+      if (typeof part === "string"){ var s = document.createElement("span"); s.textContent = part; row.appendChild(s); return; }
+      total++;
+      var d = buildDropdown(part.options, part.correct, {
+        paso: cfg.paso,
+        item: (cfg.itemPrefix || "") + "Frase " + item.id + (part.label ? " (" + part.label + ")" : ""),
+        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery,
+        onResolve: function(status){
+          done++;
+          if (status !== "ok") needsRetry = true;
+          if (cfg.onDropdown) cfg.onDropdown();
+          if (done === total){
+            var finalCast = item.castAfter || null;
+            if (finalCast){ after.textContent = "Traducción: " + finalCast; after.hidden = false; }
+            if (cfg.onItemResolved) cfg.onItemResolved(item, needsRetry);
+          }
+        }
+      });
+      row.appendChild(d.select); msgs.push(d.msg);
+    });
+    msgs.forEach(function(m){ row.appendChild(m); });
+    block.appendChild(row); block.appendChild(after);
+    host.appendChild(block);
+    return total;
+  }
+
+  function buildDropdownStep(key, cfg, listId, progressId, btnId, streakId){
+    var list = document.getElementById(listId);
+    var streak = makeStreak(document.getElementById(streakId));
+    var total = 0, done = 0;
+    function upd(){
+      document.getElementById(progressId).innerHTML = "Desplegables resueltos: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById(btnId).disabled = done < total;
+    }
+    cfg.items.forEach(function(item){
+      total += renderItem(item, list, {
+        paso: cfg.paso, hint: cfg.hint, streak: streak,
+        onDropdown: function(){ done++; upd(); },
+        onItemResolved: function(it, needsRetry){ if (needsRetry) flagged[key + "|" + it.id] = true; }
+      });
+    });
+    upd();
+  }
+  buildDropdownStep("p3", DATA.paso3, "p3-list", "p3-progress", "btn-to-explain", "p3-streak");
+  buildDropdownStep("p4", DATA.paso4, "p4-list", "p4-progress", "btn-to-fin", "p4-streak");
+
+  // =================================================================
+  // Repaso final: vuelven, de a una, las frases con "No lo sé todavía" o
+  // respuesta revelada. No modifica el resultado principal (como Actividad 15).
+  // =================================================================
+  var RETRY_SRC = { p3: { cfg: DATA.paso3, label: "Paso 3 · " }, p4: { cfg: DATA.paso4, label: "Paso 4 · " } };
+  var btnRetryNext = document.getElementById("btn-retry-next");
+  function buildRetryQueue(){
+    retryQueue = [];
+    ["p3","p4"].forEach(function(k){
+      RETRY_SRC[k].cfg.items.forEach(function(it){ if (flagged[k + "|" + it.id]) retryQueue.push({ k:k, item:it }); });
+    });
+  }
+  function renderRetry(){
+    var list = document.getElementById("retry-list");
+    list.innerHTML = "";
+    var q = retryQueue[retryIndex];
+    document.getElementById("retry-progress").textContent = (retryIndex + 1) + " / " + retryQueue.length;
+    btnRetryNext.disabled = true;
+    btnRetryNext.textContent = retryIndex === retryQueue.length - 1 ? "Continuar al cierre" : "Siguiente frase";
+    renderItem(q.item, list, {
+      paso: "Recuperación", itemPrefix: RETRY_SRC[q.k].label, hint: RETRY_SRC[q.k].cfg.hint, recovery: true,
+      onItemResolved: function(){ btnRetryNext.disabled = false; }
+    });
+  }
+  function goToEnd(){
+    buildRetryQueue();
+    if (retryQueue.length){
+      retryIndex = 0;
+      saveProgress("step-retry");
+      renderRetry();
+      showStep("step-retry");
+    } else {
+      saveProgress("step-fin");
+      showStep("step-fin");
+    }
+  }
+  btnRetryNext.addEventListener("click", function(){
+    if (retryIndex === retryQueue.length - 1){ saveProgress("step-fin"); showStep("step-fin"); }
+    else { retryIndex++; renderRetry(); window.scrollTo({ top:0, behavior:"smooth" }); }
+  });
+
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
+  document.getElementById("btn-to-explain").addEventListener("click", function(){ saveProgress("step-explain"); showStep("step-explain"); });
+  document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
+  document.getElementById("btn-to-fin").addEventListener("click", goToEnd);
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  // Convención 13 + desglose de Actividad 15: el repaso final no entra en el resultado principal,
+  // ni lo marcado "No lo sé todavía" (correcta:null).
+  var SCORE_EXCLUDE_PASOS = ["Recuperación"];
+  function computeScore(){
+    var items = submitLog.filter(function(e){
+      return e.correcta !== null && e.correcta !== undefined && e.final !== false &&
+        e.paso !== "Evaluación" && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+    });
+    function sec(list){ return { correct: list.filter(function(e){ return e.correcta === true; }).length, total: list.length }; }
+    var firstTryPool = items.filter(function(e){ return e.paso.indexOf("2 -") !== 0; });
+    return {
+      correct: items.filter(function(e){ return e.correcta === true; }).length,
+      total: items.length,
+      sections: DATA.sections.map(function(s){ return { label: s[1], score: sec(items.filter(function(e){ return e.paso.indexOf(s[0]) === 0; })) }; }),
+      firstTry: firstTryPool.filter(function(e){ return e.primerIntento === true; }).length,
+      firstTryTotal: firstTryPool.length,
+      revealed: items.filter(function(e){ return e.respuestaRevelada; }).length,
+      idk: submitLog.filter(function(e){ return e.respuestaAutorreferida && e.paso !== "Recuperación"; }).length,
+      recovery: sec(submitLog.filter(function(e){ return e.paso === "Recuperación" && e.final !== false && e.correcta !== null; }))
+    };
+  }
+
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+
+  // ---------- preguntas de feedback rotativas (2026-09-13) ----------
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
+      evalPushed = true;
+    }
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      var s = computeScore();
+      if (s.total > 0){
+        var pct = Math.round(100 * s.correct / s.total);
+        var html = "Resultado principal: <strong>" + s.correct + " de " + s.total + "</strong> (" + pct + "%). " +
+          s.sections.map(function(x){ return x.label + ": <strong>" + x.score.correct + "/" + x.score.total + "</strong>"; }).join(" · ") + ". " +
+          "Resueltas al primer intento (pasos 1, 3 y 4): <strong>" + s.firstTry + "/" + s.firstTryTotal + "</strong> · " +
+          "Respuestas reveladas: <strong>" + s.revealed + "</strong> · " +
+          "Marcaste «No lo sé todavía»: <strong>" + s.idk + "</strong> (no cuentan en el resultado).";
+        if (s.recovery.total > 0){
+          html += " Repaso final: <strong>" + s.recovery.correct + "/" + s.recovery.total + "</strong> — no modifica el resultado principal.";
+        }
+        document.getElementById("score-summary").innerHTML = html;
+        document.getElementById("score-summary").hidden = false;
+      }
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+
+<script src="../recursos/ayudas.js"></script>
+</body>
+</html>
