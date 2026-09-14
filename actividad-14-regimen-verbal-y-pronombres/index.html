@@ -257,8 +257,8 @@
           <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
           <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
         </div>
-        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required /></div>
-        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="completá la idea" required /></div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="respuesta libre" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="respuesta libre" required /></div>
       </div>
       <div class="submit-bar">
         <button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button>
@@ -689,6 +689,43 @@
   });
   var inDiffComment = document.getElementById("in-diff-comment");
   var inSuggestion = document.getElementById("in-suggestion");
+
+  // ---------- preguntas de feedback rotativas (2026-09-13) ----------
+  // Una pregunta al azar de cada pool reemplaza "Comentario sobre la dificultad" y "La actividad
+  // funcionaría mejor si…". Se evita repetir la última que vio este dispositivo (de cualquier
+  // actividad). El ID viaja en el envío para cruzar después qué pregunta trae mejores respuestas.
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
   var statusEl = document.getElementById("status");
   var btnSend = document.getElementById("btn-send");
   var sendInFlight = false;
@@ -708,7 +745,9 @@
     if (!evalPushed){
       submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
       submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
-      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
       evalPushed = true;
     }
 
