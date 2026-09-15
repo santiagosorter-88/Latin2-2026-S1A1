@@ -658,7 +658,13 @@ function groupBySemana(records){
 }
 
 function renderWeekBody(items, isActual){
-  var lecturas = items.filter(function(i){ return i.Tipo === "Lectura fuente" || i.Tipo === "Lectura bibliográfica"; });
+  var LECTURA_TAGS = {
+    "Lectura fuente": "Fuente",
+    "Lectura bibliográfica": "Bibliografía",
+    "Desgrabado": "Desgrabado",
+    "Material de clase": "Material de clase"
+  };
+  var lecturas = items.filter(function(i){ return LECTURA_TAGS.hasOwnProperty(i.Tipo); });
   var frases = items.filter(function(i){ return i.Tipo === "Frases"; });
   var actividades = items.filter(function(i){ return i.Tipo === "Actividad"; });
 
@@ -667,7 +673,7 @@ function renderWeekBody(items, isActual){
   if (lecturas.length){
     html += '<div class="block"><p class="block-label">Lecturas</p>';
     lecturas.forEach(function(l){
-      var tag = l.Tipo === "Lectura fuente" ? "Fuente" : "Bibliografía";
+      var tag = LECTURA_TAGS[l.Tipo];
       html += '<a class="reading-link" href="' + escapeHtml(l.Link) + '" target="_blank" rel="noopener">' +
         '<span class="reading-tag">' + tag + '</span><span>' + escapeHtml(l["Título"]) + '</span></a>';
     });
