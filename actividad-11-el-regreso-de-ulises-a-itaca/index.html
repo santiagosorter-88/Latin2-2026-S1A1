@@ -295,11 +295,11 @@
           <h2>Asociá cada imagen con su traducción</h2>
         </div>
         <div class="step-badges">
-          <span class="step-progress streak" id="p1-streak">Racha: 0</span>
+          <span class="step-progress streak" id="p1-streak">Primer intento: 0</span>
           <span class="step-progress" id="p1-progress">—</span>
         </div>
       </div>
-      <p class="streak-note">La racha cuenta respuestas correctas consecutivas al primer intento.</p>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
       <p class="step-instructions">Mirá la imagen y elegí, entre las traducciones de las 5 frases de esta semana, la que corresponde. Es para que te vayas familiarizando con lo que dicen — no hace falta acertar de entrada.</p>
       <div id="p1-stage"></div>
     </section>
@@ -323,11 +323,11 @@
           <h2>Asociá cada imagen con la frase clave en latín</h2>
         </div>
         <div class="step-badges">
-          <span class="step-progress streak" id="p2-streak">Racha: 0</span>
+          <span class="step-progress streak" id="p2-streak">Primer intento: 0</span>
           <span class="step-progress" id="p2-progress">—</span>
         </div>
       </div>
-      <p class="streak-note">La racha cuenta respuestas correctas consecutivas al primer intento.</p>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
       <p class="step-instructions">Misma imagen — ahora elegí, entre las frases en latín, la que corresponde. A medida que avances, las opciones ya usadas se van sacando de la lista — hacia el final quedan menos para elegir.</p>
       <div id="p2-stage"></div>
     </section>
@@ -351,11 +351,11 @@
           <h2>Asociá cada frase con su traducción</h2>
         </div>
         <div class="step-badges">
-          <span class="step-progress streak" id="p3-streak">Racha: 0</span>
+          <span class="step-progress streak" id="p3-streak">Primer intento: 0</span>
           <span class="step-progress" id="p3-progress">—</span>
         </div>
       </div>
-      <p class="streak-note">La racha cuenta respuestas correctas consecutivas al primer intento.</p>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
       <p class="step-instructions">Sin la imagen esta vez. Elegí, entre tres traducciones muy parecidas, la única que es exactamente correcta — prestá atención a quién hace la acción y si la frase la niega o no.</p>
       <div id="p3-stage"></div>
     </section>
@@ -413,11 +413,11 @@
         </div>
         <div class="field">
           <label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label>
-          <input id="in-diff-comment" type="text" placeholder="¿cómo te fue?" required />
+          <input id="in-diff-comment" type="text" placeholder="respuesta libre" required />
         </div>
         <div class="field" style="margin-top:1rem;">
           <label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label>
-          <input id="in-suggestion" type="text" placeholder="completá la idea" required />
+          <input id="in-suggestion" type="text" placeholder="respuesta libre" required />
         </div>
       </div>
       <div class="submit-bar">
@@ -616,8 +616,6 @@
         feedback.textContent = answers[p.id] === p.id
           ? "¡Correcto!"
           : "La respuesta correcta es: " + cfg.optionLabel(p);
-        if (cfg.feedbackMode) feedback.textContent += " " + feedbackHint(cfg.feedbackMode);
-        if (cfg.shrink && optionOrder.length === 1) feedback.textContent += " Se resolvió con la última opción disponible.";
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       } else if ((wrongChoices[p.id] || []).length){
@@ -644,6 +642,9 @@
             if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
             cfg.logAnswer(p, p, true, (wrongChoices[p.id] || []).length, false,
               cfg.shrink && optionOrder.length === 1);
+            if (idx === cfg.order.length - 1) renderReview();
+            else { idx++; renderStage(); }
+            return;
           } else {
             var isFirstMiss = !(wrongChoices[p.id] || []).length;
             if (streak && isFirstMiss) streak.reset();
@@ -655,6 +656,9 @@
               answers[p.id] = chosenId;
               cfg.logAnswer(p, PHRASES.filter(function(x){ return x.id === chosenId; })[0], false,
                 wrongChoices[p.id].length, true, false);
+              if (idx === cfg.order.length - 1) renderReview();
+              else { idx++; renderStage(); }
+              return;
             }
           }
           renderStage();
@@ -771,7 +775,6 @@
         feedback.textContent = answers[p.id] === opts.correct
           ? "¡Correcto!"
           : "La respuesta correcta es: " + opts.correct;
-        feedback.textContent += " " + feedbackHint("latin-translation");
         feedback.style.marginTop = ".8rem";
         card.appendChild(feedback);
       } else if ((wrongChoices[p.id] || []).length){
@@ -797,6 +800,9 @@
             var wasFirstTry = (wrongChoices[p.id] || []).length === 0;
             if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
             cfg.logAnswer(p, chosenText, true, (wrongChoices[p.id] || []).length, false, false);
+            if (idx === cfg.order.length - 1) renderReview();
+            else { idx++; renderStage(); }
+            return;
           } else {
             var isFirstMiss = !(wrongChoices[p.id] || []).length;
             if (streak && isFirstMiss) streak.reset();
@@ -807,6 +813,9 @@
               resolved[p.id] = true;
               answers[p.id] = chosenText;
               cfg.logAnswer(p, chosenText, false, wrongChoices[p.id].length, true, false);
+              if (idx === cfg.order.length - 1) renderReview();
+              else { idx++; renderStage(); }
+              return;
             }
           }
           renderStage();
@@ -1143,7 +1152,6 @@
         tok._tried = new Set(); // opciones incorrectas ya probadas para esta palabra
         tok._chip = chip;
 
-        var refreshing = false;
         chip.addEventListener("click", function(){
           var openPanel = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
           if (openPanel){ openPanel.remove(); chip.classList.remove("open"); return; }
@@ -1216,9 +1224,34 @@
                 }
               }
 
-              // re-render panel: si acertó o se reveló, queda bloqueado con feedback; si no,
-              // la opción recién probada queda deshabilitada y el resto sigue disponible.
-              refreshing = true; chip.click(); refreshing = false;
+              // Actualiza el panel abierto sin cerrarlo ni volver a sortear/reconstruir la lista.
+              Array.from(panel.querySelectorAll(".word-opt")).forEach(function(optionButton){
+                var optionValue = optionButton.textContent;
+                optionButton.disabled = !!tok._answered || tok._tried.has(optionValue);
+                optionButton.classList.remove("answered-ok", "answered-bad", "answered-idk");
+                if (tok._answered === "revealed"){
+                  if (optionValue === tok.correct) optionButton.classList.add("answered-ok");
+                  else if (optionValue === tok._chosen) optionButton.classList.add("answered-bad");
+                } else if (tok._answered && optionValue === tok._chosen){
+                  optionButton.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
+                } else if (tok._tried.has(optionValue)){
+                  optionButton.classList.add("answered-bad");
+                }
+              });
+              var oldFeedback = panel.querySelector(".word-feedback");
+              if (oldFeedback) oldFeedback.remove();
+              var refreshedFeedback = document.createElement("span");
+              if (tok._answered === "revealed"){
+                refreshedFeedback.className = "word-feedback bad";
+                refreshedFeedback.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+              } else if (tok._answered){
+                refreshedFeedback.className = "word-feedback " + tok._answered;
+                refreshedFeedback.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
+              } else if (tok._tried.size > 0){
+                refreshedFeedback.className = "word-feedback bad";
+                refreshedFeedback.textContent = "No es correcta. Probá una vez más.";
+              }
+              if (refreshedFeedback.textContent) panel.appendChild(refreshedFeedback);
             });
             panel.appendChild(ob);
           });
@@ -1310,6 +1343,43 @@
   });
   var inDiffComment = document.getElementById("in-diff-comment");
   var inSuggestion = document.getElementById("in-suggestion");
+
+  // ---------- preguntas de feedback rotativas (2026-09-13) ----------
+  // Una pregunta al azar de cada pool reemplaza "Comentario sobre la dificultad" y "La actividad
+  // funcionaría mejor si…". Se evita repetir la última que vio este dispositivo (de cualquier
+  // actividad). El ID viaja en el envío para cruzar después qué pregunta trae mejores respuestas.
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
   var statusEl = document.getElementById("status");
   var btnSend = document.getElementById("btn-send");
   var sendInFlight = false;
@@ -1331,10 +1401,10 @@
     if (!evalPushed){
       submitLog.push({ paso:"Evaluación", item:"Dificultad percibida",
         respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
-      submitLog.push({ paso:"Evaluación", item:"Comentario",
-        respuesta: comentario, correcta:null });
-      submitLog.push({ paso:"Evaluación", item:"Sugerencia",
-        respuesta: "La actividad funcionaría mejor si " + sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
       evalPushed = true;
     }
 
@@ -1379,5 +1449,6 @@
 
 })();
 </script>
+<script src="../recursos/ayudas.js"></script>
 </body>
 </html>

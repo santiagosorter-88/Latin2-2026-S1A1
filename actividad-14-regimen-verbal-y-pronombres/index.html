@@ -159,6 +159,36 @@
   }
   .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
   .hud-home{ text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap; }
+
+  /* ---- Agregados Actividad 17/18 (flujo de Actividad 15: primer intento, no lo sé, repaso final) ---- */
+  .streak{ display:inline-block; font-size:.8rem; font-weight:700; border:1.5px solid var(--accent); color:var(--accent-strong); border-radius:999px; padding:.2rem .75rem; white-space:nowrap; }
+  .streak.zero{ border-color:var(--rule); color:var(--ink-muted); }
+  .streak-note{ color:var(--ink-muted); font-size:.78rem; margin:-.6rem 0 .8rem; }
+  select.dd.g-idk, select.dd.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--ink); }
+  .dd-msg.idk{ color:var(--ink-muted); font-style:italic; }
+  .cast-after{ font-size:.92rem; color:var(--ink-muted); margin:.45rem 0 0; font-style:italic; }
+  .item-note{ font-size:.85rem; background:var(--warn-bg); border-left:3px solid var(--warn); color:var(--ink); padding:.35rem .65rem; margin:.1rem 0 .7rem; border-radius:4px; }
+  .noun-columns.cols-3{ grid-template-columns:1fr 1fr 1fr; }
+  @media (max-width:620px){ .noun-columns.cols-3{ grid-template-columns:1fr; } }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  button.dd{ font-family:var(--sans); font-size:.95rem; font-weight:600; padding:.35rem .7rem; border-radius:8px; border:2px solid var(--rule); background:var(--surface-raised); color:var(--ink); cursor:pointer; min-width:4.5rem; }
+  button.dd::after{ content:" ▾"; color:var(--ink-muted); font-size:.8em; }
+  button.dd.open{ border-color:var(--accent); }
+  button.dd:disabled{ cursor:default; opacity:1; }
+  button.dd:disabled::after{ content:""; }
+  button.dd.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  button.dd.g-bad{ border-color:var(--incorrect); }
+  button.dd.g-idk, button.dd.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--ink); }
+  .dd-panel{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.55rem 0 .2rem; padding:.6rem; background:var(--surface-raised); border:1.5px solid var(--accent); border-radius:8px; }
+  .dd-panel[hidden]{ display:none; }
+  .dd-opt{ font-family:var(--serif); font-size:1.05rem; border:1.5px solid var(--rule); border-radius:999px; padding:.35rem .95rem; background:var(--surface); color:var(--ink); cursor:pointer; }
+  .dd-opt:hover{ border-color:var(--accent); }
+  .dd-opt.idk{ font-family:var(--sans); font-size:.85rem; border-style:dashed; color:var(--ink-muted); }
+  .dd-opt:disabled{ cursor:default; border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .dd-msgs .dd-msg{ margin-top:.25rem; }
+  .btn-cast{ font-family:var(--sans); font-size:.8rem; font-weight:600; margin-top:.55rem; border:1px dashed var(--rule); border-radius:999px; padding:.3rem .85rem; background:transparent; color:var(--accent-strong); cursor:pointer; }
+  .btn-cast:hover{ border-color:var(--accent); }
+  .check-msg{ background:var(--warn-bg); border-left:3px solid var(--warn); color:var(--ink); padding:.5rem .8rem; border-radius:4px; font-size:.88rem; }
 </style>
 </head>
 <body>
@@ -167,7 +197,7 @@
 
   <p class="eyebrow">Latín · Actividad 14</p>
   <h1>Régimen verbal y pronombres: El regreso de Ulises</h1>
-  <p class="lede">Con el vocabulario del regreso de Ulises a Ítaca, repasamos el reconocimiento de nominativo (sujeto) y acusativo (objeto directo) — primero por forma, después en frases —  Cerramos reemplazando el objeto directo por los pronombres <span style="font-style:italic;">eum, eam, eos, eas</span>.</p>
+  <p class="lede">Con el vocabulario del regreso de Ulises a Ítaca: nominativo (sujeto) y acusativo (objeto directo) — primero por forma, después en frases — y reemplazo del objeto directo por <span class="ex-latin">eum, eam, eos, eas</span>.</p>
 
   <section class="identity" id="identity">
     <div class="identity-grid">
@@ -181,76 +211,77 @@
 
   <main id="main">
 
-    <!-- ===== Paso 1 ===== -->
     <section class="step" id="step-p1">
-      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificá cada palabra: ¿nominativo o acusativo?</h2></div></div>
-      <p class="step-instructions">Tocá cada palabra y elegí su caso. Va a ir quedando ubicada en la columna correspondiente. NOTA BENE: la marca de (casi) todos los acusativos singulares es -m, excepto cuando las palabras son de origen griego (como Penelope).</p>
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificá cada palabra: ¿nominativo o acusativo?</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Palabras del regreso de Ulises. Tocá cada una y elegí su caso: va a quedar ubicada en la columna correspondiente. NOTA BENE: la marca de (casi) todos los acusativos singulares es <strong>-m</strong>, excepto cuando las palabras son de origen griego (como <span class="ex-latin">Penelope → Penelopen</span>). Ojo: <span class="ex-latin">Vlixes</span> termina en -es, pero es un nominativo singular.</p>
       <div class="p-progress" id="p1-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p1">Me cansé, mostrame las respuestas</button>
       <div class="exercise">
         <div class="noun-pool" id="p1-pool"></div>
-        <div class="noun-columns">
-          <div class="noun-column"><h3>Nominativo</h3><div class="tokens" id="col-nom"></div></div>
-          <div class="noun-column"><h3>Acusativo</h3><div class="tokens" id="col-ac"></div></div>
-        </div>
+        <div class="noun-columns" id="p1-columns"></div>
       </div>
       <div class="stage-nav bottom-nav"><button class="btn" id="btn-to-p2" disabled>Continuar a Paso 2</button></div>
     </section>
 
-    <!-- ===== Paso 2 ===== -->
     <section class="step" id="step-p2">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Identificá sujeto y objeto directo</h2></div></div>
-      <p class="step-instructions">El verbo ya está marcado. Tocá la palabra que es sujeto y la que es objeto directo — atención, en algunas frases el orden varía entre latín y castellano.</p>
+      <p class="step-instructions">Frases del relato. El verbo ya está marcado. Tocá la palabra que es sujeto y la que es objeto directo — atención al orden, y a los acusativos que van con preposición (<span class="ex-latin">in casam</span>, <span class="ex-latin">in mendicum</span>): esos indican hacia dónde, no son objeto directo.</p>
       <div class="p-progress" id="p2-progress"></div>
       <div class="exercise" id="p2-list"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p3" disabled>Continuar a Paso 3</button></div>
     </section>
 
-    <!-- ===== Paso 3 ===== -->
     <section class="step" id="step-p3">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí sujeto y objeto (orden habitual)</h2></div></div>
-      <p class="step-instructions">Frases nuevas, orden sujeto-verbo-objeto. Elegí la forma correcta en cada desplegable.</p>
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Elegí la forma: ¿sujeto u objeto?</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Con la traducción a la vista, elegí la forma correcta: nominativo si es el sujeto, acusativo si es el objeto directo. El orden de las palabras cambia de una frase a otra. Si no lo sabés, elegí «No lo sé todavía»: esa frase vuelve al final.</p>
       <div class="p-progress" id="p3-progress"></div>
       <div class="exercise" id="p3-list"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
     </section>
 
-    <!-- ===== Explicación (antes del paso 4) ===== -->
     <section class="step" id="step-explain">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button></div>
       <div class="step-head"><div><p class="eyebrow">Antes del Paso 4</p><h2>Los pronombres <span class="ex-latin">eum, eam, eos, eas</span></h2></div></div>
       <div class="explain-box">
-        <p>Cuando ya sabemos de quién o de qué estamos hablando, el latín —como el castellano— evita repetir el nombre y pone un <strong>pronombre</strong> en su lugar.</p>
-        <p>Para el <strong>objeto directo</strong> (acusativo) se usan estas formas del pronombre <span class="ex-latin">is, ea, id</span>:</p>
+        <p>Cuando ya sabemos de quién o de qué estamos hablando, el latín —como el castellano— evita repetir el nombre y pone un <strong>pronombre</strong> en su lugar. Para el <strong>objeto directo</strong> (acusativo) se usan estas formas de <span class="ex-latin">is, ea, id</span>:</p>
         <p style="margin-left:1rem;">
           <span class="ex-latin">eum</span> = lo (masculino singular) &nbsp;·&nbsp; <span class="ex-latin">Vlixem → eum</span><br />
-          <span class="ex-latin">eam</span> = la (femenino singular) &nbsp;·&nbsp; <span class="ex-latin">formam → eam</span><br />
+          <span class="ex-latin">eam</span> = la (femenino singular) &nbsp;·&nbsp; <span class="ex-latin">telam → eam</span><br />
           <span class="ex-latin">eos</span> = los (masculino plural) &nbsp;·&nbsp; <span class="ex-latin">procos → eos</span><br />
           <span class="ex-latin">eas</span> = las (femenino plural) &nbsp;·&nbsp; <span class="ex-latin">telas → eas</span>
         </p>
-        <p>El pronombre ocupa el mismo lugar que ocupaba el nombre y mantiene su caso: si el nombre era objeto directo, el pronombre va en acusativo. <span class="ex-latin">Eumaeus Vlixem recipit → Eumaeus eum recipit</span> («Eumeo lo recibe»).</p>
+        <p>El pronombre ocupa el lugar del nombre y mantiene su caso: si el nombre era objeto directo, el pronombre va en acusativo. Del relato: <span class="ex-latin">Canis eum statim agnoscit</span> («el perro lo reconoce inmediatamente»).</p>
+        <p>En el Paso 4 la traducción tiene un hueco en el lugar del pronombre; la frase completa aparece cuando lo resolvés.</p>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
     </section>
 
-    <!-- ===== Paso 4 ===== -->
     <section class="step" id="step-p4">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Volver al ejercicio</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Reemplazá el objeto directo por un pronombre</h2></div></div>
-      <p class="step-instructions">Son las mismas frases del Paso 3. El objeto directo ya no aparece con su nombre: elegí en el desplegable el pronombre que le corresponde (<span style="font-style:italic;">eum, eam, eos, eas</span>), según el género y el número.</p>
+      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>Reemplazá el objeto directo por un pronombre</h2></div><span class="streak zero" id="p4-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">El objeto directo ya se nombró en la primera parte de la frase. Elegí el pronombre que lo reemplaza en la segunda (<span class="ex-latin">eum, eam, eos, eas</span>).</p>
       <div class="p-progress" id="p4-progress"></div>
       <div class="exercise" id="p4-list"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
-    <!-- ===== Cierre ===== -->
+
+    <section class="step" id="step-retry">
+      <div class="step-head"><div><p class="eyebrow">Repaso final</p><h2>Volvé a intentar estas frases</h2></div><span class="streak zero" id="retry-progress"></span></div>
+      <p class="step-instructions">Son las frases en las que elegiste «No lo sé todavía» o en las que se reveló la respuesta. Este repaso no cambia tu resultado principal.</p>
+      <div class="exercise" id="retry-list"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-retry-next" disabled>Siguiente frase</button></div>
+    </section>
+
     <section class="step" id="step-fin">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button></div>
       <div class="exercise" id="evaluacion">
         <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
-        <p class="step-instructions">Devoluciones para entender cómo te fue y para mejorar el material. Podés escribir "me fue igual que en el anterior" si no tenés más para agregar // Recordá que cuanto más claro el feedback, mayor control sobre tu aprendizaje.</p>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
         <div class="diff-group" id="diff-group">
           <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
           <button type="button" class="diff-chip" data-value="facil">Fácil</button>
@@ -261,7 +292,6 @@
         <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="respuesta libre" required /></div>
       </div>
       <div class="submit-bar">
-        <button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button>
         <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
         <span class="status" id="status"></span>
       </div>
@@ -278,16 +308,10 @@
   "use strict";
   var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
 
-  var PASO1_NOUNS = [{"word": "Vlixes", "correct": "nominativo"}, {"word": "Vlixem", "correct": "acusativo"}, {"word": "Eumaeus", "correct": "nominativo"}, {"word": "Eumaeum", "correct": "acusativo"}, {"word": "canis", "correct": "nominativo"}, {"word": "canem", "correct": "acusativo"}, {"word": "Minerva", "correct": "nominativo"}, {"word": "Minervam", "correct": "acusativo"}, {"word": "Penelope", "correct": "nominativo"}, {"word": "Penelopen", "correct": "acusativo"}, {"word": "forma", "correct": "nominativo"}, {"word": "formam", "correct": "acusativo"}, {"word": "arcus", "correct": "nominativo"}, {"word": "arcum", "correct": "acusativo"}, {"word": "proci", "correct": "nominativo"}, {"word": "procos", "correct": "acusativo"}, {"word": "cibus", "correct": "nominativo"}, {"word": "regiam", "correct": "acusativo"}];
+  /*{"sections": [["1 -", "Paso 1"], ["2 -", "Paso 2"], ["3 -", "Paso 3"], ["4 -", "Paso 4"]], "paso1": {"paso": "1 - Nominativo/Acusativo", "hint": "Pista: -m suele marcar el acusativo singular; -os y -as, el acusativo plural.", "columns": [{"key": "nominativo", "label": "Nominativo"}, {"key": "acusativo", "label": "Acusativo"}], "words": [{"word": "Vlixes", "correct": "nominativo"}, {"word": "Eumaeus", "correct": "nominativo"}, {"word": "canis", "correct": "nominativo"}, {"word": "Minerva", "correct": "nominativo"}, {"word": "Penelope", "correct": "nominativo"}, {"word": "forma", "correct": "nominativo"}, {"word": "proci", "correct": "nominativo"}, {"word": "cibus", "correct": "nominativo"}, {"word": "tela", "correct": "nominativo"}, {"word": "Vlixem", "correct": "acusativo"}, {"word": "Eumaeum", "correct": "acusativo"}, {"word": "canem", "correct": "acusativo"}, {"word": "Minervam", "correct": "acusativo"}, {"word": "Penelopen", "correct": "acusativo"}, {"word": "formam", "correct": "acusativo"}, {"word": "procos", "correct": "acusativo"}, {"word": "telas", "correct": "acusativo"}, {"word": "arcum", "correct": "acusativo"}, {"word": "regiam", "correct": "acusativo"}]}, "paso2": [{"id": 1, "src": "F132", "tokens": ["Canis", "Vlixem", "agnoscit."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "El perro reconoce a Ulises."}, {"id": 2, "src": "F132", "tokens": ["Vlixem", "Eumaeus", "non", "agnoscit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0, "cast": "Eumeo no reconoce a Ulises."}, {"id": 3, "src": "F132", "tokens": ["Minerva", "formam", "mutat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "Minerva cambia la apariencia."}, {"id": 4, "src": "F139", "tokens": ["Arcum", "Vlixes", "intendit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Ulises tensa el arco."}, {"id": 5, "src": "F134", "tokens": ["Eumaeus", "Vlixem", "in", "casam", "recipit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Eumeo recibe a Ulises en su casa."}, {"id": 6, "src": "F139", "tokens": ["Procos", "Vlixes", "occidit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Ulises mata a los pretendientes."}, {"id": 7, "src": "F137", "tokens": ["Vlixem", "Minerva", "in", "mendicum", "mutat."], "verbIdx": 4, "subjectIdx": 1, "objectIdx": 0, "prepIdx": [3], "cast": "Minerva transforma a Ulises en mendigo."}], "paso3": {"paso": "3 - Sujeto y objeto (formas)", "hint": "Pista: en la traducción, ¿quién hace la acción (nominativo) y quién la recibe (acusativo)? ¿Es uno o varios?", "items": [{"id": 1, "src": "F132", "castBefore": "El perro reconoce a Ulises.", "parts": ["Canis", {"options": ["Vlixes", "Vlixem", "Vlixis"], "correct": "Vlixem", "label": "objeto"}, "agnoscit."]}, {"id": 2, "src": "F132/F136", "castBefore": "Minerva cambia la apariencia de Ulises.", "parts": ["Minerva", {"options": ["forma", "formam", "formas"], "correct": "formam", "label": "objeto"}, "Vlixis mutat."]}, {"id": 3, "src": "F139", "castBefore": "Ulises mata a los pretendientes.", "parts": [{"options": ["proci", "procos", "procis"], "correct": "procos", "label": "objeto"}, "Vlixes occidit."]}, {"id": 4, "src": "F135", "castBefore": "Penélope teje una tela.", "parts": ["Penelope", {"options": ["tela", "telam", "telas"], "correct": "telam", "label": "objeto"}, "texit."]}, {"id": 5, "src": "F134", "castBefore": "Eumeo recibe a Ulises en su casa.", "parts": [{"options": ["Eumaeus", "Eumaeum", "Eumaei"], "correct": "Eumaeus", "label": "sujeto"}, {"options": ["Vlixes", "Vlixem", "Vlixis"], "correct": "Vlixem", "label": "objeto"}, "in casam recipit."]}, {"id": 6, "src": "F135", "castBefore": "En el palacio, Penélope engaña a los pretendientes.", "parts": ["In regia", {"options": ["proci", "procos", "procis"], "correct": "procos", "label": "objeto"}, "Penelope fallit."]}]}, "paso4": {"paso": "4 - Pronombre objeto", "hint": "Pista: ¿qué palabra reemplaza el pronombre? ¿Es masculina o femenina? ¿Singular o plural?", "items": [{"id": 1, "src": "F132", "castBefore": "El perro reconoce inmediatamente a Ulises, pero Eumeo no ___ reconoce.", "castAfter": "El perro reconoce inmediatamente a Ulises, pero Eumeo no lo reconoce.", "parts": ["Canis Vlixem statim agnoscit, sed Eumaeus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "non agnoscit."]}, {"id": 2, "src": "F135", "castBefore": "Durante el día Penélope teje una tela, durante la noche ___ desteje.", "castAfter": "Durante el día Penélope teje una tela, durante la noche la desteje.", "parts": ["Interdiu Penelope telam texit, noctu", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "detexit."]}, {"id": 3, "src": "F131+F134", "castBefore": "Ulises llega a la choza de Eumeo; Eumeo ___ recibe en su casa.", "castAfter": "Ulises llega a la choza de Eumeo; Eumeo lo recibe en su casa.", "parts": ["Vlixes ad casam Eumaei venit; Eumaeus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "in casam recipit."]}, {"id": 4, "src": "F138+F139", "castBefore": "Los pretendientes no pueden tensar el arco; Ulises ___ mata.", "castAfter": "Los pretendientes no pueden tensar el arco; Ulises los mata.", "parts": ["Proci arcum intendere non possunt; Vlixes", {"options": ["eum", "eam", "eos", "eas"], "correct": "eos"}, "occidit."]}, {"id": 5, "src": "F136", "castBefore": "Minerva muestra a Eumeo la verdadera apariencia de Ulises; él ___ reconoce.", "castAfter": "Minerva muestra a Eumeo la verdadera apariencia de Ulises; él lo reconoce.", "parts": ["Minerva veram formam Vlixis Eumaeo monstrat; ille", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "agnoscit."]}, {"id": 6, "src": "F135 (en plural)", "castBefore": "Penélope teje telas y durante la noche ___ desteje.", "castAfter": "Penélope teje telas y durante la noche las desteje.", "parts": ["Penelope telas texit et noctu", {"options": ["eum", "eam", "eos", "eas"], "correct": "eas"}, "detexit."]}, {"id": 7, "src": "F138", "castBefore": "Quien tensa el arco se lleva a Penélope; pero nadie se ___ lleva.", "castAfter": "Quien tensa el arco se lleva a Penélope; pero nadie se la lleva.", "parts": ["Qui arcum intendit, Penelopen ducit; sed nemo", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "ducit."]}]}}*/var DATA = {"sections": [["1 -", "Paso 1"], ["2 -", "Paso 2"], ["3 -", "Paso 3"], ["4 -", "Paso 4"]], "paso1": {"paso": "1 - Nominativo/Acusativo", "hint": "Pista: -m suele marcar el acusativo singular; -os y -as, el acusativo plural.", "columns": [{"key": "nominativo", "label": "Nominativo"}, {"key": "acusativo", "label": "Acusativo"}], "words": [{"word": "Vlixes", "correct": "nominativo"}, {"word": "Eumaeus", "correct": "nominativo"}, {"word": "canis", "correct": "nominativo"}, {"word": "Minerva", "correct": "nominativo"}, {"word": "Penelope", "correct": "nominativo"}, {"word": "forma", "correct": "nominativo"}, {"word": "proci", "correct": "nominativo"}, {"word": "cibus", "correct": "nominativo"}, {"word": "tela", "correct": "nominativo"}, {"word": "Vlixem", "correct": "acusativo"}, {"word": "Eumaeum", "correct": "acusativo"}, {"word": "canem", "correct": "acusativo"}, {"word": "Minervam", "correct": "acusativo"}, {"word": "Penelopen", "correct": "acusativo"}, {"word": "formam", "correct": "acusativo"}, {"word": "procos", "correct": "acusativo"}, {"word": "telas", "correct": "acusativo"}, {"word": "arcum", "correct": "acusativo"}, {"word": "regiam", "correct": "acusativo"}]}, "paso2": [{"id": 1, "src": "F132", "tokens": ["Canis", "Vlixem", "agnoscit."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "El perro reconoce a Ulises."}, {"id": 2, "src": "F132", "tokens": ["Vlixem", "Eumaeus", "non", "agnoscit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0, "cast": "Eumeo no reconoce a Ulises."}, {"id": 3, "src": "F132", "tokens": ["Minerva", "formam", "mutat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "Minerva cambia la apariencia."}, {"id": 4, "src": "F139", "tokens": ["Arcum", "Vlixes", "intendit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Ulises tensa el arco."}, {"id": 5, "src": "F134", "tokens": ["Eumaeus", "Vlixem", "in", "casam", "recipit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Eumeo recibe a Ulises en su casa."}, {"id": 6, "src": "F139", "tokens": ["Procos", "Vlixes", "occidit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Ulises mata a los pretendientes."}, {"id": 7, "src": "F137", "tokens": ["Vlixem", "Minerva", "in", "mendicum", "mutat."], "verbIdx": 4, "subjectIdx": 1, "objectIdx": 0, "prepIdx": [3], "cast": "Minerva transforma a Ulises en mendigo."}], "paso3": {"paso": "3 - Sujeto y objeto (formas)", "hint": "Pista: en la traducción, ¿quién hace la acción (nominativo) y quién la recibe (acusativo)? ¿Es uno o varios?", "items": [{"id": 1, "src": "F132", "castBefore": "El perro reconoce a Ulises.", "parts": ["Canis", {"options": ["Vlixes", "Vlixem", "Vlixis"], "correct": "Vlixem", "label": "objeto"}, "agnoscit."]}, {"id": 2, "src": "F132/F136", "castBefore": "Minerva cambia la apariencia de Ulises.", "parts": ["Minerva", {"options": ["forma", "formam", "formas"], "correct": "formam", "label": "objeto"}, "Vlixis mutat."]}, {"id": 3, "src": "F139", "castBefore": "Ulises mata a los pretendientes.", "parts": [{"options": ["proci", "procos", "procis"], "correct": "procos", "label": "objeto"}, "Vlixes occidit."]}, {"id": 4, "src": "F135", "castBefore": "Penélope teje una tela.", "parts": ["Penelope", {"options": ["tela", "telam", "telas"], "correct": "telam", "label": "objeto"}, "texit."]}, {"id": 5, "src": "F134", "castBefore": "Eumeo recibe a Ulises en su casa.", "parts": [{"options": ["Eumaeus", "Eumaeum", "Eumaei"], "correct": "Eumaeus", "label": "sujeto"}, {"options": ["Vlixes", "Vlixem", "Vlixis"], "correct": "Vlixem", "label": "objeto"}, "in casam recipit."]}, {"id": 6, "src": "F135", "castBefore": "En el palacio, Penélope engaña a los pretendientes.", "parts": ["In regia", {"options": ["proci", "procos", "procis"], "correct": "procos", "label": "objeto"}, "Penelope fallit."]}]}, "paso4": {"paso": "4 - Pronombre objeto", "hint": "Pista: ¿qué palabra reemplaza el pronombre? ¿Es masculina o femenina? ¿Singular o plural?", "items": [{"id": 1, "src": "F132", "castBefore": "El perro reconoce inmediatamente a Ulises, pero Eumeo no ___ reconoce.", "castAfter": "El perro reconoce inmediatamente a Ulises, pero Eumeo no lo reconoce.", "parts": ["Canis Vlixem statim agnoscit, sed Eumaeus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "non agnoscit."]}, {"id": 2, "src": "F135", "castBefore": "Durante el día Penélope teje una tela, durante la noche ___ desteje.", "castAfter": "Durante el día Penélope teje una tela, durante la noche la desteje.", "parts": ["Interdiu Penelope telam texit, noctu", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "detexit."]}, {"id": 3, "src": "F131+F134", "castBefore": "Ulises llega a la choza de Eumeo; Eumeo ___ recibe en su casa.", "castAfter": "Ulises llega a la choza de Eumeo; Eumeo lo recibe en su casa.", "parts": ["Vlixes ad casam Eumaei venit; Eumaeus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "in casam recipit."]}, {"id": 4, "src": "F138+F139", "castBefore": "Los pretendientes no pueden tensar el arco; Ulises ___ mata.", "castAfter": "Los pretendientes no pueden tensar el arco; Ulises los mata.", "parts": ["Proci arcum intendere non possunt; Vlixes", {"options": ["eum", "eam", "eos", "eas"], "correct": "eos"}, "occidit."]}, {"id": 5, "src": "F136", "castBefore": "Minerva muestra a Eumeo la verdadera apariencia de Ulises; él ___ reconoce.", "castAfter": "Minerva muestra a Eumeo la verdadera apariencia de Ulises; él lo reconoce.", "parts": ["Minerva veram formam Vlixis Eumaeo monstrat; ille", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "agnoscit."]}, {"id": 6, "src": "F135 (en plural)", "castBefore": "Penélope teje telas y durante la noche ___ desteje.", "castAfter": "Penélope teje telas y durante la noche las desteje.", "parts": ["Penelope telas texit et noctu", {"options": ["eum", "eam", "eos", "eas"], "correct": "eas"}, "detexit."]}, {"id": 7, "src": "F138", "castBefore": "Quien tensa el arco se lleva a Penélope; pero nadie se ___ lleva.", "castAfter": "Quien tensa el arco se lleva a Penélope; pero nadie se la lleva.", "parts": ["Qui arcum intendit, Penelopen ducit; sed nemo", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "ducit."]}]}};/*{"sections": [["1 -", "Paso 1"], ["2 -", "Paso 2"], ["3 -", "Paso 3"], ["4 -", "Paso 4"]], "paso1": {"paso": "1 - Nominativo/Acusativo", "hint": "Pista: -m suele marcar el acusativo singular; -os y -as, el acusativo plural.", "columns": [{"key": "nominativo", "label": "Nominativo"}, {"key": "acusativo", "label": "Acusativo"}], "words": [{"word": "Vlixes", "correct": "nominativo"}, {"word": "Eumaeus", "correct": "nominativo"}, {"word": "canis", "correct": "nominativo"}, {"word": "Minerva", "correct": "nominativo"}, {"word": "Penelope", "correct": "nominativo"}, {"word": "forma", "correct": "nominativo"}, {"word": "proci", "correct": "nominativo"}, {"word": "cibus", "correct": "nominativo"}, {"word": "tela", "correct": "nominativo"}, {"word": "Vlixem", "correct": "acusativo"}, {"word": "Eumaeum", "correct": "acusativo"}, {"word": "canem", "correct": "acusativo"}, {"word": "Minervam", "correct": "acusativo"}, {"word": "Penelopen", "correct": "acusativo"}, {"word": "formam", "correct": "acusativo"}, {"word": "procos", "correct": "acusativo"}, {"word": "telas", "correct": "acusativo"}, {"word": "arcum", "correct": "acusativo"}, {"word": "regiam", "correct": "acusativo"}]}, "paso2": [{"id": 1, "src": "F132", "tokens": ["Canis", "Vlixem", "agnoscit."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "El perro reconoce a Ulises."}, {"id": 2, "src": "F132", "tokens": ["Vlixem", "Eumaeus", "non", "agnoscit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0, "cast": "Eumeo no reconoce a Ulises."}, {"id": 3, "src": "F132", "tokens": ["Minerva", "formam", "mutat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1, "cast": "Minerva cambia la apariencia."}, {"id": 4, "src": "F139", "tokens": ["Arcum", "Vlixes", "intendit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Ulises tensa el arco."}, {"id": 5, "src": "F134", "tokens": ["Eumaeus", "Vlixem", "in", "casam", "recipit."], "verbIdx": 4, "subjectIdx": 0, "objectIdx": 1, "prepIdx": [3], "cast": "Eumeo recibe a Ulises en su casa."}, {"id": 6, "src": "F139", "tokens": ["Procos", "Vlixes", "occidit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0, "cast": "Ulises mata a los pretendientes."}, {"id": 7, "src": "F137", "tokens": ["Vlixem", "Minerva", "in", "mendicum", "mutat."], "verbIdx": 4, "subjectIdx": 1, "objectIdx": 0, "prepIdx": [3], "cast": "Minerva transforma a Ulises en mendigo."}], "paso3": {"paso": "3 - Sujeto y objeto (formas)", "hint": "Pista: en la traducción, ¿quién hace la acción (nominativo) y quién la recibe (acusativo)? ¿Es uno o varios?", "items": [{"id": 1, "src": "F132", "castBefore": "El perro reconoce a Ulises.", "parts": ["Canis", {"options": ["Vlixes", "Vlixem", "Vlixis"], "correct": "Vlixem", "label": "objeto"}, "agnoscit."]}, {"id": 2, "src": "F132/F136", "castBefore": "Minerva cambia la apariencia de Ulises.", "parts": ["Minerva", {"options": ["forma", "formam", "formas"], "correct": "formam", "label": "objeto"}, "Vlixis mutat."]}, {"id": 3, "src": "F139", "castBefore": "Ulises mata a los pretendientes.", "parts": [{"options": ["proci", "procos", "procis"], "correct": "procos", "label": "objeto"}, "Vlixes occidit."]}, {"id": 4, "src": "F135", "castBefore": "Penélope teje una tela.", "parts": ["Penelope", {"options": ["tela", "telam", "telas"], "correct": "telam", "label": "objeto"}, "texit."]}, {"id": 5, "src": "F134", "castBefore": "Eumeo recibe a Ulises en su casa.", "parts": [{"options": ["Eumaeus", "Eumaeum", "Eumaei"], "correct": "Eumaeus", "label": "sujeto"}, {"options": ["Vlixes", "Vlixem", "Vlixis"], "correct": "Vlixem", "label": "objeto"}, "in casam recipit."]}, {"id": 6, "src": "F135", "castBefore": "En el palacio, Penélope engaña a los pretendientes.", "parts": ["In regia", {"options": ["proci", "procos", "procis"], "correct": "procos", "label": "objeto"}, "Penelope fallit."]}]}, "paso4": {"paso": "4 - Pronombre objeto", "hint": "Pista: ¿qué palabra reemplaza el pronombre? ¿Es masculina o femenina? ¿Singular o plural?", "items": [{"id": 1, "src": "F132", "castBefore": "El perro reconoce inmediatamente a Ulises, pero Eumeo no ___ reconoce.", "castAfter": "El perro reconoce inmediatamente a Ulises, pero Eumeo no lo reconoce.", "parts": ["Canis Vlixem statim agnoscit, sed Eumaeus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "non agnoscit."]}, {"id": 2, "src": "F135", "castBefore": "Durante el día Penélope teje una tela, durante la noche ___ desteje.", "castAfter": "Durante el día Penélope teje una tela, durante la noche la desteje.", "parts": ["Interdiu Penelope telam texit, noctu", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "detexit."]}, {"id": 3, "src": "F131+F134", "castBefore": "Ulises llega a la choza de Eumeo; Eumeo ___ recibe en su casa.", "castAfter": "Ulises llega a la choza de Eumeo; Eumeo lo recibe en su casa.", "parts": ["Vlixes ad casam Eumaei venit; Eumaeus", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "in casam recipit."]}, {"id": 4, "src": "F138+F139", "castBefore": "Los pretendientes no pueden tensar el arco; Ulises ___ mata.", "castAfter": "Los pretendientes no pueden tensar el arco; Ulises los mata.", "parts": ["Proci arcum intendere non possunt; Vlixes", {"options": ["eum", "eam", "eos", "eas"], "correct": "eos"}, "occidit."]}, {"id": 5, "src": "F136", "castBefore": "Minerva muestra a Eumeo la verdadera apariencia de Ulises; él ___ reconoce.", "castAfter": "Minerva muestra a Eumeo la verdadera apariencia de Ulises; él lo reconoce.", "parts": ["Minerva veram formam Vlixis Eumaeo monstrat; ille", {"options": ["eum", "eam", "eos", "eas"], "correct": "eum"}, "agnoscit."]}, {"id": 6, "src": "F135 (en plural)", "castBefore": "Penélope teje telas y durante la noche ___ desteje.", "castAfter": "Penélope teje telas y durante la noche las desteje.", "parts": ["Penelope telas texit et noctu", {"options": ["eum", "eam", "eos", "eas"], "correct": "eas"}, "detexit."]}, {"id": 7, "src": "F138", "castBefore": "Quien tensa el arco se lleva a Penélope; pero nadie se ___ lleva.", "castAfter": "Quien tensa el arco se lleva a Penélope; pero nadie se la lleva.", "parts": ["Qui arcum intendit, Penelopen ducit; sed nemo", {"options": ["eum", "eam", "eos", "eas"], "correct": "eam"}, "ducit."]}]}}*/
 
-  var PASO2_FRASES = [{"id": 1, "latin": "Canis Vlixem agnoscit.", "cast": "El perro reconoce a Ulises.", "tokens": ["Canis", "Vlixem", "agnoscit."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1}, {"id": 2, "latin": "Vlixem Eumaeus non agnoscit.", "cast": "Eumeo no reconoce a Ulises.", "tokens": ["Vlixem", "Eumaeus", "non", "agnoscit."], "verbIdx": 3, "subjectIdx": 1, "objectIdx": 0}, {"id": 3, "latin": "Minerva formam mutat.", "cast": "Minerva cambia la apariencia.", "tokens": ["Minerva", "formam", "mutat."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1}, {"id": 4, "latin": "Arcum Vlixes intendit.", "cast": "Ulises tensa el arco.", "tokens": ["Arcum", "Vlixes", "intendit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0}, {"id": 5, "latin": "Eumaeus Vlixem recipit.", "cast": "Eumeo recibe a Ulises.", "tokens": ["Eumaeus", "Vlixem", "recipit."], "verbIdx": 2, "subjectIdx": 0, "objectIdx": 1}, {"id": 6, "latin": "Procos Vlixes occidit.", "cast": "Ulises mata a los pretendientes.", "tokens": ["Procos", "Vlixes", "occidit."], "verbIdx": 2, "subjectIdx": 1, "objectIdx": 0}];
-
-  // Paso 3: orden habitual — sujeto, objeto, (medio), verbo.
-  var PASO3 = [{"id": 1, "cast": "El perro reconoce a Ulises.", "subjOptions": ["canis", "canem"], "subjCorrect": "canis", "objOptions": ["Vlixes", "Vlixem"], "objCorrect": "Vlixem", "mid": "", "verb": "agnoscit."}, {"id": 2, "cast": "Minerva cambia la apariencia.", "subjOptions": ["Minerva", "Minervam"], "subjCorrect": "Minerva", "objOptions": ["forma", "formam"], "objCorrect": "formam", "mid": "", "verb": "mutat."}, {"id": 3, "cast": "Ulises mata a los pretendientes.", "subjOptions": ["Vlixes", "Vlixem"], "subjCorrect": "Vlixes", "objOptions": ["proci", "procos"], "objCorrect": "procos", "mid": "", "verb": "occidit."}, {"id": 4, "cast": "Penélope teje las telas.", "subjOptions": ["Penelope", "Penelopen"], "subjCorrect": "Penelope", "objOptions": ["telae", "telas"], "objCorrect": "telas", "mid": "", "verb": "texit."}, {"id": 5, "cast": "Eumeo recibe a Ulises.", "subjOptions": ["Eumaeus", "Eumaeum"], "subjCorrect": "Eumaeus", "objOptions": ["Vlixes", "Vlixem"], "objCorrect": "Vlixem", "mid": "", "verb": "recipit."}];
-
-  // Paso 4: mismas frases del Paso 3, el objeto directo reemplazado por pronombre (eum/eam/eos/eas).
-  var PRON_OPTIONS = ["eum", "eam", "eos", "eas"];
-  var PASO4 = [{"id": 1, "castPron": "El perro reconoce a Ulises. El perro lo reconoce.", "subj": "Canis", "mid": "", "verb": "agnoscit.", "pronCorrect": "eum"}, {"id": 2, "castPron": "Minerva cambia su forma. Minerva la cambia.", "subj": "Minerva", "mid": "", "verb": "mutat.", "pronCorrect": "eam"}, {"id": 3, "castPron": "Ulises mata a los pretendientes. Ulises los mata.", "subj": "Vlixes", "mid": "", "verb": "occidit.", "pronCorrect": "eos"}, {"id": 4, "castPron": "Penélope teje telas. Penélope las teje.", "subj": "Penelope", "mid": "", "verb": "texit.", "pronCorrect": "eas"}, {"id": 5, "castPron": "Eumeo recibe a ulises. Eumeo lo recibe.", "subj": "Eumaeus", "mid": "", "verb": "recipit.", "pronCorrect": "eum"}];
+  var IDK = "No lo sé todavía";
+  var IDK_VALUE = "__idk__";
 
   function shuffled(arr){
     var a = arr.slice();
@@ -297,18 +321,16 @@
 
   var identity = { email:"" };
   var submitLog = [];
+  // Frases de los pasos 3-4 que quedaron para el repaso final ("No lo sé todavía" o respuesta revelada).
+  var flagged = {};
+  var retryQueue = [], retryIndex = 0;
 
-  // ---------- Guardar/retomar progreso (por estudiante, en este mismo navegador) ----------
-  // Si el estudiante interrumpe la actividad, al volver a entrar con el mismo email
-  // en el mismo dispositivo retoma en el paso donde quedó, en vez de tener que empezar de
-  // nuevo. Si lo interrumpe A MITAD de un paso, ese paso puntual se rehace desde cero (no se
-  // guarda el detalle palabra por palabra) — es la opción más simple que resuelve el problema
-  // real sin agregar mucha complejidad.
+  // ---------- Guardar/retomar progreso (convención 3) ----------
   var STORAGE_KEY = null;
   function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
   function saveProgress(stepId){
     if (!STORAGE_KEY) return;
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog })); } catch(e){}
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog, flagged: Object.keys(flagged) })); } catch(e){}
   }
   function loadProgress(key){
     try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
@@ -329,7 +351,9 @@
     document.getElementById("main").classList.add("visible");
     if (restored && restored.step){
       submitLog = restored.submitLog || [];
-      showStep(restored.step);
+      (restored.flagged || []).forEach(function(k){ flagged[k] = true; });
+      if (restored.step === "step-retry") goToEnd();
+      else showStep(restored.step);
     } else {
       showStep("step-p1");
     }
@@ -350,335 +374,414 @@
     });
   });
 
-  // =================================================================
-  // Paso 1: clasificar sustantivos en Nominativo / Acusativo
-  // =================================================================
-  var p1Resolved = 0;
-  function updateP1Progress(){
-    document.getElementById("p1-progress").innerHTML = "Palabras clasificadas: <strong>" + p1Resolved + " / " + PASO1_NOUNS.length + "</strong>";
-    document.getElementById("btn-to-p2").disabled = p1Resolved < PASO1_NOUNS.length;
+  // ---------- "Primer intento": aciertos seguidos sin ningún error (como Actividad 15) ----------
+  function makeStreak(el){
+    var n = 0;
+    function render(){ el.textContent = "Primer intento: " + n; el.classList.toggle("zero", n === 0); }
+    render();
+    return { hit: function(){ n++; render(); }, reset: function(){ n = 0; render(); } };
   }
 
+  // =================================================================
+  // Paso 1: clasificación en columnas (2 o 3). Convención 1: al segundo
+  // error se revela (con 2 columnas nunca llega a pasar).
+  // =================================================================
   (function(){
+    var cfg = DATA.paso1;
+    var streak = makeStreak(document.getElementById("p1-streak"));
     var pool = document.getElementById("p1-pool");
-    var colNom = document.getElementById("col-nom");
-    var colAc = document.getElementById("col-ac");
-
-    shuffled(PASO1_NOUNS).forEach(function(noun){
-      var wrap = document.createElement("div");
-      wrap.className = "noun-item";
-      var chip = document.createElement("button");
-      chip.type = "button"; chip.className = "token"; chip.textContent = noun.word;
+    var colsHost = document.getElementById("p1-columns");
+    var colEls = {};
+    cfg.columns.forEach(function(c){
+      var col = document.createElement("div"); col.className = "noun-column";
+      var h = document.createElement("h3"); h.textContent = c.label; col.appendChild(h);
+      var t = document.createElement("div"); t.className = "tokens"; col.appendChild(t);
+      colEls[c.key] = t; colsHost.appendChild(col);
+    });
+    var total = cfg.words.length, resolved = 0;
+    function upd(){
+      document.getElementById("p1-progress").innerHTML = "Palabras clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-to-p2").disabled = resolved < total;
+    }
+    function place(w, cls){
+      w._resolved = true; resolved++;
+      var done = document.createElement("button");
+      done.type = "button"; done.className = "token " + cls; done.disabled = true; done.textContent = w.word;
+      colEls[w.correct].appendChild(done);
+      if (w._wrap && w._wrap.parentNode) w._wrap.parentNode.removeChild(w._wrap);
+      upd();
+    }
+    shuffled(cfg.words).forEach(function(w){
+      var wrap = document.createElement("div"); wrap.className = "noun-item"; w._wrap = wrap;
+      var chip = document.createElement("button"); chip.type = "button"; chip.className = "token"; chip.textContent = w.word;
       var tried = new Set();
-      var resolved = false;
-      var refreshing = false; // 2026-09-14: faltaba declararla (ReferenceError en modo estricto al errar o al cerrar el panel)
-      noun._wrap = wrap;
-
-      chip.addEventListener("click", function(){
-        if (resolved) return;
-        var existing = wrap.querySelector(".word-panel");
-        if (existing && !refreshing){ existing.remove(); chip.classList.remove("open"); return; }
-        if (existing) existing.remove(); // al refrescar tras un error, reemplaza el panel en vez de duplicarlo
+      function renderPanel(){
+        var old = wrap.querySelector(".word-panel"); if (old) old.remove();
         chip.classList.add("open");
-
-        var panel = document.createElement("div");
-        panel.className = "word-panel";
-        ["nominativo","acusativo"].forEach(function(opt){
-          var ob = document.createElement("button");
-          ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt.charAt(0).toUpperCase() + opt.slice(1);
-          if (tried.has(opt)){ ob.disabled = true; ob.classList.add("answered-bad"); }
+        var panel = document.createElement("div"); panel.className = "word-panel";
+        cfg.columns.forEach(function(c){
+          var ob = document.createElement("button"); ob.type = "button"; ob.className = "word-opt"; ob.textContent = c.label;
+          if (tried.has(c.key)){ ob.disabled = true; ob.classList.add("answered-bad"); }
           ob.addEventListener("click", function(){
-            if (tried.has(opt)) return;
-            var ok = opt === noun.correct;
-            submitLog.push({ paso:"1 - Nominativo/Acusativo", item:noun.word, respuesta:opt, correcta: ok });
+            if (w._resolved || tried.has(c.key)) return;
+            var ok = c.key === w.correct;
             if (ok){
-              resolved = true;
-              noun._resolved = true;
-              p1Resolved++; updateP1Progress();
-              var doneChip = document.createElement("button");
-              doneChip.type = "button"; doneChip.className = "token g-ok"; doneChip.disabled = true;
-              doneChip.textContent = noun.word;
-              (noun.correct === "nominativo" ? colNom : colAc).appendChild(doneChip);
-              wrap.remove();
+              submitLog.push({ paso:cfg.paso, item:w.word, respuesta:c.label, correcta:true, primerIntento: tried.size === 0, final:true });
+              if (tried.size === 0) streak.hit();
+              place(w, "g-ok");
+              return;
+            }
+            tried.add(c.key);
+            submitLog.push({ paso:cfg.paso, item:w.word, respuesta:c.label, correcta:false, primerIntento:false, final:false });
+            if (tried.size === 1) streak.reset();
+            if (tried.size >= 2){
+              submitLog.push({ paso:cfg.paso, item:w.word, respuesta:w.correct, correcta:false, respuestaRevelada:true, primerIntento:false, final:true });
+              place(w, "g-revealed");
             } else {
-              tried.add(opt);
-              refreshing = true; chip.click(); refreshing = false;
+              renderPanel();
             }
           });
           panel.appendChild(ob);
         });
+        if (tried.size > 0){
+          var fb = document.createElement("span"); fb.className = "word-feedback bad";
+          fb.textContent = "No es correcta. Probá una vez más. " + cfg.hint;
+          panel.appendChild(fb);
+        }
         wrap.appendChild(panel);
+      }
+      chip.addEventListener("click", function(){
+        if (w._resolved) return;
+        var existing = wrap.querySelector(".word-panel");
+        if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+        renderPanel();
       });
-
       wrap.appendChild(chip);
       pool.appendChild(wrap);
     });
-    updateP1Progress();
+    upd();
+    document.getElementById("btn-cansado-p1").addEventListener("click", function(){
+      cfg.words.forEach(function(w){
+        if (w._resolved) return;
+        submitLog.push({ paso:cfg.paso, item:w.word, respuesta:"revelada (me cansé)", correcta:null, revelacionMasiva:true, respuestaRevelada:true, final:true });
+        place(w, "g-revealed");
+      });
+    });
   })();
 
-  // Botón "me cansé": revela de una las palabras todavía sin clasificar.
-  document.getElementById("btn-cansado-p1").addEventListener("click", function(){
-    var colNom = document.getElementById("col-nom");
-    var colAc = document.getElementById("col-ac");
-    PASO1_NOUNS.forEach(function(noun){
-      if (noun._resolved) return;
-      noun._resolved = true;
-      p1Resolved++;
-      var doneChip = document.createElement("button");
-      doneChip.type = "button"; doneChip.className = "token g-revealed"; doneChip.disabled = true;
-      doneChip.textContent = noun.word;
-      (noun.correct === "nominativo" ? colNom : colAc).appendChild(doneChip);
-      if (noun._wrap && noun._wrap.parentNode) noun._wrap.parentNode.removeChild(noun._wrap);
-    });
-    updateP1Progress();
-  });
-
-  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
 
   // =================================================================
-  // Paso 2: identificar sujeto y objeto (verbo fijo, no tocable)
+  // Paso 2: sujeto y objeto directo (verbo fijo). Acusativos con preposición
+  // (prepIdx) dan un mensaje propio: son acusativo, pero no objeto directo.
   // =================================================================
-  var p2Resolved = 0;
-  function updateP2Progress(){
-    document.getElementById("p2-progress").innerHTML = "Roles encontrados: <strong>" + p2Resolved + " / " + (PASO2_FRASES.length * 2) + "</strong>";
-    document.getElementById("btn-to-p3").disabled = p2Resolved < PASO2_FRASES.length * 2;
-  }
-
   (function(){
+    var FR = DATA.paso2;
     var list = document.getElementById("p2-list");
-    PASO2_FRASES.forEach(function(f){
-      var block = document.createElement("div");
-      block.className = "phrase-block";
-      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id;
-      block.appendChild(num);
-      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = f.cast;
-      block.appendChild(cast);
-
+    var resolved = 0, total = FR.length * 2;
+    function upd(){
+      document.getElementById("p2-progress").innerHTML = "Roles encontrados: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-to-p3").disabled = resolved < total;
+    }
+    FR.forEach(function(f){
+      var block = document.createElement("div"); block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id; block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = f.cast; block.appendChild(cast);
       var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
       var panelHost = document.createElement("div");
-      var foundSubj = false, foundObj = false;
-
       f.tokens.forEach(function(word, idx){
         if (idx === f.verbIdx){
-          var vspan = document.createElement("span");
-          vspan.className = "token-verb"; vspan.textContent = word;
-          tokensEl.appendChild(vspan);
-          return;
+          var vspan = document.createElement("span"); vspan.className = "token-verb"; vspan.textContent = word;
+          tokensEl.appendChild(vspan); return;
         }
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = word;
-        var tried = new Set();
-        var resolved = false;
-
-        var refreshing = false;
-        chip.addEventListener("click", function(){
-          if (resolved) return;
-          var key = f.id + "-" + idx;
-          var existing = panelHost.querySelector('[data-panel-for="' + key + '"]');
-          if (existing && !refreshing){ existing.remove(); chip.classList.remove("open"); return; }
+        var tried = new Set(); var resolvedChip = false;
+        function openPanel(){
           panelHost.innerHTML = "";
           Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
           chip.classList.add("open");
-
-          var panel = document.createElement("div");
-          panel.className = "word-panel";
-          panel.dataset.panelFor = key;
-
+          var panel = document.createElement("div"); panel.className = "word-panel";
           var isRole = (idx === f.subjectIdx || idx === f.objectIdx);
           if (!isRole){
-            var fbInfo = document.createElement("span");
-            fbInfo.className = "word-feedback info";
-            fbInfo.textContent = "Esta palabra no es el sujeto ni el objeto directo de la frase.";
-            panel.appendChild(fbInfo);
-            panelHost.appendChild(panel);
-            return;
+            var info = document.createElement("span"); info.className = "word-feedback info";
+            info.textContent = (f.prepIdx && f.prepIdx.indexOf(idx) !== -1)
+              ? "Es un acusativo, pero va con preposición («" + f.tokens[idx-1] + "»): indica hacia dónde, no es el objeto directo."
+              : "Esta palabra no es el sujeto ni el objeto directo de la frase.";
+            panel.appendChild(info); panelHost.appendChild(panel); return;
           }
-
           var correctRole = idx === f.subjectIdx ? "sujeto" : "objeto";
           ["sujeto","objeto"].forEach(function(role){
             var ob = document.createElement("button");
             ob.type = "button"; ob.className = "word-opt";
             ob.textContent = role === "sujeto" ? "Es el sujeto" : "Es el objeto directo";
-            if (tried.has(role)){ ob.disabled = true; ob.classList.add("answered-bad"); }
+            if (resolvedChip){ ob.disabled = true; if (role === correctRole) ob.classList.add("answered-ok"); }
+            else if (tried.has(role)){ ob.disabled = true; ob.classList.add("answered-bad"); }
             ob.addEventListener("click", function(){
-              if (tried.has(role)) return;
+              if (resolvedChip || tried.has(role)) return;
               var ok = role === correctRole;
-              submitLog.push({ paso:"2 - Sujeto y objeto", item:"Frase " + f.id + " · " + word, respuesta: role, correcta: ok });
-              if (ok){
-                resolved = true;
-                if (correctRole === "sujeto") foundSubj = true; else foundObj = true;
-                p2Resolved++; updateP2Progress();
-                chip.classList.add("g-ok");
-                chip.title = correctRole === "sujeto" ? "Sujeto" : "Objeto directo";
-              } else {
-                tried.add(role);
-              }
-              refreshing = true; chip.click(); refreshing = false;
+              submitLog.push({ paso:"2 - Sujeto y objeto", item:"Frase " + f.id + " · " + word, respuesta: role, correcta: ok, final:true });
+              if (ok){ resolvedChip = true; resolved++; upd(); chip.classList.remove("g-bad"); chip.classList.add("g-ok"); }
+              else { tried.add(role); chip.classList.add("g-bad"); }
+              openPanel();
             });
             panel.appendChild(ob);
           });
-
-          if (resolved){
-            var fbOk = document.createElement("span");
-            fbOk.className = "word-feedback ok";
-            fbOk.textContent = correctRole === "sujeto" ? "¡Correcto! Es el sujeto." : "¡Correcto! Es el objeto directo.";
-            panel.appendChild(fbOk);
+          if (resolvedChip){
+            var fb = document.createElement("span"); fb.className = "word-feedback ok";
+            fb.textContent = correctRole === "sujeto" ? "¡Correcto! Es el sujeto." : "¡Correcto! Es el objeto directo.";
+            panel.appendChild(fb);
           }
-
           panelHost.appendChild(panel);
+        }
+        chip.addEventListener("click", function(){
+          if (chip.classList.contains("open") && panelHost.firstChild){ panelHost.innerHTML = ""; chip.classList.remove("open"); return; }
+          openPanel();
         });
-
         tokensEl.appendChild(chip);
       });
-
-      block.appendChild(tokensEl);
-      block.appendChild(panelHost);
+      block.appendChild(tokensEl); block.appendChild(panelHost);
       list.appendChild(block);
     });
-    updateP2Progress();
+    upd();
   })();
 
-  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
 
   // =================================================================
-  // Dropdown genérico (2 opciones, con reintento)
+  // Desplegable propio (no <select> nativo): la lista de opciones se abre SIEMPRE
+  // debajo de la frase, dentro de la página, así la frase queda a la vista
+  // (pedido de Santiago, 2026-09-14). Opciones mezcladas + "No lo sé todavía".
+  // Convención 1: primer error tacha esa opción (con pista), segundo revela.
   // =================================================================
-  function buildDropdown(options, correct, onResolve, logCtx){
-    var select = document.createElement("select");
-    select.className = "dd";
-    var placeholder = document.createElement("option");
-    placeholder.textContent = "— elegí —"; placeholder.value = ""; placeholder.disabled = true; placeholder.selected = true;
-    select.appendChild(placeholder);
-    options.forEach(function(opt){
-      var o = document.createElement("option");
-      o.value = opt; o.textContent = opt;
-      select.appendChild(o);
+  var openDd = null;
+  function closeOpenDd(){
+    if (!openDd) return;
+    openDd.panel.hidden = true;
+    openDd.btn.classList.remove("open");
+    openDd.btn.setAttribute("aria-expanded", "false");
+    openDd = null;
+  }
+  function buildDropdown(options, correct, ctx){
+    var PLACEHOLDER = "elegí";
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "dd"; btn.textContent = PLACEHOLDER;
+    btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false");
+    var panel = document.createElement("div");
+    panel.className = "dd-panel"; panel.hidden = true; panel.setAttribute("role", "listbox");
+    var msg = document.createElement("div"); msg.className = "dd-msg";
+    var wrong = 0, done = false;
+    var me = { btn: btn, panel: panel };
+    function log(extra){
+      var e = { paso: ctx.paso, item: ctx.item };
+      for (var k in extra) e[k] = extra[k];
+      if (ctx.recovery) e.recuperacion = true;
+      submitLog.push(e);
+    }
+    function addOpt(value, text, cls){
+      var o = document.createElement("button");
+      o.type = "button"; o.className = "dd-opt" + (cls ? " " + cls : ""); o.textContent = text;
+      o.setAttribute("role", "option");
+      o.addEventListener("click", function(){ choose(value, o); });
+      panel.appendChild(o);
+    }
+    shuffled(options).forEach(function(opt){ addOpt(opt, opt); });
+    addOpt(IDK_VALUE, IDK, "idk");
+    btn.addEventListener("click", function(){
+      if (done) return;
+      if (openDd === me){ closeOpenDd(); return; }
+      closeOpenDd();
+      panel.hidden = false; btn.classList.add("open"); btn.setAttribute("aria-expanded", "true");
+      openDd = me;
+      var r = panel.getBoundingClientRect();
+      if (r.bottom > window.innerHeight) panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
     });
-    var msg = document.createElement("div");
-    msg.className = "dd-msg";
-    var wrongCount = 0;
-
-    select.addEventListener("change", function(){
-      var val = select.value;
-      if (!val) return;
-      var ok = val === correct;
-      submitLog.push({ paso: logCtx.paso, item: logCtx.item, respuesta: val, correcta: ok });
-      if (ok){
-        select.classList.remove("g-bad"); select.classList.add("g-ok");
-        select.disabled = true;
-        msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
-        onResolve();
-      } else {
-        wrongCount++;
-        Array.from(select.options).forEach(function(o){ if (o.value === val) o.disabled = true; });
-        if (wrongCount >= 2){
-          select.value = correct;
-          select.classList.remove("g-bad"); select.classList.add("g-ok");
-          select.disabled = true;
-          msg.className = "dd-msg bad"; msg.textContent = "La respuesta correcta es: " + correct + ".";
-          onResolve();
-        } else {
-          select.classList.add("g-bad");
-          select.value = "";
-          msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá una vez más.";
-        }
+    function finish(){ done = true; btn.disabled = true; closeOpenDd(); }
+    function choose(val, optEl){
+      if (done || optEl.disabled) return;
+      if (val === IDK_VALUE){
+        log({ respuesta: IDK, correcta: null, respuestaAutorreferida: true, primerIntento: false, final: true });
+        btn.classList.remove("g-bad"); btn.classList.add("g-idk");
+        msg.className = "dd-msg idk";
+        if (ctx.recovery){ btn.textContent = correct; msg.textContent = "La respuesta correcta es: " + correct + "."; }
+        else { btn.textContent = "no lo sé"; msg.textContent = "Quedó marcada para repasar al final."; }
+        if (ctx.streak) ctx.streak.reset();
+        finish(); ctx.onResolve("idk");
+        return;
       }
-    });
-
-    return { select: select, msg: msg };
+      if (val === correct){
+        log({ respuesta: val, correcta: true, primerIntento: wrong === 0, final: true });
+        btn.textContent = val; btn.classList.remove("g-bad"); btn.classList.add("g-ok");
+        msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
+        if (ctx.streak && wrong === 0) ctx.streak.hit();
+        finish(); ctx.onResolve("ok");
+        return;
+      }
+      wrong++;
+      log({ respuesta: val, correcta: false, primerIntento: false, final: false });
+      optEl.disabled = true;
+      if (ctx.streak && wrong === 1) ctx.streak.reset();
+      if (wrong >= 2){
+        log({ respuesta: correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+        btn.textContent = correct; btn.classList.remove("g-bad"); btn.classList.add("g-revealed");
+        msg.className = "dd-msg bad"; msg.textContent = "No era correcta. La respuesta correcta es: " + correct + ".";
+        finish(); ctx.onResolve("revealed");
+      } else {
+        btn.classList.add("g-bad"); btn.textContent = PLACEHOLDER;
+        msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá una vez más." + (ctx.hint ? " " + ctx.hint : "");
+        // la lista queda abierta para el reintento
+      }
+    }
+    return { select: btn, msg: msg, panel: panel };
   }
 
-  // =================================================================
-  // Paso 3: sujeto y objeto por desplegable, orden habitual
-  // =================================================================
-  var p3Resolved = 0;
-  function updateP3Progress(){
-    document.getElementById("p3-progress").innerHTML = "Desplegables resueltos: <strong>" + p3Resolved + " / " + (PASO3.length * 2) + "</strong>";
-    document.getElementById("btn-to-explain").disabled = p3Resolved < PASO3.length * 2;
+  // Una frase con uno o más desplegables. castBefore = traducción visible antes;
+  // castAfter = traducción que aparece al resolver. Si DATA.castToggle, además hay un
+  // botón "Ver traducción (ayuda)" para verla antes, como orientación (Actividad 17).
+  function renderItem(item, host, cfg){
+    var block = document.createElement("div"); block.className = "phrase-block";
+    var num = document.createElement("div"); num.className = "phrase-num";
+    var itemName = (cfg.itemPrefix || "") + "Frase " + item.id;
+    num.textContent = itemName; block.appendChild(num);
+    if (item.castBefore){ var cb = document.createElement("div"); cb.className = "phrase-cast"; cb.textContent = item.castBefore; block.appendChild(cb); }
+    if (item.note){ var nt = document.createElement("div"); nt.className = "item-note"; nt.textContent = item.note; block.appendChild(nt); }
+    var row = document.createElement("div"); row.className = "dd-row";
+    var panelsHost = document.createElement("div"); panelsHost.className = "dd-panels";
+    var msgsHost = document.createElement("div"); msgsHost.className = "dd-msgs";
+    var after = document.createElement("div"); after.className = "cast-after"; after.hidden = true;
+    var toggle = null;
+    if (item.castAfter && DATA.castToggle){
+      toggle = document.createElement("button");
+      toggle.type = "button"; toggle.className = "btn-cast"; toggle.textContent = "Ver traducción (ayuda)";
+      toggle.addEventListener("click", function(){
+        if (after.hidden){
+          after.textContent = "Traducción: " + item.castAfter; after.hidden = false;
+          toggle.textContent = "Ocultar traducción";
+          if (!toggle._logged){
+            toggle._logged = true;
+            submitLog.push({ paso: cfg.paso, item: itemName + " (traducción)", respuesta: "pidió ver la traducción", correcta: null, ayudaTraduccion: true });
+          }
+        } else {
+          after.hidden = true; toggle.textContent = "Ver traducción (ayuda)";
+        }
+      });
+    }
+    var total = 0, done = 0, needsRetry = false;
+    item.parts.forEach(function(part){
+      if (typeof part === "string"){ var s = document.createElement("span"); s.textContent = part; row.appendChild(s); return; }
+      total++;
+      var d = buildDropdown(part.options, part.correct, {
+        paso: cfg.paso,
+        item: itemName + (part.label ? " (" + part.label + ")" : ""),
+        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery,
+        onResolve: function(status){
+          done++;
+          if (status !== "ok") needsRetry = true;
+          if (cfg.onDropdown) cfg.onDropdown();
+          if (done === total){
+            if (item.castAfter){ after.textContent = "Traducción: " + item.castAfter; after.hidden = false; }
+            if (toggle && toggle.parentNode) toggle.parentNode.removeChild(toggle);
+            if (cfg.onItemResolved) cfg.onItemResolved(item, needsRetry);
+          }
+        }
+      });
+      row.appendChild(d.select); panelsHost.appendChild(d.panel); msgsHost.appendChild(d.msg);
+    });
+    block.appendChild(row); block.appendChild(panelsHost); block.appendChild(msgsHost);
+    if (toggle) block.appendChild(toggle);
+    block.appendChild(after);
+    host.appendChild(block);
+    return total;
   }
 
-  (function(){
-    var list = document.getElementById("p3-list");
-    PASO3.forEach(function(item){
-      var block = document.createElement("div");
-      block.className = "phrase-block";
-      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id;
-      block.appendChild(num);
-      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = item.cast;
-      block.appendChild(cast);
-
-      var row = document.createElement("div"); row.className = "dd-row";
-      var ddSubj = buildDropdown(item.subjOptions, item.subjCorrect, function(){ p3Resolved++; updateP3Progress(); },
-        { paso:"3 - Sujeto y objeto (orden habitual)", item:"Frase " + item.id + " (sujeto)" });
-      row.appendChild(ddSubj.select);
-
-      var ddObj = buildDropdown(item.objOptions, item.objCorrect, function(){ p3Resolved++; updateP3Progress(); },
-        { paso:"3 - Sujeto y objeto (orden habitual)", item:"Frase " + item.id + " (objeto)" });
-      row.appendChild(ddObj.select);
-
-      if (item.mid){ var mid = document.createElement("span"); mid.textContent = item.mid; row.appendChild(mid); }
-      var verb = document.createElement("span"); verb.textContent = item.verb; row.appendChild(verb);
-      row.appendChild(ddSubj.msg); row.appendChild(ddObj.msg);
-
-      block.appendChild(row);
-      list.appendChild(block);
+  function buildDropdownStep(key, cfg, listId, progressId, btnId, streakId){
+    var list = document.getElementById(listId);
+    var streak = makeStreak(document.getElementById(streakId));
+    var total = 0, done = 0;
+    function upd(){
+      document.getElementById(progressId).innerHTML = "Desplegables resueltos: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById(btnId).disabled = done < total;
+    }
+    cfg.items.forEach(function(item){
+      total += renderItem(item, list, {
+        paso: cfg.paso, hint: cfg.hint, streak: streak,
+        onDropdown: function(){ done++; upd(); },
+        onItemResolved: function(it, needsRetry){ if (needsRetry) flagged[key + "|" + it.id] = true; }
+      });
     });
-    updateP3Progress();
-  })();
+    upd();
+  }
+  buildDropdownStep("p3", DATA.paso3, "p3-list", "p3-progress", "btn-to-explain", "p3-streak");
+  buildDropdownStep("p4", DATA.paso4, "p4-list", "p4-progress", "btn-to-fin", "p4-streak");
 
+  // =================================================================
+  // Repaso final: vuelven, de a una, las frases con "No lo sé todavía" o
+  // respuesta revelada. No modifica el resultado principal (como Actividad 15).
+  // =================================================================
+  var RETRY_SRC = { p3: { cfg: DATA.paso3, label: "Paso 3 · " }, p4: { cfg: DATA.paso4, label: "Paso 4 · " } };
+  var btnRetryNext = document.getElementById("btn-retry-next");
+  function buildRetryQueue(){
+    retryQueue = [];
+    ["p3","p4"].forEach(function(k){
+      RETRY_SRC[k].cfg.items.forEach(function(it){ if (flagged[k + "|" + it.id]) retryQueue.push({ k:k, item:it }); });
+    });
+  }
+  function renderRetry(){
+    var list = document.getElementById("retry-list");
+    list.innerHTML = "";
+    var q = retryQueue[retryIndex];
+    document.getElementById("retry-progress").textContent = (retryIndex + 1) + " / " + retryQueue.length;
+    btnRetryNext.disabled = true;
+    btnRetryNext.textContent = retryIndex === retryQueue.length - 1 ? "Continuar al cierre" : "Siguiente frase";
+    renderItem(q.item, list, {
+      paso: "Recuperación", itemPrefix: RETRY_SRC[q.k].label, hint: RETRY_SRC[q.k].cfg.hint, recovery: true,
+      onItemResolved: function(){ btnRetryNext.disabled = false; }
+    });
+  }
+  function goToEnd(){
+    buildRetryQueue();
+    if (retryQueue.length){
+      retryIndex = 0;
+      saveProgress("step-retry");
+      renderRetry();
+      showStep("step-retry");
+    } else {
+      saveProgress("step-fin");
+      showStep("step-fin");
+    }
+  }
+  btnRetryNext.addEventListener("click", function(){
+    if (retryIndex === retryQueue.length - 1){ saveProgress("step-fin"); showStep("step-fin"); }
+    else { retryIndex++; renderRetry(); window.scrollTo({ top:0, behavior:"smooth" }); }
+  });
+
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
+  document.getElementById("btn-to-p3").addEventListener("click", function(){ saveProgress("step-p3"); showStep("step-p3"); });
   document.getElementById("btn-to-explain").addEventListener("click", function(){ saveProgress("step-explain"); showStep("step-explain"); });
   document.getElementById("btn-to-p4").addEventListener("click", function(){ saveProgress("step-p4"); showStep("step-p4"); });
-
-  // =================================================================
-  // Paso 4: sujeto y objeto por desplegable, objeto antepuesto
-  // =================================================================
-  var p4Resolved = 0;
-  function updateP4Progress(){
-    document.getElementById("p4-progress").innerHTML = "Pronombres elegidos: <strong>" + p4Resolved + " / " + PASO4.length + "</strong>";
-    document.getElementById("btn-to-fin").disabled = p4Resolved < PASO4.length;
-  }
-
-  (function(){
-    var list = document.getElementById("p4-list");
-    PASO4.forEach(function(item){
-      var block = document.createElement("div");
-      block.className = "phrase-block";
-      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id;
-      block.appendChild(num);
-      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = item.castPron;
-      block.appendChild(cast);
-
-      var row = document.createElement("div"); row.className = "dd-row";
-      var subj = document.createElement("span"); subj.textContent = item.subj; row.appendChild(subj);
-
-      var ddPron = buildDropdown(PRON_OPTIONS, item.pronCorrect, function(){ p4Resolved++; updateP4Progress(); },
-        { paso:"4 - Reemplazo por pronombre", item:"Frase " + item.id });
-      row.appendChild(ddPron.select);
-
-      if (item.mid){ var mid = document.createElement("span"); mid.textContent = item.mid; row.appendChild(mid); }
-      var verb = document.createElement("span"); verb.textContent = item.verb; row.appendChild(verb);
-      row.appendChild(ddPron.msg);
-
-      block.appendChild(row);
-      list.appendChild(block);
-    });
-    updateP4Progress();
-  })();
-
-  document.getElementById("btn-to-fin").addEventListener("click", function(){ saveProgress("step-fin"); showStep("step-fin"); });
+  document.getElementById("btn-to-fin").addEventListener("click", goToEnd);
 
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
-  // Contador de aciertos al final -- vigente desde el 2026-09-02 (convencion 13). Excluye
-  // lo que no es una respuesta evaluable (correcta:null: Evaluacion, "no se") y, donde
-  // aplique, los pasos de autorreporte (no son una respuesta evaluada, es honestidad).
-  var SCORE_EXCLUDE_PASOS = [];
+  // Convención 13 + desglose de Actividad 15: el repaso final no entra en el resultado principal,
+  // ni lo marcado "No lo sé todavía" (correcta:null).
+  var SCORE_EXCLUDE_PASOS = ["Recuperación"];
   function computeScore(){
     var items = submitLog.filter(function(e){
-      return e.correcta !== null && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+      return e.correcta !== null && e.correcta !== undefined && e.final !== false &&
+        e.paso !== "Evaluación" && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
     });
-    var correct = items.filter(function(e){ return e.correcta === true; }).length;
-    return { correct: correct, total: items.length };
+    function sec(list){ return { correct: list.filter(function(e){ return e.correcta === true; }).length, total: list.length }; }
+    var firstTryPool = items.filter(function(e){ return e.paso.indexOf("2 -") !== 0; });
+    return {
+      correct: items.filter(function(e){ return e.correcta === true; }).length,
+      total: items.length,
+      sections: DATA.sections.map(function(s){ return { label: s[1], score: sec(items.filter(function(e){ return e.paso.indexOf(s[0]) === 0; })) }; }),
+      firstTry: firstTryPool.filter(function(e){ return e.primerIntento === true; }).length,
+      firstTryTotal: firstTryPool.length,
+      revealed: items.filter(function(e){ return e.respuestaRevelada; }).length,
+      translations: submitLog.filter(function(e){ return e.ayudaTraduccion && e.paso !== "Recuperación"; }).length,
+      idk: submitLog.filter(function(e){ return e.respuestaAutorreferida && e.paso !== "Recuperación"; }).length,
+      recovery: sec(submitLog.filter(function(e){ return e.paso === "Recuperación" && e.final !== false && e.correcta !== null; }))
+    };
   }
 
   var evalState = { dificultad:null };
@@ -693,9 +796,6 @@
   var inSuggestion = document.getElementById("in-suggestion");
 
   // ---------- preguntas de feedback rotativas (2026-09-13) ----------
-  // Una pregunta al azar de cada pool reemplaza "Comentario sobre la dificultad" y "La actividad
-  // funcionaría mejor si…". Se evita repetir la última que vio este dispositivo (de cualquier
-  // actividad). El ID viaja en el envío para cruzar después qué pregunta trae mejores respuestas.
   var FB_POOL_EXP = [
     { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
     { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
@@ -739,7 +839,7 @@
   inDiffComment.addEventListener("input", checkEvalComplete);
   inSuggestion.addEventListener("input", checkEvalComplete);
 
-  document.getElementById("btn-send").addEventListener("click", function(){
+  btnSend.addEventListener("click", function(){
     if (sendInFlight) return;
     var comentario = inDiffComment.value.trim();
     var sugerencia = inSuggestion.value.trim();
@@ -752,7 +852,6 @@
       submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
       evalPushed = true;
     }
-
     if (!APPS_SCRIPT_URL){
       statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
       statusEl.className = "status"; return;
@@ -766,11 +865,19 @@
       body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
     }).then(function(){
       statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
-      var score = computeScore();
-      if (score.total > 0){
-        var pct = Math.round(100 * score.correct / score.total);
-        document.getElementById("score-summary").innerHTML =
-          "Respondiste correctamente <strong>" + score.correct + " de " + score.total + "</strong> (" + pct + "%)." + " No incluye lo que marcaste \u201cno s\u00e9\u201d.";
+      var s = computeScore();
+      if (s.total > 0){
+        var pct = Math.round(100 * s.correct / s.total);
+        var html = "Resultado principal: <strong>" + s.correct + " de " + s.total + "</strong> (" + pct + "%). " +
+          s.sections.map(function(x){ return x.label + ": <strong>" + x.score.correct + "/" + x.score.total + "</strong>"; }).join(" · ") + ". " +
+          "Resueltas al primer intento (pasos 1, 3 y 4): <strong>" + s.firstTry + "/" + s.firstTryTotal + "</strong> · " +
+          "Respuestas reveladas: <strong>" + s.revealed + "</strong> · " +
+          "Marcaste «No lo sé todavía»: <strong>" + s.idk + "</strong> (no cuentan en el resultado)." +
+          (s.translations > 0 ? " Pediste ver la traducción en <strong>" + s.translations + "</strong> frase(s)." : "");
+        if (s.recovery.total > 0){
+          html += " Repaso final: <strong>" + s.recovery.correct + "/" + s.recovery.total + "</strong> — no modifica el resultado principal.";
+        }
+        document.getElementById("score-summary").innerHTML = html;
         document.getElementById("score-summary").hidden = false;
       }
       clearProgress();
@@ -784,5 +891,7 @@
 
 })();
 </script>
+
+<script src="../recursos/ayudas.js"></script>
 </body>
 </html>

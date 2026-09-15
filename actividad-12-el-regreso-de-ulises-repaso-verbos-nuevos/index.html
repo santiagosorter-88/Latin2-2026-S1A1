@@ -197,7 +197,7 @@
         <div><p class="eyebrow">Paso 1</p><h2>Repaso — elegí la traducción correcta</h2></div>
         <span class="step-progress" id="p1-progress">—</span>
       </div>
-      <p class="step-instructions">Volvemos sobre las frases de la Parte 1. Elegí, entre las tres opciones, la traducción correcta.</p>
+      <p class="step-instructions">Volvemos sobre las frases de la Actividad 11. Elegí, entre las tres opciones, la traducción correcta.</p>
       <div id="p1-stage"></div>
     </section>
 
@@ -211,13 +211,13 @@
 
     <!-- ===== Paso 2: texto completo, marcar verbos ===== -->
     <section class="step" id="step-p2">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1-review">↑ Volver al ejercicio</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Leé el texto completo y marcá los verbos</h2></div></div>
       <p class="step-instructions">Tocá las palabras que son formas verbales conjugadas (no los infinitivos) en cada frase del relato completo.</p>
       <button type="button" class="btn-tired" id="btn-cansado-p2">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p2-list"></div>
       <p class="check-msg" id="p2-check-msg" hidden></p>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1-review">↑ Volver al ejercicio</button><button class="btn" id="btn-verify-p2">Verificar</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button><button class="btn" id="btn-verify-p2">Verificar</button></div>
     </section>
 
     <section class="step" id="step-p2-review">
@@ -230,13 +230,13 @@
 
     <!-- ===== Paso 3: enunciado + traducción de los verbos nuevos ===== -->
     <section class="step" id="step-p3">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Volver al ejercicio</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Identificá el enunciado y la traducción de cada verbo nuevo</h2></div></div>
       <p class="step-instructions">Tocá cada forma verbal marcada (solo las de las frases nuevas). Primero elegí su enunciado y después su traducción — vas a ver el resultado apenas elijas cada una.</p>
       <div class="p4-progress" id="p3-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p3">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p3-list"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2-review">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p4" disabled>Continuar a Paso 4</button></div>
     </section>
 
     <!-- ===== Paso 4: emparejar frase nueva - traducción ===== -->
@@ -260,13 +260,13 @@
 
     <!-- ===== Paso 5: exploración léxica de las frases nuevas ===== -->
     <section class="step" id="step-p5">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4-review">↑ Volver al ejercicio</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 5</p><h2>Explorá el vocabulario de las frases nuevas</h2></div></div>
       <p class="step-instructions">Tocá cada palabra y elegí qué significa acá. Si no la conocés todavía, está bien decirlo — para eso está la opción.</p>
       <div class="p4-progress" id="p5-progress"></div>
       <button type="button" class="btn-tired" id="btn-cansado-p5">Me cansé, mostrame las respuestas</button>
       <div class="exercise" id="p5-list"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4-review">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
     </section>
 
     <!-- ===== Cierre ===== -->
@@ -471,7 +471,6 @@
       s.tokens.forEach(function(word, idx){
         var chip = document.createElement("button");
         chip.type = "button"; chip.className = "token"; chip.textContent = word;
-        var refreshing = false;
         chip.addEventListener("click", function(){
           var st = p2State[s.id];
           if (st.has(idx)) st.delete(idx); else st.add(idx);
@@ -626,14 +625,14 @@
         chip.type = "button"; chip.className = "token"; chip.textContent = tok.display;
         tok._chip = chip;
 
-        var refreshing = false;
         chip.addEventListener("click", function(){
           var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
-          if (existing && !refreshing){ existing.remove(); chip.classList.remove("open"); return; }
+          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
           panelHost.innerHTML = "";
           Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
           chip.classList.add("open");
 
+          function renderPanel(){
           var panel = document.createElement("div");
           panel.className = "word-panel";
           panel.dataset.panelFor = p.id + "-" + idx;
@@ -668,7 +667,7 @@
                 if (tok._lemmaTried.size >= 2){ tok._lemma = opt; tok._lemmaDone = true; }
               }
               checkResolved();
-              refreshing = true; chip.click(); refreshing = false;
+              renderPanel();
             });
             stageA.appendChild(ob);
           });
@@ -707,7 +706,7 @@
                   if (tok._transTried.size >= 2){ tok._trans = opt; tok._transDone = true; }
                 }
                 checkResolved();
-                refreshing = true; chip.click(); refreshing = false;
+                renderPanel();
               });
               stageB.appendChild(ob);
             });
@@ -733,6 +732,8 @@
           }
 
           panelHost.appendChild(panel);
+          }
+          renderPanel();
         });
 
         function checkResolved(){
@@ -887,14 +888,14 @@
         tok._answered = null; tok._chosen = null; tok._tried = new Set();
         tok._chip = chip;
 
-        var refreshing = false;
         chip.addEventListener("click", function(){
           var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
-          if (existing && !refreshing){ existing.remove(); chip.classList.remove("open"); return; }
+          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
           panelHost.innerHTML = "";
           Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
           chip.classList.add("open");
 
+          function renderPanel(){
           var panel = document.createElement("div");
           panel.className = "word-panel";
           panel.dataset.panelFor = p.id + "-" + idx;
@@ -941,7 +942,7 @@
                   p5Resolved++; updateP5Progress();
                 }
               }
-              refreshing = true; chip.click(); refreshing = false;
+              renderPanel();
             });
             panel.appendChild(ob);
           });
@@ -963,6 +964,8 @@
             panel.appendChild(fb2);
           }
           panelHost.appendChild(panel);
+          }
+          renderPanel();
         });
 
         tokensEl.appendChild(chip);
@@ -1057,13 +1060,14 @@
   document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
   var statusEl = document.getElementById("status");
   var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
   function checkEvalComplete(){
     btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
   }
   inDiffComment.addEventListener("input", checkEvalComplete);
   inSuggestion.addEventListener("input", checkEvalComplete);
-  var sendInFlight = false;
-  var evalPushed = false;
 
   document.getElementById("btn-send").addEventListener("click", function(){
     if (sendInFlight) return;
@@ -1110,5 +1114,6 @@
 
 })();
 </script>
+<script src="../recursos/ayudas.js"></script>
 </body>
 </html>
