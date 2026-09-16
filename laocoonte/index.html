@@ -158,7 +158,7 @@
   .gloss-word:hover,.gloss-word:focus-visible{ background:rgba(201,162,58,.22); outline:2px solid var(--g-gold); outline-offset:1px; }
   .gloss-word.open{ background:var(--g-gold); color:var(--g-dark); }
   .gloss-panel{ display:block; margin:.45rem 0 .1rem; padding:.4rem .65rem; background:#f4e7c5; color:#2b1b0e; border:1px solid #8f6b2d; border-radius:5px; font-family:var(--serif); font-style:normal; font-size:1rem; line-height:1.25; text-align:left; }
-  .gloss-panel strong{ font-family:var(--display); font-weight:400; margin-right:.35em; }
+  .gloss-panel strong{ font-family:var(--serif); font-weight:600; margin-right:.35em; }
   .dialog-es{ font-family:var(--serif); font-size:1.42rem; line-height:1.42; margin:0 0 .9rem; color:#fff; background:rgba(201,162,58,.12); border-left:3px solid var(--g-gold); padding:.55rem .8rem; border-radius:0 8px 8px 0; }
   .dialog-es.small{ font-size:1.12rem; color:var(--g-muted); }
   .dialog-es .seg{ border-radius:3px; transition:background .15s ease, color .15s ease; }
@@ -263,6 +263,7 @@
       <span class="nameplate" id="nameplate">Parte 1</span><span class="dialog-tag" id="dialog-tag">Tocá en la imagen</span>
       <p class="dialog-text" id="dialog-text" hidden></p>
       <p class="dialog-la" id="dialog-la" hidden></p>
+      <div id="gloss-host"></div>
       <p class="dialog-es" id="dialog-es" hidden></p>
       <div class="bank" id="bank" hidden></div>
       <div class="msg-row">
@@ -445,14 +446,14 @@
       word.dataset.gloss = P1_GLOSS[raw.toLowerCase()] || "(consultá esta palabra en el contexto)";
       word.addEventListener("click", function(ev){
         ev.stopPropagation();
-        var old = dialogLa.querySelector(".gloss-panel");
+        var old = glossHost.querySelector(".gloss-panel");
         if (old) old.remove();
         dialogLa.querySelectorAll(".gloss-word.open").forEach(function(button){ button.classList.remove("open"); });
         word.classList.add("open");
-        var panel = document.createElement("span");
+        var panel = document.createElement("div");
         panel.className = "gloss-panel";
         panel.innerHTML = "<strong>" + raw + "</strong> " + word.dataset.gloss;
-        word.insertAdjacentElement("afterend", panel);
+        glossHost.appendChild(panel);
       });
       dialogLa.appendChild(word);
       if (suffix) dialogLa.appendChild(document.createTextNode(suffix));
@@ -496,6 +497,7 @@
   var dialogTag = document.getElementById("dialog-tag");
   var dialogText = document.getElementById("dialog-text");
   var dialogLa = document.getElementById("dialog-la");
+  var glossHost = document.getElementById("gloss-host");
   var dialogEs = document.getElementById("dialog-es");
   var bank = document.getElementById("bank");
   var msgEl = document.getElementById("msg");
@@ -517,6 +519,7 @@
   function resetDialog(animate){
     dialog.classList.remove("swap");
     dialogText.hidden = true; dialogLa.hidden = true; dialogEs.hidden = true; bank.hidden = true;
+    glossHost.innerHTML = "";
     dialogEs.className = "dialog-es";
     nameplate.hidden = false; dialogTag.hidden = false;
     btnNext.hidden = true;
