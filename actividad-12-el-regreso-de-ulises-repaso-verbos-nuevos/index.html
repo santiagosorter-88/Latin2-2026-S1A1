@@ -142,6 +142,12 @@
   .word-opt.answered-idk{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
   .word-opt:disabled{ cursor:default; opacity:.85; }
   .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-panel.word-panel-compact{ padding:.5rem .8rem; }
+  .panel-summary{ font-size:.9rem; font-weight:600; flex:0 0 100%; }
+  .panel-summary.ok{ color:var(--correct); } .panel-summary.bad{ color:var(--incorrect); }
+  .panel-summary strong{ color:inherit; }
+  .panel-summary-mini{ font-size:.82rem; color:var(--ink-muted); flex:0 0 100%; padding-bottom:.4rem; margin-bottom:.2rem; border-bottom:1px dashed var(--rule); }
+  .panel-summary-mini strong{ color:var(--ink); }
   .word-feedback.ok{ color:var(--correct); } .word-feedback.bad{ color:var(--incorrect); } .word-feedback.idk{ color:var(--warn); }
 
   .p4-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p4-progress strong{ color:var(--ink); }
@@ -603,6 +609,7 @@
 
   (function(){
     var list = document.getElementById("p3-list");
+    var p3CloseOpen = null;
     PASO3.forEach(function(p){
       var block = document.createElement("div");
       block.className = "phrase-block";
@@ -627,15 +634,32 @@
 
         chip.addEventListener("click", function(){
           var existing = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
-          if (existing){ existing.remove(); chip.classList.remove("open"); return; }
+          if (existing){ existing.remove(); chip.classList.remove("open"); p3CloseOpen = null; return; }
+          if (p3CloseOpen) p3CloseOpen();
           panelHost.innerHTML = "";
-          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
           chip.classList.add("open");
+          p3CloseOpen = function(){ panelHost.innerHTML = ""; chip.classList.remove("open"); };
 
           function renderPanel(){
+          panelHost.innerHTML = "";
           var panel = document.createElement("div");
           panel.className = "word-panel";
           panel.dataset.panelFor = p.id + "-" + idx;
+
+          if (tok._lemmaDone && tok._transDone){
+            var lemmaOk = tok._lemma === tok.correctLemma;
+            var transOk = tok._trans === tok.correctTrans;
+            var bothOk = lemmaOk && transOk;
+            panel.classList.add("word-panel-compact");
+            var summary = document.createElement("span");
+            summary.className = "panel-summary " + (bothOk ? "ok" : "bad");
+            summary.innerHTML = clean(tok.display) + " · Enunciado: <strong>" + tok.correctLemma + "</strong>" +
+              " · Traducción: <strong>" + tok.correctTrans + "</strong>" +
+              (bothOk ? " · ¡Correcto!" : " · revelada");
+            panel.appendChild(summary);
+            panelHost.appendChild(panel);
+            return;
+          }
 
           var label = document.createElement("span");
           label.className = "for-word";
@@ -643,44 +667,47 @@
           panel.appendChild(label);
 
           // Etapa A: enunciado
-          var stageA = document.createElement("div");
-          stageA.className = "panel-stage";
-          var labelA = document.createElement("span"); labelA.className = "stage-label"; labelA.textContent = "Enunciado";
-          stageA.appendChild(labelA);
-          tok.lemmaOptions.forEach(function(opt){
-            var ob = document.createElement("button");
-            ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
-            if (tok._lemmaDone){
-              ob.disabled = true;
-              if (opt === tok.correctLemma){ ob.classList.add("answered-ok"); }
-              else if (opt === tok._lemma){ ob.classList.add("answered-bad"); }
-            } else if (tok._lemmaTried.has(opt)){
-              ob.disabled = true;
-              ob.classList.add("answered-bad");
-            }
-            ob.addEventListener("click", function(){
-              if (tok._lemmaDone || tok._lemmaTried.has(opt)) return;
-              if (opt === tok.correctLemma){
-                tok._lemma = opt; tok._lemmaDone = true;
-              } else {
-                tok._lemmaTried.add(opt);
-                if (tok._lemmaTried.size >= 2){ tok._lemma = opt; tok._lemmaDone = true; }
+          if (tok._lemmaDone){
+            var sumA = document.createElement("span");
+            sumA.className = "panel-summary-mini";
+            sumA.innerHTML = "Enunciado: <strong>" + tok.correctLemma + "</strong>" + (tok._lemma === tok.correctLemma ? " ✓" : " (revelada)");
+            panel.appendChild(sumA);
+          } else {
+            var stageA = document.createElement("div");
+            stageA.className = "panel-stage";
+            var labelA = document.createElement("span"); labelA.className = "stage-label"; labelA.textContent = "Enunciado";
+            stageA.appendChild(labelA);
+            tok.lemmaOptions.forEach(function(opt){
+              var ob = document.createElement("button");
+              ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
+              if (tok._lemmaTried.has(opt)){
+                ob.disabled = true;
+                ob.classList.add("answered-bad");
               }
-              checkResolved();
-              renderPanel();
+              ob.addEventListener("click", function(){
+                if (tok._lemmaDone || tok._lemmaTried.has(opt)) return;
+                if (opt === tok.correctLemma){
+                  tok._lemma = opt; tok._lemmaDone = true;
+                } else {
+                  tok._lemmaTried.add(opt);
+                  if (tok._lemmaTried.size >= 2){ tok._lemma = opt; tok._lemmaDone = true; }
+                }
+                checkResolved();
+                renderPanel();
+              });
+              stageA.appendChild(ob);
             });
-            stageA.appendChild(ob);
-          });
-          panel.appendChild(stageA);
+            panel.appendChild(stageA);
 
-          if (!tok._lemmaDone && tok._lemmaTried.size > 0){
-            var fbA = document.createElement("span");
-            fbA.className = "word-feedback bad";
-            fbA.textContent = "No es correcta. Probá una vez más.";
-            panel.appendChild(fbA);
+            if (tok._lemmaTried.size > 0){
+              var fbA = document.createElement("span");
+              fbA.className = "word-feedback bad";
+              fbA.textContent = "No es correcta. Probá una vez más.";
+              panel.appendChild(fbA);
+            }
           }
 
-          // Etapa B: traducción (solo si ya se resolvió el enunciado, bien o revelado)
+          // Etapa B: traducción (solo si ya se resolvió el enunciado)
           if (tok._lemmaDone){
             var stageB = document.createElement("div");
             stageB.className = "panel-stage";
@@ -689,11 +716,7 @@
             tok.transOptions.forEach(function(opt){
               var ob = document.createElement("button");
               ob.type = "button"; ob.className = "word-opt"; ob.textContent = opt;
-              if (tok._transDone){
-                ob.disabled = true;
-                if (opt === tok.correctTrans){ ob.classList.add("answered-ok"); }
-                else if (opt === tok._trans){ ob.classList.add("answered-bad"); }
-              } else if (tok._transTried.has(opt)){
+              if (tok._transTried.has(opt)){
                 ob.disabled = true;
                 ob.classList.add("answered-bad");
               }
@@ -712,23 +735,12 @@
             });
             panel.appendChild(stageB);
 
-            if (!tok._transDone && tok._transTried.size > 0){
+            if (tok._transTried.size > 0){
               var fbB = document.createElement("span");
               fbB.className = "word-feedback bad";
               fbB.textContent = "No es correcta. Probá una vez más.";
               panel.appendChild(fbB);
             }
-          }
-
-          if (tok._lemmaDone && tok._transDone){
-            var lemmaOk = tok._lemma === tok.correctLemma;
-            var transOk = tok._trans === tok.correctTrans;
-            var bothOk = lemmaOk && transOk;
-            var fb = document.createElement("span");
-            fb.className = "word-feedback " + (bothOk ? "ok" : "bad");
-            fb.textContent = bothOk ? "¡Correcto!" :
-              ("No era correcta. Enunciado correcto: " + tok.correctLemma + " · Traducción correcta: " + tok.correctTrans);
-            panel.appendChild(fb);
           }
 
           panelHost.appendChild(panel);
