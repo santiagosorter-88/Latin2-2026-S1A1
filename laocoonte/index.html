@@ -154,6 +154,11 @@
   .nameplate.p2{ background:var(--g-green); }
   .dialog-tag{ display:inline-block; font-size:.8rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--g-dark); background:var(--g-gold); padding:.2rem .6rem; border-radius:4px; margin-bottom:.5rem; }
   .dialog-la{ font-family:var(--serif); font-style:italic; font-size:1.65rem; line-height:1.35; margin:0 0 .6rem; color:#fff; }
+  .gloss-word{ display:inline-block; position:relative; border:0; padding:0 .08em; margin:0 .02em; background:transparent; color:inherit; font:inherit; font-style:inherit; border-radius:4px; cursor:pointer; }
+  .gloss-word:hover,.gloss-word:focus-visible{ background:rgba(201,162,58,.22); outline:2px solid var(--g-gold); outline-offset:1px; }
+  .gloss-word.open{ background:var(--g-gold); color:var(--g-dark); }
+  .gloss-panel{ display:block; margin:.45rem 0 .1rem; padding:.4rem .65rem; background:#f4e7c5; color:#2b1b0e; border:1px solid #8f6b2d; border-radius:5px; font-family:var(--serif); font-style:normal; font-size:1rem; line-height:1.25; text-align:left; }
+  .gloss-panel strong{ font-family:var(--display); font-weight:400; margin-right:.35em; }
   .dialog-es{ font-family:var(--serif); font-size:1.42rem; line-height:1.42; margin:0 0 .9rem; color:#fff; background:rgba(201,162,58,.12); border-left:3px solid var(--g-gold); padding:.55rem .8rem; border-radius:0 8px 8px 0; }
   .dialog-es.small{ font-size:1.12rem; color:var(--g-muted); }
   .dialog-es .seg{ border-radius:3px; transition:background .15s ease, color .15s ease; }
@@ -417,6 +422,43 @@
     return "Buscá en la zona central de la imagen.";
   }
 
+  var P1_GLOSS = {
+    magnus:"grande", equus:"caballo", in:"en", oppido:"ciudad", est:"está / hay",
+    duo:"dos", monstra:"monstruos", ex:"de / desde", mari:"mar", veniunt:"salen / vienen",
+    monstrum:"monstruo", filium:"hijo", eius:"su (de él)", tenet:"sujeta / tiene",
+    troiani:"troyanos", timent:"temen", et:"y", fugiunt:"huyen",
+    laocoon:"Laocoonte", ad:"junto a / hacia", aram:"altar", puer:"muchacho",
+    terra:"tierra / suelo", iacet:"yace", viri:"hombres", monstra:"monstruos",
+    vident:"ven", insula:"isla", clamat:"grita", timeo:"temo", danaos:"a los dánaos"
+  };
+  function renderP1Gloss(latin){
+    dialogLa.innerHTML = "";
+    latin.split(/(\s+)/).forEach(function(part){
+      if (/^\s+$/.test(part)){ dialogLa.appendChild(document.createTextNode(part)); return; }
+      var match = part.match(/^([«“]*)(.*?)([,.;:!?»”]*)$/);
+      var prefix = match[1], raw = match[2], suffix = match[3];
+      if (prefix) dialogLa.appendChild(document.createTextNode(prefix));
+      var word = document.createElement("button");
+      word.type = "button";
+      word.className = "gloss-word";
+      word.textContent = raw;
+      word.dataset.gloss = P1_GLOSS[raw.toLowerCase()] || "(consultá esta palabra en el contexto)";
+      word.addEventListener("click", function(ev){
+        ev.stopPropagation();
+        var old = dialogLa.querySelector(".gloss-panel");
+        if (old) old.remove();
+        dialogLa.querySelectorAll(".gloss-word.open").forEach(function(button){ button.classList.remove("open"); });
+        word.classList.add("open");
+        var panel = document.createElement("span");
+        panel.className = "gloss-panel";
+        panel.innerHTML = "<strong>" + raw + "</strong> " + word.dataset.gloss;
+        word.insertAdjacentElement("afterend", panel);
+      });
+      dialogLa.appendChild(word);
+      if (suffix) dialogLa.appendChild(document.createTextNode(suffix));
+    });
+  }
+
   var identity = { email:"" };
   var submitLog = [];
 
@@ -498,7 +540,7 @@
     hudProgress.textContent = "Parte 1 · " + (k + 1) + " / " + N1;
     nameplate.className = "nameplate"; nameplate.textContent = "Parte 1";
     dialogTag.textContent = "Tocá en la imagen lo que dice la frase";
-    dialogLa.textContent = p.latin; dialogLa.hidden = false;
+    renderP1Gloss(p.latin); dialogLa.hidden = false;
 
     var wrong = 0;
     scene.classList.add("tappable");
