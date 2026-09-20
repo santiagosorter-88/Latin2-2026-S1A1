@@ -1,0 +1,1973 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 19 — Teseo y Ariadna</title>
+<style>
+  :root{
+    --bg:#e8e7dd;
+    --surface:#f6f5ef;
+    --surface-raised:#ffffff;
+    --ink:#1e211d;
+    --ink-muted:#5b5f56;
+    --rule:#c9c4b3;
+    --accent:#1e4dc7;
+    --accent-strong:#17399c;
+    --accent-ink:#f6efe0;
+    --correct:#4f7a34;
+    --correct-bg:#e4ecd7;
+    --warn:#93701c;
+    --warn-bg:#f2e6c2;
+    --incorrect:#b5502e;
+    --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px;
+    --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:760px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{
+    font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent-strong);
+  }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:60ch; margin:0 0 1.75rem; }
+
+  .identity{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card);
+    padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem;
+  }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{
+    font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px;
+    border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink);
+  }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
+  .btn{
+    border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600;
+    background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease;
+  }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  /* Botón "me cansé": para pasos con muchos ítems, salta directo a mostrar las respuestas. */
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  main{ display:none; }
+  main.visible{ display:block; }
+  .step{ display:none; }
+  .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:62ch; margin:0 0 1.4rem; }
+  .step-progress{
+    font-family:var(--sans); font-variant-numeric:tabular-nums; font-size:.82rem; font-weight:700;
+    background:var(--surface-raised); border:1px solid var(--rule); border-radius:var(--radius-chip);
+    padding:.3rem .75rem; color:var(--ink-muted); white-space:nowrap;
+  }
+  .step-badges{ display:flex; gap:.5rem; flex-wrap:wrap; }
+  .step-progress.streak{ border-color:var(--accent); color:var(--accent-strong); }
+  .step-progress.streak.zero{ border-color:var(--rule); color:var(--ink-muted); }
+  .streak-note{ color:var(--ink-muted); font-size:.78rem; margin:.35rem 0 0; }
+
+  .stage-caption{
+    font-family:var(--sans); font-size:.85rem; font-style:italic; color:var(--ink-muted);
+    margin:0 0 1.2rem; line-height:1.5;
+  }
+
+  /* ---- pasos 1-3: tarjeta de item unico ---- */
+  .stage-card{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card);
+    padding:1.4rem 1.4rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.5rem;
+  }
+  .stage-media{
+    width:100%; border-radius:8px; overflow:hidden; border:1px solid var(--rule);
+    background:var(--surface-raised); margin-bottom:1.2rem;
+  }
+  .stage-media img{ display:block; width:100%; height:auto; max-height:420px; object-fit:contain; background:#0000; }
+  .stage-latin{
+    font-family:var(--serif); font-size:1.5rem; line-height:1.4; padding:1.4rem 1.1rem;
+    background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; margin-bottom:1.2rem;
+    text-align:center;
+  }
+  .option-list{ display:flex; flex-direction:column; gap:.6rem; }
+  .option-btn{
+    display:flex; align-items:flex-start; gap:.7rem; text-align:left; width:100%;
+    border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:8px;
+    padding:.75rem .9rem; font-size:.95rem; color:var(--ink); transition:border-color .15s ease, background .15s ease;
+  }
+  .option-btn:hover{ border-color:var(--accent); }
+  .option-btn .dot{
+    flex:0 0 auto; width:1.05rem; height:1.05rem; border-radius:50%; border:1.5px solid var(--rule);
+    margin-top:.15rem; position:relative;
+  }
+  .option-btn.picked .dot{ border-color:var(--accent); }
+  .option-btn.picked .dot::after{
+    content:''; position:absolute; inset:3px; border-radius:50%; background:var(--accent);
+  }
+  .option-btn.picked{ border-color:var(--accent); background:var(--surface-raised); box-shadow:inset 0 0 0 1.5px var(--accent); }
+  .option-btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .option-btn.g-ok{ border-color:var(--correct); background:var(--correct-bg); }
+  .option-btn.g-ok .dot{ border-color:var(--correct); }
+  .option-btn.g-ok .dot::after{ background:var(--correct); }
+  .option-btn.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); }
+  .option-btn.g-bad .dot{ border-color:var(--incorrect); }
+  .option-btn.g-bad .dot::after{ background:var(--incorrect); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  /* top and bottom step navigation */
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
+
+  /* ---- resultados de paso ---- */
+  .review-row{
+    display:grid; grid-template-columns:auto 1fr; gap:0 1rem; padding:.85rem 0; border-top:1px solid var(--rule);
+  }
+  .review-row:first-of-type{ border-top:none; }
+  .review-num{ font-family:var(--sans); font-size:.78rem; font-weight:700; color:var(--ink-muted); padding-top:.15rem; }
+  .review-body img{ max-width:120px; border-radius:6px; border:1px solid var(--rule); display:block; margin-bottom:.5rem; }
+  .review-latin{ font-family:var(--serif); font-size:1.05rem; margin-bottom:.4rem; }
+  .review-answer{
+    font-size:.88rem; padding:.4rem .6rem; border-radius:6px; display:inline-block;
+  }
+  .review-answer.ok{ background:var(--correct-bg); color:var(--correct); }
+  .review-answer.bad{ background:var(--incorrect-bg); color:var(--incorrect); }
+  .review-correct{ font-size:.85rem; color:var(--ink-muted); margin-top:.3rem; }
+
+  .score-line{ font-size:.92rem; color:var(--ink-muted); margin:.2rem 0 1.2rem; }
+  .score-line strong{ color:var(--ink); }
+
+  /* ---- paso 4: fichas de palabra ---- */
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .phrase-media{ display:flex; gap:1rem; align-items:flex-start; margin-bottom:.7rem; flex-wrap:wrap; }
+  .phrase-media img{ width:96px; height:96px; object-fit:cover; border-radius:6px; border:1px solid var(--rule); flex:0 0 auto; }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{
+    font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule);
+    background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem;
+    cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .token:hover{ border-color:var(--accent); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .token.g-idk{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .plain-word{ font-family:var(--serif); font-size:1.15rem; padding:.35rem .2rem; color:var(--ink); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+
+  .word-panel{
+    margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised);
+    border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center;
+  }
+  .word-panel .for-word{ font-family:var(--serif); font-size:1.05rem; color:var(--ink-muted); margin-right:.2rem; }
+  .word-opt{
+    font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule);
+    border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink);
+  }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.idk{ border-style:dashed; color:var(--ink-muted); }
+  .word-opt.answered-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt.answered-idk{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .word-opt:disabled{ cursor:default; opacity:.85; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; }
+  .word-feedback.ok{ color:var(--correct); }
+  .word-feedback.bad{ color:var(--incorrect); }
+  .word-feedback.idk{ color:var(--warn); }
+
+  .retry-card{ padding:1.2rem 0; border-top:1px solid var(--rule); }
+  .retry-card:first-child{ border-top:none; }
+  .retry-context{ font-family:var(--serif); font-size:1.15rem; margin-bottom:.8rem; }
+
+  .p4-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; }
+  .p4-progress strong{ color:var(--ink); }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{
+    font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule);
+    border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer;
+    background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .exercise{
+    background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card);
+    padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow);
+  }
+
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); }
+  .status.ok{ color:var(--correct); }
+  .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  /* Botón "Volver al índice" (convención 7, color dorado de la convención 15) */
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+  .hud-home{ text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap; }
+  /* ---------- v2: calentamiento, imagen (hotspot), armado ---------- */
+  .v2-seals{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.2rem 0 1rem; }
+  .v2-seal{ font-family:var(--serif); font-style:italic; font-size:.88rem; padding:.3rem .75rem; border-radius:var(--radius-chip);
+    border:1.5px dashed var(--rule); color:var(--ink-muted); transition:all .35s ease; }
+  .v2-seal.on{ border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .v2-seal.half{ border:1.5px solid var(--accent); color:var(--accent); }
+  .v2-arc-tag{ font-size:.82rem; color:var(--ink-muted); margin:0 0 .4rem; }
+  .v2-verb{ background:var(--warn-bg); color:inherit; padding:0 .15em; border-radius:3px; }
+  .v2-trad{ display:block; margin-top:.35rem; font-style:italic; color:var(--ink); }
+  .v2-q{ margin:.6rem 0 .2rem; }
+  .v2-hs-scroll{ overflow-x:auto; -webkit-overflow-scrolling:touch; border-radius:var(--radius-card); margin-top:.8rem; }
+  .v2-hs-frame{ position:relative; min-width:760px; cursor:crosshair; line-height:0; }
+  .v2-hs-frame img{ width:100%; height:auto; display:block; -webkit-user-select:none; user-select:none; }
+  .v2-hs-layer{ position:absolute; inset:0; pointer-events:none; }
+  .v2-hs-box{ position:absolute; border:3px solid #6fbf4a; border-radius:6px; box-shadow:0 0 0 2px rgba(0,0,0,.45); }
+  .v2-hs-box.rev{ border-color:#f2c200; }
+  .v2-hs-box.dbg{ border:2px dashed #ff00aa; box-shadow:none; }
+  .v2-hs-box.dbg span{ position:absolute; top:0; left:0; background:#ff00aa; color:#fff; font:600 11px/1.3 var(--sans); padding:1px 3px; }
+  .v2-hs-x{ position:absolute; width:26px; height:26px; margin:-13px 0 0 -13px; border-radius:50%; background:var(--incorrect); color:#fff;
+    font:700 17px/26px var(--sans); text-align:center; }
+  .v2-hs-hint{ font-size:.8rem; color:var(--ink-muted); margin:.45rem 0 0; }
+  @media (min-width:800px){ .v2-hs-frame{ min-width:0; } .v2-hs-hint{ display:none; } }
+  .v2-es{ font-size:1.05rem; line-height:1.7; margin:.1rem 0 .8rem; }
+  .v2-es span.on{ background:var(--warn-bg); border-bottom:2px solid var(--warn); }
+  .v2-slots{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.3rem 0 1rem; }
+  .v2-slot{ min-width:4.6rem; min-height:2.5rem; padding:.35rem .75rem; border:1.5px dashed var(--rule); border-radius:8px;
+    font-family:var(--serif); font-size:1.12rem; display:flex; align-items:center; justify-content:center; }
+  .v2-slot.cur{ border-color:var(--accent); border-style:solid; }
+  .v2-slot.fill{ border-style:solid; border-color:var(--correct); background:var(--correct-bg); }
+  .v2-slot.rev{ border-style:solid; border-color:var(--warn); background:var(--warn-bg); }
+  .v2-bank{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .v2-chip{ font-family:var(--serif); font-size:1.1rem; padding:.5rem .95rem; border-radius:var(--radius-chip); border:1.5px solid var(--rule);
+    background:var(--surface-raised); color:inherit; cursor:pointer; }
+  .v2-chip:hover{ border-color:var(--accent); }
+  .v2-chip.used{ visibility:hidden; }
+  .v2-chip.bad{ text-decoration:line-through; opacity:.45; cursor:default; }
+  .v2-msg{ min-height:1.4rem; margin:.7rem 0 0; font-size:.92rem; color:var(--ink-muted); }
+  .v2-warm-img{ border-radius:var(--radius-card); overflow:hidden; margin:-.2rem 0 .7rem; background:#0000; }
+  .v2-warm-img img{ display:block; width:100%; max-height:230px; object-fit:cover; }
+  .v2-gaptext{ font-size:1.05rem; line-height:2.3; margin:.2rem 0 .9rem; }
+  .v2-gaptext.latin{ font-family:var(--serif); font-size:1.25rem; }
+  .v2-gap{ display:inline-block; min-width:4.2rem; min-height:1.9rem; line-height:1.5; padding:.05rem .55rem; margin:0 .15rem; vertical-align:baseline;
+    border:1.5px dashed var(--accent); border-radius:6px; background:var(--surface-raised); color:inherit; font:inherit; cursor:pointer; }
+  .v2-gap.fill{ border-style:solid; }
+  .v2-gap.ok{ border:1.5px solid var(--correct); background:var(--correct-bg); cursor:default; }
+  .v2-gap.bad{ border:1.5px dashed var(--incorrect); background:var(--incorrect-bg); }
+  .v2-gap.rev{ border:1.5px solid var(--warn); background:var(--warn-bg); }
+  .v2-gap:disabled{ opacity:1; }
+  .v2-mark{ position:absolute; width:34px; height:34px; margin:-17px 0 0 -17px; border-radius:50%; border:3px solid #fff; background:var(--accent);
+    color:#fff; font:700 16px/28px var(--sans); text-align:center; cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.55); padding:0; z-index:2;
+    animation:v2pulse 1.8s ease-in-out infinite; }
+  .v2-mark.seen{ background:#5a6b57; animation:none; }
+  .v2-mark.on{ background:#f2c200; color:#2a2016; animation:none; transform:scale(1.15); }
+  @keyframes v2pulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,255,255,.7), 0 2px 8px rgba(0,0,0,.55); } 50%{ box-shadow:0 0 0 8px rgba(255,255,255,0), 0 2px 8px rgba(0,0,0,.55); } }
+  .v2-ex-panel{ margin-top:.8rem; }
+  .v2-lat{ margin:.5rem 0 .2rem; }
+  .v2-lat-line{ font-family:var(--serif); font-size:1.22rem; line-height:1.9; margin:0; }
+  .v2-w{ font:inherit; color:inherit; background:none; border:0; padding:0 .05rem; cursor:pointer; border-bottom:1px dotted var(--ink-muted); border-radius:2px; }
+  .v2-w.new{ border-bottom:2px solid var(--accent); }
+  .v2-w.on{ background:var(--warn-bg); }
+  .v2-gloss-out{ min-height:1.3rem; margin:.15rem 0 .2rem; font-size:.92rem; color:var(--ink-muted); }
+  .v2-trans{ margin:.1rem 0 .6rem; }
+  .v2-trans-btn{ margin:0; }
+  .v2-trans-text{ font-style:italic; margin:.4rem 0 0; }
+  .v2-scene{ margin-bottom:1rem; }
+  .v2-legend{ font-size:.85rem; color:var(--ink-muted); }
+  .v2-legend b{ border-bottom:2px solid var(--accent); font-weight:inherit; }
+  .v2-scene-img{ border-radius:var(--radius-card); overflow:hidden; background:#111; margin-bottom:.4rem; }
+  .v2-scene-img img{ display:block; width:100%; height:auto; max-height:460px; object-fit:contain; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
+
+  <p class="eyebrow">Latín · Primer contacto</p>
+  <h1>Teseo y Ariadna</h1>
+  <p class="lede">Actividad 19 — un primer acercamiento a las imágenes, las frases y el vocabulario de esta semana. No hace falta saber todo: es solo para empezar a reconocer.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <section class="step" id="step-warm" data-nav-label="Calentamiento">
+      <div class="step-head">
+        <div><p class="eyebrow">Calentamiento</p><h2>Frases de historias anteriores</h2></div>
+        <div class="step-badges"><span class="step-progress" id="warm-progress">—</span></div>
+      </div>
+      <p class="step-instructions">Antes de empezar con Teseo, volvemos a las historias que ya leímos. Completá o armá cada frase en latín con las fichas.</p>
+      <div class="v2-seals" id="warm-seals"></div>
+      <div id="warm-stage"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-warm-done" hidden>Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-img" data-nav-label="En la imagen">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-warm">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div><p class="eyebrow">En la imagen</p><h2>La historia en una imagen</h2></div>
+        <div class="step-badges"><span class="step-progress" id="img-progress">—</span></div>
+      </div>
+      <p class="step-instructions">La escena es un panel de cassone (un cofre de bodas pintado en Italia hacia 1510) que cuenta toda la historia de Teseo en una sola imagen. Antes de leer las frases de la semana, recorré la escena: tocá los números y vas a ver una frase en latín sobre esa parte. Tocá las palabras para ver qué significan.</p>
+      <p class="v2-legend">Las palabras <b>subrayadas en azul</b> son nuevas de esta semana.</p>
+      <div id="img-stage"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-img-done" hidden>Continuar a Paso 1</button></div>
+    </section>
+
+    <!-- ===== Paso 1 ===== -->
+    <section class="step" id="step-p1">
+      <div class="step-head">
+        <div>
+          <p class="eyebrow">Paso 1</p>
+          <h2>Asociá cada imagen con su traducción</h2>
+        </div>
+        <div class="step-badges">
+          <span class="step-progress streak" id="p1-streak">Primer intento: 0</span>
+          <span class="step-progress" id="p1-progress">—</span>
+        </div>
+      </div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Mirá la imagen y elegí, entre las traducciones de las 5 frases de esta semana, la que corresponde. Es para que te vayas familiarizando con lo que dicen — no hace falta acertar de entrada.</p>
+      <div id="p1-stage"></div>
+    </section>
+
+    <section class="step" id="step-p1-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div><p class="eyebrow">Paso 1 — resultado</p><h2>¿Cómo te fue?</h2></div>
+      </div>
+      <div class="score-line" id="p1-score"></div>
+      <div class="exercise" id="p1-review-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
+    </section>
+
+    <!-- ===== Paso 2 ===== -->
+    <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div>
+          <p class="eyebrow">Paso 2</p>
+          <h2>Asociá cada imagen con la frase clave en latín</h2>
+        </div>
+        <div class="step-badges">
+          <span class="step-progress streak" id="p2-streak">Primer intento: 0</span>
+          <span class="step-progress" id="p2-progress">—</span>
+        </div>
+      </div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Misma imagen — ahora elegí, entre las frases en latín, la que corresponde. A medida que avances, las opciones ya usadas se van sacando de la lista — hacia el final quedan menos para elegir.</p>
+      <div id="p2-stage"></div>
+    </section>
+
+    <section class="step" id="step-p2-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div><p class="eyebrow">Paso 2 — resultado</p><h2>¿Cómo te fue?</h2></div>
+      </div>
+      <div class="score-line" id="p2-score"></div>
+      <div class="exercise" id="p2-review-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p3">Continuar a Paso 3</button></div>
+    </section>
+
+    <!-- ===== Paso 3 ===== -->
+    <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div>
+          <p class="eyebrow">Paso 3</p>
+          <h2>Asociá cada frase con su traducción</h2>
+        </div>
+        <div class="step-badges">
+          <span class="step-progress streak" id="p3-streak">Primer intento: 0</span>
+          <span class="step-progress" id="p3-progress">—</span>
+        </div>
+      </div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Sin la imagen esta vez. Completá la traducción con las fichas (algunas sobran): prestá atención a quién hace la acción y si la frase la niega o no. Primero completá todo y después tocá «Confirmar».</p>
+      <div id="p3-stage"></div>
+    </section>
+
+    <section class="step" id="step-p3-review">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div><p class="eyebrow">Paso 3 — resultado</p><h2>¿Cómo te fue?</h2></div>
+      </div>
+      <div class="score-line" id="p3-score"></div>
+      <div class="exercise" id="p3-review-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p4">Continuar a Paso 4</button></div>
+    </section>
+
+    <!-- ===== Paso 4 ===== -->
+    <section class="step" id="step-p4">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div>
+          <p class="eyebrow">Paso 4</p>
+          <h2>Explorá el vocabulario, palabra por palabra</h2>
+        </div>
+      </div>
+      <p class="step-instructions">Tocá cada palabra y elegí qué significa acá. Si no la conocés todavía, está bien decirlo — para eso está la opción. Vas a ver el resultado apenas elijas.</p>
+      <div class="p4-progress" id="p4-progress"></div>
+      <button type="button" class="btn-tired" id="btn-cansado-p4">Me cansé, mostrame las respuestas</button>
+      <div class="exercise" id="p4-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p3">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+    </section>
+
+    <section class="step" id="step-p4-retry">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button></div>
+      <div class="step-head">
+        <div><p class="eyebrow">Repaso léxico</p><h2>Volvé a intentar estas palabras</h2></div>
+        <span class="step-progress" id="p4-retry-progress">—</span>
+      </div>
+      <p class="step-instructions">Marcaste que todavía no conocías estas palabras. Ahora volvé a verlas dentro de su frase.</p>
+      <div class="exercise" id="p4-retry-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin-after-retry">Continuar al cierre</button></div>
+    </section>
+
+    <!-- ===== Cierre ===== -->
+    <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button></div>
+      <div class="exercise" id="evaluacion">
+        <div class="step-head">
+          <div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div>
+        </div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field">
+          <label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label>
+          <input id="in-diff-comment" type="text" placeholder="respuesta libre" required />
+        </div>
+        <div class="field" style="margin-top:1rem;">
+          <label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label>
+          <input id="in-suggestion" type="text" placeholder="respuesta libre" required />
+        </div>
+      </div>
+      <div class="submit-bar">
+        <button type="button" class="btn btn-ghost" data-back-step="step-p4">↑ Volver al ejercicio</button>
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="score-summary" id="score-summary" hidden></p>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  // Backend compartido de esta cátedra (Apps Script) — no tocar salvo que Santiago lo pida.
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  var PHRASES = [{"id": 1, "image": "img/01-hilo.jpg", "latin": "Ariadna autem Theseo auxilium dat: filum ei dat.", "spanish": "Ariadna, por su parte, le brinda ayuda a Teseo: le da un hilo.", "keyLatin": "Filum ei dat", "spanishDecoyA": "Teseo, por su parte, le brinda ayuda a Ariadna: le da un hilo.", "spanishDecoyB": "Ariadna, por su parte, no le brinda ayuda a Teseo: no le da el hilo.", "shortCaption": "Óleo de Angelica Kauffman (1774).", "tokens": [{"display": "Ariadna", "correct": "Ariadna", "skip": true, "options": ["Ariadna"]}, {"display": "autem", "correct": "por su parte", "skip": true, "options": ["por su parte"]}, {"display": "Theseo", "correct": "a Teseo", "skip": true, "options": ["a Teseo"]}, {"display": "auxilium", "correct": "la ayuda", "options": ["con el hilo", "la nave", "la ayuda"]}, {"display": "dat:", "correct": "da", "options": ["vuelve", "da", "es"]}, {"display": "filum", "correct": "un hilo", "options": ["el nombre", "la hermana", "un hilo"]}, {"display": "ei", "correct": "le", "options": ["lo", "le", "consigo"]}, {"display": "dat.", "correct": "da", "options": ["da", "lleva", "navega"]}]}, {"id": 2, "image": "img/02-minotauro.jpg", "latin": "Theseus in labyrinthum intrat, Minotaurum occidit et filo ex labyrintho exit.", "spanish": "Teseo entra en el laberinto, mata al Minotauro y sale del laberinto gracias al hilo.", "keyLatin": "Minotaurum occidit", "spanishDecoyA": "El Minotauro entra en el laberinto, mata a Teseo y sale del laberinto gracias al hilo.", "spanishDecoyB": "Teseo entra en el laberinto, pero no mata al Minotauro ni sale del laberinto.", "shortCaption": "Detalle de una pintura de comienzos del siglo XIX (fotografía de Livioandronico2013, Wikimedia Commons).", "tokens": [{"display": "Theseus", "correct": "Teseo", "skip": true, "options": ["Teseo"]}, {"display": "in", "correct": "en", "skip": true, "options": ["en"]}, {"display": "labyrinthum", "correct": "el laberinto", "options": ["el nombre", "el laberinto", "un hilo"]}, {"display": "intrat,", "correct": "entra", "options": ["entra", "es", "arroja"]}, {"display": "Minotaurum", "correct": "al Minotauro", "skip": true, "options": ["al Minotauro"]}, {"display": "occidit", "correct": "mata", "options": ["mata", "arroja", "quiere"]}, {"display": "et", "correct": "y", "skip": true, "options": ["y"]}, {"display": "filo", "correct": "con el hilo", "options": ["del dios", "el dios", "con el hilo"]}, {"display": "ex", "correct": "de", "skip": true, "options": ["de"]}, {"display": "labyrintho", "correct": "el laberinto", "options": ["la tormenta", "el laberinto", "las velas"]}, {"display": "exit.", "correct": "sale", "options": ["lleva", "duerme", "sale"]}]}, {"id": 3, "image": "img/03-ariadna-dormida.jpg", "latin": "Theseus autem Ariadnam in patriam ducere non vult: illa in insula dormit, et Theseus eam relinquit.", "spanish": "Pero Teseo no quiere llevar a Ariadna a su patria: ella duerme en la isla, y Teseo la abandona.", "keyLatin": "Illa in insula dormit", "spanishDecoyA": "Pero Ariadna no quiere ir con Teseo a su patria: él duerme en la isla, y ella lo abandona.", "spanishDecoyB": "Y Teseo quiere llevar a Ariadna a su patria: ella duerme en la nave, y Teseo no la abandona.", "shortCaption": "Óleo de John William Waterhouse (1898).", "tokens": [{"display": "Theseus", "correct": "Teseo", "skip": true, "options": ["Teseo"]}, {"display": "autem", "correct": "pero", "skip": true, "options": ["pero"]}, {"display": "Ariadnam", "correct": "a Ariadna", "skip": true, "options": ["a Ariadna"]}, {"display": "in", "correct": "a", "skip": true, "options": ["a"]}, {"display": "patriam", "correct": "la patria", "options": ["la tormenta", "el laberinto", "la patria"]}, {"display": "ducere", "correct": "llevar", "options": ["navegar", "llevar", "esconder"]}, {"display": "non", "correct": "no", "skip": true, "options": ["no"]}, {"display": "vult:", "correct": "quiere", "options": ["quiere", "ve", "da"]}, {"display": "illa", "correct": "ella", "options": ["ella", "consigo", "le"]}, {"display": "in", "correct": "en", "skip": true, "options": ["en"]}, {"display": "insula", "correct": "la isla", "options": ["la esposa", "la ayuda", "la isla"]}, {"display": "dormit,", "correct": "duerme", "options": ["sale", "piensa", "duerme"]}, {"display": "et", "correct": "y", "skip": true, "options": ["y"]}, {"display": "Theseus", "correct": "Teseo", "skip": true, "options": ["Teseo"]}, {"display": "eam", "correct": "la", "options": ["ella", "la", "consigo"]}, {"display": "relinquit.", "correct": "abandona", "options": ["abandona", "tiene", "quiere"]}]}, {"id": 4, "image": "img/04-baco.jpg", "latin": "Liber deus Ariadnam amat et secum ducit; illa nunc uxor dei est.", "spanish": "El dios Líber ama a Ariadna y se la lleva consigo; ahora ella es esposa del dios.", "keyLatin": "Liber deus Ariadnam amat", "spanishDecoyA": "Ariadna ama al dios Líber y se va con él; ahora ella es hija del dios.", "spanishDecoyB": "El dios Líber ama a Ariadna, pero no se la lleva consigo; ella no es esposa del dios.", "shortCaption": "Óleo de Tiziano (1520-1523, National Gallery, Londres).", "tokens": [{"display": "Liber", "correct": "Líber", "skip": true, "options": ["Líber"]}, {"display": "deus", "correct": "el dios", "options": ["la patria", "la tormenta", "el dios"]}, {"display": "Ariadnam", "correct": "a Ariadna", "skip": true, "options": ["a Ariadna"]}, {"display": "amat", "correct": "ama", "options": ["duerme", "ama", "ve"]}, {"display": "et", "correct": "y", "skip": true, "options": ["y"]}, {"display": "secum", "correct": "consigo", "options": ["la", "se", "consigo"]}, {"display": "ducit;", "correct": "lleva", "options": ["tiene", "lleva", "vuelve"]}, {"display": "illa", "correct": "ella", "options": ["ella", "él", "consigo"]}, {"display": "nunc", "correct": "ahora", "options": ["ahora", "inmediatamente", "blancas"]}, {"display": "uxor", "correct": "la esposa", "options": ["la esposa", "la ayuda", "la hermana"]}, {"display": "dei", "correct": "del dios", "options": ["el mar", "la esposa", "del dios"]}, {"display": "est.", "correct": "es", "options": ["vuelve", "es", "arroja"]}]}, {"id": 5, "image": "img/05-velas.jpg", "latin": "Theseus in patriam navigat, sed vela nigra non mutat.", "spanish": "Teseo navega hacia su patria, pero no cambia las velas negras.", "keyLatin": "Vela nigra non mutat", "spanishDecoyA": "Teseo navega hacia su patria y cambia las velas negras.", "spanishDecoyB": "Egeo navega hacia su patria, pero no cambia las velas negras.", "shortCaption": "Detalle de un panel de cassone del Maestro de los cassoni Campana (ca. 1510-1515, Petit Palais, Aviñón).", "tokens": [{"display": "Theseus", "correct": "Teseo", "skip": true, "options": ["Teseo"]}, {"display": "in", "correct": "hacia", "skip": true, "options": ["hacia"]}, {"display": "patriam", "correct": "la patria", "options": ["la patria", "el palacio", "el mar"]}, {"display": "navigat,", "correct": "navega", "options": ["ve", "entra", "navega"]}, {"display": "sed", "correct": "pero", "skip": true, "options": ["pero"]}, {"display": "vela", "correct": "las velas", "options": ["la isla", "el palacio", "las velas"]}, {"display": "nigra", "correct": "negras", "options": ["ahora", "grande", "negras"]}, {"display": "non", "correct": "no", "skip": true, "options": ["no"]}, {"display": "mutat.", "correct": "cambia", "options": ["cambia", "ama", "piensa"]}]}];
+
+  var N = PHRASES.length;
+  var IDK = "No la conozco todavía";
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
+  var identity = { email:"" };
+  var submitLog = [];
+
+  // ---------- retomar progreso interrumpido ----------
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+  // El paso 1 ya se construye más abajo sin esperar ningún click; los pasos 2-4 se arman
+  // de forma perezosa recién al llegar a ellos (buildP2/buildP3/renderP4) — al retomar
+  // progreso hay que forzar esa construcción antes de mostrar el paso guardado.
+  function ensureStepBuilt(stepId){
+    if (stepId === "step-p2") buildP2();
+    else if (stepId === "step-p3") buildP3();
+    else if (stepId === "step-p4"){ if (p4List.children.length === 0) renderP4(); }
+    else if (stepId === "step-p4-retry"){
+      if (p4List.children.length === 0) renderP4();
+      buildP4RetryQueue();
+      renderP4Retry();
+    }
+  }
+
+  // ---------- identidad ----------
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){
+    btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0);
+  }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    var restored = loadProgress(STORAGE_KEY);
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      ensureStepBuilt(restored.step);
+      showStep(restored.step);
+    } else {
+      showStep("step-warm");
+    }
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      if (typeof saveProgress === "function") saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
+
+  // ---------- racha: contador de aciertos consecutivos al primer intento ----------
+  // Se resetea apenas hay un primer error en un ítem (no espera a la revelación del
+  // segundo error) — es una señal de precisión "a la primera", más exigente que el
+  // puntaje final. Cada paso (1, 2, 3) tiene su propio contador independiente.
+  function makeStreak(el){
+    var n = 0;
+    function render(){
+      el.textContent = "Primer intento: " + n;
+      el.classList.toggle("zero", n === 0);
+    }
+    render();
+    return {
+      hit: function(){ n++; render(); },
+      reset: function(){ n = 0; render(); }
+    };
+  }
+
+  function feedbackHint(mode){
+    if (mode === "image-translation") return "Pista: volvé a mirar qué acción central muestra la escena.";
+    if (mode === "image-latin") return "Pista: buscá el verbo y quién realiza la acción.";
+    return "Pista: comprobá quién realiza la acción y si la frase incluye una negación.";
+  }
+
+  // =================================================================
+  // Motor de una tarjeta por vez con pool de opciones compartido entre
+  // los ítems del paso (todas las respuestas reales, sin señuelos
+  // inventados). Dos modos según cfg.shrink:
+  //  - shrink:false (Paso 1) -> el pool completo queda disponible en
+  //    todos los ítems, para que se familiaricen con las 5 traducciones.
+  //  - shrink:true (Paso 2) -> el pool se ACHICA a medida que se
+  //    resuelven ítems: en el ítem N solo compiten las opciones
+  //    todavía no resueltas correctamente. Es a propósito: cuando el
+  //    estudiante no puede reconocer la respuesta por sí sola, los
+  //    últimos ítems terminan siendo resolubles por descarte — Santiago
+  //    lo pidió así el 2026-09-13.
+  // =================================================================
+  function buildSingleStep(cfg){
+    var idx = 0;
+    var answers = {}; // phraseId -> chosen phraseId
+    var wrongChoices = {}; // phraseId -> ids tried and rejected
+    var resolved = {}; // phraseId -> true once feedback has been shown
+    var poolCache = {}; // idx -> [ids] ya sorteados para ese ítem (solo si cfg.shrink)
+    var fullPool = shuffled(cfg.order.slice()); // usado si !cfg.shrink: mismo pool completo siempre
+    var streak = cfg.streakEl ? makeStreak(cfg.streakEl) : null;
+
+    function poolFor(i){
+      if (!cfg.shrink) return fullPool;
+      if (!poolCache[i]) poolCache[i] = shuffled(cfg.order.slice(i));
+      return poolCache[i];
+    }
+
+    function renderStage(){
+      var p = PHRASES.filter(function(x){ return x.id === cfg.order[idx]; })[0];
+      cfg.progressEl.textContent = (idx+1) + " / " + cfg.order.length;
+      var optionOrder = poolFor(idx);
+
+      var card = document.createElement("div");
+      card.className = "stage-card";
+      card.appendChild(cfg.renderHead(p));
+
+      if (cfg.caption){
+        var cap = document.createElement("p");
+        cap.className = "stage-caption";
+        cap.textContent = cfg.caption(p);
+        card.appendChild(cap);
+      }
+
+      var list = document.createElement("div");
+      list.className = "option-list";
+      optionOrder.forEach(function(oid){
+        var op = PHRASES.filter(function(x){ return x.id === oid; })[0];
+        var btn = document.createElement("button");
+        btn.type = "button";
+        var isWrong = (wrongChoices[p.id] || []).indexOf(oid) !== -1;
+        var isCorrect = resolved[p.id] && oid === p.id;
+        var isChosen = answers[p.id] === oid;
+        btn.className = "option-btn" + (isChosen ? " picked" : "") +
+          (isWrong ? " g-bad" : "") + (isCorrect ? " g-ok" : "");
+        btn.disabled = !!resolved[p.id] || isWrong;
+        btn.innerHTML = '<span class="dot"></span><span>' + cfg.optionLabel(op) + '</span>';
+        btn.addEventListener("click", function(){
+          if (resolved[p.id] || isWrong) return;
+          answers[p.id] = oid;
+          renderStage();
+        });
+        list.appendChild(btn);
+      });
+      card.appendChild(list);
+
+      var feedback = document.createElement("div");
+      if (resolved[p.id]){
+        feedback.className = "word-feedback " + (answers[p.id] === p.id ? "ok" : "bad");
+        feedback.textContent = answers[p.id] === p.id
+          ? "¡Correcto!"
+          : "La respuesta correcta es: " + cfg.optionLabel(p);
+        feedback.style.marginTop = ".8rem";
+        card.appendChild(feedback);
+      } else if ((wrongChoices[p.id] || []).length){
+        feedback.className = "word-feedback bad";
+        feedback.textContent = "No es correcta. Probá una vez más. " + (cfg.feedbackMode ? feedbackHint(cfg.feedbackMode) : "");
+        feedback.style.marginTop = ".8rem";
+        card.appendChild(feedback);
+      }
+
+      var nav = document.createElement("div");
+      nav.className = "stage-nav";
+      var btn = document.createElement("button");
+      btn.className = "btn";
+      btn.disabled = answers[p.id] == null || (!resolved[p.id] && (wrongChoices[p.id] || []).length > 0 && answers[p.id] == null);
+      btn.textContent = resolved[p.id]
+        ? ((idx === cfg.order.length - 1) ? "Ver resultados" : "Continuar")
+        : "Confirmar";
+      btn.addEventListener("click", function(){
+        if (!resolved[p.id]){
+          var chosenId = answers[p.id];
+          if (chosenId === p.id){
+            resolved[p.id] = true;
+            var wasFirstTry = (wrongChoices[p.id] || []).length === 0;
+            if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
+            cfg.logAnswer(p, p, true, (wrongChoices[p.id] || []).length, false,
+              cfg.shrink && optionOrder.length === 1);
+            if (idx === cfg.order.length - 1) renderReview();
+            else { idx++; renderStage(); }
+            return;
+          } else {
+            var isFirstMiss = !(wrongChoices[p.id] || []).length;
+            if (streak && isFirstMiss) streak.reset();
+            wrongChoices[p.id] = wrongChoices[p.id] || [];
+            if (wrongChoices[p.id].indexOf(chosenId) === -1) wrongChoices[p.id].push(chosenId);
+            answers[p.id] = null;
+            if (wrongChoices[p.id].length >= 2){
+              resolved[p.id] = true;
+              answers[p.id] = chosenId;
+              cfg.logAnswer(p, PHRASES.filter(function(x){ return x.id === chosenId; })[0], false,
+                wrongChoices[p.id].length, true, false);
+              if (idx === cfg.order.length - 1) renderReview();
+              else { idx++; renderStage(); }
+              return;
+            }
+          }
+          renderStage();
+          return;
+        }
+        if (idx === cfg.order.length - 1) renderReview();
+        else { idx++; renderStage(); }
+      });
+      nav.appendChild(btn);
+      card.appendChild(nav);
+
+      cfg.stageEl.innerHTML = "";
+      cfg.stageEl.appendChild(card);
+    }
+
+    function renderReview(){
+      var correct = 0;
+      cfg.reviewList.innerHTML = "";
+      cfg.order.forEach(function(pid, i){
+        var p = PHRASES.filter(function(x){ return x.id === pid; })[0];
+        var ok = answers[pid] === pid;
+        if (ok) correct++;
+        var chosenP = answers[pid] != null ? PHRASES.filter(function(x){ return x.id === answers[pid]; })[0] : null;
+
+        var row = document.createElement("div");
+        row.className = "review-row";
+        var num = document.createElement("div");
+        num.className = "review-num";
+        num.textContent = (i+1) + ".";
+        var body = document.createElement("div");
+        body.className = "review-body";
+        body.appendChild(cfg.renderHead(p, true));
+        var ans = document.createElement("div");
+        ans.className = "review-answer " + (ok ? "ok" : "bad");
+        ans.textContent = "Tu elección: " + (chosenP ? cfg.optionLabel(chosenP) : "(sin responder)");
+        body.appendChild(ans);
+        if (!ok){
+          var corr = document.createElement("div");
+          corr.className = "review-correct";
+          corr.textContent = "Correcta: " + cfg.optionLabel(p);
+          body.appendChild(corr);
+        }
+        row.appendChild(num);
+        row.appendChild(body);
+        cfg.reviewList.appendChild(row);
+
+      });
+      cfg.reviewScore.innerHTML = "Resultado: <strong>" + correct + " / " + cfg.order.length + "</strong>";
+      showStep(cfg.reviewStepId);
+    }
+
+    renderStage();
+    return { getAnswers: function(){ return answers; } };
+  }
+
+  // =================================================================
+  // Motor de señuelos: cada ítem compite contra DOS señuelos propios
+  // (mismos personajes, cambia la acción/el resultado — nunca las
+  // traducciones/frases reales de otros ítems) en vez de un pool
+  // compartido. Evita el atajo de "reconozco el nombre propio". El orden
+  // de las 3 opciones se sortea una sola vez por ítem (queda cacheado)
+  // para que no cambie entre renders. Usado en Paso 3 (frase latina ->
+  // traducción, sin imagen), donde sí hace falta obligar a revisar bien
+  // el latín en vez de reconocer la traducción real de otra frase.
+  // =================================================================
+  function buildDecoyStep(cfg){
+    // cfg.getOptions(p) -> { correct, decoyA, decoyB }
+    var idx = 0;
+    var answers = {}; // phraseId -> texto elegido
+    var wrongChoices = {}; // phraseId -> textos probados y rechazados
+    var resolved = {}; // phraseId -> true una vez mostrado el feedback
+    var optOrderCache = {}; // phraseId -> [textos] ya sorteados
+    var streak = cfg.streakEl ? makeStreak(cfg.streakEl) : null;
+
+    function optionsFor(p){
+      var o = cfg.getOptions(p);
+      if (!optOrderCache[p.id]) optOrderCache[p.id] = shuffled([o.correct, o.decoyA, o.decoyB]);
+      return { correct: o.correct, order: optOrderCache[p.id] };
+    }
+
+    function renderStage(){
+      var p = PHRASES.filter(function(x){ return x.id === cfg.order[idx]; })[0];
+      cfg.progressEl.textContent = (idx+1) + " / " + cfg.order.length;
+      var opts = optionsFor(p);
+
+      var card = document.createElement("div");
+      card.className = "stage-card";
+      card.appendChild(cfg.renderHead(p));
+
+      var list = document.createElement("div");
+      list.className = "option-list";
+      opts.order.forEach(function(text){
+        var btn = document.createElement("button");
+        btn.type = "button";
+        var isWrong = (wrongChoices[p.id] || []).indexOf(text) !== -1;
+        var isCorrect = resolved[p.id] && text === opts.correct;
+        var isChosen = answers[p.id] === text;
+        btn.className = "option-btn" + (isChosen ? " picked" : "") +
+          (isWrong ? " g-bad" : "") + (isCorrect ? " g-ok" : "");
+        btn.disabled = !!resolved[p.id] || isWrong;
+        btn.innerHTML = '<span class="dot"></span><span>' + text + '</span>';
+        btn.addEventListener("click", function(){
+          if (resolved[p.id] || isWrong) return;
+          answers[p.id] = text;
+          renderStage();
+        });
+        list.appendChild(btn);
+      });
+      card.appendChild(list);
+
+      var feedback = document.createElement("div");
+      if (resolved[p.id]){
+        feedback.className = "word-feedback " + (answers[p.id] === opts.correct ? "ok" : "bad");
+        feedback.textContent = answers[p.id] === opts.correct
+          ? "¡Correcto!"
+          : "La respuesta correcta es: " + opts.correct;
+        feedback.style.marginTop = ".8rem";
+        card.appendChild(feedback);
+      } else if ((wrongChoices[p.id] || []).length){
+        feedback.className = "word-feedback bad";
+        feedback.textContent = "No es correcta. Probá una vez más. " + feedbackHint("latin-translation");
+        feedback.style.marginTop = ".8rem";
+        card.appendChild(feedback);
+      }
+
+      var nav = document.createElement("div");
+      nav.className = "stage-nav";
+      var btn = document.createElement("button");
+      btn.className = "btn";
+      btn.disabled = answers[p.id] == null;
+      btn.textContent = resolved[p.id]
+        ? ((idx === cfg.order.length - 1) ? "Ver resultados" : "Continuar")
+        : "Confirmar";
+      btn.addEventListener("click", function(){
+        if (!resolved[p.id]){
+          var chosenText = answers[p.id];
+          if (chosenText === opts.correct){
+            resolved[p.id] = true;
+            var wasFirstTry = (wrongChoices[p.id] || []).length === 0;
+            if (streak){ if (wasFirstTry) streak.hit(); else streak.reset(); }
+            cfg.logAnswer(p, chosenText, true, (wrongChoices[p.id] || []).length, false, false);
+            if (idx === cfg.order.length - 1) renderReview();
+            else { idx++; renderStage(); }
+            return;
+          } else {
+            var isFirstMiss = !(wrongChoices[p.id] || []).length;
+            if (streak && isFirstMiss) streak.reset();
+            wrongChoices[p.id] = wrongChoices[p.id] || [];
+            if (wrongChoices[p.id].indexOf(chosenText) === -1) wrongChoices[p.id].push(chosenText);
+            answers[p.id] = null;
+            if (wrongChoices[p.id].length >= 2){
+              resolved[p.id] = true;
+              answers[p.id] = chosenText;
+              cfg.logAnswer(p, chosenText, false, wrongChoices[p.id].length, true, false);
+              if (idx === cfg.order.length - 1) renderReview();
+              else { idx++; renderStage(); }
+              return;
+            }
+          }
+          renderStage();
+          return;
+        }
+        if (idx === cfg.order.length - 1) renderReview();
+        else { idx++; renderStage(); }
+      });
+      nav.appendChild(btn);
+      card.appendChild(nav);
+
+      cfg.stageEl.innerHTML = "";
+      cfg.stageEl.appendChild(card);
+    }
+
+    function renderReview(){
+      var correct = 0;
+      cfg.reviewList.innerHTML = "";
+      cfg.order.forEach(function(pid, i){
+        var p = PHRASES.filter(function(x){ return x.id === pid; })[0];
+        var opts = optionsFor(p);
+        var chosen = answers[pid];
+        var ok = chosen === opts.correct;
+        if (ok) correct++;
+
+        var row = document.createElement("div");
+        row.className = "review-row";
+        var num = document.createElement("div");
+        num.className = "review-num";
+        num.textContent = (i+1) + ".";
+        var body = document.createElement("div");
+        body.className = "review-body";
+        body.appendChild(cfg.renderHead(p, true));
+        var ans = document.createElement("div");
+        ans.className = "review-answer " + (ok ? "ok" : "bad");
+        ans.textContent = "Tu elección: " + (chosen || "(sin responder)");
+        body.appendChild(ans);
+        if (!ok){
+          var corr = document.createElement("div");
+          corr.className = "review-correct";
+          corr.textContent = "Correcta: " + opts.correct;
+          body.appendChild(corr);
+        }
+        row.appendChild(num);
+        row.appendChild(body);
+        cfg.reviewList.appendChild(row);
+      });
+      cfg.reviewScore.innerHTML = "Resultado: <strong>" + correct + " / " + cfg.order.length + "</strong>";
+      showStep(cfg.reviewStepId);
+    }
+
+    renderStage();
+    return { getAnswers: function(){ return answers; } };
+  }
+
+  // ---------- Paso 1: imagen -> traducción real (pool completo, orden narrativo fijo) ----------
+  // Primer contacto, todavía sin exigir latín: familiarizarse con las 5 traducciones
+  // reales (sin señuelos inventados) y reconocer cuál corresponde a cada imagen. El
+  // epígrafe muestra solo autoría (sin describir la escena, para no regalar la
+  // respuesta) y el pool queda completo en los 5 ítems — a diferencia de Paso 2, acá
+  // no se va achicando. Orden narrativo fijo para reconstruir la escena en secuencia.
+  var order1 = PHRASES.map(function(p){ return p.id; }); // sin shuffle: se reconstruye la escena en orden
+  buildSingleStep({
+    order: order1,
+    shrink: false,
+    feedbackMode: "image-translation",
+    stageEl: document.getElementById("p1-stage"),
+    progressEl: document.getElementById("p1-progress"),
+    streakEl: document.getElementById("p1-streak"),
+    reviewList: document.getElementById("p1-review-list"),
+    reviewScore: document.getElementById("p1-score"),
+    reviewStepId: "step-p1-review",
+    renderHead: function(p, small){
+      var wrap = document.createElement("div");
+      var media = document.createElement("div");
+      media.className = small ? "" : "stage-media";
+      var img = document.createElement("img");
+      img.src = p.image;
+      img.alt = "Imagen de la obra " + p.id;
+      media.appendChild(img);
+      wrap.appendChild(media);
+      return wrap;
+    },
+    caption: function(p){ return p.shortCaption; },
+    optionLabel: function(p){ return p.spanish; },
+    logAnswer: function(p, chosen, ok, wrongCount, revealed, assisted){
+      submitLog.push({ paso:"1 - Imagen y traducción", item:"Imagen " + p.id,
+        respuesta: chosen ? chosen.spanish : "(sin responder)", correcta: ok,
+        errores: wrongCount, respuestaRevelada: revealed, primerIntento: wrongCount === 0,
+        ayudaDescarte: !!assisted });
+    }
+  });
+
+  // ---------- Paso 2: imagen -> frase clave en latín (pool que se achica) ----------
+  document.getElementById("btn-to-p2").addEventListener("click", function(){
+    buildP2();
+    saveProgress("step-p2");
+    showStep("step-p2");
+  });
+  var p2Built = false; // 2026-09-15: volver a la pantalla de resultado y tocar "Continuar" no debe reiniciar el paso
+  function buildP2(){
+    if (p2Built) return;
+    p2Built = true;
+    var order2 = shuffled(PHRASES.map(function(p){ return p.id; }));
+    buildSingleStep({
+      order: order2,
+      shrink: true,
+      feedbackMode: "image-latin",
+      stageEl: document.getElementById("p2-stage"),
+      progressEl: document.getElementById("p2-progress"),
+      streakEl: document.getElementById("p2-streak"),
+      reviewList: document.getElementById("p2-review-list"),
+      reviewScore: document.getElementById("p2-score"),
+      reviewStepId: "step-p2-review",
+      renderHead: function(p, small){
+        var wrap = document.createElement("div");
+        var media = document.createElement("div");
+        media.className = small ? "" : "stage-media";
+        var img = document.createElement("img");
+        img.src = p.image;
+        img.alt = "Imagen de la obra " + p.id;
+        media.appendChild(img);
+        wrap.appendChild(media);
+        return wrap;
+      },
+      optionLabel: function(p){ return p.keyLatin; },
+      logAnswer: function(p, chosen, ok, wrongCount, revealed, assisted){
+        submitLog.push({ paso:"2 - Imagen y frase clave", item:"Imagen " + p.id,
+          respuesta: chosen ? chosen.keyLatin : "(sin responder)", correcta: ok,
+          errores: wrongCount, respuestaRevelada: revealed, primerIntento: wrongCount === 0,
+          ayudaDescarte: !!assisted });
+      }
+    });
+  }
+
+  // ---------- Paso 3: frase latina -> traducción (contra 2 señuelos propios) ----------
+  document.getElementById("btn-to-p3").addEventListener("click", function(){
+    buildP3();
+    saveProgress("step-p3");
+    showStep("step-p3");
+  });
+  var p3Built = false; // 2026-09-15: volver a la pantalla de resultado y tocar "Continuar" no debe reiniciar el paso
+  function buildP3_old(){
+    if (p3Built) return;
+    p3Built = true;
+    var order3 = shuffled(PHRASES.map(function(p){ return p.id; }));
+    buildDecoyStep({
+      order: order3,
+      stageEl: document.getElementById("p3-stage"),
+      progressEl: document.getElementById("p3-progress"),
+      streakEl: document.getElementById("p3-streak"),
+      reviewList: document.getElementById("p3-review-list"),
+      reviewScore: document.getElementById("p3-score"),
+      reviewStepId: "step-p3-review",
+      renderHead: function(p){
+        var wrap = document.createElement("div");
+        var lat = document.createElement("div");
+        lat.className = "stage-latin";
+        lat.textContent = p.latin;
+        wrap.appendChild(lat);
+        return wrap;
+      },
+      getOptions: function(p){ return { correct: p.spanish, decoyA: p.spanishDecoyA, decoyB: p.spanishDecoyB }; },
+      logAnswer: function(p, chosenText, ok, wrongCount, revealed){
+        submitLog.push({ paso:"3 - Frase y traducción", item:"Frase " + p.id,
+          respuesta: chosenText || "(sin responder)", correcta: ok,
+          errores: wrongCount, respuestaRevelada: revealed, primerIntento: wrongCount === 0 });
+      }
+    });
+  }
+
+  // =================================================================
+  // Paso 4: exploración léxica palabra por palabra
+  // =================================================================
+  var totalTokens = 0;
+  PHRASES.forEach(function(p){ p.tokens.forEach(function(t){ if (!t.skip) totalTokens++; }); });
+  var resolvedCount = 0;
+  var p4List = document.getElementById("p4-list");
+  var p4Progress = document.getElementById("p4-progress");
+  var btnToFin = document.getElementById("btn-to-fin");
+  var p4RetryQueue = [];
+  var p4RetryIndex = 0;
+  var p4RetryState = {};
+  var p4RetryProgress = document.getElementById("p4-retry-progress");
+  var p4RetryList = document.getElementById("p4-retry-list");
+  var btnToFinAfterRetry = document.getElementById("btn-to-fin-after-retry");
+  function buildP4RetryQueue(){
+    p4RetryQueue = [];
+    PHRASES.forEach(function(p){
+      p.tokens.forEach(function(tok, idx){
+        if (tok._selfReportedIdk) p4RetryQueue.push({ key:p.id + "-" + idx, phrase:p, token:tok });
+      });
+    });
+  }
+
+  function renderP4Retry(){
+    p4RetryList.innerHTML = "";
+    if (!p4RetryQueue.length){
+      saveProgress("step-fin");
+      showStep("step-fin");
+      return;
+    }
+    var item = p4RetryQueue[p4RetryIndex];
+    var tok = item.token;
+    var state = p4RetryState[item.key] || (p4RetryState[item.key] = { tried:[], resolved:false, revealed:false });
+    p4RetryProgress.textContent = (p4RetryIndex + 1) + " / " + p4RetryQueue.length;
+
+    var card = document.createElement("div");
+    card.className = "retry-card";
+    var context = document.createElement("div");
+    context.className = "retry-context";
+    context.textContent = item.phrase.latin;
+    card.appendChild(context);
+
+    var label = document.createElement("p");
+    label.textContent = "¿Qué significa “" + tok.display.replace(/[“”\"…,.;:!?]/g, "") + "” acá?";
+    card.appendChild(label);
+
+    var options = document.createElement("div");
+    options.className = "option-list";
+    shuffled(tok.options.concat([IDK])).forEach(function(optText){
+      var option = document.createElement("button");
+      option.type = "button";
+      option.className = "option-btn";
+      option.textContent = optText;
+      option.disabled = state.resolved || state.tried.indexOf(optText) !== -1;
+      option.addEventListener("click", function(){
+        if (state.resolved || state.tried.indexOf(optText) !== -1) return;
+        var isIdk = optText === IDK;
+        var isCorrect = optText === tok.correct;
+        if (isIdk) tok._selfReportedIdk = true;
+        if (isCorrect){
+          state.resolved = true;
+          submitLog.push({ paso:"4 - Recuperación léxica", item:"Frase " + item.phrase.id + " · " + tok.display,
+            respuesta:optText, correcta:true, recuperacion:true, primerIntento:false, final:true });
+        } else {
+          state.tried.push(optText);
+          if (state.tried.length >= 2){
+            state.resolved = true;
+            state.revealed = true;
+            submitLog.push({ paso:"4 - Recuperación léxica", item:"Frase " + item.phrase.id + " · " + tok.display,
+              respuesta:isIdk ? optText : tok.correct, correcta:isIdk ? null : false,
+              respuestaRevelada:true, recuperacion:true, primerIntento:false, final:true });
+          }
+        }
+        renderP4Retry();
+      });
+      options.appendChild(option);
+    });
+    card.appendChild(options);
+
+    var feedback = document.createElement("div");
+    feedback.style.marginTop = ".8rem";
+    if (state.resolved){
+      feedback.className = "word-feedback " + (state.revealed ? "bad" : "ok");
+      feedback.textContent = state.revealed ? "La respuesta correcta es: " + tok.correct : "¡Correcto!";
+    } else if (state.tried.length){
+      feedback.className = "word-feedback bad";
+      feedback.textContent = "No es correcta. Probá una vez más.";
+    }
+    if (feedback.textContent) card.appendChild(feedback);
+    p4RetryList.appendChild(card);
+    btnToFinAfterRetry.disabled = !state.resolved;
+    btnToFinAfterRetry.textContent = p4RetryIndex === p4RetryQueue.length - 1 ? "Continuar al cierre" : "Siguiente palabra";
+  }
+
+  document.getElementById("btn-to-fin").addEventListener("click", function(){
+    buildP4RetryQueue();
+    if (p4RetryQueue.length){
+      p4RetryIndex = 0;
+      saveProgress("step-p4-retry");
+      renderP4Retry();
+      showStep("step-p4-retry");
+    } else {
+      saveProgress("step-fin");
+      showStep("step-fin");
+    }
+  });
+  btnToFinAfterRetry.addEventListener("click", function(){
+    var state = p4RetryState[p4RetryQueue[p4RetryIndex].key];
+    if (!state || !state.resolved) return;
+    if (p4RetryIndex === p4RetryQueue.length - 1){
+      saveProgress("step-fin");
+      showStep("step-fin");
+    } else {
+      p4RetryIndex++;
+      renderP4Retry();
+    }
+  });
+
+  function updateP4Progress(){
+    p4Progress.innerHTML = "Palabras recorridas: <strong>" + resolvedCount + " / " + totalTokens + "</strong>";
+    btnToFin.disabled = resolvedCount < totalTokens;
+  }
+
+  document.getElementById("btn-to-p4").addEventListener("click", function(){
+    if (p4List.children.length === 0) renderP4();
+    saveProgress("step-p4");
+    showStep("step-p4");
+  });
+
+  function renderP4(){
+    PHRASES.forEach(function(p){
+      var block = document.createElement("div");
+      block.className = "phrase-block";
+
+      var num = document.createElement("div");
+      num.className = "phrase-num";
+      num.textContent = "Frase " + p.id;
+      block.appendChild(num);
+
+      var media = document.createElement("div");
+      media.className = "phrase-media";
+      var img = document.createElement("img");
+      img.src = p.image;
+      img.alt = "Imagen de la obra " + p.id;
+      media.appendChild(img);
+      block.appendChild(media);
+
+      var tokensEl = document.createElement("div");
+      tokensEl.className = "tokens";
+      block.appendChild(tokensEl);
+
+      var panelHost = document.createElement("div");
+      block.appendChild(panelHost);
+
+      p.tokens.forEach(function(tok, idx){
+        if (tok.skip){
+          var plain = document.createElement("span");
+          plain.className = "plain-word";
+          plain.textContent = tok.display;
+          tokensEl.appendChild(plain);
+          return;
+        }
+        var chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "token";
+        chip.textContent = tok.display;
+        tok._answered = null; // null | 'ok' | 'idk' (queda null mientras siga probando tras un error)
+        tok._tried = new Set(); // opciones incorrectas ya probadas para esta palabra
+        tok._chip = chip;
+
+        chip.addEventListener("click", function(){
+          var openPanel = panelHost.querySelector('[data-panel-for="' + p.id + '-' + idx + '"]');
+          if (openPanel){ openPanel.remove(); chip.classList.remove("open"); return; }
+          panelHost.innerHTML = "";
+          Array.from(tokensEl.children).forEach(function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+
+          var panel = document.createElement("div");
+          panel.className = "word-panel";
+          panel.dataset.panelFor = p.id + "-" + idx;
+
+          var label = document.createElement("span");
+          label.className = "for-word";
+          label.textContent = tok.display.replace(/[“”"…,.;:!?]/g, "") + " ·";
+          panel.appendChild(label);
+
+          var opts = tok.options.concat([IDK]);
+          opts.forEach(function(optText){
+            var ob = document.createElement("button");
+            ob.type = "button";
+            ob.className = "word-opt" + (optText === IDK ? " idk" : "");
+            ob.textContent = optText;
+            var wasTried = tok._tried.has(optText);
+            if (tok._answered === "revealed"){
+              ob.disabled = true;
+              if (optText === tok.correct){ ob.classList.add("answered-ok"); }
+              else if (optText === tok._chosen){ ob.classList.add("answered-bad"); }
+            } else if (tok._answered || wasTried){
+              ob.disabled = true;
+              if (tok._answered && optText === tok._chosen){
+                ob.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
+              } else if (wasTried){
+                // Se deshabilita la opción ya probada y errada, para que no la vuelva a elegir
+                // por error — el resto de las opciones sigue disponible para el único reintento
+                // permitido (ver más abajo: al segundo error se revela la respuesta correcta).
+                ob.classList.add("answered-bad");
+              }
+            }
+            ob.addEventListener("click", function(){
+              if (tok._answered || tok._tried.has(optText)) return;
+              var wasIdk = optText === IDK;
+              var wasOk = optText === tok.correct;
+              if (wasIdk) tok._selfReportedIdk = true;
+
+              if (wasOk || wasIdk){
+                tok._chosen = optText;
+                tok._answered = wasOk ? "ok" : "idk";
+                submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+                  respuesta: optText, correcta: wasOk ? true : null,
+                  primerIntento: wasOk, respuestaAutorreferida: wasIdk });
+                resolvedCount++;
+                updateP4Progress();
+                chip.classList.remove("g-bad");
+                chip.classList.add(wasOk ? "g-ok" : "g-idk");
+              } else {
+                tok._tried.add(optText);
+                submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+                  respuesta: optText, correcta: false, final: false, primerIntento: false });
+                chip.classList.add("g-bad"); // pista visual de que tuvo un intento fallido
+                // Primer error: puede reintentar. Segundo error (dos intentos fallidos en
+                // total): se revela la respuesta correcta y queda resuelto.
+                if (tok._tried.size >= 2){
+                  tok._chosen = optText;
+                  tok._answered = "revealed";
+                  submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+                    respuesta: tok.correct, correcta: false, respuestaRevelada: true,
+                    primerIntento: false, final: true });
+                  resolvedCount++;
+                  updateP4Progress();
+                }
+              }
+
+              // Actualiza el panel abierto sin cerrarlo ni volver a sortear/reconstruir la lista.
+              Array.from(panel.querySelectorAll(".word-opt")).forEach(function(optionButton){
+                var optionValue = optionButton.textContent;
+                optionButton.disabled = !!tok._answered || tok._tried.has(optionValue);
+                optionButton.classList.remove("answered-ok", "answered-bad", "answered-idk");
+                if (tok._answered === "revealed"){
+                  if (optionValue === tok.correct) optionButton.classList.add("answered-ok");
+                  else if (optionValue === tok._chosen) optionButton.classList.add("answered-bad");
+                } else if (tok._answered && optionValue === tok._chosen){
+                  optionButton.classList.add(tok._answered === "ok" ? "answered-ok" : "answered-idk");
+                } else if (tok._tried.has(optionValue)){
+                  optionButton.classList.add("answered-bad");
+                }
+              });
+              var oldFeedback = panel.querySelector(".word-feedback");
+              if (oldFeedback) oldFeedback.remove();
+              var refreshedFeedback = document.createElement("span");
+              if (tok._answered === "revealed"){
+                refreshedFeedback.className = "word-feedback bad";
+                refreshedFeedback.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+              } else if (tok._answered){
+                refreshedFeedback.className = "word-feedback " + tok._answered;
+                refreshedFeedback.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
+              } else if (tok._tried.size > 0){
+                refreshedFeedback.className = "word-feedback bad";
+                refreshedFeedback.textContent = "No es correcta. Probá una vez más.";
+              }
+              if (refreshedFeedback.textContent) panel.appendChild(refreshedFeedback);
+            });
+            panel.appendChild(ob);
+          });
+
+          if (tok._answered === "revealed"){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback bad";
+            fb.textContent = "No era correcta. La respuesta correcta es: " + tok.correct;
+            panel.appendChild(fb);
+          } else if (tok._answered){
+            var fb = document.createElement("span");
+            fb.className = "word-feedback " + tok._answered;
+            fb.textContent = tok._answered === "ok" ? "¡Correcto!" : "Quedó marcada para repasar.";
+            panel.appendChild(fb);
+          } else if (tok._tried.size > 0){
+            var fb2 = document.createElement("span");
+            fb2.className = "word-feedback bad";
+            fb2.textContent = "No es correcta. Probá una vez más.";
+            panel.appendChild(fb2);
+          }
+
+          panelHost.appendChild(panel);
+        });
+
+        tokensEl.appendChild(chip);
+      });
+
+      p4List.appendChild(block);
+    });
+    updateP4Progress();
+  }
+
+  // Botón "me cansé": revela de una todos los tokens todavía sin responder. Los que ya tenían
+  // respuesta (bien, mal-con-reveal, o "no sé") quedan como estaban — no se pisan.
+  document.getElementById("btn-cansado-p4").addEventListener("click", function(){
+    PHRASES.forEach(function(p){
+      p.tokens.forEach(function(tok){
+        if (tok.skip || tok._answered) return;
+        tok._answered = "revealed";
+        tok._chosen = null;
+        resolvedCount++;
+        submitLog.push({ paso:"4 - Vocabulario", item:"Frase " + p.id + " · " + tok.display,
+          respuesta:tok.correct, correcta:null, respuestaRevelada:true, revelacionMasiva:true,
+          primerIntento:false, final:true });
+        if (tok._chip){
+          tok._chip.classList.remove("g-bad");
+          tok._chip.classList.add("g-idk");
+        }
+      });
+    });
+    updateP4Progress();
+  });
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  // Contador de aciertos al final -- vigente desde el 2026-09-02 (convencion 13). Excluye
+  // lo que no es una respuesta evaluable (correcta:null: Evaluacion, "no se") y, donde
+  // aplique, los pasos de autorreporte (no son una respuesta evaluada, es honestidad).
+  var SCORE_EXCLUDE_PASOS = ["4 - Recuperación léxica", "0 - Calentamiento", "En la imagen"];
+  function computeScore(){
+    var items = submitLog.filter(function(e){
+      return e.correcta !== null && e.final !== false && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+    });
+    var correct = items.filter(function(e){ return e.correcta === true; }).length;
+    function sectionScore(sectionItems){
+      return {
+        correct: sectionItems.filter(function(e){ return e.correcta === true; }).length,
+        total: sectionItems.length
+      };
+    }
+    return {
+      correct: correct,
+      total: items.length,
+      firstTry: items.filter(function(e){ return e.primerIntento === true; }).length,
+      assisted: items.filter(function(e){ return e.ayudaDescarte || e.respuestaRevelada || e.revelacionMasiva; }).length,
+      associations: sectionScore(items.filter(function(e){ return e.paso.indexOf("1 -") === 0 || e.paso.indexOf("2 -") === 0 || e.paso.indexOf("3 -") === 0; })),
+      vocabulary: sectionScore(items.filter(function(e){ return e.paso === "4 - Vocabulario"; })),
+      recovery: sectionScore(submitLog.filter(function(e){ return e.paso === "4 - Recuperación léxica" && e.correcta !== null && e.final !== false; }))
+    };
+  }
+
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+
+  // ---------- preguntas de feedback rotativas (2026-09-13) ----------
+  // Una pregunta al azar de cada pool reemplaza "Comentario sobre la dificultad" y "La actividad
+  // funcionaría mejor si…". Se evita repetir la última que vio este dispositivo (de cualquier
+  // actividad). El ID viaja en el envío para cruzar después qué pregunta trae mejores respuestas.
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  // Comentario y sugerencia son obligatorios — Santiago pidió que no se pueda enviar sin
+  // esa reflexión, aunque sea mínima ("me fue igual que en el anterior").
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  document.getElementById("btn-send").addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida",
+        respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
+      evalPushed = true;
+    }
+
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status";
+      return;
+    }
+
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…";
+    statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!";
+      statusEl.className = "status ok";
+      var score = computeScore();
+      if (score.total > 0){
+        var pct = Math.round(100 * score.correct / score.total);
+        document.getElementById("score-summary").innerHTML =
+          "Resultado principal: <strong>" + score.correct + " de " + score.total + "</strong> (" + pct + "%). " +
+          "Asociaciones: <strong>" + score.associations.correct + "/" + score.associations.total + "</strong> · " +
+          "Vocabulario: <strong>" + score.vocabulary.correct + "/" + score.vocabulary.total + "</strong>. " +
+          "Primer intento: <strong>" + score.firstTry + "/" + score.total + "</strong> · " +
+          "Con ayuda: <strong>" + score.assisted + "</strong>. " +
+          "Palabras recuperadas: <strong>" + score.recovery.correct + "/" + score.recovery.total + "</strong>. " +
+          "La recuperación no modifica el resultado principal.";
+        document.getElementById("score-summary").hidden = false;
+      }
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+
+  // =================================================================
+  // v2 (2026-09-20): calentamiento con imagen y producción, imagen con
+  // marcas para explorar, lectura glosada, huecos con fichas y armado.
+  // Ver SKILL actividades-html-latin-backend (convenciones 18-23).
+  // =================================================================
+  var V2_ARCS = ["Equus Troianus", "Odyssea", "Reditus Vlixis", "Daedalus et Icarus"];
+  function v2el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function v2clean(w){ return String(w).toLowerCase().replace(/[^a-zà-ÿ]/g, ""); }
+
+  // ---------- texto latino con glosas al tocar (lectura, imagen) ----------
+  function v2latinLine(latin, gloss, news){
+    var wrap = v2el("div", "v2-lat");
+    var line = v2el("p", "v2-lat-line");
+    var out = v2el("p", "v2-gloss-out");
+    latin.split(/\s+/).forEach(function(tok, i){
+      if (i) line.appendChild(document.createTextNode(" "));
+      var k = v2clean(tok), g = gloss[k];
+      if (!g){ line.appendChild(document.createTextNode(tok)); return; }
+      var b = v2el("button", "v2-w" + (news && news.indexOf(k) !== -1 ? " new" : ""), tok);
+      b.type = "button";
+      b.addEventListener("click", function(){
+        Array.prototype.forEach.call(line.querySelectorAll(".v2-w.on"), function(x){ x.classList.remove("on"); });
+        b.classList.add("on");
+        out.innerHTML = "<strong>" + tok.replace(/[.,;:!?"“”«»]/g, "") + "</strong> → " + g;
+      });
+      line.appendChild(b);
+    });
+    wrap.appendChild(line); wrap.appendChild(out);
+    return wrap;
+  }
+  function v2transToggle(es){
+    var box = v2el("div", "v2-trans");
+    var b = v2el("button", "btn-tired v2-trans-btn", "Ver traducción"); b.type = "button";
+    var t = v2el("p", "v2-trans-text", es); t.hidden = true;
+    b.addEventListener("click", function(){ t.hidden = !t.hidden; b.textContent = t.hidden ? "Ver traducción" : "Ocultar traducción"; });
+    box.appendChild(b); box.appendChild(t);
+    return box;
+  }
+
+  // ---------- huecos con fichas (castellano o latín): primero se completa, después «Confirmar» ----------
+  // it: { parts:[texto | {g:n}], answers:[...], chips:[...], latin:bool }
+  function v2gapWidget(host, it, onDone){
+    var nG = it.answers.length, fill = [], lock = [], wasBad = [], used = {}, attempts = 0, status = null;
+    var bank = shuffled(it.chips.map(function(t, i){ return { t: t, i: i }; }));
+    for (var g = 0; g < nG; g++){ fill.push(null); lock.push(false); wasBad.push(false); }
+    var msg = "";
+    function render(){
+      host.innerHTML = "";
+      var txt = v2el("p", "v2-gaptext" + (it.latin ? " latin" : ""));
+      it.parts.forEach(function(p){
+        if (typeof p === "string"){ txt.appendChild(document.createTextNode(p)); return; }
+        var gi = p.g, c = fill[gi];
+        var cls = "v2-gap";
+        if (status === "rev" && !lock[gi]) cls += " rev";
+        else if (lock[gi]) cls += " ok";
+        else if (c != null) cls += " fill";
+        else if (wasBad[gi]) cls += " bad";
+        var shown = (status === "rev" && !lock[gi]) ? it.answers[gi] : (c != null ? bank[c].t : "    ");
+        var s = v2el("button", cls, shown); s.type = "button";
+        s.disabled = !!status || lock[gi] || c == null;
+        s.addEventListener("click", function(){ if (status || lock[gi] || fill[gi] == null) return; delete used[fill[gi]]; fill[gi] = null; render(); });
+        txt.appendChild(s);
+      });
+      host.appendChild(txt);
+      if (!status){
+        var bk = v2el("div", "v2-bank");
+        bank.forEach(function(c, bi){
+          var b = v2el("button", "v2-chip" + (used[bi] ? " used" : ""), c.t); b.type = "button";
+          b.disabled = !!used[bi];
+          b.addEventListener("click", function(){
+            for (var k = 0; k < nG; k++) if (!lock[k] && fill[k] == null){ fill[k] = bi; used[bi] = true; wasBad[k] = false; msg = ""; break; }
+            render();
+          });
+          bk.appendChild(b);
+        });
+        host.appendChild(bk);
+        host.appendChild(v2el("p", "v2-msg", msg || "Tocá las fichas para completar los espacios. Si te equivocás de ficha, tocá el espacio para vaciarlo."));
+        var nav = v2el("div", "stage-nav");
+        var cb = v2el("button", "btn", "Confirmar"); cb.type = "button";
+        cb.disabled = fill.some(function(x, k){ return !lock[k] && x == null; });
+        cb.addEventListener("click", confirm);
+        nav.appendChild(cb); host.appendChild(nav);
+      }
+    }
+    function confirm(){
+      var bad = [];
+      for (var k = 0; k < nG; k++){
+        if (lock[k]) continue;
+        if (bank[fill[k]].t === it.answers[k]) lock[k] = true; else bad.push(k);
+      }
+      if (!bad.length){ status = "ok"; render(); onDone(true, attempts); return; }
+      attempts++;
+      if (attempts >= 2){ status = "rev"; render(); onDone(false, attempts); return; }
+      bad.forEach(function(k){ delete used[fill[k]]; fill[k] = null; wasBad[k] = true; });
+      msg = "Lo que quedó en verde está bien. Revisá los espacios marcados en rojo y probá una vez más.";
+      render();
+    }
+    render();
+  }
+
+  // ---------- armar la frase desde el castellano (convención 19) ----------
+  // it: { words:[...], es, al, decoys:[...] }
+  function v2armadoWidget(host, it, onDone){
+    var cur = 0, errs = 0, slotErr = 0, rev = {}, used = {}, bad = {}, msg = "", done = false;
+    var bank = shuffled(it.words.map(function(w, k){ return { t: w, k: k }; }).concat(it.decoys.map(function(w){ return { t: w, k: -1 }; })));
+    function esHtml(){
+      return it.al.replace(/\{([\d,]+):([^}]*)\}/g, function(_, ids, txt){
+        var on = !done && ids.split(",").map(Number).indexOf(cur) !== -1;
+        return '<span class="' + (on ? "on" : "") + '">' + txt + '</span>';
+      });
+    }
+    function tap(bi){
+      if (done || used[bi] || bad[bi]) return;
+      var c = bank[bi];
+      if (c.k === cur){ used[bi] = true; cur++; slotErr = 0; msg = ""; }
+      else if (c.k > cur){ msg = "Sí va, pero más adelante."; }
+      else {
+        bad[bi] = true; errs++; slotErr++;
+        msg = "Esa forma no va acá: fijate si tiene que ir en singular o en plural.";
+        if (slotErr >= 2){
+          for (var j = 0; j < bank.length; j++) if (bank[j].k === cur){ used[j] = true; break; }
+          rev[cur] = true; cur++; slotErr = 0; msg = "Esta es la forma que iba (en amarillo).";
+        }
+      }
+      if (cur >= it.words.length){ done = true; render(); onDone(Object.keys(rev).length === 0, errs); return; }
+      render();
+    }
+    function render(){
+      host.innerHTML = "";
+      host.appendChild(v2el("p", "v2-es", esHtml()));
+      var slots = v2el("div", "v2-slots");
+      it.words.forEach(function(w, k){
+        var cls = k < cur ? (rev[k] ? " rev" : " fill") : (k === cur && !done ? " cur" : "");
+        slots.appendChild(v2el("div", "v2-slot" + cls, k < cur ? w : "&nbsp;"));
+      });
+      host.appendChild(slots);
+      if (done) return;
+      var bk = v2el("div", "v2-bank");
+      bank.forEach(function(c, bi){
+        var b = v2el("button", "v2-chip" + (used[bi] ? " used" : "") + (bad[bi] ? " bad" : ""), c.t);
+        b.type = "button"; b.disabled = !!(used[bi] || bad[bi]);
+        b.addEventListener("click", function(){ tap(bi); });
+        bk.appendChild(b);
+      });
+      host.appendChild(bk);
+      host.appendChild(v2el("p", "v2-msg", msg || "Tocá las palabras en orden."));
+    }
+    render();
+  }
+
+  // ---------- secuencia de tarjetas (una por vez) con cualquiera de los dos widgets ----------
+  // cfg: items, stageEl, progressEl, doneBtn?, onFinish?, head(it)->el, kind(it) "gap"|"armado",
+  //      after(it)->html, log(it, ok, errs), sealsEl?
+  function v2sequence(cfg){
+    var idx = 0, lit = {}, results = [];
+    var arcs = cfg.sealsEl ? V2_ARCS.filter(function(a){ return cfg.items.some(function(it){ return it.arco === a; }); }) : [];
+    function seals(){
+      if (!cfg.sealsEl) return;
+      cfg.sealsEl.innerHTML = "";
+      arcs.forEach(function(a){ cfg.sealsEl.appendChild(v2el("span", "v2-seal" + (lit[a] === "ok" ? " on" : lit[a] === "rev" ? " half" : ""), a)); });
+    }
+    function render(){
+      seals();
+      cfg.stageEl.innerHTML = "";
+      if (idx >= cfg.items.length){
+        cfg.progressEl.textContent = cfg.items.length + " / " + cfg.items.length;
+        if (cfg.onFinish) cfg.onFinish(results); else if (cfg.doneBtn) cfg.doneBtn.hidden = false;
+        return;
+      }
+      var it = cfg.items[idx];
+      cfg.progressEl.textContent = (idx + 1) + " / " + cfg.items.length;
+      var card = v2el("div", "stage-card");
+      var h = cfg.head ? cfg.head(it) : null; if (h) card.appendChild(h);
+      var body = v2el("div", "v2-body"); card.appendChild(body);
+      cfg.stageEl.appendChild(card);
+      var widget = (cfg.kind ? cfg.kind(it) : "gap") === "armado" ? v2armadoWidget : v2gapWidget;
+      widget(body, it, function(ok, errs){
+        if (it.arco) lit[it.arco] = ok ? "ok" : (lit[it.arco] === "ok" ? "ok" : "rev");
+        results.push({ it: it, ok: ok, errs: errs });
+        cfg.log(it, ok, errs);
+        seals();
+        var fb = v2el("div", "word-feedback " + (ok ? "ok" : "bad"), (ok ? "¡Correcto!" : "Así quedaba (en amarillo).") +
+          (cfg.after ? '<span class="v2-trad">' + cfg.after(it) + '</span>' : ""));
+        fb.style.marginTop = ".8rem"; card.appendChild(fb);
+        var nav = v2el("div", "stage-nav");
+        var nb = v2el("button", "btn", idx === cfg.items.length - 1 ? (cfg.lastLabel || "Terminar") : "Siguiente"); nb.type = "button";
+        nb.addEventListener("click", function(){ idx++; render(); window.scrollTo({ top: cfg.stageEl.getBoundingClientRect().top + window.pageYOffset - 90, behavior: "smooth" }); });
+        nav.appendChild(nb); card.appendChild(nav);
+      });
+    }
+    render();
+  }
+
+  // ---------- calentamiento (convención 18): imagen + contexto + producción, con sellos ----------
+  function buildWarmup(cfg){
+    v2sequence({
+      items: cfg.items, stageEl: cfg.stageEl, progressEl: cfg.progressEl, doneBtn: cfg.doneBtn, sealsEl: cfg.sealsEl,
+      kind: function(it){ return it.type; },
+      head: function(it){
+        var h = v2el("div", "v2-warm-head");
+        if (it.img){ var m = v2el("div", "v2-warm-img"); var im = v2el("img"); im.src = it.img; im.alt = ""; m.appendChild(im); h.appendChild(m); }
+        h.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em> · " + it.ctx));
+        if (it.type === "armado") h.appendChild(v2el("p", "v2-q", "Armá en latín:"));
+        else h.appendChild(v2el("p", "v2-q", "Completá la frase en latín:"));
+        return h;
+      },
+      after: function(it){ return it.trad; },
+      log: function(it, ok, errs){
+        submitLog.push({ paso: "0 - Calentamiento", item: it.arco + " · " + it.src, arco: it.arco, respuesta: it.full,
+          correcta: ok, errores: errs, primerIntento: ok && errs === 0, respuestaRevelada: !ok });
+      }
+    });
+  }
+
+  // ---------- imagen con marcas para explorar (convención 22) ----------
+  // cfg: image, marks[{n, x, y, texts:[{latin, es}]}], gloss, news, paso
+  function buildExplore(cfg){
+    var visited = {}, active = null;
+    var scroll = v2el("div", "v2-hs-scroll");
+    var frame = v2el("div", "v2-hs-frame");
+    var img = v2el("img"); img.src = cfg.image; img.alt = "Escena completa"; img.draggable = false;
+    frame.appendChild(img); scroll.appendChild(frame);
+    var panel = v2el("div", "stage-card v2-ex-panel", '<p class="v2-q">Tocá los números sobre la imagen: cada uno abre la frase en latín que cuenta esa parte de la escena.</p>');
+    cfg.stageEl.appendChild(scroll);
+    cfg.stageEl.appendChild(v2el("p", "v2-hs-hint", "En el celular, deslizá la imagen hacia los costados para ver todos los números."));
+    cfg.stageEl.appendChild(panel);
+    var btns = {};
+    cfg.marks.forEach(function(m){
+      var b = v2el("button", "v2-mark", String(m.n)); b.type = "button";
+      b.style.left = m.x + "%"; b.style.top = m.y + "%";
+      b.addEventListener("click", function(){ open(m); });
+      frame.appendChild(b); btns[m.n] = b;
+    });
+    function progress(){
+      var n = Object.keys(visited).length;
+      cfg.progressEl.textContent = n + " / " + cfg.marks.length;
+      if (n >= cfg.marks.length) cfg.doneBtn.hidden = false;
+    }
+    function open(m){
+      if (!visited[m.n]){
+        visited[m.n] = true;
+        submitLog.push({ paso: cfg.paso, item: "Marca " + m.n, respuesta: "vista", correcta: null });
+      }
+      Object.keys(btns).forEach(function(k){ btns[k].classList.toggle("on", Number(k) === m.n); btns[k].classList.toggle("seen", !!visited[k]); });
+      panel.innerHTML = "";
+      panel.appendChild(v2el("p", "v2-arc-tag", "Marca " + m.n + " · tocá las palabras para ver qué significan"));
+      m.texts.forEach(function(t){
+        panel.appendChild(v2latinLine(t.latin, cfg.gloss, cfg.news));
+        panel.appendChild(v2transToggle(t.es));
+      });
+      progress();
+      panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+    progress();
+  }
+
+  // ---------- lectura global glosada (Repaso, Paso «La historia») ----------
+  // cfg: scenes[{img, credit, sents:[latin], es:[...]}], gloss, news
+  function buildReading(cfg){
+    cfg.scenes.forEach(function(sc, i){
+      var card = v2el("div", "stage-card v2-scene");
+      if (sc.img){
+        var m = v2el("div", "v2-scene-img"); var im = v2el("img"); im.src = sc.img; im.alt = ""; m.appendChild(im); card.appendChild(m);
+        if (sc.credit) card.appendChild(v2el("p", "stage-caption", sc.credit));
+      }
+      sc.sents.forEach(function(l){ card.appendChild(v2latinLine(l, cfg.gloss, cfg.news)); });
+      card.appendChild(v2transToggle(sc.es.join(" ")));
+      cfg.stageEl.appendChild(card);
+    });
+  }
+
+  var GLOSS = {"theseus": "Teseo (sujeto)", "theseum": "a Teseo (objeto)", "theseo": "a Teseo (a quien se da algo)", "thesei": "de Teseo", "ad": "a, hacia; junto a", "regiam": "el palacio (regia, -ae)", "regia": "el palacio (regia, -ae)", "regis": "del rey (rex, regis)", "minois": "de Minos", "minos": "Minos, rey de Creta", "in": "en (+ abl.) / a, hacia (+ ac.)", "cretam": "a Creta", "venit": "llega (venio)", "filiam": "una hija (filia, -ae)", "filiae": "hijas (filia, -ae)", "habet": "tiene (habeo)", "ariadnam": "a Ariadna", "ariadna": "Ariadna", "ariadnae": "de Ariadna", "statim": "inmediatamente", "amat": "ama (amo)", "minotaurus": "el Minotauro", "minotaurum": "al Minotauro", "frater": "hermano (frater) — palabra nueva", "est": "es, está (sum)", "sunt": "son, están (sum)", "sed": "pero", "servare": "salvar (servo)", "vult": "quiere (volo, velle)", "autem": "por su parte; pero", "auxilium": "la ayuda (auxilium, -i)", "dat": "da (do)", "filum": "un hilo (filum, -i) — palabra nueva", "filo": "con el hilo (filum) — palabra nueva", "ei": "le, a él (is)", "labyrinthum": "el laberinto (labyrinthus)", "labyrintho": "el laberinto (labyrinthus)", "labyrinthus": "el laberinto", "intrat": "entra (intro)", "occidit": "mata (occido)", "et": "y", "ex": "de, desde", "exit": "sale (exeo)", "secum": "consigo (cum + se)", "navigio": "la nave (navigium, -i)", "navigium": "la nave (navigium, -i)", "ducit": "lleva (duco)", "magna": "grande (magnus, -a, -um)", "magnum": "grande (magnus, -a, -um)", "tempestas": "la tormenta (tempestas) — palabra nueva", "insula": "la isla (insula, -ae)", "tenet": "retiene (teneo)", "patriam": "la patria (patria, -ae)", "ducere": "llevar (duco)", "non": "no", "illa": "ella (ille, illa)", "dormit": "duerme (dormio)", "eam": "la, a ella (is, ea)", "relinquit": "abandona, deja (relinquo) — palabra nueva", "liber": "Líber, dios del vino (Baco)", "deus": "el dios (deus, -i)", "nunc": "ahora — palabra nueva", "uxor": "esposa (uxor)", "uxorem": "como esposa (uxorem ducit: se casa con)", "dei": "del dios (deus)", "navigat": "navega (navigo)", "vela": "las velas (velum, -i) — palabra nueva", "nigra": "negras (niger, -gra, -grum) — palabra nueva", "mutat": "cambia (muto)", "aegeus": "Egeo, rey de Atenas, padre de Teseo", "aegei": "de Egeo", "pater": "el padre (pater)", "videt": "ve (video)", "putat": "piensa (puto)", "redit": "vuelve (redeo)", "idcirco": "por eso", "se": "se, a sí mismo", "mare": "el mar (mare)", "deicit": "arroja (deicio)", "illud": "ese, aquel (ille, illud)", "nomen": "el nombre (nomen) — palabra nueva", "tum": "entonces", "phaedram": "a Fedra", "phaedra": "Fedra, hermana de Ariadna", "sororem": "a la hermana (soror) — palabra nueva", "soror": "hermana (soror) — palabra nueva", "sorores": "hermanas (soror) — palabra nueva", "eius": "su, de ella / de él", "socii": "los compañeros (socius, -i)"}, NEWS = ["frater", "filum", "filo", "tempestas", "relinquit", "vela", "nigra", "nomen", "sororem", "soror", "sorores", "nunc", "regis"];
+  buildWarmup({ items: [{"type": "gap", "arco": "Equus Troianus", "src": "Actividad 1", "img": "img/warm-troya.jpg", "ctx": "Troya: los aqueos, escondidos en el caballo de madera, salen de noche.", "latin": true, "parts": ["Sinon equum aperit, Achivi ex equo ", {"g": 0}, " et Troianos qui portas servant occidunt."], "answers": ["exeunt"], "chips": ["exeunt", "exit", "intrant"], "full": "Sinon equum aperit, Achivi ex equo exeunt et Troianos qui portas servant occidunt.", "trad": "Sinón abre el caballo, los aqueos salen del caballo y matan a los troyanos que custodian las puertas."}, {"type": "gap", "arco": "Odyssea", "src": "Actividad 6", "img": "img/warm-odisea.jpg", "ctx": "La Odisea: la ninfa Calipso retiene a Ulises en su isla.", "latin": true, "parts": ["Calypso, nympha pulchra, Vlixem in ", {"g": 0}, " sua diutius tenet."], "answers": ["insula"], "chips": ["insula", "insulam", "insulae"], "full": "Calypso, nympha pulchra, Vlixem in insula sua diutius tenet.", "trad": "Calipso, una ninfa hermosa, tiene a Ulises mucho tiempo en su isla."}, {"type": "armado", "arco": "Reditus Vlixis", "src": "Actividad 11", "img": "img/warm-itaca.jpg", "ctx": "El regreso a Ítaca: Ulises, disfrazado de mendigo, llega a la choza del porquero Eumeo.", "words": ["Eumaeus", "eum", "in", "casam", "recipit"], "es": "Eumeo lo recibe en su casa", "al": "{0:Eumeo} {1:lo} {4:recibe} {2:en} {3:su casa}", "decoys": ["eos", "casas", "recipiunt"], "full": "Eumaeus eum in casam recipit", "trad": "Eumaeus eum in casam recipit — Eumeo lo recibe en su casa."}, {"type": "gap", "arco": "Daedalus et Icarus", "src": "Actividad 15", "img": "img/warm-dedalo.jpg", "ctx": "Creta: Dédalo e Ícaro escapan volando, pero Ícaro vuela demasiado alto.", "latin": true, "parts": ["Icarus alte volat; sol autem ceram calefacit, et ille in ", {"g": 0}, " cadit."], "answers": ["mare"], "chips": ["mare", "maria", "caelum"], "full": "Icarus alte volat; sol autem ceram calefacit, et ille in mare cadit.", "trad": "Ícaro vuela alto; pero el sol calienta la cera, y él cae al mar."}], stageEl: document.getElementById("warm-stage"), sealsEl: document.getElementById("warm-seals"),
+    progressEl: document.getElementById("warm-progress"), doneBtn: document.getElementById("btn-warm-done") });
+  document.getElementById("btn-warm-done").addEventListener("click", function(){ saveProgress("step-img"); showStep("step-img"); });
+  buildExplore({ image: "img/escena.jpg", marks: [{"n": 1, "x": 26, "y": 20, "texts": [{"latin": "Regia regis Minois.", "es": "El palacio del rey Minos."}]}, {"n": 2, "x": 40, "y": 60, "texts": [{"latin": "Navigium Thesei: in navigio socii Thesei sunt.", "es": "La nave de Teseo: en la nave están los compañeros de Teseo."}]}, {"n": 3, "x": 22, "y": 55, "texts": [{"latin": "Theseus ad regiam venit.", "es": "Teseo llega al palacio."}]}, {"n": 4, "x": 11, "y": 66, "texts": [{"latin": "Ariadna et Phaedra sorores sunt: filiae Minois sunt.", "es": "Ariadna y Fedra son hermanas: son hijas de Minos."}]}, {"n": 5, "x": 85, "y": 44, "texts": [{"latin": "Labyrinthus: in labyrintho Theseus Minotaurum occidit.", "es": "El laberinto: en el laberinto, Teseo mata al Minotauro."}]}, {"n": 6, "x": 78, "y": 70, "texts": [{"latin": "Ariadna et soror eius ad labyrinthum sunt.", "es": "Ariadna y su hermana están junto al laberinto."}]}, {"n": 7, "x": 66, "y": 46, "texts": [{"latin": "Theseus Ariadnam et Phaedram ad navigium ducit.", "es": "Teseo lleva a Ariadna y a Fedra hacia la nave."}]}, {"n": 8, "x": 77, "y": 21, "texts": [{"latin": "Navigium vela nigra habet.", "es": "La nave tiene velas negras."}]}, {"n": 9, "x": 62, "y": 25, "texts": [{"latin": "Mare magnum est.", "es": "El mar es grande."}]}], gloss: GLOSS, news: NEWS, paso: "En la imagen",
+    stageEl: document.getElementById("img-stage"), progressEl: document.getElementById("img-progress"), doneBtn: document.getElementById("btn-img-done") });
+  document.getElementById("btn-img-done").addEventListener("click", function(){ saveProgress("step-p1"); showStep("step-p1"); });
+
+  // Paso 3 (v2): la traducción con huecos y fichas reemplaza a las tres traducciones completas.
+  var GAP3 = [{"id": 1, "parts": [{"g": 0}, ", por su parte, le brinda ayuda a ", {"g": 1}, ": le da ", {"g": 2}, "."], "answers": ["Ariadna", "Teseo", "un hilo"], "chips": ["Ariadna", "Teseo", "Minos", "un hilo", "una espada"]}, {"id": 2, "parts": ["Teseo entra en el laberinto, ", {"g": 0}, " al Minotauro y sale del laberinto gracias ", {"g": 1}, "."], "answers": ["mata", "al hilo"], "chips": ["mata", "salva", "al hilo", "a la espada"]}, {"id": 3, "parts": ["Pero Teseo ", {"g": 0}, " llevar a Ariadna a su patria: ella duerme en la isla, y Teseo ", {"g": 1}, "."], "answers": ["no quiere", "la abandona"], "chips": ["no quiere", "quiere", "la abandona", "la despierta"]}, {"id": 4, "parts": ["El dios Líber ", {"g": 0}, " a Ariadna y se la lleva consigo; ahora ella es ", {"g": 1}, " del dios."], "answers": ["ama", "esposa"], "chips": ["ama", "abandona", "esposa", "hija"]}, {"id": 5, "parts": ["Teseo navega hacia su patria, pero ", {"g": 0}, " las velas ", {"g": 1}, "."], "answers": ["no cambia", "negras"], "chips": ["no cambia", "cambia", "negras", "blancas"]}];
+  function buildP3(){
+    if (p3Built) return;
+    p3Built = true;
+    var st = document.getElementById("p3-streak"); if (st) st.hidden = true;
+    var note = document.querySelector("#step-p3 .streak-note"); if (note) note.hidden = true;
+    var items = shuffled(GAP3.slice());
+    items.forEach(function(g){ g.p = PHRASES.filter(function(x){ return x.id === g.id; })[0]; });
+    v2sequence({ items: items, stageEl: document.getElementById("p3-stage"), progressEl: document.getElementById("p3-progress"),
+      head: function(g){ var d = v2el("div", "stage-latin"); d.textContent = g.p.latin; return d; },
+      lastLabel: "Ver resultados",
+      log: function(g, ok, errs){ submitLog.push({ paso:"3 - Frase y traducción", item:"Frase " + g.id, respuesta: g.answers.join(" / "),
+        correcta: ok, errores: errs, primerIntento: ok && errs === 0, respuestaRevelada: !ok }); },
+      onFinish: function(res){
+        var list = document.getElementById("p3-review-list"), c = 0; list.innerHTML = "";
+        res.forEach(function(r, i){
+          if (r.ok) c++;
+          var row = v2el("div", "review-row"); row.appendChild(v2el("div", "review-num", (i + 1) + "."));
+          var b = v2el("div", "review-body");
+          b.appendChild(v2el("div", "review-latin", r.it.p.latin));
+          b.appendChild(v2el("div", "review-answer " + (r.ok ? "ok" : "bad"), r.ok ? "Completaste bien la traducción." : "Se reveló la respuesta."));
+          b.appendChild(v2el("div", "review-correct", r.it.p.spanish));
+          row.appendChild(b); list.appendChild(row);
+        });
+        document.getElementById("p3-score").innerHTML = "Resultado: <strong>" + c + " / " + res.length + "</strong>";
+        showStep("step-p3-review");
+      } });
+  }
+
+})();
+</script>
+<script>
+/* Barra de pasos (2026-09-15, pedido de Santiago): permite volver a cualquier paso ya visitado
+   para rever lo hecho y regresar a donde se estaba. Es genérica: arma los grupos a partir de las
+   <section class="step"> de la página. En los pasos que tienen pantalla de resultado (-review)
+   lleva a esa pantalla (volver a la tarjeta podría re-registrar respuestas). Los botones
+   "Volver" existentes ([data-back-step]) pasan a usar la misma lógica. No toca saveProgress. */
+(function(){
+  "use strict";
+  var main = document.getElementById("main");
+  if (!main || document.getElementById("pasos-nav")) return;
+
+  var css = document.createElement("style");
+  css.textContent = [
+    "#pasos-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:.4rem;overflow-x:auto;",
+    "margin:0 0 1.2rem;padding:.55rem .1rem;background:var(--bg,#e8e7dd);border-bottom:1px solid var(--rule,#c9c4b3);",
+    "-webkit-overflow-scrolling:touch;scrollbar-width:none;}",
+    "#pasos-nav::-webkit-scrollbar{display:none;}",
+    "#pasos-nav .pn-label{font-family:var(--sans,system-ui,sans-serif);font-size:.7rem;font-weight:700;letter-spacing:.08em;",
+    "text-transform:uppercase;color:var(--ink-muted,#5b5f56);white-space:nowrap;margin-right:.15rem;}",
+    "#pasos-nav button{flex:0 0 auto;font-family:var(--sans,system-ui,sans-serif);font-size:.8rem;font-weight:600;white-space:nowrap;",
+    "cursor:pointer;border:1.5px solid var(--rule,#c9c4b3);border-radius:999px;padding:.32rem .8rem;",
+    "background:var(--surface-raised,#fff);color:var(--ink,#1e211d);}",
+    "#pasos-nav button:hover:not(:disabled){border-color:var(--accent,#1e4dc7);}",
+    "#pasos-nav button.pn-actual{background:var(--accent,#1e4dc7);border-color:var(--accent,#1e4dc7);color:var(--accent-ink,#f6efe0);cursor:default;}",
+    "#pasos-nav button:disabled:not(.pn-actual){opacity:.4;cursor:default;}"
+  ].join("");
+  document.head.appendChild(css);
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll("section.step"));
+  var groups = [], byId = {};
+  sections.forEach(function(sec){
+    var id = sec.id, m = id.match(/^step-p(\d+)(-review)?$/), key, label;
+    if (m){ key = "p" + m[1]; label = "Paso " + m[1]; }
+    else if (/^step-(p\d+-)?retry$/.test(id)){ key = "retry"; label = "Repaso final"; }
+    else if (id === "step-explain"){ key = "explain"; label = "Explicación"; }
+    else if (id === "step-fin"){ key = "fin"; label = "Cierre"; }
+    else { key = id; label = sec.getAttribute("data-nav-label") || id; }
+    var g = null;
+    for (var i = 0; i < groups.length; i++){ if (groups[i].key === key){ g = groups[i]; break; } }
+    if (!g){ g = { key: key, label: label, ids: [] }; groups.push(g); }
+    g.ids.push(id); byId[id] = g;
+  });
+
+  var reached = {};
+  function targetOf(g){
+    var pref = g.ids.filter(function(i){ return /-review$/.test(i); })
+      .concat(g.ids.filter(function(i){ return !/-review$/.test(i); }));
+    for (var k = 0; k < pref.length; k++){ if (reached[pref[k]]) return pref[k]; }
+    return null;
+  }
+  function visibleId(){ var v = document.querySelector("section.step.visible"); return v ? v.id : null; }
+  function go(id){
+    sections.forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function previousGroup(curG){
+    if (!curG) return null;
+    for (var k = groups.indexOf(curG) - 1; k >= 0; k--){ if (targetOf(groups[k])) return groups[k]; }
+    return null;
+  }
+
+  var nav = document.createElement("nav");
+  nav.id = "pasos-nav";
+  nav.setAttribute("aria-label", "Pasos de la actividad");
+  main.insertBefore(nav, main.firstChild);
+
+  function render(){
+    var cur = visibleId();
+    if (cur) reached[cur] = true;
+    var curG = cur ? byId[cur] : null;
+    nav.innerHTML = "";
+    var lab = document.createElement("span"); lab.className = "pn-label"; lab.textContent = "Pasos";
+    nav.appendChild(lab);
+    var curBtn = null;
+    groups.forEach(function(g){
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = g.label;
+      if (g === curG){ b.className = "pn-actual"; b.setAttribute("aria-current", "step"); b.disabled = true; curBtn = b; }
+      else { b.disabled = !targetOf(g); }
+      b.addEventListener("click", function(){ var t = targetOf(g); if (t && g !== curG) go(t); });
+      nav.appendChild(b);
+    });
+    if (curBtn) nav.scrollLeft = Math.max(0, curBtn.offsetLeft - nav.clientWidth / 2 + curBtn.offsetWidth / 2);
+    var prev = previousGroup(curG);
+    Array.prototype.forEach.call(document.querySelectorAll("section.step.visible [data-back-step]"), function(btn){
+      if (prev){ btn.textContent = "← Volver a " + prev.label; btn.style.display = ""; }
+      else { btn.style.display = "none"; }
+    });
+  }
+
+  // Los botones "Volver" existentes van al grupo anterior ya visitado (con la misma regla de destino).
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest("[data-back-step]");
+    if (!btn) return;
+    var prev = previousGroup(byId[visibleId()]);
+    if (!prev) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    go(targetOf(prev));
+  }, true);
+
+  // Se anota como visitado todo paso que estuvo visible alguna vez (oldValue), aunque se haya
+  // pasado por él muy rápido: el observador agrupa los cambios y al revisar ya no está visible.
+  var mo = new MutationObserver(function(records){
+    records.forEach(function(r){ if (r.oldValue && /(^|\s)visible(\s|$)/.test(r.oldValue)) reached[r.target.id] = true; });
+    render();
+  });
+  sections.forEach(function(s){ mo.observe(s, { attributes: true, attributeFilter: ["class"], attributeOldValue: true }); });
+  render();
+})();
+</script>
+<script src="../recursos/ayudas.js"></script>
+</body>
+</html>
