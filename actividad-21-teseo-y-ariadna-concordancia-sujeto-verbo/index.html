@@ -86,7 +86,7 @@
   .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
   .phrase-cast{ font-size:.98rem; color:var(--ink); margin-bottom:.6rem; }
   .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
-  .token{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token{ display:inline-flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:1.15rem; line-height:1.2; min-height:2.75rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.5rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
   .token:hover{ border-color:var(--accent); }
   .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
   .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
@@ -94,7 +94,7 @@
   .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
 
   .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
-  .word-opt{ font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt{ display:inline-flex; align-items:center; justify-content:center; font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); min-height:2.2rem; padding:.45rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
   .word-opt:hover{ border-color:var(--accent); }
   .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
   .word-opt:disabled{ cursor:default; opacity:.6; }
@@ -450,7 +450,7 @@
     items.forEach(function(it){
       var card = v2el("div", "stage-card");
       var img = v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'); card.appendChild(img);
-      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em> · " + it.ctx));
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
       var row = v2el("div", "dd-row");
       var stemSpan = v2el("span", "stem-fixed", it.before);
       var d = buildDropdown(it.options, it.correct, {
@@ -473,9 +473,9 @@
   }
 
   var WARMUP21 = [
-    { src:"F150 (Act.15)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", ctx:"Creta: Dédalo e Ícaro escapan volando, pero Ícaro vuela demasiado alto.", before:"Icarus alte", stem:"vola", verb:"volo: volar", options:["t","nt","s"], correct:"t", trad:"Ícaro vuela alto." },
-    { src:"Act.11 (F136)", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", ctx:"El regreso a Ítaca: Eumeo, el porquero, recibe a un mendigo desconocido en su choza.", before:"Eumaeus eum in casam", stem:"recipi", verb:"recipio: recibir", options:["t","unt","s"], correct:"t", trad:"Eumeo lo recibe en su choza." },
-    { src:"Act.1 (F004)", arco:"Equus Troianus", img:"img/warm-troya.jpg", ctx:"Troya: los aqueos, escondidos en el caballo, atacan de noche.", before:"Troiani portas", stem:"serv", verb:"servo: custodiar", options:["ant","at","as"], correct:"ant", trad:"Los troyanos custodian las puertas." }
+    { src:"F150 (Act.15)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", before:"Icarus alte", stem:"vola", verb:"volo: volar", options:["t","nt","s"], correct:"t", trad:"Ícaro vuela alto." },
+    { src:"Act.11 (F136)", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", before:"Eumaeus eum in casam", stem:"recipi", verb:"recipio: recibir", options:["t","unt","s"], correct:"t", trad:"Eumeo lo recibe en su choza." },
+    { src:"Act.1 (F004)", arco:"Achivi ex equo exeunt", img:"img/warm-troya.jpg", before:"Achivi ex equo", stem:"exi", verb:"exeo: salir", options:["exeunt","exis","exit"], correct:"exeunt", trad:"Los aqueos salen del caballo." }
   ];
 
   // ---------- "En la imagen" — hotspot de vocabulario (convención 27) ----------
@@ -502,7 +502,6 @@
       wrap.appendChild(dot);
     });
     stageEl.appendChild(wrap);
-    stageEl.appendChild(v2el("p", "hs-count", "Tocá los puntos que laten para descubrir el vocabulario."));
     upd();
   }
 
@@ -701,14 +700,7 @@
           }
         }
       });
-      if (part.stem && !part.whole){
-        var stemWrap = document.createElement("span"); stemWrap.className = "stem-dd";
-        var stemSpan = document.createElement("span"); stemSpan.className = "stem-fixed"; stemSpan.textContent = part.stem;
-        stemWrap.appendChild(stemSpan); stemWrap.appendChild(d.select);
-        row.appendChild(stemWrap);
-      } else {
-        row.appendChild(d.select);
-      }
+      row.appendChild(d.select);
       panelsHost.appendChild(d.panel); msgsHost.appendChild(d.msg);
     });
     block.appendChild(row);
