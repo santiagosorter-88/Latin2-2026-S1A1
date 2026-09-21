@@ -173,7 +173,7 @@
   .hs-dot{ position:absolute; width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%; border:3px solid #fff; background:var(--accent); cursor:pointer; padding:0; box-shadow:0 1px 4px rgba(0,0,0,.4); animation:hsPulse 1.8s ease-in-out infinite; }
   @keyframes hsPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(30,77,199,.5);} 50%{ box-shadow:0 0 0 9px rgba(30,77,199,0);} }
   .hs-dot.seen{ background:#5a6b57; animation:none; cursor:default; }
-  .hs-label{ position:absolute; transform:translate(-50%,-100%); margin-top:-16px; background:#fff; color:#1e211d; font-family:var(--serif); font-style:italic; font-size:1.05rem; padding:.25rem .7rem; border-radius:6px; box-shadow:0 1px 5px rgba(0,0,0,.4); white-space:nowrap; pointer-events:none; }
+  .hs-label{ position:absolute; transform:translate(-50%,-100%); margin-top:-16px; background:#fff; color:#1e211d; font-family:var(--serif); font-style:italic; font-size:1.05rem; padding:.4rem 1.1rem; border-radius:6px; box-shadow:0 1px 5px rgba(0,0,0,.4); white-space:nowrap; pointer-events:none; }
   .hs-count{ font-size:.85rem; color:var(--ink-muted); margin:.6rem 0 0; }
 
   .item-img{ margin:0 0 .8rem; border-radius:8px; overflow:hidden; background:var(--surface-raised); }
@@ -324,22 +324,22 @@
       paso: "2 - Desinencia", hint: "Pista: fijate si el sujeto es uno solo o son varios (y cómo termina).",
       items: [
         { id:1, src:"F193", verb:"venio: llegar",
-          parts:["Theseus ad regiam regis Minois", {options:["venit","veniunt","venis"], correct:"venit"}, "."],
+          parts:["Theseus ad regiam regis Minois", {stem:"veni", options:["t","unt","s"], correct:"t"}, "."],
           castAfter:"Teseo llega al palacio del rey Minos." },
         { id:2, src:"F195", verb:"sum: ser, estar",
           parts:["Minotaurus frater Ariadnae", {options:["est","sunt","es"], correct:"est"}, "."],
           castAfter:"El Minotauro es hermano de Ariadna." },
         { id:3, src:"F199", verb:"teneo: retener",
-          parts:["Magna tempestas navigium in insula", {options:["tenet","tenent","tenes"], correct:"tenet"}, "."],
+          parts:["Magna tempestas navigium in insula", {stem:"ten", options:["et","ent","es"], correct:"et"}, "."],
           castAfter:"Una gran tormenta retiene la nave en la isla." },
         { id:4, src:"F200", verb:"dormio: dormir", image:"img/03-ariadna-dormida.jpg",
-          parts:["Theseus Ariadnam in patriam ducere non vult:", {options:["illa","ille","illi","illae"], correct:"illa", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, "in insula", {options:["dormit","dormiunt","dormis"], correct:"dormit", label:"verbo"}, "."],
+          parts:["Theseus Ariadnam in patriam ducere non vult:", {stem:"ill", options:["e","a","i","ae"], correct:"a", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, "in insula", {stem:"dormi", options:["t","unt","s"], correct:"t", label:"verbo"}, "."],
           castAfter:"Teseo no quiere llevar a Ariadna a su patria: ella duerme en la isla." },
         { id:5, src:"F203 (ille agregado)", verb:"puto: pensar",
-          parts:["Aegeus vela nigra videt;", {options:["ille","illa","illi","illae"], correct:"ille", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, {options:["putat","putant","putas"], correct:"putat", label:"verbo"}, ": «Theseus non redit.»"],
+          parts:["Aegeus vela nigra videt;", {stem:"ill", options:["e","a","i","ae"], correct:"e", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, {stem:"puta", options:["t","nt","s"], correct:"t", label:"verbo"}, ": «Theseus non redit.»"],
           castAfter:"Egeo ve las velas negras; él piensa: «Teseo no vuelve»." },
         { id:6, src:"F198 (adaptada)", verb:"navigo: navegar",
-          parts:["Theseus et Ariadna ex Creta", {options:["navigant","navigat","navigas"], correct:"navigant"}, "."],
+          parts:["Theseus et Ariadna ex Creta", {stem:"naviga", options:["t","nt","s"], correct:"nt"}, "."],
           castAfter:"Teseo y Ariadna navegan desde Creta." }
       ]
     },
