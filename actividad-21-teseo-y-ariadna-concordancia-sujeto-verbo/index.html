@@ -154,8 +154,6 @@
   .btn-cast:hover{ border-color:var(--accent); }
 
   /* ---- Agregados Actividad 21 v3 (2026-09-21): hotspot de vocabulario, desinencia sola, corregí, imagen-pista ---- */
-  .stem-dd{ display:inline-flex; align-items:baseline; gap:0; }
-  .stem-dd .stem-fixed{ font-family:var(--serif); font-size:1.25rem; padding-right:.05rem; }
   .err-mark{ font-family:var(--serif); font-size:1.25rem; color:var(--incorrect); text-decoration:line-through; text-decoration-thickness:2px; }
   .step-progress{ font-size:.85rem; color:var(--ink-muted); }
   .v2-seals{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.2rem 0 1rem; }
@@ -324,22 +322,22 @@
       paso: "2 - Desinencia", hint: "Pista: fijate si el sujeto es uno solo o son varios (y cómo termina).",
       items: [
         { id:1, src:"F193", verb:"venio: llegar",
-          parts:["Theseus ad regiam regis Minois", {stem:"veni", options:["t","unt","s"], correct:"t"}, "."],
+          parts:["Theseus ad regiam regis Minois", {options:["venit","veniunt","venis"], correct:"venit"}, "."],
           castAfter:"Teseo llega al palacio del rey Minos." },
         { id:2, src:"F195", verb:"sum: ser, estar",
           parts:["Minotaurus frater Ariadnae", {options:["est","sunt","es"], correct:"est"}, "."],
           castAfter:"El Minotauro es hermano de Ariadna." },
         { id:3, src:"F199", verb:"teneo: retener",
-          parts:["Magna tempestas navigium in insula", {stem:"ten", options:["et","ent","es"], correct:"et"}, "."],
+          parts:["Magna tempestas navigium in insula", {options:["tenet","tenent","tenes"], correct:"tenet"}, "."],
           castAfter:"Una gran tormenta retiene la nave en la isla." },
         { id:4, src:"F200", verb:"dormio: dormir", image:"img/03-ariadna-dormida.jpg",
-          parts:["Theseus Ariadnam in patriam ducere non vult:", {stem:"ill", options:["e","a","i","ae"], correct:"a", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, "in insula", {stem:"dormi", options:["t","unt","s"], correct:"t", label:"verbo"}, "."],
+          parts:["Theseus Ariadnam in patriam ducere non vult:", {options:["ille","illa","illi","illae"], correct:"illa", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, "in insula", {options:["dormit","dormiunt","dormis"], correct:"dormit", label:"verbo"}, "."],
           castAfter:"Teseo no quiere llevar a Ariadna a su patria: ella duerme en la isla." },
         { id:5, src:"F203 (ille agregado)", verb:"puto: pensar",
-          parts:["Aegeus vela nigra videt;", {stem:"ill", options:["e","a","i","ae"], correct:"e", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, {stem:"puta", options:["t","nt","s"], correct:"t", label:"verbo"}, ": «Theseus non redit.»"],
+          parts:["Aegeus vela nigra videt;", {options:["ille","illa","illi","illae"], correct:"ille", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, {options:["putat","putant","putas"], correct:"putat", label:"verbo"}, ": «Theseus non redit.»"],
           castAfter:"Egeo ve las velas negras; él piensa: «Teseo no vuelve»." },
         { id:6, src:"F198 (adaptada)", verb:"navigo: navegar",
-          parts:["Theseus et Ariadna ex Creta", {stem:"naviga", options:["t","nt","s"], correct:"nt"}, "."],
+          parts:["Theseus et Ariadna ex Creta", {options:["navigat","navigant","navigas"], correct:"navigant"}, "."],
           castAfter:"Teseo y Ariadna navegan desde Creta." }
       ]
     },
@@ -452,9 +450,9 @@
       var img = v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'); card.appendChild(img);
       card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
       var row = v2el("div", "dd-row");
-      var stemSpan = v2el("span", "stem-fixed", it.before);
+      row.appendChild(document.createTextNode(it.before));
       var d = buildDropdown(it.options, it.correct, {
-        paso: "0 - Calentamiento", item: it.arco + " · " + it.src, stem: it.stem,
+        paso: "0 - Calentamiento", item: it.arco + " · " + it.src,
         onResolve: function(status){
           done++; upd();
           lit[it.arco] = true; seals();
@@ -462,8 +460,7 @@
           card.appendChild(fb);
         }
       });
-      var wrap = v2el("span", "stem-dd"); wrap.appendChild(stemSpan); wrap.appendChild(d.select);
-      row.appendChild(wrap);
+      row.appendChild(d.select);
       card.appendChild(row);
       card.appendChild(v2el("p", "v2-verb-note", "<strong>" + it.verb + "</strong>"));
       card.appendChild(d.panel); card.appendChild(d.msg);
@@ -473,9 +470,9 @@
   }
 
   var WARMUP21 = [
-    { src:"F150 (Act.15)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", before:"Icarus alte", stem:"vola", verb:"volo: volar", options:["t","nt","s"], correct:"t", trad:"Ícaro vuela alto." },
-    { src:"Act.11 (F136)", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", before:"Eumaeus eum in casam", stem:"recipi", verb:"recipio: recibir", options:["t","unt","s"], correct:"t", trad:"Eumeo lo recibe en su choza." },
-    { src:"Act.1 (F004)", arco:"Equus Troianus", img:"img/warm-troya.jpg", before:"Achivi ex equo", stem:"exi", verb:"exeo: salir", options:["exeunt","exis","exit"], correct:"exeunt", trad:"Los aqueos salen del caballo." }
+    { src:"F150 (Act.15)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", before:"Icarus alte", verb:"volo: volar", options:["volat","volant","volas"], correct:"volat", trad:"Ícaro vuela alto." },
+    { src:"Act.11 (F136)", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", before:"Eumaeus eum in casam", verb:"recipio: recibir", options:["recipit","recipiunt","recipis"], correct:"recipit", trad:"Eumeo lo recibe en su choza." },
+    { src:"Act.1 (F004)", arco:"Equus Troianus", img:"img/warm-troya.jpg", before:"Achivi ex equo", verb:"exeo: salir", options:["exeunt","exis","exit"], correct:"exeunt", trad:"Los aqueos salen del caballo." }
   ];
 
   // ---------- "En la imagen" — hotspot de vocabulario (convención 27) ----------
@@ -579,7 +576,7 @@
   }
   function buildDropdown(options, correct, ctx){
     var PLACEHOLDER = "elegí";
-    function disp(v){ return ctx.stem ? ctx.stem + v : v; }
+    function disp(v){ return v; }
     var btn = document.createElement("button");
     btn.type = "button"; btn.className = "dd"; btn.textContent = PLACEHOLDER;
     btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false");
@@ -688,7 +685,7 @@
       var d = buildDropdown(part.options, part.correct, {
         paso: cfg.paso,
         item: itemName + (part.label ? " (" + part.label + ")" : ""),
-        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery, stem: part.whole ? null : part.stem,
+        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery,
         onResolve: function(status){
           done++;
           if (status !== "ok") needsRetry = true;

@@ -149,8 +149,6 @@
   .btn-cast:hover{ border-color:var(--accent); }
 
   /* ---- Agregados Actividad 22 v3 (2026-09-21): hotspot de vocabulario, desinencia sola, corregí nivel 2, imagen-pista ---- */
-  .stem-dd{ display:inline-flex; align-items:baseline; gap:0; }
-  .stem-dd .stem-fixed{ font-family:var(--serif); font-size:1.25rem; padding-right:.05rem; }
   .step-progress{ font-size:.85rem; color:var(--ink-muted); }
   .v2-seals{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.2rem 0 1rem; }
   .v2-seal{ font-family:var(--serif); font-style:italic; font-size:.88rem; padding:.3rem .75rem; border-radius:var(--radius-chip); border:1.5px solid var(--rule); color:var(--ink-muted); }
@@ -323,19 +321,19 @@
       paso: "2 - Forma con imagen", hint: "Pista: mirá la imagen — ¿quién hace la acción y a quién le pasa?",
       items: [
         { id:1, src:"F197", image:"img/barye.jpg",
-          parts:["Theseus", {stem:"Minotaur", options:["us","um","i","os"], correct:"um"}, "occidit."],
+          parts:["Theseus", {options:["Minotaurus","Minotaurum","Minotauri","Minotauros"], correct:"Minotaurum"}, "occidit."],
           castAfter:"Teseo mata al Minotauro." },
         { id:2, src:"F196", image:"img/01-hilo.jpg",
-          parts:[{stem:"Ariadn", options:["a","am","ae","as"], correct:"a"}, "Theseo filum dat."],
+          parts:[{options:["Ariadna","Ariadnam","Ariadnae","Ariadnas"], correct:"Ariadna"}, "Theseo filum dat."],
           castAfter:"Ariadna le da un hilo a Teseo." },
         { id:3, src:"F200 (adaptada)", image:"img/03-ariadna-dormida.jpg",
-          parts:[{stem:"These", options:["us","um","i","o"], correct:"us"}, "Ariadnam in insula relinquit."],
+          parts:[{options:["Theseus","Theseum","Thesei","Theseo"], correct:"Theseus"}, "Ariadnam in insula relinquit."],
           castAfter:"Teseo abandona a Ariadna en la isla." },
         { id:4, src:"F201", image:"img/04-baco.jpg",
-          parts:["Liber", {stem:"de", options:["us","um","i","os"], correct:"us"}, "Ariadnam amat."],
+          parts:["Liber", {options:["deus","deum","dei","deos"], correct:"deus"}, "Ariadnam amat."],
           castAfter:"El dios Líber ama a Ariadna." },
         { id:5, src:"F203", image:"img/05-velas.jpg",
-          parts:[{stem:"Aege", options:["us","um","i","o"], correct:"us"}, "vela nigra videt."],
+          parts:[{options:["Aegeus","Aegeum","Aegei","Aegeo"], correct:"Aegeus"}, "vela nigra videt."],
           castAfter:"Egeo ve las velas negras." }
       ]
     },
@@ -458,9 +456,9 @@
       var img = v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'); card.appendChild(img);
       card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
       var row = v2el("div", "dd-row");
-      var stemSpan = v2el("span", "stem-fixed", it.before);
+      row.appendChild(document.createTextNode(it.before));
       var d = buildDropdown(it.options, it.correct, {
-        paso: "0 - Calentamiento", item: it.arco + " · " + it.src, stem: it.stem,
+        paso: "0 - Calentamiento", item: it.arco + " · " + it.src,
         onResolve: function(status){
           done++; upd();
           lit[it.arco] = true; seals();
@@ -468,8 +466,7 @@
           card.appendChild(fb);
         }
       });
-      var wrap = v2el("span", "stem-dd"); wrap.appendChild(stemSpan); wrap.appendChild(d.select);
-      row.appendChild(wrap);
+      row.appendChild(d.select);
       if (it.after) row.appendChild(document.createTextNode(it.after));
       card.appendChild(row); card.appendChild(d.panel); card.appendChild(d.msg);
       stageEl.appendChild(card);
@@ -478,9 +475,9 @@
   }
 
   var WARMUP22 = [
-    { src:"F147 (Act.17/18)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", before:"Minos ", stem:"Minotaur", options:["um","us"], correct:"um", after:" abscondere vult.", trad:"Minos quiere esconder al Minotauro." },
-    { src:"Act.1", arco:"Equus Troianus", img:"img/warm-troya.jpg", before:"Sinon ", stem:"equ", options:["um","us"], correct:"um", after:" aperit.", trad:"Sinón abre el caballo." },
-    { src:"Act.11", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", before:"Eumaeus ", stem:"cib", options:["um","us"], correct:"um", after:" dat.", trad:"Eumeo le da comida." }
+    { src:"F147 (Act.17/18)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", before:"Minos ", options:["Minotaurum","Minotaurus"], correct:"Minotaurum", after:" abscondere vult.", trad:"Minos quiere esconder al Minotauro." },
+    { src:"Act.1", arco:"Equus Troianus", img:"img/warm-troya.jpg", before:"Sinon ", options:["equum","equus"], correct:"equum", after:" aperit.", trad:"Sinón abre el caballo." },
+    { src:"Act.11", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", before:"Eumaeus ", options:["cibum","cibus"], correct:"cibum", after:" dat.", trad:"Eumeo le da comida." }
   ];
 
   // ---------- "En la imagen" — hotspot de vocabulario (convención 27) ----------
@@ -616,7 +613,7 @@
   }
   function buildDropdown(options, correct, ctx){
     var PLACEHOLDER = "elegí";
-    function disp(v){ return ctx.stem ? ctx.stem + v : v; }
+    function disp(v){ return v; }
     var btn = document.createElement("button");
     btn.type = "button"; btn.className = "dd"; btn.textContent = PLACEHOLDER;
     btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false");
@@ -725,7 +722,7 @@
       var d = buildDropdown(part.options, part.correct, {
         paso: cfg.paso,
         item: itemName + (part.label ? " (" + part.label + ")" : ""),
-        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery, stem: part.whole ? null : part.stem,
+        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery,
         onResolve: function(status){
           done++;
           if (status !== "ok") needsRetry = true;
