@@ -456,8 +456,7 @@
     items.forEach(function(it){
       var card = v2el("div", "stage-card");
       var img = v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'); card.appendChild(img);
-      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em> · " + it.ctx));
-      if (it.castBefore) card.appendChild(v2el("p", "phrase-cast", it.castBefore));
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
       var row = v2el("div", "dd-row");
       var stemSpan = v2el("span", "stem-fixed", it.before);
       var d = buildDropdown(it.options, it.correct, {
@@ -479,9 +478,9 @@
   }
 
   var WARMUP22 = [
-    { src:"F147 (Act.17/18)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", ctx:"Creta: Minos quiere esconder al Minotauro en un laberinto.", castBefore:"Minos quiere esconder al Minotauro.", before:"Minos ", stem:"Minotaur", options:["um","us"], correct:"um", after:" abscondere vult.", trad:"Minos quiere esconder al Minotauro." },
-    { src:"Act.1", arco:"Equus Troianus", img:"img/warm-troya.jpg", ctx:"Troya: Sinón abre el caballo de madera.", castBefore:"Sinón abre el caballo.", before:"Sinon ", stem:"equ", options:["um","us"], correct:"um", after:" aperit.", trad:"Sinón abre el caballo." },
-    { src:"Act.11", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", ctx:"El regreso a Ítaca: Eumeo recibe a un mendigo desconocido y le da de comer.", castBefore:"Eumeo le da comida.", before:"Eumaeus ", stem:"cib", options:["um","us"], correct:"um", after:" dat.", trad:"Eumeo le da comida." }
+    { src:"F147 (Act.17/18)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", before:"Minos ", stem:"Minotaur", options:["um","us"], correct:"um", after:" abscondere vult.", trad:"Minos quiere esconder al Minotauro." },
+    { src:"Act.1", arco:"Equus Troianus", img:"img/warm-troya.jpg", before:"Sinon ", stem:"equ", options:["um","us"], correct:"um", after:" aperit.", trad:"Sinón abre el caballo." },
+    { src:"Act.11", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", before:"Eumaeus ", stem:"cib", options:["um","us"], correct:"um", after:" dat.", trad:"Eumeo le da comida." }
   ];
 
   // ---------- "En la imagen" — hotspot de vocabulario (convención 27) ----------
