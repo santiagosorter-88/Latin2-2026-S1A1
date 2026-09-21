@@ -159,12 +159,12 @@
   .v2-warm-img{ border-radius:8px; overflow:hidden; margin:-.2rem 0 .7rem; background:#0000; }
   .v2-warm-img img{ display:block; width:100%; max-height:200px; object-fit:cover; }
 
-  .hs-wrap{ position:relative; border-radius:var(--radius-card); overflow:hidden; margin-top:.3rem; box-shadow:var(--shadow); line-height:0; }
-  .hs-wrap img{ width:100%; height:auto; display:block; -webkit-user-select:none; user-select:none; }
+  .hs-wrap{ position:relative; margin-top:.3rem; box-shadow:var(--shadow); border-radius:var(--radius-card); line-height:0; }
+  .hs-wrap img{ width:100%; height:auto; display:block; border-radius:var(--radius-card); -webkit-user-select:none; user-select:none; }
   .hs-dot{ position:absolute; width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%; border:3px solid #fff; background:var(--accent); cursor:pointer; padding:0; box-shadow:0 1px 4px rgba(0,0,0,.4); animation:hsPulse 1.8s ease-in-out infinite; }
   @keyframes hsPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(30,77,199,.5);} 50%{ box-shadow:0 0 0 9px rgba(30,77,199,0);} }
   .hs-dot.seen{ background:#5a6b57; animation:none; cursor:default; }
-  .hs-label{ position:absolute; transform:translate(-50%,-100%); margin-top:-16px; background:#fff; color:#1e211d; font-family:var(--serif); font-style:italic; font-size:1.05rem; padding:.4rem 1.1rem; border-radius:6px; box-shadow:0 1px 5px rgba(0,0,0,.4); white-space:nowrap; pointer-events:none; }
+  .hs-label{ position:absolute; transform:translate(-50%,-100%); margin-top:-16px; background:#fff; color:#1e211d; font-family:var(--serif); font-style:italic; font-size:1.1rem; padding:.6rem 1.5rem; border-radius:8px; box-shadow:0 1px 5px rgba(0,0,0,.4); white-space:nowrap; pointer-events:none; z-index:2; }
   .hs-count{ font-size:.85rem; color:var(--ink-muted); margin:.6rem 0 0; }
 
   .item-img{ margin:0 0 .8rem; border-radius:8px; overflow:hidden; background:var(--surface-raised); }
@@ -500,6 +500,10 @@
         var label = v2el("span", "hs-label", s.word);
         label.style.left = cx + "%"; label.style.top = cy + "%";
         wrap.appendChild(label);
+        var lr = label.getBoundingClientRect(), wr = wrap.getBoundingClientRect(), pad = 6, shift = 0;
+        if (lr.left < wr.left + pad) shift = (wr.left + pad) - lr.left;
+        else if (lr.right > wr.right - pad) shift = (wr.right - pad) - lr.right;
+        if (shift) label.style.transform = "translate(calc(-50% + " + shift + "px),-100%)";
       });
       wrap.appendChild(dot);
     });
