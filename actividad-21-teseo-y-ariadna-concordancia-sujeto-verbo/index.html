@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 21 — Teseo y Ariadna (concordancia sujeto-verbo)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  .btn-tired{
+    font-family:inherit; font-size:.82rem; font-weight:600; cursor:pointer;
+    border:1px solid var(--rule); border-radius:999px; padding:.4rem 1rem;
+    background:var(--surface); color:var(--ink-muted); display:inline-block; margin:0 0 1.2rem;
+  }
+  .btn-tired:hover{ border-color:var(--accent); color:var(--accent-strong); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .phrase-cast{ font-size:.98rem; color:var(--ink); margin-bottom:.6rem; }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.35rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token:hover{ border-color:var(--accent); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+
+  .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .word-opt{ font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); padding:.4rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt:disabled{ cursor:default; opacity:.6; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-feedback.bad{ color:var(--incorrect); }
+
+  .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
+
+  .explain-box{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.75rem; font-size:1.02rem; line-height:1.65; }
+  .explain-box p{ margin:0 0 .8rem; } .explain-box p:last-child{ margin-bottom:0; }
+  .explain-box .ex-latin{ font-family:var(--serif); font-style:italic; }
+
+  .dd-row{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--serif); font-size:1.25rem; margin-bottom:.5rem; }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+
+  .streak{ display:inline-block; font-size:.8rem; font-weight:700; border:1.5px solid var(--accent); color:var(--accent-strong); border-radius:999px; padding:.2rem .75rem; white-space:nowrap; }
+  .streak.zero{ border-color:var(--rule); color:var(--ink-muted); }
+  .streak-note{ color:var(--ink-muted); font-size:.78rem; margin:-.6rem 0 .8rem; }
+  .cast-after{ font-size:.92rem; color:var(--ink-muted); margin:.45rem 0 0; font-style:italic; }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  button.dd{ font-family:var(--sans); font-size:.95rem; font-weight:600; padding:.35rem .7rem; border-radius:8px; border:2px solid var(--rule); background:var(--surface-raised); color:var(--ink); cursor:pointer; min-width:4.5rem; }
+  button.dd::after{ content:" ▾"; color:var(--ink-muted); font-size:.8em; }
+  button.dd.open{ border-color:var(--accent); }
+  button.dd:disabled{ cursor:default; opacity:1; }
+  button.dd:disabled::after{ content:""; }
+  button.dd.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  button.dd.g-bad{ border-color:var(--incorrect); }
+  button.dd.g-idk, button.dd.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--ink); }
+  .dd-panel{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.55rem 0 .2rem; padding:.6rem; background:var(--surface-raised); border:1.5px solid var(--accent); border-radius:8px; }
+  .dd-panel[hidden]{ display:none; }
+  .dd-opt{ font-family:var(--serif); font-size:1.05rem; border:1.5px solid var(--rule); border-radius:999px; padding:.35rem .95rem; background:var(--surface); color:var(--ink); cursor:pointer; }
+  .dd-opt:hover{ border-color:var(--accent); }
+  .dd-opt.idk{ font-family:var(--sans); font-size:.85rem; border-style:dashed; color:var(--ink-muted); }
+  .dd-opt:disabled{ cursor:default; border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .dd-msgs .dd-msg{ margin-top:.25rem; }
+  .dd-msg{ font-size:.82rem; color:var(--ink-muted); }
+  .dd-msg.bad{ color:var(--incorrect); }
+  .btn-cast{ font-family:var(--sans); font-size:.8rem; font-weight:600; margin-top:.55rem; border:1px dashed var(--rule); border-radius:999px; padding:.3rem .85rem; background:transparent; color:var(--accent-strong); cursor:pointer; }
+  .btn-cast:hover{ border-color:var(--accent); }
+
+  /* ---- Agregados Actividad 21 v3 (2026-09-21): hotspot de vocabulario, desinencia sola, corregí, imagen-pista ---- */
+  .stem-dd{ display:inline-flex; align-items:baseline; gap:0; }
+  .stem-dd .stem-fixed{ font-family:var(--serif); font-size:1.25rem; padding-right:.05rem; }
+  .err-mark{ font-family:var(--serif); font-size:1.25rem; color:var(--incorrect); text-decoration:line-through; text-decoration-thickness:2px; }
+  .step-progress{ font-size:.85rem; color:var(--ink-muted); }
+  .v2-seals{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.2rem 0 1rem; }
+  .v2-seal{ font-family:var(--serif); font-style:italic; font-size:.88rem; padding:.3rem .75rem; border-radius:var(--radius-chip); border:1.5px solid var(--rule); color:var(--ink-muted); }
+  .v2-seal.on{ border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .v2-arc-tag{ font-size:.82rem; color:var(--ink-muted); margin:0 0 .4rem; }
+  .v2-trad{ display:block; margin-top:.35rem; font-style:italic; color:var(--ink); }
+  .stage-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.3rem 1.4rem 1.5rem; margin-bottom:1rem; box-shadow:var(--shadow); }
+  .v2-warm-img{ border-radius:8px; overflow:hidden; margin:-.2rem 0 .7rem; background:#0000; }
+  .v2-warm-img img{ display:block; width:100%; max-height:200px; object-fit:cover; }
+  .v2-verb-note{ margin:.1rem 0 .7rem; font-family:var(--serif); font-size:1.05rem; color:var(--ink-muted); }
+
+  .hs-wrap{ position:relative; border-radius:var(--radius-card); overflow:hidden; margin-top:.3rem; box-shadow:var(--shadow); line-height:0; }
+  .hs-wrap img{ width:100%; height:auto; display:block; -webkit-user-select:none; user-select:none; }
+  .hs-dot{ position:absolute; width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%; border:3px solid #fff; background:var(--accent); cursor:pointer; padding:0; box-shadow:0 1px 4px rgba(0,0,0,.4); animation:hsPulse 1.8s ease-in-out infinite; }
+  @keyframes hsPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(30,77,199,.5);} 50%{ box-shadow:0 0 0 9px rgba(30,77,199,0);} }
+  .hs-dot.seen{ background:#5a6b57; animation:none; cursor:default; }
+  .hs-label{ position:absolute; transform:translate(-50%,-100%); margin-top:-16px; background:#fff; color:#1e211d; font-family:var(--serif); font-style:italic; font-size:1.05rem; padding:.25rem .7rem; border-radius:6px; box-shadow:0 1px 5px rgba(0,0,0,.4); white-space:nowrap; pointer-events:none; }
+  .hs-count{ font-size:.85rem; color:var(--ink-muted); margin:.6rem 0 0; }
+
+  .item-img{ margin:0 0 .8rem; border-radius:8px; overflow:hidden; background:var(--surface-raised); }
+  .item-img img{ display:block; width:100%; max-height:220px; object-fit:contain; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
+
+  <p class="eyebrow">Latín · Actividad 21</p>
+  <h1>Teseo y Ariadna — concordancia sujeto-verbo</h1>
+  <p class="lede">Con las frases de Teseo y Ariadna: singular y plural del verbo, sujetos de 3ª declinación y pronombres sujeto (<span class="ex-latin">ille, illa, illi, illae</span>).</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <section class="step" id="step-warm" data-nav-label="Calentamiento">
+      <div class="step-head"><div><p class="eyebrow">Calentamiento</p><h2>Repasemos otras historias</h2></div><span class="step-progress" id="warm-progress">—</span></div>
+      <p class="step-instructions">Antes de empezar con Teseo, un repaso rápido (2 minutos) de verbos de historias anteriores: elegí la desinencia que concuerda con el sujeto. No cuenta para tu resultado.</p>
+      <div class="v2-seals" id="warm-seals"></div>
+      <div id="warm-stage"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-warm-done" hidden>Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-img" data-nav-label="En la imagen">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-warm">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">En la imagen</p><h2>Vocabulario en la escena</h2></div><span class="step-progress" id="img-progress">—</span></div>
+      <p class="step-instructions">Un detalle del cofre nupcial (cassone) con la llegada de Teseo a Creta. Tocá los puntos que laten: cada uno te muestra una palabra en latín.</p>
+      <div id="img-stage"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-img-done" hidden>Continuar a Paso 1</button></div>
+    </section>
+
+    <section class="step" id="step-p1">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-img">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Tocá el sujeto</h2></div></div>
+      <p class="step-instructions">Cinco frases del relato. Tocá la palabra (o las palabras) que funcionan como sujeto de cada oración — ojo, algunas tienen más de una trampa.</p>
+      <div class="p-progress" id="p1-progress"></div>
+      <div class="exercise" id="p1-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-img">↑ Volver al ejercicio</button><button class="btn" id="btn-to-explain" disabled>Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-explain">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 2</p><h2>Concordancia: plurales en <span class="ex-latin">-es</span> y pronombres sujeto</h2></div></div>
+      <div class="explain-box">
+        <p><strong>Repaso.</strong> El verbo concuerda en número con su sujeto: <span class="ex-latin">Minotaurus frater Ariadnae est</span> (uno solo, <strong>-t</strong>) — si el sujeto fuera plural, el verbo terminaría en <strong>-nt</strong>. Dos sujetos unidos por <span class="ex-latin">et</span> piden el verbo en plural.</p>
+        <p><strong>3ª declinación.</strong> El nominativo singular cambia mucho de una palabra a otra (<span class="ex-latin">soror, mare, tempestas</span>), pero el nominativo <strong>plural</strong> termina en <strong>-es</strong>: <span class="ex-latin">Ariadna et Phaedra sorores sunt</span> (soror → sorores).</p>
+        <p><strong>Pronombres sujeto.</strong> Cuando ya se nombró a alguien, el latín lo puede retomar con un pronombre:</p>
+        <p style="margin-left:1rem;">
+          <span class="ex-latin">ille</span> = él, este (masculino singular)<br />
+          <span class="ex-latin">illa</span> = ella (femenino singular)<br />
+          <span class="ex-latin">illi</span> = ellos (masculino plural)<br />
+          <span class="ex-latin">illae</span> = ellas (femenino plural)
+        </p>
+        <p>El pronombre toma el género y el número de la persona a la que retoma, y el verbo concuerda con él. Del relato: <span class="ex-latin">Theseus Ariadnam in patriam ducere non vult: illa in insula dormit</span> · <span class="ex-latin">Liber deus Ariadnam amat; illa nunc uxor dei est</span>.</p>
+        <p>En el Paso 2 la pista está en el latín: la traducción aparece <strong>después</strong> de resolver cada frase. Si la necesitás antes para orientarte, tocá «Ver traducción».</p>
+      </div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p1">↑ Volver al ejercicio</button><button class="btn" id="btn-to-p2">Continuar a Paso 2</button></div>
+    </section>
+
+    <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Elegí la desinencia</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Frases del relato con un hueco (a veces dos): puede ser el verbo o un pronombre sujeto. Si no entendés bien qué dice la frase, tocá «Ver traducción» como orientación.</p>
+      <div class="p-progress" id="p2-progress"></div>
+      <div class="exercise" id="p2-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-explain">↑ Volver al ejercicio</button><button class="btn" id="btn-to-corregi" disabled>Continuar a Corregí</button></div>
+    </section>
+
+    <section class="step" id="step-corregi" data-nav-label="Corregí">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button></div>
+      <div class="step-head"><div><p class="eyebrow">Corregí</p><h2>Encontrá el error</h2></div></div>
+      <p class="step-instructions">En cada frase hay una palabra marcada que está mal. Elegí la forma correcta y después decí por qué estaba mal.</p>
+      <div class="p-progress" id="corregi-progress"></div>
+      <div class="exercise" id="corregi-list"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost" data-back-step="step-p2">↑ Volver al ejercicio</button><button class="btn" id="btn-to-fin" disabled>Finalizar actividad</button></div>
+    </section>
+
+
+    <section class="step" id="step-retry">
+      <div class="step-head"><div><p class="eyebrow">Repaso final</p><h2>Volvé a intentar estas frases</h2></div><span class="streak zero" id="retry-progress"></span></div>
+      <p class="step-instructions">Son las frases en las que elegiste «No lo sé todavía» o en las que se reveló la respuesta. Este repaso no cambia tu resultado principal.</p>
+      <div class="exercise" id="retry-list"></div>
+      <div class="stage-nav bottom-nav"><button class="btn" id="btn-retry-next" disabled>Siguiente frase</button></div>
+    </section>
+
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="respuesta libre" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="respuesta libre" required /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="score-summary" id="score-summary" hidden></p>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  var DATA = {
+    castToggle: true,
+    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Corregí"]],
+
+    // Paso 1 — Tocá el sujeto (click-en-el-texto, convención 1 exceptuada: sin revelación).
+    paso1: [
+      { id:1, src:"F196", tokens:["Ariadna","autem","Theseo","auxilium","dat."], verbIdx:[4], subjectIdx:[0],
+        castHtml:"Ariadna, por su parte, le da ayuda a Teseo." },
+      { id:2, src:"F197", tokens:["Theseus","in","labyrinthum","intrat,","Minotaurum","occidit","et","filo","ex","labyrintho","exit."], verbIdx:[3,5,10], subjectIdx:[0],
+        castHtml:"Teseo entra en el laberinto, mata al Minotauro y sale del laberinto gracias al hilo." },
+      { id:3, src:"F199", tokens:["Magna","tempestas","navigium","in","insula","tenet."], verbIdx:[5], subjectIdx:[0,1],
+        castHtml:"Una gran tormenta retiene la nave en la isla." },
+      { id:4, src:"F203", tokens:["Aegeus,","pater","Thesei,","vela","nigra","videt."], verbIdx:[5], subjectIdx:[0],
+        castHtml:"Egeo, el padre de Teseo, ve las velas negras." },
+      { id:5, src:"F204", tokens:["Illud","mare","nomen","Aegei","habet."], verbIdx:[4], subjectIdx:[0,1],
+        castHtml:"Ese mar tiene el nombre de Egeo." }
+    ],
+
+    // Paso 2 — Elegí la desinencia (desinencia sola, convención 20; verbo y pronombre mezclados).
+    paso2: {
+      paso: "2 - Desinencia", hint: "Pista: fijate si el sujeto es uno solo o son varios (y cómo termina).",
+      items: [
+        { id:1, src:"F193", verb:"venio: llegar",
+          parts:["Theseus ad regiam regis Minois", {stem:"veni", options:["t","unt","s"], correct:"t"}, "."],
+          castAfter:"Teseo llega al palacio del rey Minos." },
+        { id:2, src:"F195", verb:"sum: ser, estar",
+          parts:["Minotaurus frater Ariadnae", {options:["est","sunt","es"], correct:"est"}, "."],
+          castAfter:"El Minotauro es hermano de Ariadna." },
+        { id:3, src:"F199", verb:"teneo: retener",
+          parts:["Magna tempestas navigium in insula", {stem:"ten", options:["et","ent","es"], correct:"et"}, "."],
+          castAfter:"Una gran tormenta retiene la nave en la isla." },
+        { id:4, src:"F200", verb:"dormio: dormir", image:"img/03-ariadna-dormida.jpg",
+          parts:["Theseus Ariadnam in patriam ducere non vult:", {stem:"ill", options:["e","a","i","ae"], correct:"a", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, "in insula", {stem:"dormi", options:["t","unt","s"], correct:"t", label:"verbo"}, "."],
+          castAfter:"Teseo no quiere llevar a Ariadna a su patria: ella duerme en la isla." },
+        { id:5, src:"F203 (ille agregado)", verb:"puto: pensar",
+          parts:["Aegeus vela nigra videt;", {stem:"ill", options:["e","a","i","ae"], correct:"e", label:"pronombre", hint:"Pista: ¿a quién retoma el pronombre? ¿Es hombre o mujer? ¿Uno o varios?"}, {stem:"puta", options:["t","nt","s"], correct:"t", label:"verbo"}, ": «Theseus non redit.»"],
+          castAfter:"Egeo ve las velas negras; él piensa: «Teseo no vuelve»." },
+        { id:6, src:"F198 (adaptada)", verb:"navigo: navegar",
+          parts:["Theseus et Ariadna ex Creta", {stem:"naviga", options:["t","nt","s"], correct:"nt"}, "."],
+          castAfter:"Teseo y Ariadna navegan desde Creta." }
+      ]
+    },
+
+    // Corregí — nivel 1 (convención 21): la palabra errada viene marcada; forma correcta + porqué.
+    corregi: {
+      paso: "3 - Corregí",
+      reasons: [
+        { id:"R1", text:"El sujeto es uno solo: el verbo va en singular." },
+        { id:"R2", text:"El sujeto son varios: el verbo va en plural." },
+        { id:"R3", text:"El pronombre no coincide con quien retoma (masculino/femenino, uno/varios)." }
+      ],
+      items: [
+        { id:1, src:"F202", tokens:["Theseus","in","patriam","navigat,","sed","vela","nigra","non","mutant."], errIdx:8, correct:"mutat", options:["mutat","mutas","mutare"], why:"R1",
+          cast:"Teseo navega hacia su patria, pero no cambia las velas negras." },
+        { id:2, src:"F194/F205 (adaptada)", tokens:["Ariadna","et","Phaedra","filiae","Minois","est."], errIdx:5, correct:"sunt", options:["sunt","es","esse"], why:"R2", image:"img/sorores.jpg",
+          cast:"Ariadna y Fedra son hijas de Minos." },
+        { id:3, src:"F201", tokens:["Liber","deus","Ariadnam","amat;","ille","nunc","uxor","dei","est."], errIdx:4, correct:"illa", options:["illa","illae","illi"], why:"R3",
+          cast:"El dios Líber ama a Ariadna; ella ahora es esposa del dios." }
+      ]
+    }
+  };
+
+  var IDK = "No lo sé todavía";
+  var IDK_VALUE = "__idk__";
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+
+  var identity = { email:"" };
+  var submitLog = [];
+  var flagged = {};
+  var retryQueue = [], retryIndex = 0;
+
+  // ---------- Guardar/retomar progreso (convención 3) ----------
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog, flagged: Object.keys(flagged) })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      (restored.flagged || []).forEach(function(k){ flagged[k] = true; });
+      if (restored.step === "step-retry") goToEnd();
+      else showStep(restored.step);
+    } else {
+      showStep("step-warm");
+    }
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"smooth" });
+  }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
+
+  // ---------- "Primer intento": aciertos seguidos sin ningún error ----------
+  function makeStreak(el){
+    var n = 0;
+    function render(){ el.textContent = "Primer intento: " + n; el.classList.toggle("zero", n === 0); }
+    render();
+    return { hit: function(){ n++; render(); }, reset: function(){ n = 0; render(); } };
+  }
+
+  function v2el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  // ---------- Calentamiento (convención 18, desinencia sola) ----------
+  function buildWarmupDD(items, stageEl, progressEl, doneBtn, sealsEl){
+    var arcs = items.map(function(it){ return it.arco; }).filter(function(a, i, arr){ return arr.indexOf(a) === i; });
+    var lit = {};
+    function seals(){
+      sealsEl.innerHTML = "";
+      arcs.forEach(function(a){ sealsEl.appendChild(v2el("span", "v2-seal" + (lit[a] ? " on" : ""), a)); });
+    }
+    seals();
+    var total = items.length, done = 0;
+    function upd(){ progressEl.textContent = done + " / " + total; if (done >= total) doneBtn.hidden = false; }
+    items.forEach(function(it){
+      var card = v2el("div", "stage-card");
+      var img = v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'); card.appendChild(img);
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em> · " + it.ctx));
+      var row = v2el("div", "dd-row");
+      var stemSpan = v2el("span", "stem-fixed", it.before);
+      var d = buildDropdown(it.options, it.correct, {
+        paso: "0 - Calentamiento", item: it.arco + " · " + it.src, stem: it.stem,
+        onResolve: function(status){
+          done++; upd();
+          lit[it.arco] = true; seals();
+          var fb = v2el("div", "word-feedback", '<span class="v2-trad">' + it.trad + '</span>');
+          card.appendChild(fb);
+        }
+      });
+      var wrap = v2el("span", "stem-dd"); wrap.appendChild(stemSpan); wrap.appendChild(d.select);
+      row.appendChild(wrap);
+      card.appendChild(row);
+      card.appendChild(v2el("p", "v2-verb-note", "<strong>" + it.verb + "</strong>"));
+      card.appendChild(d.panel); card.appendChild(d.msg);
+      stageEl.appendChild(card);
+    });
+    upd();
+  }
+
+  var WARMUP21 = [
+    { src:"F150 (Act.15)", arco:"Daedalus et Icarus", img:"img/warm-dedalo.jpg", ctx:"Creta: Dédalo e Ícaro escapan volando, pero Ícaro vuela demasiado alto.", before:"Icarus alte", stem:"vola", verb:"volo: volar", options:["t","nt","s"], correct:"t", trad:"Ícaro vuela alto." },
+    { src:"Act.11 (F136)", arco:"Reditus Vlixis", img:"img/warm-itaca.jpg", ctx:"El regreso a Ítaca: Eumeo, el porquero, recibe a un mendigo desconocido en su choza.", before:"Eumaeus eum in casam", stem:"recipi", verb:"recipio: recibir", options:["t","unt","s"], correct:"t", trad:"Eumeo lo recibe en su choza." },
+    { src:"Act.1 (F004)", arco:"Equus Troianus", img:"img/warm-troya.jpg", ctx:"Troya: los aqueos, escondidos en el caballo, atacan de noche.", before:"Troiani portas", stem:"serv", verb:"servo: custodiar", options:["ant","at","as"], correct:"ant", trad:"Los troyanos custodian las puertas." }
+  ];
+
+  // ---------- "En la imagen" — hotspot de vocabulario (convención 27) ----------
+  function buildHotspot(cfg, stageEl, progressEl, doneBtn){
+    var wrap = v2el("div", "hs-wrap");
+    var img = document.createElement("img"); img.src = cfg.image; img.alt = ""; img.draggable = false;
+    wrap.appendChild(img);
+    var total = cfg.spots.length, found = 0;
+    function upd(){ progressEl.textContent = found + " / " + total; if (found >= total) doneBtn.hidden = false; }
+    cfg.spots.forEach(function(s){
+      var cx = s.x + s.w / 2, cy = s.y + s.h / 2;
+      var dot = document.createElement("button");
+      dot.type = "button"; dot.className = "hs-dot";
+      dot.style.left = cx + "%"; dot.style.top = cy + "%";
+      dot.setAttribute("aria-label", "Zona: " + s.word);
+      dot.addEventListener("click", function(){
+        if (dot.classList.contains("seen")) return;
+        dot.classList.add("seen"); found++; upd();
+        submitLog.push({ paso: "En la imagen", item: s.word, respuesta: "descubierta", correcta: null });
+        var label = v2el("span", "hs-label", s.word);
+        label.style.left = cx + "%"; label.style.top = cy + "%";
+        wrap.appendChild(label);
+      });
+      wrap.appendChild(dot);
+    });
+    stageEl.appendChild(wrap);
+    stageEl.appendChild(v2el("p", "hs-count", "Tocá los puntos que laten para descubrir el vocabulario."));
+    upd();
+  }
+
+  var HOTSPOT21 = {
+    image: "img/hotspot.jpg",
+    spots: [
+      { x:28, y:0,  w:32, h:22, word:"regia" },
+      { x:8,  y:45, w:22, h:32, word:"sorores" },
+      { x:46, y:35, w:45, h:45, word:"navigium" },
+      { x:87, y:15, w:12, h:20, word:"mare" }
+    ]
+  };
+
+  buildWarmupDD(WARMUP21, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
+  document.getElementById("btn-warm-done").addEventListener("click", function(){ saveProgress("step-img"); showStep("step-img"); });
+  buildHotspot(HOTSPOT21, document.getElementById("img-stage"), document.getElementById("img-progress"), document.getElementById("btn-img-done"));
+  document.getElementById("btn-img-done").addEventListener("click", function(){ saveProgress("step-p1"); showStep("step-p1"); });
+
+  // =================================================================
+  // Paso 1: Tocá el sujeto (click-en-el-texto). Convención 1 exceptuada:
+  // las palabras mal elegidas quedan deshabilitadas, el resto sigue disponible.
+  // =================================================================
+  (function(){
+    var FR = DATA.paso1;
+    var list = document.getElementById("p1-list");
+    var total = 0, resolved = 0;
+    FR.forEach(function(f){ total += f.subjectIdx.length; });
+    function upd(){
+      document.getElementById("p1-progress").innerHTML = "Sujetos encontrados: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-to-explain").disabled = resolved < total;
+    }
+    FR.forEach(function(f){
+      var block = document.createElement("div"); block.className = "phrase-block";
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + f.id; block.appendChild(num);
+      var cast = document.createElement("div"); cast.className = "phrase-cast"; cast.textContent = f.castHtml; block.appendChild(cast);
+      var tokensEl = document.createElement("div"); tokensEl.className = "tokens";
+      var subjSet = new Set(f.subjectIdx), verbSet = new Set(f.verbIdx);
+      f._found = new Set();
+      f.tokens.forEach(function(word, idx){
+        var chip = document.createElement("button");
+        chip.type = "button"; chip.className = "token"; chip.textContent = word;
+        if (verbSet.has(idx)){
+          chip.classList.add("g-ok"); chip.disabled = true; chip.style.opacity = ".55";
+        } else {
+          chip.addEventListener("click", function(){
+            if (chip.disabled) return;
+            var ok = subjSet.has(idx);
+            submitLog.push({ paso:"1 - Sujeto", item:"Frase " + f.id + " · " + word, respuesta: ok ? "sujeto" : "no es sujeto", correcta: ok, final:true });
+            chip.disabled = true;
+            if (ok){ f._found.add(idx); chip.classList.add("g-ok"); resolved++; upd(); }
+            else { chip.classList.add("g-bad"); }
+          });
+        }
+        tokensEl.appendChild(chip);
+      });
+      block.appendChild(tokensEl);
+      list.appendChild(block);
+    });
+    upd();
+  })();
+
+
+  // =================================================================
+  // Desplegable propio (no <select> nativo): la lista de opciones se abre
+  // SIEMPRE debajo de la frase. Opciones mezcladas + "No lo sé todavía".
+  // Convención 1: primer error tacha esa opción (con pista), segundo revela.
+  // =================================================================
+  var openDd = null;
+  function closeOpenDd(){
+    if (!openDd) return;
+    openDd.panel.hidden = true;
+    openDd.btn.classList.remove("open");
+    openDd.btn.setAttribute("aria-expanded", "false");
+    openDd = null;
+  }
+  function buildDropdown(options, correct, ctx){
+    var PLACEHOLDER = "elegí";
+    function disp(v){ return ctx.stem ? ctx.stem + v : v; }
+    var btn = document.createElement("button");
+    btn.type = "button"; btn.className = "dd"; btn.textContent = PLACEHOLDER;
+    btn.setAttribute("aria-haspopup", "listbox"); btn.setAttribute("aria-expanded", "false");
+    var panel = document.createElement("div");
+    panel.className = "dd-panel"; panel.hidden = true; panel.setAttribute("role", "listbox");
+    var msg = document.createElement("div"); msg.className = "dd-msg";
+    var wrong = 0, done = false;
+    var me = { btn: btn, panel: panel };
+    function log(extra){
+      var e = { paso: ctx.paso, item: ctx.item };
+      for (var k in extra) e[k] = extra[k];
+      if (ctx.recovery) e.recuperacion = true;
+      submitLog.push(e);
+    }
+    function addOpt(value, text, cls){
+      var o = document.createElement("button");
+      o.type = "button"; o.className = "dd-opt" + (cls ? " " + cls : ""); o.textContent = text;
+      o.setAttribute("role", "option");
+      o.addEventListener("click", function(){ choose(value, o); });
+      panel.appendChild(o);
+    }
+    shuffled(options).forEach(function(opt){ addOpt(opt, disp(opt)); });
+    addOpt(IDK_VALUE, IDK, "idk");
+    btn.addEventListener("click", function(){
+      if (done) return;
+      if (openDd === me){ closeOpenDd(); return; }
+      closeOpenDd();
+      panel.hidden = false; btn.classList.add("open"); btn.setAttribute("aria-expanded", "true");
+      openDd = me;
+      var r = panel.getBoundingClientRect();
+      if (r.bottom > window.innerHeight) panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    });
+    function finish(){ done = true; btn.disabled = true; closeOpenDd(); }
+    function choose(val, optEl){
+      if (done || optEl.disabled) return;
+      if (val === IDK_VALUE){
+        log({ respuesta: IDK, correcta: null, respuestaAutorreferida: true, primerIntento: false, final: true });
+        btn.classList.remove("g-bad"); btn.classList.add("g-idk");
+        msg.className = "dd-msg idk";
+        if (ctx.recovery){ btn.textContent = disp(correct); msg.textContent = "La respuesta correcta es: " + disp(correct) + "."; }
+        else { btn.textContent = "no lo sé"; msg.textContent = "Quedó marcada para repasar al final."; }
+        if (ctx.streak) ctx.streak.reset();
+        finish(); ctx.onResolve("idk");
+        return;
+      }
+      if (val === correct){
+        log({ respuesta: disp(val), correcta: true, primerIntento: wrong === 0, final: true });
+        btn.textContent = disp(val); btn.classList.remove("g-bad"); btn.classList.add("g-ok");
+        msg.className = "dd-msg ok"; msg.textContent = "¡Correcto!";
+        if (ctx.streak && wrong === 0) ctx.streak.hit();
+        finish(); ctx.onResolve("ok");
+        return;
+      }
+      wrong++;
+      log({ respuesta: disp(val), correcta: false, primerIntento: false, final: false });
+      optEl.disabled = true;
+      if (ctx.streak && wrong === 1) ctx.streak.reset();
+      if (wrong >= 2){
+        log({ respuesta: disp(correct), correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+        btn.textContent = disp(correct); btn.classList.remove("g-bad"); btn.classList.add("g-revealed");
+        msg.className = "dd-msg bad"; msg.textContent = "No era correcta. La respuesta correcta es: " + disp(correct) + ".";
+        finish(); ctx.onResolve("revealed");
+      } else {
+        btn.classList.add("g-bad"); btn.textContent = PLACEHOLDER;
+        msg.className = "dd-msg bad"; msg.textContent = "No es correcta. Probá una vez más." + (ctx.hint ? " " + ctx.hint : "");
+      }
+    }
+    return { select: btn, msg: msg, panel: panel };
+  }
+
+  // Una frase con uno o más desplegables. castBefore = traducción visible antes;
+  // castAfter = traducción que aparece al resolver. item.image = imagen-pista arriba (convención 27.2).
+  function renderItem(item, host, cfg){
+    var block = document.createElement("div"); block.className = "phrase-block";
+    if (item.image){ var iw = document.createElement("div"); iw.className = "item-img"; iw.innerHTML = '<img src="' + item.image + '" alt="">'; block.appendChild(iw); }
+    var num = document.createElement("div"); num.className = "phrase-num";
+    var itemName = (cfg.itemPrefix || "") + "Frase " + item.id;
+    num.textContent = itemName; block.appendChild(num);
+    if (item.castBefore){ var cb = document.createElement("div"); cb.className = "phrase-cast"; cb.textContent = item.castBefore; block.appendChild(cb); }
+    if (item.note){ var nt = document.createElement("div"); nt.className = "item-note"; nt.textContent = item.note; block.appendChild(nt); }
+    var row = document.createElement("div"); row.className = "dd-row";
+    var panelsHost = document.createElement("div"); panelsHost.className = "dd-panels";
+    var msgsHost = document.createElement("div"); msgsHost.className = "dd-msgs";
+    var after = document.createElement("div"); after.className = "cast-after"; after.hidden = true;
+    var toggle = null;
+    if (item.castAfter && DATA.castToggle){
+      toggle = document.createElement("button");
+      toggle.type = "button"; toggle.className = "btn-cast"; toggle.textContent = "Ver traducción (ayuda)";
+      toggle.addEventListener("click", function(){
+        if (after.hidden){
+          after.textContent = "Traducción: " + item.castAfter; after.hidden = false;
+          toggle.textContent = "Ocultar traducción";
+          if (!toggle._logged){
+            toggle._logged = true;
+            submitLog.push({ paso: cfg.paso, item: itemName + " (traducción)", respuesta: "pidió ver la traducción", correcta: null, ayudaTraduccion: true });
+          }
+        } else {
+          after.hidden = true; toggle.textContent = "Ver traducción (ayuda)";
+        }
+      });
+    }
+    var total = 0, done = 0, needsRetry = false;
+    item.parts.forEach(function(part){
+      if (typeof part === "string"){ var s = document.createElement("span"); s.textContent = part; row.appendChild(s); return; }
+      total++;
+      var d = buildDropdown(part.options, part.correct, {
+        paso: cfg.paso,
+        item: itemName + (part.label ? " (" + part.label + ")" : ""),
+        hint: part.hint || cfg.hint, streak: cfg.streak, recovery: cfg.recovery, stem: part.whole ? null : part.stem,
+        onResolve: function(status){
+          done++;
+          if (status !== "ok") needsRetry = true;
+          if (cfg.onDropdown) cfg.onDropdown();
+          if (done === total){
+            if (item.castAfter){ after.textContent = "Traducción: " + item.castAfter; after.hidden = false; }
+            if (toggle && toggle.parentNode) toggle.parentNode.removeChild(toggle);
+            if (cfg.onItemResolved) cfg.onItemResolved(item, needsRetry);
+          }
+        }
+      });
+      if (part.stem && !part.whole){
+        var stemWrap = document.createElement("span"); stemWrap.className = "stem-dd";
+        var stemSpan = document.createElement("span"); stemSpan.className = "stem-fixed"; stemSpan.textContent = part.stem;
+        stemWrap.appendChild(stemSpan); stemWrap.appendChild(d.select);
+        row.appendChild(stemWrap);
+      } else {
+        row.appendChild(d.select);
+      }
+      panelsHost.appendChild(d.panel); msgsHost.appendChild(d.msg);
+    });
+    block.appendChild(row);
+    if (item.verb){ block.appendChild(v2el("p", "v2-verb-note", "<strong>" + item.verb + "</strong>")); }
+    block.appendChild(panelsHost); block.appendChild(msgsHost);
+    if (toggle) block.appendChild(toggle);
+    block.appendChild(after);
+    host.appendChild(block);
+    return total;
+  }
+
+  function buildDropdownStep(key, cfg, listId, progressId, btnId, streakId){
+    var list = document.getElementById(listId);
+    var streak = makeStreak(document.getElementById(streakId));
+    var total = 0, done = 0;
+    function upd(){
+      document.getElementById(progressId).innerHTML = "Desplegables resueltos: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById(btnId).disabled = done < total;
+    }
+    cfg.items.forEach(function(item){
+      total += renderItem(item, list, {
+        paso: cfg.paso, hint: cfg.hint, streak: streak,
+        onDropdown: function(){ done++; upd(); },
+        onItemResolved: function(it, needsRetry){ if (needsRetry) flagged[key + "|" + it.id] = true; }
+      });
+    });
+    upd();
+  }
+  buildDropdownStep("p2", DATA.paso2, "p2-list", "p2-progress", "btn-to-corregi", "p2-streak");
+
+  // =================================================================
+  // Corregí — nivel 1 (convención 21). La palabra errada ya viene
+  // marcada (tachada); 1) elegí la forma correcta, 2) elegí por qué estaba mal.
+  // =================================================================
+  function buildCorregi1(cfg, listId, progressId, btnId){
+    var list = document.getElementById(listId);
+    var total = cfg.items.length * 2, done = 0;
+    function upd(){
+      document.getElementById(progressId).innerHTML = "Resueltos: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById(btnId).disabled = done < total;
+    }
+    cfg.items.forEach(function(item){
+      var block = document.createElement("div"); block.className = "phrase-block";
+      if (item.image){ var iw = document.createElement("div"); iw.className = "item-img"; iw.innerHTML = '<img src="' + item.image + '" alt="">'; block.appendChild(iw); }
+      var num = document.createElement("div"); num.className = "phrase-num"; num.textContent = "Frase " + item.id; block.appendChild(num);
+      var row = document.createElement("div"); row.className = "dd-row";
+      item.tokens.forEach(function(tok, idx){
+        if (idx === item.errIdx){
+          var em = document.createElement("span"); em.className = "err-mark"; em.textContent = tok;
+          row.appendChild(em);
+        } else {
+          var s = document.createElement("span"); s.textContent = tok; row.appendChild(s);
+        }
+      });
+      block.appendChild(row);
+      var q1 = document.createElement("div"); q1.className = "dd-row"; q1.style.marginTop = ".5rem";
+      var lab1 = document.createElement("span"); lab1.textContent = "Elegí la forma correcta:"; q1.appendChild(lab1);
+      var q2host = document.createElement("div"); q2host.hidden = true; q2host.style.marginTop = ".7rem";
+      var after = document.createElement("div"); after.className = "cast-after"; after.hidden = true;
+      var d1 = buildDropdown(item.options, item.correct, {
+        paso: cfg.paso, item: "Frase " + item.id + " (forma)",
+        onResolve: function(status){
+          done++; upd();
+          if (status !== "ok") flagged["corregi|" + item.id] = true;
+          q2host.hidden = false;
+          var q2 = document.createElement("div"); q2.className = "dd-row";
+          var lab2 = document.createElement("span"); lab2.textContent = "¿Por qué estaba mal?"; q2.appendChild(lab2);
+          var reasonOpts = cfg.reasons.map(function(r){ return r.id; });
+          var correctReason = item.why;
+          var d2 = buildDropdown(reasonOpts, correctReason, {
+            paso: cfg.paso, item: "Frase " + item.id + " (porqué)",
+            onResolve: function(status2){
+              done++; upd();
+              if (status2 !== "ok") flagged["corregi|" + item.id] = true;
+              after.textContent = "Traducción: " + item.cast; after.hidden = false;
+            }
+          });
+          Array.prototype.forEach.call(d2.panel.querySelectorAll(".dd-opt"), function(o){
+            var found = cfg.reasons.filter(function(r){ return r.id === o.textContent; })[0];
+            if (found) o.textContent = found.text;
+          });
+          q2.appendChild(d2.select); q2host.appendChild(q2); q2host.appendChild(d2.panel); q2host.appendChild(d2.msg);
+        }
+      });
+      q1.appendChild(d1.select);
+      block.appendChild(q1); block.appendChild(d1.panel); block.appendChild(d1.msg);
+      block.appendChild(q2host);
+      block.appendChild(after);
+      list.appendChild(block);
+    });
+    upd();
+  }
+  buildCorregi1(DATA.corregi, "corregi-list", "corregi-progress", "btn-to-fin");
+
+  // =================================================================
+  // Repaso final: vuelven, de a una, las frases con "No lo sé todavía" o
+  // respuesta revelada. No modifica el resultado principal.
+  // =================================================================
+  var CORREGI_RETRY_CFG = {
+    paso: DATA.corregi.paso, hint: "Pista: mirá si la frase original te da alguna marca.",
+    items: DATA.corregi.items.map(function(it){
+      var parts = it.tokens.map(function(tok, idx){ return idx === it.errIdx ? { options: it.options, correct: it.correct } : tok + " "; });
+      return { id: it.id, parts: parts, castAfter: it.cast };
+    })
+  };
+  var RETRY_SRC = { p2: { cfg: DATA.paso2, label: "Paso 2 · " }, corregi: { cfg: CORREGI_RETRY_CFG, label: "Corregí · " } };
+  var btnRetryNext = document.getElementById("btn-retry-next");
+  function buildRetryQueue(){
+    retryQueue = [];
+    ["p2","corregi"].forEach(function(k){
+      RETRY_SRC[k].cfg.items.forEach(function(it){ if (flagged[k + "|" + it.id]) retryQueue.push({ k:k, item:it }); });
+    });
+  }
+  function renderRetry(){
+    var list = document.getElementById("retry-list");
+    list.innerHTML = "";
+    var q = retryQueue[retryIndex];
+    document.getElementById("retry-progress").textContent = (retryIndex + 1) + " / " + retryQueue.length;
+    btnRetryNext.disabled = true;
+    btnRetryNext.textContent = retryIndex === retryQueue.length - 1 ? "Continuar al cierre" : "Siguiente frase";
+    renderItem(q.item, list, {
+      paso: "Recuperación", itemPrefix: RETRY_SRC[q.k].label, hint: RETRY_SRC[q.k].cfg.hint, recovery: true,
+      onItemResolved: function(){ btnRetryNext.disabled = false; }
+    });
+  }
+  var retryStarted = false, retryDone = false;
+  function goToEnd(){
+    if (retryStarted){ showStep(retryDone || !retryQueue.length ? "step-fin" : "step-retry"); return; }
+    retryStarted = true;
+    buildRetryQueue();
+    if (retryQueue.length){
+      retryIndex = 0;
+      saveProgress("step-retry");
+      renderRetry();
+      showStep("step-retry");
+    } else {
+      saveProgress("step-fin");
+      showStep("step-fin");
+    }
+  }
+  btnRetryNext.addEventListener("click", function(){
+    if (retryIndex === retryQueue.length - 1){ retryDone = true; saveProgress("step-fin"); showStep("step-fin"); }
+    else { retryIndex++; renderRetry(); window.scrollTo({ top:0, behavior:"smooth" }); }
+  });
+
+  document.getElementById("btn-to-explain").addEventListener("click", function(){ saveProgress("step-explain"); showStep("step-explain"); });
+  document.getElementById("btn-to-p2").addEventListener("click", function(){ saveProgress("step-p2"); showStep("step-p2"); });
+  document.getElementById("btn-to-corregi").addEventListener("click", function(){ saveProgress("step-corregi"); showStep("step-corregi"); });
+  document.getElementById("btn-to-fin").addEventListener("click", goToEnd);
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var SCORE_EXCLUDE_PASOS = ["Recuperación", "0 - Calentamiento", "En la imagen"];
+  function computeScore(){
+    var items = submitLog.filter(function(e){
+      return e.correcta !== null && e.correcta !== undefined && e.final !== false &&
+        e.paso !== "Evaluación" && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+    });
+    function sec(list){ return { correct: list.filter(function(e){ return e.correcta === true; }).length, total: list.length }; }
+    var firstTryPool = items.filter(function(e){ return e.paso.indexOf("1 -") !== 0; });
+    return {
+      correct: items.filter(function(e){ return e.correcta === true; }).length,
+      total: items.length,
+      sections: DATA.sections.map(function(s){ return { label: s[1], score: sec(items.filter(function(e){ return e.paso.indexOf(s[0]) === 0; })) }; }),
+      firstTry: firstTryPool.filter(function(e){ return e.primerIntento === true; }).length,
+      firstTryTotal: firstTryPool.length,
+      revealed: items.filter(function(e){ return e.respuestaRevelada; }).length,
+      translations: submitLog.filter(function(e){ return e.ayudaTraduccion && e.paso !== "Recuperación"; }).length,
+      idk: submitLog.filter(function(e){ return e.respuestaAutorreferida && e.paso !== "Recuperación"; }).length,
+      recovery: sec(submitLog.filter(function(e){ return e.paso === "Recuperación" && e.final !== false && e.correcta !== null; }))
+    };
+  }
+
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
+      evalPushed = true;
+    }
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      var s = computeScore();
+      if (s.total > 0){
+        var pct = Math.round(100 * s.correct / s.total);
+        var html = "Resultado principal: <strong>" + s.correct + " de " + s.total + "</strong> (" + pct + "%). " +
+          s.sections.map(function(x){ return x.label + ": <strong>" + x.score.correct + "/" + x.score.total + "</strong>"; }).join(" · ") + ". " +
+          "Resueltas al primer intento (Paso 2 y Corregí): <strong>" + s.firstTry + "/" + s.firstTryTotal + "</strong> · " +
+          "Respuestas reveladas: <strong>" + s.revealed + "</strong> · " +
+          "Marcaste «No lo sé todavía»: <strong>" + s.idk + "</strong> (no cuentan en el resultado)." +
+          (s.translations > 0 ? " Pediste ver la traducción en <strong>" + s.translations + "</strong> frase(s)." : "");
+        if (s.recovery.total > 0){
+          html += " Repaso final: <strong>" + s.recovery.correct + "/" + s.recovery.total + "</strong> — no modifica el resultado principal.";
+        }
+        document.getElementById("score-summary").innerHTML = html;
+        document.getElementById("score-summary").hidden = false;
+      }
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+
+<script src="../recursos/ayudas.js"></script>
+<script>
+/* Barra de pasos (2026-09-15, pedido de Santiago): permite volver a cualquier paso ya visitado
+   para rever lo hecho y regresar a donde se estaba. Es genérica: arma los grupos a partir de las
+   <section class="step"> de la página. En los pasos que tienen pantalla de resultado (-review)
+   lleva a esa pantalla (volver a la tarjeta podría re-registrar respuestas). Los botones
+   "Volver" existentes ([data-back-step]) pasan a usar la misma lógica. No toca saveProgress. */
+(function(){
+  "use strict";
+  var main = document.getElementById("main");
+  if (!main || document.getElementById("pasos-nav")) return;
+
+  var css = document.createElement("style");
+  css.textContent = [
+    "#pasos-nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:.4rem;overflow-x:auto;",
+    "margin:0 0 1.2rem;padding:.55rem .1rem;background:var(--bg,#e8e7dd);border-bottom:1px solid var(--rule,#c9c4b3);",
+    "-webkit-overflow-scrolling:touch;scrollbar-width:none;}",
+    "#pasos-nav::-webkit-scrollbar{display:none;}",
+    "#pasos-nav .pn-label{font-family:var(--sans,system-ui,sans-serif);font-size:.7rem;font-weight:700;letter-spacing:.08em;",
+    "text-transform:uppercase;color:var(--ink-muted,#5b5f56);white-space:nowrap;margin-right:.15rem;}",
+    "#pasos-nav button{flex:0 0 auto;font-family:var(--sans,system-ui,sans-serif);font-size:.8rem;font-weight:600;white-space:nowrap;",
+    "cursor:pointer;border:1.5px solid var(--rule,#c9c4b3);border-radius:999px;padding:.32rem .8rem;",
+    "background:var(--surface-raised,#fff);color:var(--ink,#1e211d);}",
+    "#pasos-nav button:hover:not(:disabled){border-color:var(--accent,#1e4dc7);}",
+    "#pasos-nav button.pn-actual{background:var(--accent,#1e4dc7);border-color:var(--accent,#1e4dc7);color:var(--accent-ink,#f6efe0);cursor:default;}",
+    "#pasos-nav button:disabled:not(.pn-actual){opacity:.4;cursor:default;}"
+  ].join("");
+  document.head.appendChild(css);
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll("section.step"));
+  var groups = [], byId = {};
+  sections.forEach(function(sec){
+    var id = sec.id, m = id.match(/^step-p(\d+)(-review)?$/), key, label;
+    if (m){ key = "p" + m[1]; label = "Paso " + m[1]; }
+    else if (/^step-(p\d+-)?retry$/.test(id)){ key = "retry"; label = "Repaso final"; }
+    else if (id === "step-explain"){ key = "explain"; label = "Explicación"; }
+    else if (id === "step-fin"){ key = "fin"; label = "Cierre"; }
+    else { key = id; label = sec.getAttribute("data-nav-label") || id; }
+    var g = null;
+    for (var i = 0; i < groups.length; i++){ if (groups[i].key === key){ g = groups[i]; break; } }
+    if (!g){ g = { key: key, label: label, ids: [] }; groups.push(g); }
+    g.ids.push(id); byId[id] = g;
+  });
+
+  var reached = {};
+  function targetOf(g){
+    var pref = g.ids.filter(function(i){ return /-review$/.test(i); })
+      .concat(g.ids.filter(function(i){ return !/-review$/.test(i); }));
+    for (var k = 0; k < pref.length; k++){ if (reached[pref[k]]) return pref[k]; }
+    return null;
+  }
+  function visibleId(){ var v = document.querySelector("section.step.visible"); return v ? v.id : null; }
+  function go(id){
+    sections.forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function previousGroup(curG){
+    if (!curG) return null;
+    for (var k = groups.indexOf(curG) - 1; k >= 0; k--){ if (targetOf(groups[k])) return groups[k]; }
+    return null;
+  }
+
+  var nav = document.createElement("nav");
+  nav.id = "pasos-nav";
+  nav.setAttribute("aria-label", "Pasos de la actividad");
+  main.insertBefore(nav, main.firstChild);
+
+  function render(){
+    var cur = visibleId();
+    if (cur) reached[cur] = true;
+    var curG = cur ? byId[cur] : null;
+    nav.innerHTML = "";
+    var lab = document.createElement("span"); lab.className = "pn-label"; lab.textContent = "Pasos";
+    nav.appendChild(lab);
+    var curBtn = null;
+    groups.forEach(function(g){
+      var b = document.createElement("button");
+      b.type = "button"; b.textContent = g.label;
+      if (g === curG){ b.className = "pn-actual"; b.setAttribute("aria-current", "step"); b.disabled = true; curBtn = b; }
+      else { b.disabled = !targetOf(g); }
+      b.addEventListener("click", function(){ var t = targetOf(g); if (t && g !== curG) go(t); });
+      nav.appendChild(b);
+    });
+    if (curBtn) nav.scrollLeft = Math.max(0, curBtn.offsetLeft - nav.clientWidth / 2 + curBtn.offsetWidth / 2);
+    var prev = previousGroup(curG);
+    Array.prototype.forEach.call(document.querySelectorAll("section.step.visible [data-back-step]"), function(btn){
+      if (prev){ btn.textContent = "← Volver a " + prev.label; btn.style.display = ""; }
+      else { btn.style.display = "none"; }
+    });
+  }
+
+  document.addEventListener("click", function(e){
+    var btn = e.target.closest && e.target.closest("[data-back-step]");
+    if (!btn) return;
+    var prev = previousGroup(byId[visibleId()]);
+    if (!prev) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    go(targetOf(prev));
+  }, true);
+
+  var mo = new MutationObserver(function(records){
+    records.forEach(function(r){ if (r.oldValue && /(^|\s)visible(\s|$)/.test(r.oldValue)) reached[r.target.id] = true; });
+    render();
+  });
+  sections.forEach(function(s){ mo.observe(s, { attributes: true, attributeFilter: ["class"], attributeOldValue: true }); });
+  render();
+})();
+</script>
+</body>
+</html>
