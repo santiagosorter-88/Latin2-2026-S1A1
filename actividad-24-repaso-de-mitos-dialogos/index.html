@@ -289,6 +289,44 @@
 
   .quis-wrap{ position:relative; line-height:0; cursor:crosshair; }
   .quis-wrap img{ width:100%; display:block; border-radius:8px; }
+
+  /* ---- Act. 24 v2 (2026-09-27): S1 en dos cajas, historieta con globos sobre la imagen, una escena por vez ---- */
+  .box-h{ font-family:var(--sans); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-strong); margin:0 0 .7rem; }
+  .dp-grid{ display:grid; grid-template-columns:auto 1fr 1fr; gap:.1rem .9rem; align-items:baseline; margin:.3rem 0 .9rem; }
+  .dp-h{ font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding-bottom:.3rem; border-bottom:2px solid var(--rule); }
+  .dp-p{ font-size:.85rem; font-weight:600; padding:.3rem 0; border-bottom:1px solid var(--rule); white-space:nowrap; }
+  .dp-p span{ display:block; font-weight:400; color:var(--ink-muted); font-size:.78rem; }
+  .dp-f{ font-family:var(--serif); font-size:1.15rem; padding:.3rem 0; border-bottom:1px solid var(--rule); }
+  .dp-f small{ font-family:var(--sans); font-size:.75rem; color:var(--ink-muted); }
+  .dp-es{ color:var(--correct); } .dp-la{ color:var(--accent-strong); }
+  b.dp-es, b.dp-la{ font-weight:700; text-decoration:underline; text-underline-offset:3px; }
+  .dp-note{ font-size:.92rem; }
+  .q-list{ display:grid; grid-template-columns:auto 1fr; gap:.45rem .9rem; align-items:baseline; }
+  .q-w{ font-weight:700; font-size:1.1rem; }
+  .q-ex{ font-size:.92rem; }
+  @media (max-width:520px){ .q-list{ grid-template-columns:1fr; gap:.1rem; } .q-ex{ margin-bottom:.5rem; } }
+
+  .comic{ position:relative; line-height:1.3; }
+  .comic.band{ padding-top:88px; }
+  .comic img{ display:block; width:100%; border-radius:8px; }
+  .cbubble{ position:absolute; background:#fff; color:#1e211d; border:2px solid #1e211d; border-radius:14px; padding:.35rem .6rem .45rem; box-shadow:0 2px 6px rgba(0,0,0,.35); z-index:2; }
+  .cbubble::after{ content:""; position:absolute; left:var(--tail,30%); bottom:-9px; width:14px; height:14px; margin-left:-7px; background:#fff; border-right:2px solid #1e211d; border-bottom:2px solid #1e211d; transform:rotate(45deg); }
+  .cbubble.up::after{ bottom:auto; top:-9px; transform:rotate(-135deg); }
+  .cbubble .who{ font-size:.62rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#17399c; margin-bottom:.1rem; }
+  .cbubble .bubble-la{ font-size:1rem; gap:.25rem; }
+  .cbubble button.dd{ font-size:.85rem; padding:.2rem .45rem; min-width:3.6rem; background:#fff; color:#1e211d; }
+  .cbubble.ok{ border-color:var(--correct); }
+  .cbubble.rev{ border-color:var(--warn); }
+  .cbubble.shake{ animation:genShake .35s ease; }
+  .cbubble .empty{ color:#8a8a80; font-style:italic; font-family:var(--sans); font-size:.85rem; }
+  .comic-ctl{ margin-top:.7rem; }
+  .comic-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.4rem 0 0; }
+  .comic-es b{ font-style:normal; color:var(--ink); }
+  .scene-count{ font-size:.8rem; color:var(--ink-muted); margin:0 0 .5rem; font-weight:600; }
+  .ctx-line{ font-size:.92rem; margin:.6rem 0 0; }
+  .opt-chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; }
+  .opt-chips .token.bad{ text-decoration:line-through; opacity:.45; cursor:default; }
+  .poly-img{ margin-bottom:.4rem; }
 </style>
 </head>
 <body>
@@ -315,25 +353,29 @@
       <div class="step-nav top-nav"></div>
       <div class="step-head"><div><p class="eyebrow">Antes de empezar</p><h2>La desinencia dice quién habla</h2></div></div>
       <div class="explain-box">
-        <p>La <strong>desinencia personal (DP)</strong> indica la persona y el número del verbo:</p>
-        <table>
-          <tr><td class="tag">persona</td><td class="tag">castellano</td><td class="tag">latín</td><td class="tag">ejemplo</td></tr>
-          <tr><td>1ª sg.</td><td>‑o</td><td>‑o / ‑m</td><td><span class="ex-latin"><strong>navigo</strong></span> (<strong>navego</strong>) · <span class="ex-latin"><strong>sum</strong></span> (<strong>soy</strong>)</td></tr>
-          <tr><td>2ª sg.</td><td>‑s</td><td>‑s</td><td><span class="ex-latin"><strong>navigas</strong></span> (<strong>navegás</strong>)</td></tr>
-          <tr><td>3ª sg.</td><td>‑Ø</td><td>‑t</td><td><span class="ex-latin"><strong>navigat</strong></span> (<strong>navega</strong>)</td></tr>
-          <tr><td>1ª pl.</td><td>‑mos</td><td>‑mus</td><td><span class="ex-latin"><strong>navigamus</strong></span> (<strong>navegamos</strong>)</td></tr>
-          <tr><td>2ª pl.</td><td>‑is / ‑n</td><td>‑tis</td><td><span class="ex-latin"><strong>navigatis</strong></span> (<strong>navegan</strong>, ustedes)</td></tr>
-          <tr><td>3ª pl.</td><td>‑n</td><td>‑nt</td><td><span class="ex-latin"><strong>navigant</strong></span> (<strong>navegan</strong>, ellos)</td></tr>
-        </table>
+        <h3 class="box-h">1 · La desinencia personal</h3>
+        <p>La <strong>desinencia personal (DP)</strong> es la terminación que indica la persona y el número del verbo. Mismo verbo, en las dos lenguas: <em>navegar</em> / <span class="ex-latin">navigare</span>.</p>
+        <div class="dp-grid">
+          <div class="dp-h"></div><div class="dp-h dp-es">castellano</div><div class="dp-h dp-la">latín</div>
+          <div class="dp-p">1ª sg. <span>yo</span></div><div class="dp-f">naveg<b class="dp-es">o</b></div><div class="dp-f ex-latin">navig<b class="dp-la">o</b></div>
+          <div class="dp-p">2ª sg. <span>vos</span></div><div class="dp-f">navegá<b class="dp-es">s</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">s</b></div>
+          <div class="dp-p">3ª sg. <span>él, ella</span></div><div class="dp-f">navega <small>(‑Ø)</small></div><div class="dp-f ex-latin">naviga<b class="dp-la">t</b></div>
+          <div class="dp-p">1ª pl. <span>nosotros</span></div><div class="dp-f">navega<b class="dp-es">mos</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">mus</b></div>
+          <div class="dp-p">2ª pl. <span>ustedes</span></div><div class="dp-f">navega<b class="dp-es">n</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">tis</b></div>
+          <div class="dp-p">3ª pl. <span>ellos, ellas</span></div><div class="dp-f">navega<b class="dp-es">n</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">nt</b></div>
+        </div>
+        <p class="dp-note">En latín la 1ª del singular a veces termina en <b class="dp-la">‑m</b>: <span class="ex-latin">su<b class="dp-la">m</b></span> (soy).</p>
         <p>Tanto el latín como el castellano son lenguas <em>pro-drop</em>: el sujeto puede no aparecer (<strong>sujeto desinencial</strong>). La DP dice quién habla.</p>
-        <p><strong>Las preguntas</strong> de esta actividad:</p>
-        <p style="margin-left:1rem;">
-          <span class="ex-latin"><strong>quis?</strong></span> ¿quién? — <span class="ex-latin"><strong>Quis</strong> ex vobis arcum intendere potest?</span> (<strong>¿Quién</strong> de ustedes puede tensar el arco?)<br />
-          <span class="ex-latin"><strong>cur?</strong></span> ¿por qué? — <span class="ex-latin"><strong>Cur</strong> Ariadnam in insula relinquis?</span> (<strong>¿Por qué</strong> dejás a Ariadna en la isla?)<br />
-          <span class="ex-latin"><strong>unde?</strong></span> ¿de dónde? — <span class="ex-latin"><strong>Unde</strong> venis?</span> (<strong>¿De dónde</strong> venís?)<br />
-          <span class="ex-latin"><strong>quomodo?</strong></span> ¿cómo?<br />
-          <span class="ex-latin"><strong>quod nomen…?</strong></span> ¿cuál es el nombre…?
-        </p>
+      </div>
+      <div class="explain-box">
+        <h3 class="box-h">2 · Las preguntas</h3>
+        <div class="q-list">
+          <div><span class="ex-latin q-w">quis?</span> ¿quién?</div><div class="q-ex"><span class="ex-latin"><strong>Quis</strong> ex vobis arcum intendere potest?</span> (<strong>¿Quién</strong> de ustedes puede tensar el arco?)</div>
+          <div><span class="ex-latin q-w">cur?</span> ¿por qué?</div><div class="q-ex"><span class="ex-latin"><strong>Cur</strong> Ariadnam in insula relinquis?</span> (<strong>¿Por qué</strong> dejás a Ariadna en la isla?)</div>
+          <div><span class="ex-latin q-w">unde?</span> ¿de dónde?</div><div class="q-ex"><span class="ex-latin"><strong>Unde</strong> venis?</span> (<strong>¿De dónde</strong> venís?)</div>
+          <div><span class="ex-latin q-w">quomodo?</span> ¿cómo?</div><div class="q-ex"></div>
+          <div><span class="ex-latin q-w">quod nomen…?</span> ¿cuál es el nombre…?</div><div class="q-ex"></div>
+        </div>
       </div>
       <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar</button></div>
     </section>
@@ -349,9 +391,9 @@
     <section class="step" id="step-troya">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-img">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Troia</p><h2>La forma del verbo según quién habla</h2></div><span class="streak zero" id="troya-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Cada globo dice quién habla. Primero, leer el latín y pensar qué persona corresponde; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una escena por vez. Cada globo dice quién habla. Primero, leer el latín y pensar qué persona corresponde; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="troya-progress"></div>
-      <div id="troya-list"></div>
+      <div id="troya-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-img">← Volver</button><button class="btn" id="btn-troya-done" disabled>Continuar</button></div>
     </section>
 
@@ -370,8 +412,8 @@
     <section class="step" id="step-poly">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Polyphemus</p><h2>Del castellano al latín</h2></div><span class="step-progress" id="poly-progress">—</span></div>
-      <p class="step-instructions">Armar en latín lo que dice cada globo, palabra por palabra: la palabra resaltada en castellano es la que sigue. Entre las fichas hay algunas en otra persona.</p>
-      <div class="scene-img"><img src="img/polifemo.jpg" alt=""></div>
+      <p class="step-instructions">Armar en latín lo que dice cada globo, palabra por palabra: la palabra resaltada en castellano es la que sigue. En la imagen, un recuadro marca quién habla. Entre las fichas hay algunas en otra persona.</p>
+      <div class="quis-wrap poly-img" id="poly-img"><img src="img/polifemo.jpg" alt=""></div>
       <div id="poly-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-poly-done" hidden>Continuar</button></div>
     </section>
@@ -379,14 +421,9 @@
     <section class="step" id="step-itaca">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-poly">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Ithaca</p><h2>Pregunta y respuesta</h2></div><span class="streak zero" id="itaca-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Cada escena necesita la frase que falta. Tocar una frase y después la escena que le corresponde. Hay frases que sobran: hablan en otra persona.</p>
+      <p class="step-instructions">Una escena por vez: falta la respuesta. Elegir, entre las fichas, la frase que completa el globo vacío. Atención a la persona del verbo. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="itaca-progress"></div>
-      <div class="exercise">
-        <div class="pair-pool" id="itaca-pool"></div>
-        <div id="itaca-boxes"></div>
-        <p class="gen-msg" id="itaca-msg"></p>
-      </div>
-      <div id="itaca-after"></div>
+      <div id="itaca-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-poly">← Volver</button><button class="btn" id="btn-itaca-done" disabled>Continuar</button></div>
     </section>
 
@@ -405,9 +442,9 @@
     <section class="step" id="step-dedalo">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Daedalus</p><h2>La desinencia personal en el diálogo</h2></div><span class="streak zero" id="dedalo-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Presente y perfecto en la misma frase. Primero, leer el latín y pensar quién habla y cuándo pasa; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una escena por vez; presente y perfecto en la misma frase. Primero, leer el latín y pensar quién habla y cuándo pasa; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="dedalo-progress"></div>
-      <div id="dedalo-list"></div>
+      <div id="dedalo-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-dedalo-done" disabled>Continuar</button></div>
     </section>
 
@@ -454,98 +491,97 @@
     castToggle: true,
     sections: [["1 -","Troia"], ["2 -","Polyphemus"], ["3 -","Ithaca"], ["4 -","Daedalus"], ["5 -","Quis loquitur"]],
 
-    // Troia — globos con desplegable de forma entera; señuelos = otras personas del mismo verbo.
+    // Troia — historieta: globos SOBRE la imagen (pos en % de la imagen; tail = punta del globo, en % del ancho del globo).
+    // Una escena por vez. Desplegable de forma entera; señuelos = otras personas del mismo verbo.
     troya: {
-      paso: "1 - Troia",
-      hint: "Pista: ¿quién habla y de quién habla? ‑mus es «nosotros», ‑tis «ustedes», ‑nt «ellos».",
+      paso: "1 - Troia", comic: true,
+      hint: "Pista: ¿quién habla y de quién habla? ‑o es «yo», ‑mus «nosotros», ‑tis «ustedes», ‑nt «ellos».",
       scenes: [
         { image:"img/casandra.jpg", bubbles:[
-          { who:"Casandra", src:"n.º 24", parts:["Inimici in equo", {options:["sunt","sumus","estis"], correct:"sunt"}, "!"], es:"¡Los enemigos están en el caballo!" },
-          { who:"Los troyanos", src:"n.º 25", parts:["Tibi non", {options:["credimus","credunt","credis"], correct:"credimus"}, "."], es:"No te creemos." } ]},
+          { who:"Casandra", src:"n.º 24", pos:{ x:3, y:5, w:62 }, tail:50, parts:["Inimici in equo", {options:["sunt","sumus","estis"], correct:"sunt"}, "!"], es:"¡Los enemigos están en el caballo!" },
+          { who:"Los troyanos", src:"n.º 25", pos:{ x:27, bottom:3, w:68 }, tail:40, up:true, parts:["Tibi non", {options:["credimus","credunt","credis"], correct:"credimus"}, "."], es:"No te creemos." } ]},
         { image:"img/priamo.jpg", bubbles:[
-          { who:"Príamo", src:"n.º 26", parts:["Equum in oppidum", {options:["ducimus","ducunt","ducitis"], correct:"ducimus"}, "."], es:"Llevamos el caballo a la ciudad." } ]},
+          { who:"Príamo", src:"n.º 26", pos:{ x:20, y:24, w:62 }, tail:10, parts:["Equum in oppidum", {options:["ducimus","ducunt","ducitis"], correct:"ducimus"}, "."], es:"Llevamos el caballo a la ciudad." } ]},
         { image:"img/motte.jpg", bubbles:[
-          { who:"Los aqueos, dentro del caballo", src:"n.º 27", parts:["Nos in equo", {options:["sumus","sunt","estis"], correct:"sumus"}, "."], es:"Nosotros estamos en el caballo." } ]},
-        { image:"img/laocoonte.jpg", bubbles:[
-          { who:"Laocoonte", latin:"Timeo Danaos et dona ferentes.", es:"Temo a los dánaos incluso cuando traen regalos.", cite:"Virgilio, Eneida II 49" } ]}
+          { who:"Los aqueos, dentro del caballo", src:"n.º 27", pos:{ x:3, y:6, w:50 }, tail:88, parts:["Nos in equo", {options:["sumus","sunt","estis"], correct:"sumus"}, "."], es:"Nosotros estamos en el caballo." } ]},
+        { image:"img/laocoonte.jpg", band:true, bubbles:[
+          { who:"Laocoonte", src:"n.º 28", pos:{ x:28, y:0, w:66 }, tail:44, parts:[{options:["Timeo","Timet","Timemus"], correct:"Timeo"}, "Danaos et dona ferentes."], es:"Temo a los dánaos incluso cuando traen regalos (Virgilio, Eneida II 49)." } ]}
       ]
     },
 
-    // Polyphemus — armado del castellano al latín; señuelos solo de persona (decisión del 2026-09-27).
+    // Polyphemus — armado del castellano al latín; señuelos solo de persona. zone = quién habla (recuadro en la imagen).
     poly: {
       paso: "2 - Polyphemus",
+      zones: { cyclops:[3.5,5.7,38.7,94.0], vlixes:[43.4,37.6,16.6,33.7], socii:[60.0,30.5,35.4,51.4] },
       items: [
-        { who:"El cíclope", src:"n.º 29", words:["Quis","es?","Cur","in","spelunca","mea","es?"], decoys:["est"],
+        { who:"El cíclope", zone:"cyclops", src:"n.º 29", words:["Quis","es?","Cur","in","spelunca","mea","es?"], decoys:["est"],
           al:"{0:¿Quién} {1:sos}? {2:¿Por qué} {6:estás} {3:en} {5:mi} {4:cueva}?",
           expl:"<em>es</em> es la 2ª persona de <em>sum</em>: «sos», «estás». El cíclope le habla a Ulises." },
-        { who:"El cíclope", src:"n.º 30", words:["Quod","nomen","tibi","est?"], decoys:["mihi","es"],
+        { who:"El cíclope", zone:"cyclops", src:"n.º 30", words:["Quod","nomen","tibi","est?"], decoys:["mihi","es"],
           al:"{0:¿Cuál} {3:es} {2:tu} {1:nombre}?",
           expl:"<em>tibi</em>: el nombre «es para vos». Y el verbo es <em>est</em>, porque el sujeto es <em>nomen</em>." },
-        { who:"Ulises", src:"n.º 31", words:["Nemo","nomen","mihi","est."], decoys:["tibi","sum"],
+        { who:"Ulises", zone:"vlixes", src:"n.º 31", words:["Nemo","nomen","mihi","est."], decoys:["tibi","sum"],
           al:"{2:Mi} {1:nombre} {3:es} {0:Nadie}.",
           expl:"Ahora habla Ulises: <em>mihi</em>, «para mí». El verbo sigue siendo <em>est</em>: el sujeto es <em>nomen</em>, no Ulises." },
-        { who:"Los compañeros", src:"n.º 32", words:["Quomodo","ex","spelunca","exire","possumus?"], decoys:["possunt"],
+        { who:"Los compañeros", zone:"socii", src:"n.º 32", words:["Quomodo","ex","spelunca","exire","possumus?"], decoys:["possunt"],
           al:"{0:¿Cómo} {4:podemos} {3:salir} {1:de} {2:la cueva}?",
-          expl:"<em>possumus</em>: 1ª persona del plural, «podemos». Los compañeros hablan de sí mismos." }
-      ],
-      after: [
-        { who:"Ulises", latin:"Consilium habeo.", es:"Tengo un plan." },
-        { who:"El cíclope, gritando", latin:"Nemo oculum meum urit!", es:"¡Nadie me quema el ojo!" }
+          expl:"<em>possumus</em>: 1ª persona del plural, «podemos». Los compañeros hablan de sí mismos." },
+        { who:"Ulises", zone:"vlixes", src:"n.º 33", words:["Consilium","habeo."], decoys:["habet"],
+          al:"{1:Tengo} {0:un plan}.",
+          expl:"<em>habeo</em>: 1ª persona, «tengo». Ulises habla de sí mismo." },
+        { who:"El cíclope, gritando", zone:"cyclops", src:"n.º 34", words:["Nemo","oculum","meum","urit!"], decoys:["tuum","uro"],
+          al:"{0:¡Nadie} {2:me} {3:quema} {1:el ojo}!",
+          expl:"El cíclope habla de su ojo (<em>meum</em>, «mío»), pero el sujeto es <em>Nemo</em>: por eso <em>urit</em>, 3ª persona." }
       ]
     },
 
-    // Ithaca — emparejamiento: frase → escena; señuelos = la misma frase en 3ª persona.
+    // Ithaca — una escena por vez: el globo de la respuesta está vacío y se completa con una ficha (3 opciones:
+    // la correcta, la misma frase en 3ª persona y la respuesta de otra escena).
     itaca: {
       paso: "3 - Ithaca",
-      boxes: [
-        { id:"q1", img:"img/eumeo.jpg", who:"Eumeo pregunta", la:"Quis es?", es:"¿Quién sos?", answer:"a1" },
-        { id:"q2", img:"img/eumeo.jpg", who:"Eumeo pregunta", la:"Unde venis?", es:"¿De dónde venís?", answer:"a2" },
-        { id:"q3", img:"img/euriclea.jpg", who:"Euriclea le lava los pies al mendigo, ve la cicatriz y dice:", la:"", es:"", answer:"a3" }
-      ],
-      answers: [
-        { id:"a1", la:"Socius Vlixis sum.", es:"Soy compañero de Ulises." },
-        { id:"a2", la:"Ex Creta venio.", es:"Vengo de Creta." },
-        { id:"a3", la:"Cicatricem video: tu Vlixes es!", es:"Veo la cicatriz: ¡sos Ulises!" },
-        { id:"d1", la:"Socius Vlixis est.", decoy:true },
-        { id:"d2", la:"Ex Creta venit.", decoy:true },
-        { id:"d3", la:"Cicatricem videt: ille Vlixes est!", decoy:true }
-      ],
-      after: { image:"img/arco.jpg", who:"Ulises, a los pretendientes", latin:"Quis ex vobis arcum intendere potest?", es:"¿Quién de ustedes puede tensar el arco? (Los pretendientes callan.)" }
+      scenes: [
+        { image:"img/eumeo.jpg", ctx:"Ulises llega disfrazado de mendigo a la choza de Eumeo.",
+          ask:{ who:"Eumeo", la:"Quis es?", pos:{ x:3, y:4, w:44 }, tail:40 },
+          answer:{ who:"Ulises", pos:{ x:50, y:4, w:47 }, tail:20 },
+          options:[ { la:"Socius Vlixis sum.", ok:true }, { la:"Socius Vlixis est." }, { la:"Ex Creta venio." } ],
+          es:"—¿Quién sos? —Soy compañero de Ulises." },
+        { image:"img/eumeo.jpg", ctx:"Eumeo sigue preguntando.",
+          ask:{ who:"Eumeo", la:"Unde venis?", pos:{ x:3, y:4, w:44 }, tail:40 },
+          answer:{ who:"Ulises", pos:{ x:50, y:4, w:47 }, tail:20 },
+          options:[ { la:"Ex Creta venio.", ok:true }, { la:"Ex Creta venit." }, { la:"Socius Vlixis sum." } ],
+          es:"—¿De dónde venís? —Vengo de Creta." },
+        { image:"img/euriclea.jpg", ctx:"Euriclea le lava los pies al mendigo, ve la cicatriz y dice:",
+          answer:{ who:"Euriclea", pos:{ x:44, y:2, w:54 }, tail:35 },
+          options:[ { la:"Cicatricem video: tu Vlixes es!", ok:true }, { la:"Cicatricem videt: ille Vlixes est!" }, { la:"Socius Vlixis sum." } ],
+          es:"Veo la cicatriz: ¡sos Ulises!" }
+      ]
     },
 
-    // Daedalus — globos con desplegable de forma entera (presente y perfecto).
+    // Daedalus — una escena por vez, globos debajo de la imagen, todos con desplegable (presente y perfecto).
     dedalo: {
       paso: "4 - Daedalus",
       hint: "Pista: ¿quién habla? Presente: ‑o «yo», ‑s «vos», ‑t «él / ella». Perfecto: ‑i «yo», ‑isti «vos», ‑it «él / ella».",
       scenes: [
         { image:"img/perdix.jpg", bubbles:[
           { who:"Dédalo, a Pérdix", src:"n.º 39", parts:["Quod serram", {options:["invenisti","invenit","inveni"], correct:"invenisti"}, ", te de tecto", {options:["deicio","deicit","deicis"], correct:"deicio"}, "."], es:"Porque inventaste la sierra, te arrojo del techo." },
-          { who:"Minerva", latin:"Perdicem servare volo: in avem eum muto.", es:"Quiero salvar a Pérdix: lo transformo en ave." },
-          { who:"Pérdix", latin:"Pennas habeo: iam non cado, sed volo!", es:"Tengo alas: ya no caigo, ¡vuelo!" } ]},
+          { who:"Minerva", src:"n.º 40", parts:["Perdicem servare volo: in avem eum", {options:["muto","mutat","mutas"], correct:"muto"}, "."], es:"Quiero salvar a Pérdix: lo transformo en ave." },
+          { who:"Pérdix", src:"n.º 41", parts:["Pennas", {options:["habeo","habet","habes"], correct:"habeo"}, ": iam non cado, sed volo!"], es:"Tengo alas: ya no caigo, ¡vuelo!" } ]},
         { image:"img/pasifae.jpg", bubbles:[
-          { who:"Pasífae", src:"n.º 42", parts:["Taurum", {options:["amo","amat","amas"], correct:"amo"}, ", sed ille me non", {options:["amat","amo","amas"], correct:"amat"}, ": alias vaccas amat."], es:"Amo al toro, pero él no me ama: ama a otras vacas." },
-          { who:"Pasífae", latin:"Quid facere possum?", es:"¿Qué puedo hacer?" },
-          { who:"Dédalo", latin:"Tibi vaccam ligneam faciam.", es:"Te voy a hacer una vaca de madera." } ]},
+          { who:"Pasífae", src:"n.º 42-43", parts:["Taurum", {options:["amo","amat","amas"], correct:"amo"}, ", sed ille me non", {options:["amat","amo","amas"], correct:"amat"}, ": alias vaccas amat. Quid facere", {options:["possum","potest","potes"], correct:"possum"}, "?"], es:"Amo al toro, pero él no me ama: ama a otras vacas. ¿Qué puedo hacer?" } ]},
         { image:"img/vaca.jpg", bubbles:[
           { who:"Dédalo, a Pasífae", src:"n.º 44", parts:["Vaccam ligneam tibi", {options:["feci","fecit","fecisti"], correct:"feci"}, "et corium verae vaccae", {options:["addidi","addidit","addidisti"], correct:"addidi"}, "."], es:"Te hice una vaca de madera y le agregué el cuero de una vaca verdadera." } ]}
       ]
     },
 
-    // Quis loquitur? — globo sin dueño; se toca en la imagen a quien lo dice. Zonas [x,y,w,h] % (_pruebas/quis-*.png).
+    // Quis loquitur? — una sola escena (Kauffmann): cada globo sin dueño se resuelve tocando a quien lo dice.
     quis: {
       paso: "5 - Quis loquitur",
       scenes: [
         { image:"img/hilo.jpg", zones:{ theseus:[[3.8,20,33.7,70]], ariadna:[[37.5,15.2,57.5,67.8]] }, bubbles:[
-          { who:"Ariadna", latin:"Hoc filum tibi do: filo ex labyrintho exire potes.", es:"Te doy este hilo: con el hilo podés salir del laberinto." },
+          { ask:true, who:"Ariadna", zone:"ariadna", src:"n.º 45", latin:"Hoc filum tibi do: filo ex labyrintho exire potes.", es:"Te doy este hilo: con el hilo podés salir del laberinto.", pista:"«tibi do»: quien habla da el hilo." },
           { ask:true, who:"Teseo", zone:"theseus", src:"n.º 46", latin:"Cur mihi auxilium das? Minotaurus frater tuus est.", es:"¿Por qué me ayudás? El Minotauro es tu hermano.", pista:"«frater tuus»: le habla a la hermana del Minotauro." },
           { ask:true, who:"Ariadna", zone:"ariadna", src:"n.º 47", latin:"Te amo; te servare et tecum in patriam tuam navigare volo.", es:"Te amo; quiero salvarte y navegar con vos a tu patria.", pista:"«in patriam tuam»: quien habla quiere ir a la patria del otro." },
-          { who:"Teseo", latin:"Si Minotaurum occido, te mecum in patriam meam ducam.", es:"Si mato al Minotauro, te voy a llevar conmigo a mi patria." } ]},
-        { image:"img/waterhouse.jpg", zones:{ navis:[[8,0,24,23]] }, bubbles:[
-          { ask:true, who:"Los marineros, desde la nave", zone:"navis", src:"n.º 49", latin:"Cur Ariadnam in insula relinquis?", es:"¿Por qué dejás a Ariadna en la isla?", pista:"Hablan de Ariadna en 3ª persona: no puede ser ella." },
-          { who:"Teseo", latin:"Eam in patriam ducere non volo.", es:"No quiero llevarla a mi patria." } ]},
-        { image:"img/velas.jpg", zones:{ navis:[[69.6,19,14.6,53.4],[65.8,76,23.3,24]] }, bubbles:[
-          { ask:true, who:"Teseo, en la nave", zone:"navis", src:"n.º 51", latin:"Vela nigra non mutavi!", es:"¡No cambié las velas negras!", pista:"«mutavi»: 1ª persona; habla quien tenía que cambiar las velas." },
-          { who:"Egeo, desde la costa (fuera del cuadro)", latin:"Vela nigra video: Minotaurus filium meum occidit!", es:"Veo las velas negras: ¡el Minotauro mató a mi hijo!" } ]}
+          { ask:true, who:"Teseo", zone:"theseus", src:"n.º 48", latin:"Si Minotaurum occido, te mecum in patriam meam ducam.", es:"Si mato al Minotauro, te voy a llevar conmigo a mi patria.", pista:"«Minotaurum occido»: habla quien va a matar al Minotauro." } ]}
       ]
     }
   };
@@ -666,8 +702,7 @@
       { x:43.4, y:37.6, w:16.6, h:33.7, bx:48.9, by:33.2, enun:"Vlixes, Vlixis" },
       { x:60.0, y:30.5, w:35.4, h:51.4, bx:66.6, by:26.1, enun:"socius, socii", form:"(pl. socii)" },
       { x:37.8, y:67.7, w:28.8, h:30.1, bx:71.0, by:89.0, enun:"ovis, ovis", form:"(pl. oves)" },
-      { x:3.0,  y:73.0, w:10.0, h:20.4, bx:8.0,  by:67.7, enun:"vinum, vini" },
-      { x:73.2, y:2.1,  w:26.5, h:30.1, bx:69.9, by:5.7,  enun:"spelunca, speluncae" }
+      { x:3.0,  y:73.0, w:10.0, h:20.4, bx:8.0,  by:67.7, enun:"vinum, vini" }
     ]
   };
 
@@ -701,50 +736,77 @@
     return el;
   }
 
-  // ---------- Escenas con globos (Troia, Daedalus): desplegables de forma entera dentro del globo ----------
-  function buildScenes(cfg, listId, progressId, btnId, streakId){
-    var list = document.getElementById(listId);
+  // ---------- Escenas con globos (Troia, Daedalus): una escena por vez ----------
+  // cfg.comic = globos SOBRE la imagen (historieta); si no, globos debajo. Opciones y traducción, debajo de la imagen.
+  function buildScenes(cfg, stageId, progressId, btnId, streakId){
+    var stage = document.getElementById(stageId);
     var streak = makeStreak(document.getElementById(streakId));
-    var total = 0, done = 0;
+    var total = 0, done = 0, si = 0;
+    cfg.scenes.forEach(function(sc){ sc.bubbles.forEach(function(b){ (b.parts || []).forEach(function(p){ if (typeof p !== "string") total++; }); }); });
     function upd(){
       document.getElementById(progressId).innerHTML = "Resueltos: <strong>" + done + " / " + total + "</strong>";
       document.getElementById(btnId).disabled = done < total;
     }
-    cfg.scenes.forEach(function(sc){
+    function scene(){
+      var sc = cfg.scenes[si];
+      stage.innerHTML = "";
       var card = v2el("div", "scene-card");
-      card.appendChild(v2el("div", "scene-img", '<img src="' + sc.image + '" alt="">'));
+      card.appendChild(v2el("p", "scene-count", "Escena " + (si + 1) + " de " + cfg.scenes.length));
+      var comic = null, ctl = v2el("div", "comic-ctl");
+      if (cfg.comic){
+        comic = v2el("div", "comic" + (sc.band ? " band" : ""));
+        comic.appendChild(v2el("img", null)); comic.firstChild.src = sc.image; comic.firstChild.alt = "";
+        card.appendChild(comic); card.appendChild(ctl);
+      } else {
+        card.appendChild(v2el("div", "scene-img", '<img src="' + sc.image + '" alt="">'));
+      }
+      var pendingInScene = 0;
       sc.bubbles.forEach(function(b){
-        if (!b.parts){ card.appendChild(readBubble(b)); return; }
-        var el = v2el("div", "bubble");
+        var el = v2el("div", cfg.comic ? "cbubble" + (b.up ? " up" : "") : "bubble");
+        if (cfg.comic){
+          el.style.left = b.pos.x + "%"; el.style.width = b.pos.w + "%";
+          if (b.pos.bottom != null) el.style.bottom = b.pos.bottom + "%";
+          else el.style.top = sc.band ? "6px" : b.pos.y + "%";
+          el.style.setProperty("--tail", b.tail + "%");
+        }
         el.appendChild(v2el("div", "who", b.who));
         var row = v2el("div", "bubble-la"); el.appendChild(row);
+        var host = cfg.comic ? ctl : el;
         var panels = v2el("div"), msgs = v2el("div", "dd-msgs");
-        var es = v2el("p", "bubble-es"); es.hidden = true;
-        var toggle = v2el("button", "btn-cast", "Ver traducción"); toggle.type = "button";
+        var es = v2el("p", cfg.comic ? "comic-es" : "bubble-es"); es.hidden = true;
+        var toggle = v2el("button", "btn-cast", cfg.comic ? "Ver traducción: " + b.who : "Ver traducción"); toggle.type = "button";
+        function showEs(){ es.innerHTML = (cfg.comic ? "<b>" + b.who + ":</b> " : "") + b.es; es.hidden = false; }
         toggle.addEventListener("click", function(){
-          es.textContent = b.es; es.hidden = !es.hidden;
-          toggle.textContent = es.hidden ? "Ver traducción" : "Ocultar traducción";
+          if (es.hidden) showEs(); else es.hidden = true;
           if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: b.who + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
         });
         var n = 0, k = 0;
         renderParts(row, b.parts, function(part){
-          n++; total++;
+          n++; pendingInScene++;
           var d = buildDropdown(part.options, part.correct, {
             paso: cfg.paso, item: b.who + " · " + b.src + " · " + part.correct, hint: cfg.hint, streak: streak,
             onResolve: function(){
-              done++; k++; upd();
-              if (k === n){ es.textContent = b.es; es.hidden = false; if (toggle.parentNode) toggle.remove(); }
+              done++; k++; pendingInScene--; upd();
+              if (k === n){ showEs(); if (toggle.parentNode) toggle.remove(); }
+              if (pendingInScene === 0) finishScene();
             }
           });
           panels.appendChild(d.panel); msgs.appendChild(d.msg);
           return d.select;
         });
-        el.appendChild(panels); el.appendChild(msgs); el.appendChild(toggle); el.appendChild(es);
-        card.appendChild(el);
+        host.appendChild(panels); host.appendChild(msgs); host.appendChild(toggle); host.appendChild(es);
+        if (cfg.comic) comic.appendChild(el); else card.appendChild(el);
       });
-      list.appendChild(card);
-    });
-    upd();
+      function finishScene(){
+        if (si < cfg.scenes.length - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente escena"); nx.type = "button";
+          nx.addEventListener("click", function(){ si++; scene(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+      stage.appendChild(card);
+    }
+    upd(); scene();
   }
 
   // ---------- Polyphemus: armado del castellano al latín (motor de la Altercatio), una frase por vez ----------
@@ -801,8 +863,15 @@
   }
   function buildPoly(cfg, stageEl, progressEl, doneBtn){
     var k = 0;
+    var imgWrap = document.getElementById("poly-img");
+    var box = v2el("div", "find-zone ok"); imgWrap.appendChild(box);
+    function mark(zone){
+      var z = cfg.zones[zone];
+      box.style.left = z[0] + "%"; box.style.top = z[1] + "%"; box.style.width = z[2] + "%"; box.style.height = z[3] + "%";
+    }
     function show(){
       var it = cfg.items[k];
+      mark(it.zone);
       progressEl.textContent = k + " / " + cfg.items.length;
       stageEl.innerHTML = "";
       var card = v2el("div", "bubble");
@@ -814,84 +883,81 @@
         progressEl.textContent = (k + 1) + " / " + cfg.items.length;
         if (k < cfg.items.length - 1){
           var nx = v2el("button", "btn find-next", "Siguiente globo"); nx.type = "button";
-          nx.addEventListener("click", function(){ k++; show(); });
+          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: imgWrap.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
           card.appendChild(nx);
-        } else {
-          cfg.after.forEach(function(b){ stageEl.appendChild(readBubble(b)); });
-          doneBtn.hidden = false;
-        }
+        } else doneBtn.hidden = false;
       });
     }
     show();
   }
 
-  // ---------- Ithaca: tocar la frase y después la escena. Convención 1 por escena. ----------
-  function buildPairs(cfg){
-    var streak = makeStreak(document.getElementById("itaca-streak"));
-    var pool = document.getElementById("itaca-pool"), boxesHost = document.getElementById("itaca-boxes");
-    var msgEl = document.getElementById("itaca-msg");
-    var sel = null, placed = 0, total = cfg.boxes.length, boxEls = {}, chips = {};
-    function say(t, cls){ msgEl.textContent = t; msgEl.className = "gen-msg" + (cls ? " " + cls : ""); }
-    function upd(){
-      document.getElementById("itaca-progress").innerHTML = "Escenas completas: <strong>" + placed + " / " + total + "</strong>";
-      document.getElementById("btn-itaca-done").disabled = placed < total;
-    }
-    function arm(on){ cfg.boxes.forEach(function(q){ var b = boxEls[q.id]; if (!b._done) b.classList.toggle("armed", on); b.classList.remove("flash-bad"); }); }
-    function fill(q, a, cls){
-      var b = boxEls[q.id]; b._done = true; b.classList.remove("armed"); b.classList.add(cls);
-      b._ans.innerHTML = '<span class="la">' + a.la + '</span><span class="es">' + a.es + '</span>';
-      chips[a.id].remove(); sel = null; placed++; arm(false); upd();
-      if (placed === total){
-        cfg.answers.forEach(function(x){ if (x.decoy && chips[x.id].parentNode){ chips[x.id].classList.add("bad"); chips[x.id].disabled = true; } });
-        say("Las que sobraron están en 3ª persona: hablan de otro, y en estas escenas cada uno habla de sí mismo o le habla al otro.", "ok");
-        var after = document.getElementById("itaca-after");
-        var card = v2el("div", "scene-card");
-        card.appendChild(v2el("div", "scene-img", '<img src="' + cfg.after.image + '" alt="">'));
-        card.appendChild(readBubble(cfg.after));
-        after.appendChild(card);
+  // ---------- Ithaca: una escena por vez; el globo de la respuesta se completa con una ficha ----------
+  function buildItaca(cfg, stageEl, progressEl, btnEl, streakEl){
+    var streak = makeStreak(streakEl);
+    var si = 0, solved = 0, total = cfg.scenes.length;
+    function upd(){ progressEl.innerHTML = "Escenas completas: <strong>" + solved + " / " + total + "</strong>"; btnEl.disabled = solved < total; }
+    function place(el, p){ el.style.left = p.x + "%"; el.style.top = p.y + "%"; el.style.width = p.w + "%"; }
+    function scene(){
+      var sc = cfg.scenes[si], tries = 0, closed = false;
+      stageEl.innerHTML = "";
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Escena " + (si + 1) + " de " + total));
+      var comic = v2el("div", "comic");
+      var img = document.createElement("img"); img.src = sc.image; img.alt = ""; comic.appendChild(img);
+      if (sc.ask){
+        var q = v2el("div", "cbubble"); place(q, sc.ask.pos); q.style.setProperty("--tail", sc.ask.tail + "%");
+        q.appendChild(v2el("div", "who", sc.ask.who)); q.appendChild(v2el("div", "bubble-la", sc.ask.la));
+        comic.appendChild(q);
       }
+      var a = v2el("div", "cbubble"); place(a, sc.answer.pos); a.style.setProperty("--tail", sc.answer.tail + "%");
+      a.appendChild(v2el("div", "who", sc.answer.who));
+      var aLa = v2el("div", "bubble-la", '<span class="empty">…</span>'); a.appendChild(aLa);
+      comic.appendChild(a);
+      card.appendChild(comic);
+      card.appendChild(v2el("p", "ctx-line", sc.ctx));
+      var chips = v2el("div", "opt-chips"); card.appendChild(chips);
+      var msg = v2el("p", "gen-msg"); card.appendChild(msg);
+      var es = v2el("p", "comic-es"); es.hidden = true; card.appendChild(es);
+      function close(ok, text, resp){
+        closed = true; solved++; upd();
+        aLa.textContent = text; a.classList.add(ok ? "ok" : "rev");
+        es.textContent = "Traducción: " + sc.es; es.hidden = false;
+        Array.prototype.forEach.call(chips.children, function(c){ c.disabled = true; });
+        submitLog.push({ paso: cfg.paso, item: (sc.ask ? sc.ask.la : sc.answer.who), respuesta: resp, correcta: ok, primerIntento: ok && tries === 0, final: true });
+        if (si < total - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente escena"); nx.type = "button";
+          nx.addEventListener("click", function(){ si++; scene(); window.scrollTo({ top: stageEl.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+      shuffled(sc.options).forEach(function(o){
+        var c = v2el("button", "token", o.la); c.type = "button";
+        c.addEventListener("click", function(){
+          if (closed || c.disabled) return;
+          if (o.ok){
+            if (tries === 0) streak.hit();
+            msg.textContent = "¡Correcto!"; msg.className = "gen-msg ok";
+            close(true, o.la, tries === 0 ? "primer intento" : "segundo intento");
+            return;
+          }
+          tries++; streak.reset();
+          submitLog.push({ paso: cfg.paso, item: (sc.ask ? sc.ask.la : sc.answer.who), respuesta: o.la, correcta: false, primerIntento: false, final: false });
+          c.classList.add("bad"); c.disabled = true;
+          a.classList.remove("shake"); void a.offsetWidth; a.classList.add("shake");
+          if (tries >= 2){
+            var right = sc.options.filter(function(x){ return x.ok; })[0];
+            msg.textContent = "Esta era la respuesta (en amarillo)."; msg.className = "gen-msg bad";
+            close(false, right.la, "revelada");
+          } else {
+            msg.textContent = /\b(est|venit|videt)\b/.test(o.la) ? "No: está en 3ª persona, habla de otro. Queda un intento." : "No: esa frase no responde a esta escena. Queda un intento.";
+            msg.className = "gen-msg bad";
+          }
+        });
+        chips.appendChild(c);
+      });
+      stageEl.appendChild(card);
     }
-    cfg.boxes.forEach(function(q){
-      var b = v2el("button", "pair-box"); b.type = "button"; b._tries = 0;
-      b.appendChild(v2el("div", "pair-thumb", '<img src="' + q.img + '" alt="">'));
-      var txt = v2el("div", "pair-q");
-      txt.appendChild(v2el("div", null, q.who));
-      if (q.la) txt.appendChild(v2el("div", "la", q.la + ' <span style="font-family:var(--sans);font-style:normal;font-size:.85rem;color:var(--ink-muted)">(' + q.es + ')</span>'));
-      b._ans = v2el("div", "pair-ans", '<span class="es">— falta la frase —</span>');
-      txt.appendChild(b._ans); b.appendChild(txt);
-      b.addEventListener("click", function(){
-        if (b._done) return;
-        if (!sel){ say("Primero, una frase: después, la escena."); return; }
-        var a = sel;
-        if (a.id === q.answer){
-          submitLog.push({ paso: cfg.paso, item: q.la || "Euriclea", respuesta: a.la, correcta: true, primerIntento: b._tries === 0, final: true });
-          if (b._tries === 0) streak.hit();
-          say("¡Correcto!", "ok"); fill(q, a, "done"); return;
-        }
-        b._tries++; streak.reset();
-        submitLog.push({ paso: cfg.paso, item: q.la || "Euriclea", respuesta: a.la, correcta: false, primerIntento: false, final: false });
-        if (a.decoy){ chips[a.id].classList.remove("sel"); chips[a.id].classList.add("bad"); chips[a.id].disabled = true; sel = null; arm(false); }
-        if (b._tries >= 2){
-          var right = cfg.answers.filter(function(x){ return x.id === q.answer; })[0];
-          submitLog.push({ paso: cfg.paso, item: q.la || "Euriclea", respuesta: right.la, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
-          say("Esta era la frase de esa escena (en amarillo).", "bad"); fill(q, right, "rev"); return;
-        }
-        b.classList.add("flash-bad");
-        say(a.decoy ? "No va: está en 3ª persona («est», «venit», «videt»). Queda un intento para esa escena." : "Esa frase es de otra escena. Queda un intento para esta.", "bad");
-      });
-      boxEls[q.id] = b; boxesHost.appendChild(b);
-    });
-    shuffled(cfg.answers).forEach(function(a){
-      var c = v2el("button", "token", a.la); c.type = "button"; chips[a.id] = c;
-      c.addEventListener("click", function(){
-        if (c.disabled) return;
-        Array.prototype.forEach.call(pool.children, function(ch){ ch.classList.remove("sel"); });
-        if (sel === a){ sel = null; arm(false); say(""); return; }
-        sel = a; c.classList.add("sel"); arm(true); say("Ahora, la escena para esa frase.");
-      });
-      pool.appendChild(c);
-    });
-    upd();
+    upd(); scene();
   }
 
   // ---------- Quis loquitur?: globo sin dueño, se toca en la imagen a quien lo dice ----------
@@ -1136,10 +1202,10 @@
 
 
   buildHotspotNum(HOTSPOT24, document.getElementById("img-stage"), document.getElementById("img-progress"), document.getElementById("btn-img-done"));
-  buildScenes(DATA.troya, "troya-list", "troya-progress", "btn-troya-done", "troya-streak");
+  buildScenes(DATA.troya, "troya-stage", "troya-progress", "btn-troya-done", "troya-streak");
   buildPoly(DATA.poly, document.getElementById("poly-stage"), document.getElementById("poly-progress"), document.getElementById("btn-poly-done"));
-  buildPairs(DATA.itaca);
-  buildScenes(DATA.dedalo, "dedalo-list", "dedalo-progress", "btn-dedalo-done", "dedalo-streak");
+  buildItaca(DATA.itaca, document.getElementById("itaca-stage"), document.getElementById("itaca-progress"), document.getElementById("btn-itaca-done"), document.getElementById("itaca-streak"));
+  buildScenes(DATA.dedalo, "dedalo-stage", "dedalo-progress", "btn-dedalo-done", "dedalo-streak");
   buildQuis(DATA.quis, document.getElementById("quis-stage"), document.getElementById("quis-progress"), document.getElementById("btn-quis-done"));
   document.getElementById("btn-s1-done").addEventListener("click", goStep("step-img"));
   document.getElementById("btn-img-done").addEventListener("click", goStep("step-troya"));
