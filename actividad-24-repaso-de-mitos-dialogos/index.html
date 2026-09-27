@@ -335,6 +335,12 @@
   .cbubble.flow .who.unknown{ color:#6b6f66; }
   .cbubble.flow .dd-panel{ margin-top:.5rem; }
   .cbubble .find-msg{ min-height:0; margin-top:.3rem; font-size:.82rem; }
+
+  /* ---- Act. 24 v4 (2026-09-27): ejemplos del relato en las explicaciones ---- */
+  .ex-title{ font-weight:700; font-size:.9rem; margin:.4rem 0 .35rem; }
+  .ex-list{ display:grid; grid-template-columns:auto 1fr; gap:.35rem .8rem; align-items:baseline; font-size:.95rem; margin:0 0 .9rem; }
+  .ex-p{ font-size:.8rem; font-weight:700; color:var(--ink-muted); white-space:nowrap; }
+  .step-instructions .ex-latin{ font-family:var(--serif); font-style:italic; color:var(--ink); }
 </style>
 </head>
 <body>
@@ -373,6 +379,15 @@
           <div class="dp-p">3ª pl. <span>ellos, ellas</span></div><div class="dp-f">navega<b class="dp-es">n</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">nt</b></div>
         </div>
         <p class="dp-note">En latín la 1ª del singular a veces termina en <b class="dp-la">‑m</b>: <span class="ex-latin">su<b class="dp-la">m</b></span> (soy).</p>
+        <p class="ex-title">En frases del relato:</p>
+        <div class="ex-list">
+          <div class="ex-p">1ª sg.</div><div><span class="ex-latin">Vela nigra vide<b class="dp-la">o</b>.</span> (Ve<b class="dp-es">o</b> las velas negras.)</div>
+          <div class="ex-p">2ª sg.</div><div><span class="ex-latin">Cur Ariadnam in insula relinqui<b class="dp-la">s</b>?</span> (¿Por qué dejá<b class="dp-es">s</b> a Ariadna en la isla?)</div>
+          <div class="ex-p">3ª sg.</div><div><span class="ex-latin">Canis Vlixem statim agnosci<b class="dp-la">t</b>.</span> (El perro reconoce enseguida a Ulises.)</div>
+          <div class="ex-p">1ª pl.</div><div><span class="ex-latin">Cum Theseo in patriam naviga<b class="dp-la">mus</b>.</span> (Navega<b class="dp-es">mos</b> con Teseo hacia su patria.)</div>
+          <div class="ex-p">2ª pl.</div><div>Casandra, a los troyanos: <span class="ex-latin">Cur mihi non credi<b class="dp-la">tis</b>?</span> (¿Por qué no me cree<b class="dp-es">n</b>?)</div>
+          <div class="ex-p">3ª pl.</div><div><span class="ex-latin">Socii vaccas Solis consumu<b class="dp-la">nt</b>.</span> (Los compañeros come<b class="dp-es">n</b> las vacas del Sol.)</div>
+        </div>
         <p>Tanto el latín como el castellano son lenguas <em>pro-drop</em>: el sujeto puede no aparecer (<strong>sujeto desinencial</strong>). La DP dice quién habla.</p>
       </div>
       <div class="explain-box">
@@ -381,8 +396,8 @@
           <div><span class="ex-latin q-w">quis?</span> ¿quién?</div><div class="q-ex"><span class="ex-latin"><strong>Quis</strong> ex vobis arcum intendere potest?</span> (<strong>¿Quién</strong> de ustedes puede tensar el arco?)</div>
           <div><span class="ex-latin q-w">cur?</span> ¿por qué?</div><div class="q-ex"><span class="ex-latin"><strong>Cur</strong> Ariadnam in insula relinquis?</span> (<strong>¿Por qué</strong> dejás a Ariadna en la isla?)</div>
           <div><span class="ex-latin q-w">unde?</span> ¿de dónde?</div><div class="q-ex"><span class="ex-latin"><strong>Unde</strong> venis?</span> (<strong>¿De dónde</strong> venís?)</div>
-          <div><span class="ex-latin q-w">quomodo?</span> ¿cómo?</div><div class="q-ex"></div>
-          <div><span class="ex-latin q-w">quod nomen…?</span> ¿cuál es el nombre…?</div><div class="q-ex"></div>
+          <div><span class="ex-latin q-w">quomodo?</span> ¿cómo?</div><div class="q-ex"><span class="ex-latin"><strong>Quomodo</strong> ex labyrintho exire possum?</span> (<strong>¿Cómo</strong> puedo salir del laberinto?)</div>
+          <div><span class="ex-latin q-w">quod nomen…?</span> ¿cuál es el nombre…?</div><div class="q-ex">Lo vas a ver en la cueva de Polifemo.</div>
         </div>
       </div>
       <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar</button></div>
@@ -412,8 +427,9 @@
         <p>En castellano <em>me</em> y <em>te</em> son objeto directo y también objeto indirecto. En latín son dos formas distintas:</p>
         <p><strong>acusativo</strong> (objeto directo): <span class="ex-latin"><strong>Te</strong> amo</span> (<strong>te</strong> amo) · <span class="ex-latin"><strong>te</strong> servare volo</span> (quiero salvar<strong>te</strong>)</p>
         <p><strong>dativo</strong> (objeto indirecto): <span class="ex-latin">Hoc filum <strong>tibi</strong> do</span> (<strong>te</strong> doy este hilo) · <span class="ex-latin">Cur <strong>mihi</strong> auxilium das?</span> (¿por qué <strong>me</strong> ayudás?)</p>
+        <p><strong>Ya los viste en Troia:</strong> <span class="ex-latin"><strong>Tibi</strong> non credimus</span> (No <strong>te</strong> creemos): <em>tibi</em>, dativo · <span class="ex-latin"><strong>Nos</strong> in equo sumus</span> (<strong>Nosotros</strong> estamos en el caballo): <em>nos</em>, nominativo, el sujeto; se agrega para remarcar quién.</p>
         <p>Con <em>cum</em> pegada al final: <span class="ex-latin"><strong>mecum</strong></span> (<strong>conmigo</strong>) · <span class="ex-latin"><strong>tecum</strong></span> (<strong>con vos</strong>).</p>
-        <p><strong>Dativo posesivo.</strong> Con el verbo <em>sum</em>, el dativo indica quién tiene algo: <span class="ex-latin">Minos filiam habet</span> = <span class="ex-latin"><strong>Minoi</strong> filia est</span> (literalmente, «<strong>para Minos</strong> hay una hija»: <strong>Minos tiene</strong> una hija). Lo mismo con los pronombres: <span class="ex-latin"><strong>mihi</strong></span> («para mí» → <strong>mi / tengo</strong>), <span class="ex-latin"><strong>tibi</strong></span> («para vos» → <strong>tu / tenés</strong>).</p>
+        <p><strong>Dativo posesivo.</strong> Con el verbo <em>sum</em>, el dativo indica quién tiene algo: <span class="ex-latin">Minos filiam habet</span> = <span class="ex-latin"><strong>Minoi</strong> filia est</span> (literalmente, «<strong>para Minos</strong> hay una hija»: <strong>Minos tiene</strong> una hija). Lo mismo con los pronombres: <span class="ex-latin"><strong>mihi</strong></span> («para mí» → <strong>mi / tengo</strong>), <span class="ex-latin"><strong>tibi</strong></span> («para vos» → <strong>tu / tenés</strong>). Minos: <span class="ex-latin">Filia <strong>mihi</strong> est.</span> (<strong>Tengo</strong> una hija; literalmente, «<strong>para mí</strong> hay una hija».)</p>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-troya">← Volver</button><button class="btn" id="btn-s2-done">Continuar</button></div>
     </section>
@@ -430,7 +446,7 @@
     <section class="step" id="step-itaca">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-poly">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Ithaca</p><h2>Pregunta y respuesta</h2></div><span class="streak zero" id="itaca-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Una escena por vez: falta la respuesta. Elegir, entre las fichas, la frase que completa el globo vacío. Atención a la persona del verbo. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una escena por vez: falta la respuesta. Elegir, entre las fichas, la frase que completa el globo vacío. Atención a la persona del verbo; por ejemplo, <span class="ex-latin">Eam in patriam ducere non <strong>volo</strong></span> (no <strong>quiero</strong>: habla Teseo de sí mismo) / <span class="ex-latin">… non <strong>vult</strong></span> (no <strong>quiere</strong>: hablan de Teseo). <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="itaca-progress"></div>
       <div id="itaca-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-poly">← Volver</button><button class="btn" id="btn-itaca-done" disabled>Continuar</button></div>
@@ -443,7 +459,12 @@
         <p>En el pretérito perfecto, las desinencias personales son otras: ‑i, ‑isti, ‑it, ‑imus, ‑istis, ‑erunt.</p>
         <p><span class="ex-latin">mutav‑<strong>i</strong></span> (cambi<strong>é</strong>) · <span class="ex-latin">mutav‑<strong>isti</strong></span> (cambi<strong>aste</strong>) · <span class="ex-latin">mutav‑<strong>it</strong></span> (cambi<strong>ó</strong>)</p>
         <p>Comparadas con el presente: <span class="ex-latin">mut‑<strong>o</strong></span> (cambi<strong>o</strong>) · <span class="ex-latin">muta‑<strong>s</strong></span> (cambia<strong>s</strong>) · <span class="ex-latin">muta‑<strong>t</strong></span> (cambia).</p>
-        <p>Del relato: <span class="ex-latin">Vela nigra non <strong>mutavi</strong>!</span> (¡No <strong>cambié</strong> las velas negras!)</p>
+        <p>Del relato:</p>
+        <div class="ex-list">
+          <div class="ex-p">‑i</div><div><span class="ex-latin">Vela nigra non <strong>mutavi</strong>!</span> (¡No <strong>cambié</strong> las velas negras!)</div>
+          <div class="ex-p">‑isti</div><div>Ariadna, a Teseo: <span class="ex-latin">Cur me in insula <strong>reliquisti</strong>?</span> (¿Por qué me <strong>abandonaste</strong> en la isla?)</div>
+          <div class="ex-p">‑it</div><div>Egeo: <span class="ex-latin">Minotaurus filium meum <strong>occidit</strong>!</span> (¡El Minotauro <strong>mató</strong> a mi hijo!)</div>
+        </div>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-itaca">← Volver</button><button class="btn" id="btn-s3-done">Continuar</button></div>
     </section>
@@ -451,7 +472,7 @@
     <section class="step" id="step-dedalo">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Daedalus</p><h2>La desinencia personal en el diálogo</h2></div><span class="streak zero" id="dedalo-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla. Presente y perfecto en la misma frase. Primero, leer el latín y pensar quién habla y cuándo pasa; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla. Presente y perfecto en la misma frase; por ejemplo, <span class="ex-latin">Vela nigra <strong>video</strong></span> (<strong>veo</strong>, presente) · <span class="ex-latin">Vela nigra non <strong>mutavi</strong></span> (no <strong>cambié</strong>, perfecto). Primero, leer el latín y pensar quién habla y cuándo pasa; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="dedalo-progress"></div>
       <div id="dedalo-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-dedalo-done" disabled>Continuar</button></div>
@@ -460,7 +481,7 @@
     <section class="step" id="step-quis">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-dedalo">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Quis loquitur?</p><h2>Teseo y Ariadna</h2></div><span class="step-progress" id="quis-progress">—</span></div>
-      <p class="step-instructions">Una frase por vez: aparece un globo sin dueño. Leer la frase y tocar en la imagen a quien la dice; el globo queda apuntando a esa persona. La persona del verbo y los pronombres son la pista. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez: aparece un globo sin dueño. Leer la frase y tocar en la imagen a quien la dice; el globo queda apuntando a esa persona. La persona del verbo y los pronombres son la pista; por ejemplo, en <span class="ex-latin">Minotaurus filium <strong>meum</strong> occidit</span> («<strong>mi</strong> hijo») habla el padre, Egeo. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div id="quis-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-dedalo">← Volver</button><button class="btn" id="btn-quis-done" disabled>Finalizar actividad</button></div>
     </section>
