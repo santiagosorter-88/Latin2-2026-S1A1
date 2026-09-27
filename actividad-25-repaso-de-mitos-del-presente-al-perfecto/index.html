@@ -285,6 +285,9 @@
   .p3-line .ex-latin, .higino .ex-latin, .p4-opts + .p4-expl em, #p4-list .ex-latin{ font-family:var(--serif); font-style:italic; }
   .p3-line .ex-latin{ font-size:1.05rem; }
   #p4-list .dd-row .ex-latin{ font-size:1.15rem; }
+  .p3-enun{ margin:.2rem 0 .35rem; padding:.45rem .7rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; font-size:.9rem; }
+  .p3-enun .ex-latin{ font-family:var(--serif); font-style:italic; font-size:1.08rem; }
+  .p3-enun strong{ color:var(--accent-strong); }
 </style>
 </head>
 <body>
@@ -351,8 +354,8 @@
           <tr><td><span class="tipo c-azul">‑V (semivocálica)</span></td><td><span class="ex-latin">muto → muta<strong>v</strong>i</span> (cambiar) · <span class="ex-latin">libero → libera<strong>v</strong>i</span> (liberar)</td></tr>
           <tr><td><span class="tipo c-azul">U (vocálica)</span></td><td><span class="ex-latin">habeo → hab<strong>u</strong>i</span> (tener)</td></tr>
           <tr><td><span class="tipo c-verde">sigmático</span></td><td><span class="ex-latin">duco → du<strong>x</strong>i</span> (llevar): c + s = x</td></tr>
-          <tr><td><span class="tipo c-rojo">duplicación</span></td><td><span class="ex-latin">do → <strong>de</strong>di</span> (dar): se repite la consonante inicial con una vocal</td></tr>
-          <tr><td><span class="tipo c-amarillo">alargamiento</span></td><td><span class="ex-latin">facio → f<strong>e</strong>ci</span> (hacer) · <span class="ex-latin">venio → v<strong>ē</strong>ni</span> (llegar): la vocal se alarga o cambia</td></tr>
+          <tr><td><span class="tipo c-rojo">reduplicación</span></td><td><span class="ex-latin">do → <strong>de</strong>di</span> (dar): se repite la consonante inicial con una vocal</td></tr>
+          <tr><td><span class="tipo c-amarillo">cambio de vocal</span></td><td><span class="ex-latin">facio → f<strong>e</strong>ci</span> (hacer) · <span class="ex-latin">venio → v<strong>ē</strong>ni</span> (llegar): vocal larga o apofonía</td></tr>
         </table>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 2</button></div>
@@ -385,21 +388,12 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-find">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Del presente al perfecto</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez: la frase aparece en presente y hay que elegir el verbo en perfecto. Al resolver, se ve qué forma usa Higino. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez: la frase aparece en presente y hay que elegir el verbo en perfecto. Cada frase trae el <strong>enunciado</strong> del verbo: la última forma es el perfecto en 1ª persona (<span class="ex-latin">cecid<strong>i</strong></span>, «caí»); de ahí sale el tema de perfectum (<span class="ex-latin">cecid‑</span>), al que se le suma la desinencia: <strong>‑it</strong> si es uno (él, ella), <strong>‑erunt</strong> si son varios (ellos). Al resolver, se ve qué forma usa Higino. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p3-progress"></div>
       <div id="p3-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-find">← Volver</button><button class="btn" id="btn-p3-done" disabled>Continuar a Paso 4</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-find">← Volver</button><button class="btn" id="btn-p3-done" disabled>Finalizar actividad</button></div>
     </section>
 
-    <section class="step" id="step-p4">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p3">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 4</p><h2>¿Presente o perfecto?</h2></div><span class="streak zero" id="p4-streak">Primer intento: 0</span></div>
-      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">En algunos verbos el tema de perfectum se ve igual que el de infectum: la forma subrayada puede ser presente o perfecto. Decide el resto de la frase.</p>
-      <div class="p-progress" id="p4-progress"></div>
-      <div class="exercise" id="p4-list"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p3">← Volver</button><button class="btn" id="btn-p4-done" disabled>Finalizar actividad</button></div>
-    </section>
 
     <section class="step" id="step-fin">
       <div class="exercise" id="evaluacion">
@@ -434,7 +428,7 @@
 
   var DATA = {
     castToggle: true,
-    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Inveni"], ["4 -","Paso 3"], ["5 -","Paso 4"]],
+    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Inveni"], ["4 -","Paso 3"]],
 
     // Paso 1 — parejas presente/perfecto (ninguna forma de las que se piden en el Paso 3).
     paso1: {
@@ -448,12 +442,12 @@
       columns: [
         { key:"vu",  color:"c-azul",     model:"‑V / U", pat:"semivocálica / vocálica: ‑v‑ o ‑u‑" },
         { key:"sig", color:"c-verde",    model:"sigmático", pat:"‑s‑ (c + s = x)" },
-        { key:"dup", color:"c-rojo",     model:"duplicación", pat:"sílaba repetida al comienzo" },
-        { key:"alg", color:"c-amarillo", model:"alargamiento", pat:"vocal larga o cambiada" }
+        { key:"dup", color:"c-rojo",     model:"reduplicación", pat:"sílaba repetida al comienzo" },
+        { key:"alg", color:"c-amarillo", model:"cambio de vocal", pat:"vocal larga o apofonía" }
       ],
       words: [
         { word:"mutat → mutavit", correct:"vu" }, { word:"liberat → liberavit", correct:"vu" },
-        { word:"ducit → duxit", correct:"sig" }, { word:"dat → dedit", correct:"dup" },
+        { word:"ducit → duxit", correct:"sig" }, { word:"dicit → dixit", correct:"sig" }, { word:"dat → dedit", correct:"dup" },
         { word:"facit → fecit", correct:"alg" }, { word:"capit → cepit", correct:"alg" }
       ]
     },
@@ -465,7 +459,6 @@
       items: [
         { latin:"Theseus Minotaurum occidit.", es:"Teseo mató al Minotauro.", zones:[[48.3,37.6,51.7,15.3]] },
         { latin:"Theseus ex labyrintho exiit.", es:"Teseo salió del laberinto.", zones:[[25.1,34.1,24.1,22.9]] },
-        { latin:"Sorores Theseum viderunt.", es:"Las hermanas vieron a Teseo.", zones:[[50.2,47.1,23.6,31.8],[78.3,48.2,20.2,32.4]] },
         { latin:"Theseus vela nigra non mutavit.", es:"Teseo no cambió las velas negras.", zones:[[46.8,9.4,16.3,18.8]] }
       ]
     },
@@ -473,30 +466,14 @@
     // Paso 3 — una frase por pantalla: presente → perfecto; primero las frases con imagen. higinus = forma de Higino.
     paso3: {
       paso: "4 - Del presente al perfecto",
-      hint: "Pista: ¿cómo se forma el tema de perfectum de este verbo? No todos agregan ‑v‑.",
+      hint: "Pista: la última forma del enunciado es el perfecto en 1ª persona; de ahí sale el tema de perfectum. ¿Es uno (‑it) o son varios (‑erunt)?",
       items: [
-        { src:"n.º 61", image:"img/caida.jpg", pres:"Icarus in mare cadit.", parts:["Icarus in mare", {options:["cecidit","cadit","cadivit"], correct:"cecidit"}, "."], es:"Ícaro cayó al mar.", higinus:"decidit", hig:"usa un compuesto: <span class=\"ex-latin\">decidit</span> (de <em>decido</em>, «caer desde arriba»)." },
-        { src:"n.º 65", image:"img/ariadna.jpg", pres:"Theseus Ariadnam in insula relinquit.", parts:["Theseus Ariadnam in insula", {options:["reliquit","relinquit","relinquivit"], correct:"reliquit"}, "."], es:"Teseo abandonó a Ariadna en la isla.", hig:"escribe lo mismo: <span class=\"ex-latin\">reliquit</span>." },
-        { src:"n.º 54", image:"img/perdix.jpg", pres:"Daedalus Perdicem de tecto deicit.", parts:["Daedalus Perdicem de tecto", {options:["deiecit","deicit","deiecerunt"], correct:"deiecit"}, "."], es:"Dédalo arrojó a Pérdix del techo.", hig:"escribe lo mismo: <span class=\"ex-latin\">deiecit</span>." },
-        { src:"n.º 71", image:"img/casandra.jpg", pres:"Troiani Cassandrae non credunt.", parts:["Troiani Cassandrae non", {options:["crediderunt","credunt","credit"], correct:"crediderunt"}, "."], es:"Los troyanos no le creyeron a Casandra.", hig:"" },
-        { src:"n.º 56", pres:"Pasiphae Minotaurum parit.", parts:["Pasiphae Minotaurum", {options:["peperit","parit","paruit"], correct:"peperit"}, "."], es:"Pasífae dio a luz al Minotauro.", hig:"escribe lo mismo: <span class=\"ex-latin\">peperit</span>." },
-        { src:"n.º 58", pres:"Minos Daedalum in custodiam mittit.", parts:["Minos Daedalum in custodiam", {options:["misit","mittit","mittivit"], correct:"misit"}, "."], es:"Minos encerró a Dédalo.", hig:"usa otro verbo: <span class=\"ex-latin\">in custodiam coniecit</span> («lo arrojó a la prisión»)." }
-      ]
-    },
-
-    // Paso 4 — ¿presente o perfecto? La forma subrayada es ambigua; decide el resto de la frase.
-    paso4: {
-      paso: "5 - Presente o perfecto",
-      options: [ { key:"pres", label:"presente" }, { key:"perf", label:"perfecto" }, { key:"dos", label:"las dos lecturas son posibles" } ],
-      items: [
-        { id:1, src:"n.º 64", html:"Theseus in labyrinthum intravit, Minotaurum <span class=\"v-mark\">occidit</span> et filo exiit.", correct:"perf",
-          expl:"<em>intravit</em> y <em>exiit</em> son perfectos: el relato está en pasado, así que <em>occidit</em> también. «Teseo entró en el laberinto, mató al Minotauro y salió gracias al hilo.»" },
-        { id:2, src:"de n.º 74", html:"Cyclops multum vinum <span class=\"v-mark\">bibit</span> et dormit.", correct:"pres",
-          expl:"<em>dormit</em> es presente (el perfecto sería <em>dormivit</em>): entonces <em>bibit</em> también. «El cíclope bebe mucho vino y duerme.»" },
-        { id:3, src:"n.º 53", html:"Daedalus ab Athenis abiit et ad regem Minoem <span class=\"v-mark\">venit</span>.", correct:"perf",
-          expl:"<em>abiit</em> es perfecto: <em>venit</em> también. «Dédalo se fue de Atenas y llegó ante el rey Minos.»" },
-        { id:4, src:"n.º 79", html:"Vlixes ipse arcum <span class=\"v-mark\">intendit</span> et procos <span class=\"v-mark\">occidit</span>.", correct:"dos",
-          expl:"Acá ninguna forma decide: <em>intendit</em> y <em>occidit</em> pueden ser presente o perfecto. Sin más contexto, lo decide el relato." }
+        { src:"n.º 61", image:"img/caida.jpg", enun:"cado, cadis, cadere, cecidi (caer)", pres:"Icarus in mare cadit.", parts:["Icarus in mare", {options:["cecidit","cadit","cadivit"], correct:"cecidit"}, "."], es:"Ícaro cayó al mar.", higinus:"decidit", hig:"usa un compuesto: <span class=\"ex-latin\">decidit</span> (de <em>decido</em>, «caer desde arriba»)." },
+        { src:"n.º 65", image:"img/ariadna.jpg", enun:"relinquo, relinquis, relinquere, reliqui (abandonar)", pres:"Theseus Ariadnam in insula relinquit.", parts:["Theseus Ariadnam in insula", {options:["reliquit","relinquit","relinquivit"], correct:"reliquit"}, "."], es:"Teseo abandonó a Ariadna en la isla.", hig:"escribe lo mismo: <span class=\"ex-latin\">reliquit</span>." },
+        { src:"n.º 54", image:"img/perdix.jpg", enun:"deicio, deicis, deicere, deieci (arrojar)", pres:"Daedalus Perdicem de tecto deicit.", parts:["Daedalus Perdicem de tecto", {options:["deiecit","deicit","deiecerunt"], correct:"deiecit"}, "."], es:"Dédalo arrojó a Pérdix del techo.", hig:"escribe lo mismo: <span class=\"ex-latin\">deiecit</span>." },
+        { src:"n.º 71", image:"img/casandra.jpg", enun:"credo, credis, credere, credidi (creer)", pres:"Troiani Cassandrae non credunt.", parts:["Troiani Cassandrae non", {options:["crediderunt","credunt","credit"], correct:"crediderunt"}, "."], es:"Los troyanos no le creyeron a Casandra.", hig:"" },
+        { src:"n.º 56", enun:"pario, paris, parere, peperi (dar a luz)", pres:"Pasiphae Minotaurum parit.", parts:["Pasiphae Minotaurum", {options:["peperit","parit","paruit"], correct:"peperit"}, "."], es:"Pasífae dio a luz al Minotauro.", hig:"escribe lo mismo: <span class=\"ex-latin\">peperit</span>." },
+        { src:"n.º 58", enun:"mitto, mittis, mittere, misi (enviar)", pres:"Minos Daedalum in custodiam mittit.", parts:["Minos Daedalum in custodiam", {options:["misit","mittit","mittivit"], correct:"misit"}, "."], es:"Minos encerró a Dédalo.", hig:"usa otro verbo: <span class=\"ex-latin\">in custodiam coniecit</span> («lo arrojó a la prisión»)." }
       ]
     }
   };
@@ -756,6 +733,7 @@
       var card = v2el("div", "scene-card");
       card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
       if (it.image) card.appendChild(v2el("div", "scene-img", '<img src="' + it.image + '" alt="">'));
+      card.appendChild(v2el("p", "p3-enun", 'Enunciado: <span class="ex-latin">' + it.enun.replace(/, (\S+) \(/, ', <strong>$1</strong> (') + '</span>'));
       card.appendChild(v2el("p", "p3-line", 'En presente: <span class="ex-latin">' + it.pres + '</span>'));
       var row = v2el("div", "dd-row"); row.appendChild(v2el("span", "p3-line", "En perfecto:"));
       var panels = v2el("div"), msgs = v2el("div", "dd-msgs");
@@ -1083,15 +1061,13 @@
   buildPP(DATA.paso1);
   buildBoxes(DATA.paso2, "p2");
   buildP3(DATA.paso3);
-  buildP4(DATA.paso4);
   document.getElementById("btn-s1-done").addEventListener("click", goStep("step-img"));
   document.getElementById("btn-img-done").addEventListener("click", goStep("step-p1"));
   document.getElementById("btn-p1-done").addEventListener("click", goStep("step-s3"));
   document.getElementById("btn-s3-done").addEventListener("click", goStep("step-p2"));
   document.getElementById("btn-p2-done").addEventListener("click", goStep("step-find"));
   document.getElementById("btn-find-done").addEventListener("click", goStep("step-p3"));
-  document.getElementById("btn-p3-done").addEventListener("click", goStep("step-p4"));
-  document.getElementById("btn-p4-done").addEventListener("click", goStep("step-fin"));
+  document.getElementById("btn-p3-done").addEventListener("click", goStep("step-fin"));
 
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
