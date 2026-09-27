@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Latín · Actividad 24 — Repaso de mitos (diálogos)</title>
+<title>Latín · Actividad 26 — Repaso de mitos (régimen verbal)</title>
 <style>
   :root{
     --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
@@ -257,89 +257,16 @@
   .explain-box .tag{ font-weight:700; white-space:nowrap; }
   @media (max-width:520px){ .explain-box tr{ display:block; padding:.45rem 0; border-bottom:1px solid var(--rule); } .explain-box tr:last-child{ border-bottom:none; } .explain-box td{ display:block; padding:.1rem 0; border:none; } }
 
-  /* ---- Agregados Actividad 24 (2026-09-27): globos de diálogo, armado, parejas, Quis loquitur ---- */
-  .scene-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1rem 1rem 1.2rem; box-shadow:var(--shadow); margin-bottom:1.3rem; }
-  .scene-img{ border-radius:8px; overflow:hidden; background:var(--surface-raised); margin-bottom:.9rem; line-height:0; }
-  .scene-img img{ display:block; width:100%; max-height:260px; object-fit:contain; }
-  .bubble{ position:relative; background:var(--surface-raised); border:1.5px solid var(--rule); border-radius:14px; padding:.65rem .85rem .75rem; margin:1rem 0 0 .2rem; }
-  .bubble::before{ content:""; position:absolute; top:-9px; left:22px; width:14px; height:14px; background:var(--surface-raised); border-left:1.5px solid var(--rule); border-top:1.5px solid var(--rule); transform:rotate(45deg); }
-  .bubble .who{ font-size:.75rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--accent-strong); margin-bottom:.25rem; }
-  .bubble .who.unknown{ color:var(--ink-muted); }
-  .bubble-la{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; font-family:var(--serif); font-size:1.2rem; line-height:1.35; }
-  .bubble-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.35rem 0 0; }
-  .bubble.read{ border-style:dashed; }
-  .bubble.read::before{ border-left-style:dashed; border-top-style:dashed; }
-  .bubble .cite{ font-size:.75rem; color:var(--ink-muted); margin:.3rem 0 0; }
-  .bubble .dd-panel{ margin-top:.5rem; }
-
-  .pair-pool{ display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1rem; }
-  .pair-pool .token{ font-size:1.05rem; }
-  .pair-pool .token.bad{ text-decoration:line-through; opacity:.45; cursor:default; }
-  .pair-box{ all:unset; box-sizing:border-box; display:flex; gap:.75rem; align-items:flex-start; width:100%; cursor:pointer; border:1.5px dashed var(--rule); border-radius:10px; padding:.6rem; background:var(--surface-raised); margin-bottom:.6rem; }
-  .pair-box.armed{ border-color:var(--accent); border-style:solid; }
-  .pair-box.flash-bad{ animation:genShake .35s ease; background:var(--incorrect-bg); }
-  .pair-box.done{ border-style:solid; border-color:var(--correct); cursor:default; }
-  .pair-box.rev{ border-style:solid; border-color:var(--warn); cursor:default; }
-  .pair-thumb{ flex:0 0 72px; width:72px; height:86px; border-radius:6px; overflow:hidden; }
-  .pair-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-  .pair-q{ flex:1 1 auto; font-size:.92rem; }
-  .pair-q .la{ font-family:var(--serif); font-size:1.15rem; font-style:italic; }
-  .pair-ans{ margin-top:.45rem; font-family:var(--serif); font-size:1.1rem; min-height:1.4em; }
-  .pair-ans .es{ display:block; font-family:var(--sans); font-size:.85rem; color:var(--ink-muted); font-style:italic; }
-
-  .quis-wrap{ position:relative; line-height:0; cursor:crosshair; }
-  .quis-wrap img{ width:100%; display:block; border-radius:8px; }
-
-  /* ---- Act. 24 v2 (2026-09-27): S1 en dos cajas, historieta con globos sobre la imagen, una escena por vez ---- */
+  /* ---- Actividad 26 (2026-09-27): régimen verbal ---- */
   .box-h{ font-family:var(--sans); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-strong); margin:0 0 .7rem; }
-  .dp-grid{ display:grid; grid-template-columns:auto 1fr 1fr; gap:.1rem .9rem; align-items:baseline; margin:.3rem 0 .9rem; }
-  .dp-h{ font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding-bottom:.3rem; border-bottom:2px solid var(--rule); }
-  .dp-p{ font-size:.85rem; font-weight:600; padding:.3rem 0; border-bottom:1px solid var(--rule); white-space:nowrap; }
-  .dp-p span{ display:block; font-weight:400; color:var(--ink-muted); font-size:.78rem; }
-  .dp-f{ font-family:var(--serif); font-size:1.15rem; padding:.3rem 0; border-bottom:1px solid var(--rule); }
-  .dp-f small{ font-family:var(--sans); font-size:.75rem; color:var(--ink-muted); }
-  .dp-es{ color:var(--correct); } .dp-la{ color:var(--accent-strong); }
-  b.dp-es, b.dp-la{ font-weight:700; text-decoration:underline; text-underline-offset:3px; }
-  .dp-note{ font-size:.92rem; }
-  .q-list{ display:grid; grid-template-columns:auto 1fr; gap:.45rem .9rem; align-items:baseline; }
-  .q-w{ font-weight:700; font-size:1.1rem; }
-  .q-ex{ font-size:.92rem; }
-  @media (max-width:520px){ .q-list{ grid-template-columns:1fr; gap:.1rem; } .q-ex{ margin-bottom:.5rem; } }
-
-  .comic{ position:relative; line-height:1.3; }
-  .comic img{ display:block; width:100%; border-radius:8px; }
-  .cbubble{ position:absolute; background:#fff; color:#1e211d; border:2px solid #1e211d; border-radius:14px; padding:.35rem .6rem .45rem; box-shadow:0 2px 6px rgba(0,0,0,.35); z-index:2; }
-  .cbubble::after{ content:""; position:absolute; left:var(--tail,30%); bottom:-9px; width:14px; height:14px; margin-left:-7px; background:#fff; border-right:2px solid #1e211d; border-bottom:2px solid #1e211d; transform:rotate(45deg); }
-  .cbubble.up::after{ bottom:auto; top:-9px; transform:rotate(-135deg); }
-  .cbubble .who{ font-size:.62rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#17399c; margin-bottom:.1rem; }
-  .cbubble .bubble-la{ font-size:1rem; gap:.25rem; }
-  .cbubble button.dd{ font-size:.85rem; padding:.2rem .45rem; min-width:3.6rem; background:#fff; color:#1e211d; }
-  .cbubble.ok{ border-color:var(--correct); }
-  .cbubble.rev{ border-color:var(--warn); }
-  .cbubble.shake{ animation:genShake .35s ease; }
-  .cbubble .empty{ color:#8a8a80; font-style:italic; font-family:var(--sans); font-size:.85rem; }
-  .comic-ctl{ margin-top:.7rem; }
-  .comic-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.4rem 0 0; }
-  .comic-es b{ font-style:normal; color:var(--ink); }
+  .ex-list{ display:grid; grid-template-columns:1fr; gap:.55rem; font-size:.95rem; margin:.3rem 0 .8rem; }
+  .ex-list > div{ padding:.45rem .7rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; }
+  .scene-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1rem 1rem 1.2rem; box-shadow:var(--shadow); margin-bottom:1.3rem; }
   .scene-count{ font-size:.8rem; color:var(--ink-muted); margin:0 0 .5rem; font-weight:600; }
-  .ctx-line{ font-size:.92rem; margin:.6rem 0 0; }
-  .opt-chips{ display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.7rem; }
-  .opt-chips .token.bad{ text-decoration:line-through; opacity:.45; cursor:default; }
-  .poly-img{ margin-bottom:.4rem; }
-
-  /* ---- Act. 24 v3: puntas laterales, globo arriba de la imagen (flow), una frase por pantalla ---- */
-  .cbubble.left::after{ left:-9px; top:var(--tail); bottom:auto; margin:-7px 0 0 0; transform:rotate(135deg); }
-  .cbubble.right::after{ left:auto; right:-9px; top:var(--tail); bottom:auto; margin:-7px 0 0 0; transform:rotate(-45deg); }
-  .cbubble.flow{ position:relative; margin:0 0 14px; }
-  .cbubble.flow.notail::after{ display:none; }
-  .cbubble.flow .who.unknown{ color:#6b6f66; }
-  .cbubble.flow .dd-panel{ margin-top:.5rem; }
-  .cbubble .find-msg{ min-height:0; margin-top:.3rem; font-size:.82rem; }
-
-  /* ---- Act. 24 v4 (2026-09-27): ejemplos del relato en las explicaciones ---- */
-  .ex-title{ font-weight:700; font-size:.9rem; margin:.4rem 0 .35rem; }
-  .ex-list{ display:grid; grid-template-columns:auto 1fr; gap:.35rem .8rem; align-items:baseline; font-size:.95rem; margin:0 0 .9rem; }
-  .ex-p{ font-size:.8rem; font-weight:700; color:var(--ink-muted); white-space:nowrap; }
+  .scene-img{ border-radius:8px; overflow:hidden; background:var(--surface-raised); margin-bottom:.9rem; line-height:0; }
+  .scene-img img{ display:block; width:100%; }
+  .comic-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.4rem 0 0; }
+  .gen-box .gen-model{ font-family:var(--sans); font-size:.95rem; }
   .step-instructions .ex-latin{ font-family:var(--serif); font-style:italic; color:var(--ink); }
 </style>
 </head>
@@ -347,9 +274,9 @@
 <div class="wrap">
   <a class="back-to-index" href="../">← Volver al índice</a>
 
-  <p class="eyebrow">Latín · Actividad 24</p>
-  <h1>Repaso de mitos — diálogos</h1>
-  <p class="lede">Troya, la Odisea, Dédalo y Teseo en boca de sus personajes: la desinencia personal (1ª y 2ª persona), los pronombres personales y las preguntas.</p>
+  <p class="eyebrow">Latín · Actividad 26</p>
+  <h1>Repaso de mitos — régimen verbal</h1>
+  <p class="lede">Troya, la Odisea, Dédalo y Teseo: qué caso pide cada verbo. Objeto directo, objeto indirecto y verbos que piden dativo o ablativo.</p>
 
   <section class="identity" id="identity">
     <div class="identity-grid">
@@ -363,127 +290,84 @@
 
   <main id="main">
 
-    <section class="step" id="step-s1">
+    <section class="step" id="step-warm">
       <div class="step-nav top-nav"></div>
-      <div class="step-head"><div><p class="eyebrow">Antes de empezar</p><h2>La desinencia dice quién habla</h2></div></div>
-      <div class="explain-box">
-        <h3 class="box-h">1 · La desinencia personal</h3>
-        <p>La <strong>desinencia personal (DP)</strong> es la terminación que indica la persona y el número del verbo. Mismo verbo, en las dos lenguas: <em>navegar</em> / <span class="ex-latin">navigare</span>.</p>
-        <div class="dp-grid">
-          <div class="dp-h"></div><div class="dp-h dp-es">castellano</div><div class="dp-h dp-la">latín</div>
-          <div class="dp-p">1ª sg. <span>yo</span></div><div class="dp-f">naveg<b class="dp-es">o</b></div><div class="dp-f ex-latin">navig<b class="dp-la">o</b></div>
-          <div class="dp-p">2ª sg. <span>vos</span></div><div class="dp-f">navegá<b class="dp-es">s</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">s</b></div>
-          <div class="dp-p">3ª sg. <span>él, ella</span></div><div class="dp-f">navega <small>(‑Ø)</small></div><div class="dp-f ex-latin">naviga<b class="dp-la">t</b></div>
-          <div class="dp-p">1ª pl. <span>nosotros</span></div><div class="dp-f">navega<b class="dp-es">mos</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">mus</b></div>
-          <div class="dp-p">2ª pl. <span>ustedes</span></div><div class="dp-f">navega<b class="dp-es">n</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">tis</b></div>
-          <div class="dp-p">3ª pl. <span>ellos, ellas</span></div><div class="dp-f">navega<b class="dp-es">n</b></div><div class="dp-f ex-latin">naviga<b class="dp-la">nt</b></div>
-        </div>
-        <p class="dp-note">En latín la 1ª del singular a veces termina en <b class="dp-la">‑m</b>: <span class="ex-latin">su<b class="dp-la">m</b></span> (soy).</p>
-        <p class="ex-title">En frases del relato:</p>
-        <div class="ex-list">
-          <div class="ex-p">1ª sg.</div><div><span class="ex-latin">Vela nigra vide<b class="dp-la">o</b>.</span> (Ve<b class="dp-es">o</b> las velas negras.)</div>
-          <div class="ex-p">2ª sg.</div><div><span class="ex-latin">Cur Ariadnam in insula relinqui<b class="dp-la">s</b>?</span> (¿Por qué dejá<b class="dp-es">s</b> a Ariadna en la isla?)</div>
-          <div class="ex-p">3ª sg.</div><div><span class="ex-latin">Canis Vlixem statim agnosci<b class="dp-la">t</b>.</span> (El perro reconoce enseguida a Ulises.)</div>
-          <div class="ex-p">1ª pl.</div><div><span class="ex-latin">Cum Theseo in patriam naviga<b class="dp-la">mus</b>.</span> (Navega<b class="dp-es">mos</b> con Teseo hacia su patria.)</div>
-          <div class="ex-p">2ª pl.</div><div>Casandra, a los troyanos: <span class="ex-latin">Cur mihi non credi<b class="dp-la">tis</b>?</span> (¿Por qué no me cree<b class="dp-es">n</b>?)</div>
-          <div class="ex-p">3ª pl.</div><div><span class="ex-latin">Socii vaccas Solis consumu<b class="dp-la">nt</b>.</span> (Los compañeros come<b class="dp-es">n</b> las vacas del Sol.)</div>
-        </div>
-        <p>Tanto el latín como el castellano son lenguas <em>pro-drop</em>: el sujeto puede no aparecer (<strong>sujeto desinencial</strong>). La DP dice quién habla.</p>
-      </div>
-      <div class="explain-box">
-        <h3 class="box-h">2 · Las preguntas</h3>
-        <div class="q-list">
-          <div><span class="ex-latin q-w">quis?</span> ¿quién?</div><div class="q-ex"><span class="ex-latin"><strong>Quis</strong> ex vobis arcum intendere potest?</span> (<strong>¿Quién</strong> de ustedes puede tensar el arco?)</div>
-          <div><span class="ex-latin q-w">cur?</span> ¿por qué?</div><div class="q-ex"><span class="ex-latin"><strong>Cur</strong> Ariadnam in insula relinquis?</span> (<strong>¿Por qué</strong> dejás a Ariadna en la isla?)</div>
-          <div><span class="ex-latin q-w">unde?</span> ¿de dónde?</div><div class="q-ex"><span class="ex-latin"><strong>Unde</strong> venis?</span> (<strong>¿De dónde</strong> venís?)</div>
-          <div><span class="ex-latin q-w">quomodo?</span> ¿cómo?</div><div class="q-ex"><span class="ex-latin"><strong>Quomodo</strong> ex labyrintho exire possum?</span> (<strong>¿Cómo</strong> puedo salir del laberinto?)</div>
-          <div><span class="ex-latin q-w">quod nomen…?</span> ¿cuál es el nombre…?</div><div class="q-ex">Lo vas a ver en la cueva de Polifemo.</div>
-        </div>
-      </div>
-      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar</button></div>
+      <div class="step-head"><div><p class="eyebrow">Calentamiento</p><h2>Del castellano al latín</h2></div><span class="step-progress" id="warm-progress">—</span></div>
+      <p class="step-instructions">Tres frases de historias ya leídas, para armar en latín palabra por palabra. La palabra resaltada en castellano es la que sigue. En <strong>negrita</strong>, las palabras cuyo caso depende del verbo. No cuenta para el resultado.</p>
+      <div class="v2-seals" id="warm-seals"></div>
+      <div id="warm-stage"></div>
+      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-warm-done" hidden>Continuar</button></div>
     </section>
 
     <section class="step" id="step-img">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Imago</p><h2>Ulises en la cueva de Polifemo</h2></div><span class="step-progress" id="img-progress">—</span></div>
-      <p class="step-instructions">Jordaens, <em>Ulises en la cueva de Polifemo</em>. Al tocar cada número se marca una parte de la escena y aparece, debajo de la imagen, la palabra latina con su enunciado. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Imago</p><h2>Ulises y los pretendientes</h2></div><span class="step-progress" id="img-progress">—</span></div>
+      <p class="step-instructions">Ulises, con la ayuda de Telémaco, mata a los pretendientes. Al tocar cada número se marca una parte de la escena y aparece, debajo de la imagen, la palabra latina con su enunciado. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div id="img-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-img-done" hidden>Continuar</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-img-done" hidden>Continuar</button></div>
     </section>
 
-    <section class="step" id="step-troya">
+    <section class="step" id="step-s1">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-img">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Troia</p><h2>Mirá quién habla: ¿1ª, 2ª o 3ª persona?</h2></div><span class="streak zero" id="troya-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Una escena por vez. Cada globo dice quién habla. Primero, leer el latín y pensar qué persona corresponde; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
-      <div class="p-progress" id="troya-progress"></div>
-      <div id="troya-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-img">← Volver</button><button class="btn" id="btn-troya-done" disabled>Continuar</button></div>
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 1</p><h2>Verbos que piden un caso fijo</h2></div></div>
+      <div class="explain-box">
+        <p>En castellano algunos verbos piden siempre la misma preposición: <em>acordarse <strong>de</strong></em>, <em>contar <strong>con</strong></em>. En latín algunos verbos piden siempre el mismo <strong>caso</strong>:</p>
+        <div class="ex-list">
+          <div><span class="ex-latin"><strong>Tibi</strong> non credimus.</span> (No <strong>te</strong> creemos.) → <em>credo</em> pide <strong>dativo</strong>: <em>tibi</em>.</div>
+          <div><span class="ex-latin">Socii <strong>cibo</strong> carent.</span> (Los compañeros carecen <strong>de comida</strong>.) → <em>careo</em> pide <strong>ablativo</strong>: <em>cibo</em>.</div>
+        </div>
+        <p>Por eso el caso se aprende junto con el verbo.</p>
+      </div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-img">← Volver</button><button class="btn" id="btn-s1-done">Continuar a Paso 1</button></div>
+    </section>
+
+    <section class="step" id="step-p1">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificación de los verbos por lo que piden</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Cada tarjeta trae un verbo con su significado. La consigna: tocar una tarjeta y después el cajón de lo que ese verbo pide; por ejemplo, <span class="ex-latin">dormit</span> (duerme) no pide objeto directo.</p>
+      <div class="p-progress" id="p1-progress"></div>
+      <div class="exercise">
+        <div class="gen-pool" id="p1-pool"></div>
+        <div class="gen-boxes" id="p1-boxes"></div>
+        <p class="gen-msg" id="p1-msg"></p>
+      </div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
     </section>
 
     <section class="step" id="step-s2">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-troya">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Antes de Polifemo</p><h2>Los pronombres personales</h2></div></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 2</p><h2>Objeto directo y objeto indirecto</h2></div></div>
       <div class="explain-box">
-        <p>En castellano <em>me</em> y <em>te</em> son objeto directo y también objeto indirecto. En latín son dos formas distintas:</p>
-        <p><strong>acusativo</strong> (objeto directo): <span class="ex-latin"><strong>Te</strong> amo</span> (<strong>te</strong> amo) · <span class="ex-latin"><strong>te</strong> servare volo</span> (quiero salvar<strong>te</strong>)</p>
-        <p><strong>dativo</strong> (objeto indirecto): <span class="ex-latin">Hoc filum <strong>tibi</strong> do</span> (<strong>te</strong> doy este hilo) · <span class="ex-latin">Cur <strong>mihi</strong> auxilium das?</span> (¿por qué <strong>me</strong> ayudás?)</p>
-        <p><strong>Ya los viste en Troia:</strong> <span class="ex-latin"><strong>Tibi</strong> non credimus</span> (No <strong>te</strong> creemos): <em>tibi</em>, dativo · <span class="ex-latin"><strong>Nos</strong> in equo sumus</span> (<strong>Nosotros</strong> estamos en el caballo): <em>nos</em>, nominativo, el sujeto; se agrega para remarcar quién.</p>
-        <p>Con <em>cum</em> pegada al final: <span class="ex-latin"><strong>mecum</strong></span> (<strong>conmigo</strong>) · <span class="ex-latin"><strong>tecum</strong></span> (<strong>con vos</strong>).</p>
-        <p><strong>Dativo posesivo.</strong> Con el verbo <em>sum</em>, el dativo indica quién tiene algo: <span class="ex-latin">Minos filiam habet</span> = <span class="ex-latin"><strong>Minoi</strong> filia est</span> (literalmente, «<strong>para Minos</strong> hay una hija»: <strong>Minos tiene</strong> una hija). Lo mismo con los pronombres: <span class="ex-latin"><strong>mihi</strong></span> («para mí» → <strong>mi / tengo</strong>), <span class="ex-latin"><strong>tibi</strong></span> («para vos» → <strong>tu / tenés</strong>). Minos: <span class="ex-latin">Filia <strong>mihi</strong> est.</span> (<strong>Tengo</strong> una hija; literalmente, «<strong>para mí</strong> hay una hija».)</p>
-      </div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-troya">← Volver</button><button class="btn" id="btn-s2-done">Continuar</button></div>
-    </section>
-
-    <section class="step" id="step-poly">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Polyphemus</p><h2>Del castellano al latín</h2></div><span class="step-progress" id="poly-progress">—</span></div>
-      <p class="step-instructions">Armar en latín lo que dice cada globo, palabra por palabra: la palabra resaltada en castellano es la que sigue. En la imagen, un recuadro marca quién habla. Entre las fichas hay algunas en otra persona.</p>
-      <div class="quis-wrap poly-img" id="poly-img"><img src="img/polifemo.jpg" alt=""></div>
-      <div id="poly-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-poly-done" hidden>Continuar</button></div>
-    </section>
-
-    <section class="step" id="step-itaca">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-poly">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Ithaca</p><h2>Pregunta y respuesta</h2></div><span class="streak zero" id="itaca-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Una escena por vez: falta la respuesta. Elegir, entre las fichas, la frase que completa el globo vacío. Atención a la persona del verbo; por ejemplo, <span class="ex-latin">Eam in patriam ducere non <strong>volo</strong></span> (no <strong>quiero</strong>: habla Teseo de sí mismo) / <span class="ex-latin">… non <strong>vult</strong></span> (no <strong>quiere</strong>: hablan de Teseo). <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
-      <div class="p-progress" id="itaca-progress"></div>
-      <div id="itaca-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-poly">← Volver</button><button class="btn" id="btn-itaca-done" disabled>Continuar</button></div>
-    </section>
-
-    <section class="step" id="step-s3">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-itaca">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Antes de Dédalo</p><h2>El pretérito perfecto tiene desinencias propias</h2></div></div>
-      <div class="explain-box">
-        <p>En el pretérito perfecto, las desinencias personales son otras: ‑i, ‑isti, ‑it, ‑imus, ‑istis, ‑erunt.</p>
-        <p><span class="ex-latin">mutav‑<strong>i</strong></span> (cambi<strong>é</strong>) · <span class="ex-latin">mutav‑<strong>isti</strong></span> (cambi<strong>aste</strong>) · <span class="ex-latin">mutav‑<strong>it</strong></span> (cambi<strong>ó</strong>)</p>
-        <p>Comparadas con el presente: <span class="ex-latin">mut‑<strong>o</strong></span> (cambi<strong>o</strong>) · <span class="ex-latin">muta‑<strong>s</strong></span> (cambia<strong>s</strong>) · <span class="ex-latin">muta‑<strong>t</strong></span> (cambia).</p>
-        <p>Del relato:</p>
+        <p>Prueba del castellano: el <strong>objeto directo (OD)</strong> se reemplaza por <em>lo / la</em>; el <strong>objeto indirecto (OI)</strong>, por <em>le</em>.</p>
         <div class="ex-list">
-          <div class="ex-p">‑i</div><div><span class="ex-latin">Vela nigra non <strong>mutavi</strong>!</span> (¡No <strong>cambié</strong> las velas negras!)</div>
-          <div class="ex-p">‑isti</div><div>Ariadna, a Teseo: <span class="ex-latin">Cur me in insula <strong>reliquisti</strong>?</span> (¿Por qué me <strong>abandonaste</strong> en la isla?)</div>
-          <div class="ex-p">‑it</div><div>Egeo: <span class="ex-latin">Minotaurus filium meum <strong>occidit</strong>!</span> (¡El Minotauro <strong>mató</strong> a mi hijo!)</div>
+          <div><span class="ex-latin">Vlixes procis <strong>arcum</strong> dat.</span> (Ulises les da <strong>el arco</strong> a los pretendientes.) → <em>arcum</em>: OD, <strong>acusativo</strong> («<strong>lo</strong> da»).</div>
+          <div><span class="ex-latin">Vlixes <strong>procis</strong> arcum dat.</span> (Ulises <strong>les</strong> da el arco <strong>a los pretendientes</strong>.) → <em>procis</em>: OI, <strong>dativo</strong>.</div>
+          <div><span class="ex-latin">Theseus <strong>Minotaurum</strong> occidit.</span> (Teseo mata <strong>al Minotauro</strong>: «<strong>lo</strong> mata».) → <strong>acusativo</strong>.</div>
+          <div><span class="ex-latin">Ariadna <strong>fratri</strong> nocet.</span> (Ariadna <strong>le</strong> hace daño <strong>a su hermano</strong>.) → <em>noceo</em> pide <strong>dativo</strong>.</div>
         </div>
+        <p>El caso lo pide el verbo: <em>dat</em> pide acusativo y dativo; <em>occidit</em>, acusativo; <em>nocet</em>, dativo.</p>
       </div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-itaca">← Volver</button><button class="btn" id="btn-s3-done">Continuar</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s2-done">Continuar a Paso 2</button></div>
     </section>
 
-    <section class="step" id="step-dedalo">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Daedalus</p><h2>La desinencia personal en el diálogo</h2></div><span class="streak zero" id="dedalo-streak">Primer intento: 0</span></div>
-      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla. Presente y perfecto en la misma frase; por ejemplo, <span class="ex-latin">Vela nigra <strong>video</strong></span> (<strong>veo</strong>, presente) · <span class="ex-latin">Vela nigra non <strong>mutavi</strong></span> (no <strong>cambié</strong>, perfecto). Primero, leer el latín y pensar quién habla y cuándo pasa; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
-      <div class="p-progress" id="dedalo-progress"></div>
-      <div id="dedalo-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-dedalo-done" disabled>Continuar</button></div>
+    <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>El caso que pide el verbo</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Una frase por vez. Primero, leer el latín y pensar qué caso pide el verbo (acusativo, dativo o ablativo); después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <div class="p-progress" id="p2-progress"></div>
+      <div id="p2-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar</button></div>
     </section>
 
-    <section class="step" id="step-quis">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-dedalo">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Quis loquitur?</p><h2>Teseo y Ariadna</h2></div><span class="step-progress" id="quis-progress">—</span></div>
-      <p class="step-instructions">Una frase por vez: aparece un globo sin dueño. Leer la frase y tocar en la imagen a quien la dice; el globo queda apuntando a esa persona. La persona del verbo y los pronombres son la pista; por ejemplo, en <span class="ex-latin">Minotaurus filium <strong>meum</strong> occidit</span> («<strong>mi</strong> hijo») habla el padre, Egeo. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
-      <div id="quis-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-dedalo">← Volver</button><button class="btn" id="btn-quis-done" disabled>Finalizar actividad</button></div>
+    <section class="step" id="step-find">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Inveni</p><h2>Los pretendientes, otra vez</h2></div><span class="step-progress" id="find-progress">—</span></div>
+      <p class="step-instructions">Leer la palabra y tocar en la imagen lo que nombra. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <div id="find-prompt"></div>
+      <div id="find-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-find-done" disabled>Finalizar actividad</button></div>
     </section>
 
     <section class="step" id="step-fin">
@@ -519,102 +403,69 @@
 
   var DATA = {
     castToggle: true,
-    sections: [["1 -","Troia"], ["2 -","Polyphemus"], ["3 -","Ithaca"], ["4 -","Daedalus"], ["5 -","Quis loquitur"]],
+    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Inveni"]],
 
-    // Troia — historieta: globos SOBRE la imagen (pos en % de la imagen; tail = punta del globo, en % del ancho del globo).
-    // Una escena por vez. Desplegable de forma entera; señuelos = otras personas del mismo verbo.
-    troya: {
-      paso: "1 - Troia", comic: true,
-      hint: "Pista: ¿quién habla y de quién habla? ‑o es «yo», ‑mus «nosotros», ‑tis «ustedes», ‑nt «ellos».",
-      scenes: [
-        { image:"img/casandra.jpg", bubbles:[
-          { who:"Casandra", src:"n.º 24", pos:{ x:3, y:5, w:62 }, tail:50, parts:["Inimici in equo", {options:["sunt","sumus","estis"], correct:"sunt"}, "!"], es:"¡Los enemigos están en el caballo!" },
-          { who:"Los troyanos", src:"n.º 25", pos:{ x:27, bottom:3, w:68 }, tail:40, up:true, parts:["Tibi non", {options:["credimus","credunt","credis"], correct:"credimus"}, "."], es:"No te creemos." } ]},
-        { image:"img/priamo.jpg", bubbles:[
-          { who:"Príamo", src:"n.º 26", pos:{ x:40, y:17, w:56 }, side:"left", tail:78, parts:["Equum in oppidum", {options:["ducimus","ducunt","ducitis"], correct:"ducimus"}, "."], es:"Llevamos el caballo a la ciudad." } ]},
-        { image:"img/motte.jpg", bubbles:[
-          { who:"Los aqueos (en el caballo)", src:"n.º 27", pos:{ x:3, y:6, w:44 }, side:"right", tail:55, parts:["Nos in equo", {options:["sumus","sunt","estis"], correct:"sumus"}, "."], es:"Nosotros estamos en el caballo." } ]},
-        { image:"img/laocoonte.jpg", band:true, bubbles:[
-          { who:"Laocoonte", src:"n.º 28", tail:57, parts:[{options:["Timeo","Timet","Timemus"], correct:"Timeo"}, "Danaos et dona ferentes."], es:"Temo a los dánaos incluso cuando traen regalos (Virgilio, Eneida II 49)." } ]}
+    // Paso 1 — verbos por lo que piden (4 cajones, 2 tarjetas cada uno; el ablativo queda para el Paso 2).
+    paso1: {
+      paso: "1 - Qué pide el verbo",
+      columns: [
+        { key:"sin", color:"c-azul",     model:"sin objeto directo", pat:"ej.: dormit (duerme)" },
+        { key:"ac",  color:"c-verde",    model:"acusativo", pat:"objeto directo; ej.: amat (ama)" },
+        { key:"acd", color:"c-rojo",     model:"acusativo + dativo", pat:"algo (ac.) a alguien (dat.)" },
+        { key:"dat", color:"c-amarillo", model:"dativo", pat:"ej.: nocet (hace daño)" }
+      ],
+      words: [
+        { word:"volat (vuela)", correct:"sin" }, { word:"navigat (navega)", correct:"sin" },
+        { word:"occidit (mata)", correct:"ac" }, { word:"adiuvat (ayuda)", correct:"ac" },
+        { word:"dat (da)", correct:"acd" }, { word:"monstrat (muestra)", correct:"acd" },
+        { word:"credit (cree)", correct:"dat" }, { word:"favet (favorece)", correct:"dat" }
       ]
     },
 
-    // Polyphemus — armado del castellano al latín; señuelos solo de persona. zone = quién habla (recuadro en la imagen).
-    poly: {
-      paso: "2 - Polyphemus",
-      zones: { cyclops:[3.5,5.7,38.7,94.0], vlixes:[43.4,37.6,16.6,33.7], socii:[60.0,30.5,35.4,51.4] },
+    // Paso 2 — una frase por pantalla, primero las que tienen imagen; palabra completa en cada opción.
+    paso2: {
+      paso: "2 - Caso que pide el verbo",
+      hint: "Pista: el caso lo pide el verbo (Paso 1): credo, pareo, succurro, faveo → dativo; careo, libero (de algo) → ablativo; adiuvo → acusativo.",
       items: [
-        { who:"El cíclope", zone:"cyclops", src:"n.º 29", words:["Quis","es?","Cur","in","spelunca","mea","es?"], decoys:["est"],
-          al:"{0:¿Quién} {1:sos}? {2:¿Por qué} {6:estás} {3:en} {5:mi} {4:cueva}?",
-          expl:"<em>es</em> es la 2ª persona de <em>sum</em>: «sos», «estás». El cíclope le habla a Ulises." },
-        { who:"El cíclope", zone:"cyclops", src:"n.º 30", words:["Quod","nomen","tibi","est?"], decoys:["mihi","es"],
-          al:"{0:¿Cuál} {3:es} {2:tu} {1:nombre}?",
-          expl:"<em>tibi</em> es un <strong>dativo posesivo</strong>: «¿qué nombre hay para vos?» = «¿cuál es <em>tu</em> nombre?». Y el verbo es <em>est</em>, porque el sujeto es <em>nomen</em>." },
-        { who:"Ulises", zone:"vlixes", src:"n.º 31", words:["Nemo","nomen","mihi","est."], decoys:["tibi","sum"],
-          al:"{2:Mi} {1:nombre} {3:es} {0:Nadie}.",
-          expl:"Ahora habla Ulises: <em>mihi</em>, <strong>dativo posesivo</strong> («para mí» → «<em>mi</em> nombre»). El verbo sigue siendo <em>est</em>: el sujeto es <em>nomen</em>, no Ulises." },
-        { who:"Los compañeros", zone:"socii", src:"n.º 32", words:["Quomodo","ex","spelunca","exire","possumus?"], decoys:["possunt"],
-          al:"{0:¿Cómo} {4:podemos} {3:salir} {1:de} {2:la cueva}?",
-          expl:"<em>possumus</em>: 1ª persona del plural, «podemos». Los compañeros hablan de sí mismos." },
-        { who:"Ulises", zone:"vlixes", src:"n.º 33", words:["Consilium","habeo."], decoys:["habet"],
-          al:"{1:Tengo} {0:un plan}.",
-          expl:"<em>habeo</em>: 1ª persona, «tengo». Ulises habla de sí mismo." },
-        { who:"El cíclope, gritando", zone:"cyclops", src:"n.º 34", words:["Nemo","oculum","meum","urit!"], decoys:["tuum","uro"],
-          al:"{0:¡Nadie} {2:me} {3:quema} {1:el ojo}!",
-          expl:"El cíclope habla de su ojo (<em>meum</em>, «mío»), pero el sujeto es <em>Nemo</em>: por eso <em>urit</em>, 3ª persona." }
+        { src:"n.º 91", image:"img/casandra.jpg", parts:["Troiani", {options:["Cassandra","Cassandram","Cassandrae"], correct:"Cassandrae"}, "non credunt."], es:"Los troyanos no le creen a Casandra." },
+        { src:"n.º 93", image:"img/daedalus.jpg", parts:["Icarus", {options:["pater","patrem","patri"], correct:"patri"}, "non paret et alte volat."], es:"Ícaro no le obedece a su padre y vuela alto." },
+        { src:"n.º 94", image:"img/hilo.jpg", parts:["Ariadna", {options:["Theseus","Theseum","Theseo"], correct:"Theseo"}, "succurrit."], es:"Ariadna le brinda ayuda a Teseo." },
+        { src:"n.º 96", image:"img/polifemo.jpg", parts:["Nunc Cyclops", {options:["oculus","oculum","oculo"], correct:"oculo"}, "caret."], es:"Ahora el cíclope carece de ojo." },
+        { src:"n.º 84", image:"img/pretendientes.jpg", parts:["Vlixes et Telemachus procos occidunt. Minerva", {options:["eos","eis","ei"], correct:"eos"}, "adiuvat."], es:"Ulises y Telémaco matan a los pretendientes. Minerva los ayuda." },
+        { src:"n.º 98", parts:["Pasiphae Daedalum", {options:["vincula","vinculorum","vinculis"], correct:"vinculis"}, "liberat."], es:"Pasífae libera a Dédalo de las cadenas." },
+        { src:"n.º 92", parts:["Minerva", {options:["Vlixes","Vlixem","Vlixi"], correct:"Vlixi"}, "favet, sed Neptunus ei non favet."], es:"Minerva le es favorable a Ulises, pero Neptuno no le es favorable." }
       ]
     },
 
-    // Ithaca — una escena por vez: el globo de la respuesta está vacío y se completa con una ficha (3 opciones:
-    // la correcta, la misma frase en 3ª persona y la respuesta de otra escena).
-    itaca: {
-      paso: "3 - Ithaca",
-      scenes: [
-        { image:"img/eumeo.jpg", ctx:"Ulises llega disfrazado de mendigo a la choza de Eumeo.",
-          ask:{ who:"Eumeo", la:"Quis es?", pos:{ x:3, y:4, w:44 }, tail:40 },
-          answer:{ who:"Ulises", pos:{ x:50, y:4, w:47 }, tail:20 },
-          options:[ { la:"Socius Vlixis sum.", ok:true }, { la:"Socius Vlixis est." }, { la:"Ex Creta venio." } ],
-          es:"—¿Quién sos? —Soy compañero de Ulises." },
-        { image:"img/eumeo.jpg", ctx:"Eumeo sigue preguntando.",
-          ask:{ who:"Eumeo", la:"Unde venis?", pos:{ x:3, y:4, w:44 }, tail:40 },
-          answer:{ who:"Ulises", pos:{ x:50, y:4, w:47 }, tail:20 },
-          options:[ { la:"Ex Creta venio.", ok:true }, { la:"Ex Creta venit." }, { la:"Socius Vlixis sum." } ],
-          es:"—¿De dónde venís? —Vengo de Creta." },
-        { image:"img/euriclea.jpg", ctx:"Euriclea le lava los pies al mendigo, ve la cicatriz y dice:",
-          answer:{ who:"Euriclea", pos:{ x:44, y:2, w:54 }, tail:35 },
-          options:[ { la:"Cicatricem video: tu Vlixes es!", ok:true }, { la:"Cicatricem videt: ille Vlixes est!" }, { la:"Socius Vlixis sum." } ],
-          es:"Veo la cicatriz: ¡sos Ulises!" }
-      ]
-    },
-
-    // Daedalus — una frase por pantalla, sobre la imagen limpia: globo arriba de la imagen con la punta hacia
-    // quien habla (tail = x % del personaje) + recuadro verde (zone). Todos los globos son ejercicio.
-    dedalo: {
-      paso: "4 - Daedalus",
-      hint: "Pista: ¿quién habla? Presente: ‑o «yo», ‑s «vos», ‑t «él / ella». Perfecto: ‑i «yo», ‑isti «vos», ‑it «él / ella».",
+    // Inveni — léxico puro sobre la misma imagen del Imago. Zonas [x,y,w,h] % (_pruebas/imago.png).
+    find: {
+      paso: "3 - Inveni",
+      image: "img/pretendientes.jpg",
       items: [
-        { image:"img/perdix.jpg", zone:[42,9.5,23,12.5], tail:54, who:"Dédalo, a Pérdix", src:"n.º 39", parts:["Quod serram", {options:["invenisti","invenit","inveni"], correct:"invenisti"}, ", te de tecto", {options:["deicio","deicit","deicis"], correct:"deicio"}, "."], es:"Porque inventaste la sierra, te arrojo del techo." },
-        { image:"img/perdix.jpg", zone:[47,43,42.5,50], tail:69, who:"Minerva", src:"n.º 40", parts:["Perdicem servare volo: in avem eum", {options:["muto","mutat","mutas"], correct:"muto"}, "."], es:"Quiero salvar a Pérdix: lo transformo en ave." },
-        { image:"img/perdix.jpg", zone:[26,35,32,21], tail:40, who:"Pérdix", src:"n.º 41", parts:["Pennas", {options:["habeo","habet","habes"], correct:"habeo"}, ": iam non cado, sed volo!"], es:"Tengo alas: ya no caigo, ¡vuelo!" },
-        { image:"img/pasifae.jpg", zone:[51,30,31.5,60], tail:60, who:"Pasífae", src:"n.º 42-43", parts:["Taurum", {options:["amo","amat","amas"], correct:"amo"}, ", sed ille me non", {options:["amat","amo","amas"], correct:"amat"}, ": alias vaccas amat. Quid facere", {options:["possum","potest","potes"], correct:"possum"}, "?"], es:"Amo al toro, pero él no me ama: ama a otras vacas. ¿Qué puedo hacer?" },
-        { image:"img/vaca.jpg", zone:[31,26.5,45.5,61.5], tail:51, who:"Dédalo, a Pasífae", src:"n.º 44", parts:["Vaccam ligneam tibi", {options:["feci","fecit","fecisti"], correct:"feci"}, "et corium verae vaccae", {options:["addidi","addidit","addidisti"], correct:"addidi"}, "."], es:"Te hice una vaca de madera y le agregué el cuero de una vaca verdadera." }
-      ]
-    },
-
-    // Quis loquitur? — una frase por pantalla, imagen limpia; al tocar a quien habla: recuadro verde + el globo
-    // (arriba de la imagen) pasa a apuntarle (tail = x % de la cabeza).
-    quis: {
-      paso: "5 - Quis loquitur",
-      image: "img/hilo.jpg",
-      zones: { theseus:{ box:[3.8,20,33.7,70], tail:29 }, ariadna:{ box:[37.5,15.2,57.5,67.8], tail:60 } },
-      items: [
-        { who:"Ariadna", zone:"ariadna", src:"n.º 45", latin:"Hoc filum tibi do: filo ex labyrintho exire potes.", es:"Te doy este hilo: con el hilo podés salir del laberinto.", pista:"«tibi do»: quien habla da el hilo." },
-        { who:"Teseo", zone:"theseus", src:"n.º 46", latin:"Cur mihi auxilium das? Minotaurus frater tuus est.", es:"¿Por qué me ayudás? El Minotauro es tu hermano.", pista:"«frater tuus»: le habla a la hermana del Minotauro." },
-        { who:"Ariadna", zone:"ariadna", src:"n.º 47", latin:"Te amo; te servare et tecum in patriam tuam navigare volo.", es:"Te amo; quiero salvarte y navegar con vos a tu patria.", pista:"«in patriam tuam»: quien habla quiere ir a la patria del otro." },
-        { who:"Teseo", zone:"theseus", src:"n.º 48", latin:"Si Minotaurum occido, te mecum in patriam meam ducam.", es:"Si mato al Minotauro, te voy a llevar conmigo a mi patria.", pista:"«Minotaurum occido»: habla quien va a matar al Minotauro." }
+        { latin:"arcus", es:"el arco", zones:[[50.9,7.0,16.8,47.6]] },
+        { latin:"lyra", es:"la lira", zones:[[70.5,48.7,11.8,25.5]] },
+        { latin:"procus", es:"el pretendiente", zones:[[1.4,58.6,47.7,33.6]] },
+        { latin:"sagittae", es:"las flechas", zones:[[38.2,88.0,34.5,12.0]] },
+        { latin:"Telemachus", es:"Telémaco", zones:[[21.4,26.7,16.8,54.5]] }
       ]
     }
   };
+
+  // ---------- Calentamiento: armado del castellano al latín, sin señuelos (conv. 31). al: {índice:tramo}; **x** = negrita ----------
+  var WARMUP26 = [
+    { src:"n.º 85", arco:"Theseus et Ariadna", img:"img/warm-cofre.jpg",
+      words:["Theseus","Ariadnam","secum","in","navigio","ducit."], decoys:[],
+      al:"{0:Teseo} {5:lleva} {1:a **Ariadna**} {2:consigo} {3:en} {4:la nave}.",
+      expl:"Fijate: <strong>Ariadnam</strong> está en acusativo porque es el objeto directo de <em>ducit</em> («<strong>la</strong> lleva»)." },
+    { src:"n.º 90", arco:"Reditus Vlixis", img:"img/pretendientes.jpg",
+      words:["Vlixes","procis","arcum","dat."], decoys:[],
+      al:"{0:Ulises} {1:les} {3:da} {2:el **arco**} {1:a los **pretendientes**}.",
+      expl:"Fijate: <em>dat</em> pide las dos cosas: <strong>arcum</strong>, acusativo, objeto directo; <strong>procis</strong>, dativo, objeto indirecto («<strong>les</strong> da el arco»)." },
+    { src:"n.º 88", arco:"Reditus Vlixis", img:"img/warm-eumeo.jpg",
+      words:["Eumaeus","eum","in","casam","recipit","et","cibum","dat."], decoys:[],
+      al:"{0:Eumeo} {1:**lo**} {4:recibe} {2:en} {3:su choza} {5:y} {7:le da} {6:**comida**}.",
+      expl:"Fijate: <strong>eum</strong> y <strong>cibum</strong> están en acusativo: son objeto directo de <em>recipit</em> y de <em>dat</em>. <em>casam</em> también está en acusativo, pero porque va con <em>in</em>: no es objeto directo." }
+  ];
 
   var IDK = "No lo sé todavía";
   var IDK_VALUE = "__idk__";
@@ -657,9 +508,9 @@
     if (restored && restored.step){
       submitLog = restored.submitLog || [];
       (restored.flagged || []).forEach(function(k){ flagged[k] = true; });
-      showStep(document.getElementById(restored.step) ? restored.step : "step-s1");
+      showStep(document.getElementById(restored.step) ? restored.step : "step-warm");
     } else {
-      showStep("step-s1");
+      showStep("step-warm");
     }
     window.scrollTo({ top:0, behavior:"auto" });
   });
@@ -687,6 +538,89 @@
   }
 
   function v2el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  function warmArmado(host, it, onDone){
+    var cur = 0, errs = 0, slotErr = 0, rev = {}, used = {}, bad = {}, msg = "", msgBad = false, done = false;
+    var bank = shuffled(it.words.map(function(w, k){ return { t: w, k: k }; }).concat(it.decoys.map(function(w){ return { t: w, k: -1 }; })));
+    function bare(w){ return w.replace(/[,.;:]+$/, ""); }
+    function esHtml(){
+      return it.al.replace(/\{([\d,]+):([^}]*)\}/g, function(_, ids, txt){
+        var on = !done && ids.split(",").map(Number).indexOf(cur) !== -1;
+        return '<span class="' + (on ? "on" : "") + '">' + txt.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>") + '</span>';
+      }).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    }
+    function tap(bi){
+      if (done || used[bi] || bad[bi]) return;
+      var c = bank[bi];
+      if (c.k === cur){ used[bi] = true; cur++; slotErr = 0; msg = ""; msgBad = false; }
+      else if (c.k > cur){ msg = "Esa va, pero más adelante."; msgBad = false; }
+      else {
+        bad[bi] = true; errs++; slotErr++; msgBad = true;
+        msg = "Esa forma no va acá: ¿qué función cumple la palabra en la frase?";
+        if (slotErr >= 2){
+          for (var j = 0; j < bank.length; j++) if (bank[j].k === cur){ used[j] = true; break; }
+          rev[cur] = true; cur++; slotErr = 0; msg = "Esta es la forma que iba (en amarillo)."; msgBad = false;
+        }
+      }
+      if (cur >= it.words.length){ done = true; render(); onDone(Object.keys(rev).length === 0, errs); return; }
+      render();
+    }
+    function render(){
+      host.innerHTML = "";
+      host.appendChild(v2el("p", "v2-es", esHtml()));
+      var slots = v2el("div", "v2-slots");
+      it.words.forEach(function(w, k){
+        var cls = k < cur ? (rev[k] ? " rev" : " fill") : (k === cur && !done ? " cur" : "");
+        slots.appendChild(v2el("div", "v2-slot" + cls, k < cur ? w : "&nbsp;"));
+      });
+      host.appendChild(slots);
+      if (done){
+        host.appendChild(v2el("div", "warm-expl" + (Object.keys(rev).length ? " rev" : ""), (Object.keys(rev).length ? "" : "<strong>¡Correcto!</strong> ") + it.expl));
+        return;
+      }
+      var bk = v2el("div", "v2-bank");
+      bank.forEach(function(c, bi){
+        var b = v2el("button", "v2-chip" + (used[bi] ? " used" : "") + (bad[bi] ? " bad" : ""), bare(c.t));
+        b.type = "button"; b.disabled = !!(used[bi] || bad[bi]);
+        b.addEventListener("click", function(){ tap(bi); });
+        bk.appendChild(b);
+      });
+      host.appendChild(bk);
+      host.appendChild(v2el("p", "v2-msg" + (msgBad ? " bad" : ""), msg || "La palabra resaltada en castellano es la que sigue en latín."));
+    }
+    render();
+  }
+
+  // Una frase por vez; al terminar cada una, «Siguiente frase».
+  function buildWarm(items, stageEl, progressEl, doneBtn, sealsEl){
+    var arcs = items.map(function(it){ return it.arco; });
+    var lit = {}, k = 0;
+    function seals(){
+      sealsEl.innerHTML = "";
+      arcs.forEach(function(a){ sealsEl.appendChild(v2el("span", "v2-seal" + (lit[a] ? " on" : ""), a)); });
+    }
+    function show(){
+      var it = items[k];
+      progressEl.textContent = k + " / " + items.length;
+      stageEl.innerHTML = "";
+      var card = v2el("div", "stage-card");
+      card.appendChild(v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'));
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
+      var host = v2el("div"); card.appendChild(host);
+      stageEl.appendChild(card);
+      warmArmado(host, it, function(ok, errs){
+        submitLog.push({ paso: "0 - Calentamiento", item: it.arco + " · " + it.src, respuesta: ok ? "completa" : "con palabras reveladas", correcta: ok, errores: errs });
+        lit[it.arco] = true; seals();
+        progressEl.textContent = (k + 1) + " / " + items.length;
+        if (k < items.length - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ k++; show(); stageEl.scrollIntoView({ block:"start", behavior:"auto" }); });
+          card.appendChild(nx);
+        } else doneBtn.hidden = false;
+      });
+    }
+    seals(); show();
+  }
 
   function buildHotspotNum(cfg, stageEl, progressEl, doneBtn){
     var wrap = v2el("div", "hs-wrap");
@@ -724,28 +658,27 @@
   }
 
 
-  // ---------- Imago (Jordaens recortado sin marco; zonas y números verificados con PIL: _pruebas/imago.png) ----------
-  var HOTSPOT24 = {
-    image: "img/polifemo.jpg",
+  // ---------- Imago (zonas y números verificados con PIL: _pruebas/imago.png) ----------
+  var HOTSPOT26 = {
+    image: "img/pretendientes.jpg",
     spots: [
-      { x:3.5,  y:5.7,  w:38.7, h:94.0, bx:45.0, by:9.2,  enun:"Cyclops, Cyclopis" },
-      { x:43.4, y:37.6, w:16.6, h:33.7, bx:48.9, by:33.2, enun:"Vlixes, Vlixis" },
-      { x:60.0, y:30.5, w:35.4, h:51.4, bx:66.6, by:26.1, enun:"socius, socii", form:"(pl. socii)" },
-      { x:37.8, y:67.7, w:28.8, h:30.1, bx:71.0, by:89.0, enun:"ovis, ovis", form:"(pl. oves)" },
-      { x:3.0,  y:73.0, w:10.0, h:20.4, bx:8.0,  by:67.7, enun:"vinum, vini" }
+      { x:30.0, y:24.4, w:20.9, h:67.3, bx:42.7, by:19.1, enun:"Vlixes, Vlixis" },
+      { x:50.9, y:7.0,  w:16.8, h:47.6, bx:71.8, by:11.0, enun:"arcus, arcus" },
+      { x:38.2, y:89.9, w:34.5, h:9.3,  bx:34.1, by:94.5, enun:"sagitta, sagittae", form:"(pl. sagittae)" },
+      { x:1.4,  y:58.6, w:47.7, h:33.6, bx:5.0,  by:54.5, enun:"procus, proci" },
+      { x:21.4, y:26.7, w:16.8, h:54.5, bx:18.6, by:24.9, enun:"Telemachus, Telemachi" },
+      { x:70.5, y:48.7, w:11.8, h:25.5, bx:70.0, by:77.1, enun:"lyra, lyrae" }
     ]
   };
 
-  // ---------- Partes de una frase con desplegables: palabra por palabra, la puntuación queda pegada ----------
   function renderParts(row, parts, makeDD){
     var pending = null;
     parts.forEach(function(part, pi){
       if (typeof part === "string"){
         part.split(" ").filter(Boolean).forEach(function(w){
           if (pending && /^[,.;:!?]+$/.test(w)){ pending.appendChild(document.createTextNode(w)); pending = null; return; }
-          if (pending && /^[,.;:!?]/.test(w)){ pending.appendChild(document.createTextNode(w.charAt(0))); w = w.slice(1); }
           pending = null;
-          if (w) row.appendChild(v2el("span", null, w.replace(/&/g,"&amp;").replace(/</g,"&lt;")));
+          row.appendChild(v2el("span", null, w));
         });
         return;
       }
@@ -757,358 +690,101 @@
     });
   }
 
-  function readBubble(b){
-    var el = v2el("div", "bubble read");
-    el.appendChild(v2el("div", "who", b.who));
-    el.appendChild(v2el("div", "bubble-la", b.latin));
-    el.appendChild(v2el("p", "bubble-es", b.es));
-    if (b.cite) el.appendChild(v2el("p", "cite", b.cite));
-    return el;
-  }
-
-  // ---------- Escenas con globos (Troia, Daedalus): una escena por vez ----------
-  // cfg.comic = globos SOBRE la imagen (historieta); si no, globos debajo. Opciones y traducción, debajo de la imagen.
-  function buildScenes(cfg, stageId, progressId, btnId, streakId){
-    var stage = document.getElementById(stageId);
-    var streak = makeStreak(document.getElementById(streakId));
-    var total = 0, done = 0, si = 0;
-    cfg.scenes.forEach(function(sc){ sc.bubbles.forEach(function(b){ (b.parts || []).forEach(function(p){ if (typeof p !== "string") total++; }); }); });
+  // ---------- Paso 2: tocar la tarjeta y después el cajón (colores por tipo, como en el S3) ----------
+  function buildBoxes(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var pool = document.getElementById(pre + "-pool"), boxesHost = document.getElementById(pre + "-boxes"), msgEl = document.getElementById(pre + "-msg");
+    var boxes = {}, holders = {}, sel = null, total = cfg.words.length, resolved = 0;
+    function say(t, cls){ msgEl.textContent = t; msgEl.className = "gen-msg" + (cls ? " " + cls : ""); }
     function upd(){
-      document.getElementById(progressId).innerHTML = "Resueltos: <strong>" + done + " / " + total + "</strong>";
-      document.getElementById(btnId).disabled = done < total;
+      document.getElementById(pre + "-progress").innerHTML = "Tarjetas clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = resolved < total;
     }
-    function scene(){
-      var sc = cfg.scenes[si];
-      stage.innerHTML = "";
-      var card = v2el("div", "scene-card");
-      card.appendChild(v2el("p", "scene-count", "Escena " + (si + 1) + " de " + cfg.scenes.length));
-      var comic = null, ctl = v2el("div", "comic-ctl");
-      if (cfg.comic){
-        comic = v2el("div", "comic");
-        comic.appendChild(v2el("img", null)); comic.firstChild.src = sc.image; comic.firstChild.alt = "";
-        card.appendChild(comic); card.appendChild(ctl);
-      } else {
-        card.appendChild(v2el("div", "scene-img", '<img src="' + sc.image + '" alt="">'));
-      }
-      var pendingInScene = 0;
-      sc.bubbles.forEach(function(b){
-        var el = v2el("div", cfg.comic ? "cbubble" + (sc.band ? " flow" : "") + (b.up ? " up" : "") + (b.side ? " " + b.side : "") : "bubble");
-        if (cfg.comic){
-          if (!sc.band){
-            el.style.left = b.pos.x + "%"; el.style.width = b.pos.w + "%";
-            if (b.pos.bottom != null) el.style.bottom = b.pos.bottom + "%"; else el.style.top = b.pos.y + "%";
-          }
-          el.style.setProperty("--tail", b.tail + "%");
+    function arm(on){ Object.keys(boxes).forEach(function(k){ boxes[k].classList.toggle("armed", on); boxes[k].classList.remove("flash-bad"); }); }
+    function place(w, rev){
+      resolved++; w._chip.remove();
+      holders[w.correct].appendChild(v2el("span", "token gen-in" + (rev ? " gen-rev" : ""), w.word));
+      sel = null; arm(false); upd();
+    }
+    cfg.columns.forEach(function(c){
+      var b = v2el("button", "gen-box " + c.color); b.type = "button";
+      b.appendChild(v2el("div", "gen-model", "<b>" + c.model + "</b>"));
+      b.appendChild(v2el("div", "gen-pat", c.pat));
+      holders[c.key] = v2el("div"); b.appendChild(holders[c.key]);
+      b.addEventListener("click", function(){
+        if (!sel){ say("Primero, una tarjeta: después, el cajón."); return; }
+        var w = sel;
+        if (c.key === w.correct){
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: true, primerIntento: w._tried === 0, final: true });
+          if (w._tried === 0) streak.hit();
+          say("¡Correcto! " + w.word + ": " + c.model + ".", "ok"); place(w, false); return;
         }
-        el.appendChild(v2el("div", "who", b.who));
-        var row = v2el("div", "bubble-la"); el.appendChild(row);
-        var host = cfg.comic ? ctl : el;
-        var panels = v2el("div"), msgs = v2el("div", "dd-msgs");
-        var es = v2el("p", cfg.comic ? "comic-es" : "bubble-es"); es.hidden = true;
-        var toggle = v2el("button", "btn-cast", cfg.comic ? "Ver traducción: " + b.who : "Ver traducción"); toggle.type = "button";
-        function showEs(){ es.innerHTML = (cfg.comic ? "<b>" + b.who + ":</b> " : "") + b.es; es.hidden = false; }
-        toggle.addEventListener("click", function(){
-          if (es.hidden) showEs(); else es.hidden = true;
-          if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: b.who + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
-        });
-        var n = 0, k = 0;
-        renderParts(row, b.parts, function(part){
-          n++; pendingInScene++;
-          var d = buildDropdown(part.options, part.correct, {
-            paso: cfg.paso, item: b.who + " · " + b.src + " · " + part.correct, hint: cfg.hint, streak: streak,
-            onResolve: function(){
-              done++; k++; pendingInScene--; upd();
-              if (k === n){ showEs(); if (toggle.parentNode) toggle.remove(); }
-              if (pendingInScene === 0) finishScene();
-            }
-          });
-          panels.appendChild(d.panel); msgs.appendChild(d.msg);
-          return d.select;
-        });
-        host.appendChild(panels); host.appendChild(msgs); host.appendChild(toggle); host.appendChild(es);
-        if (cfg.comic){ if (sc.band) comic.insertBefore(el, comic.firstChild); else comic.appendChild(el); } else card.appendChild(el);
+        w._tried++;
+        submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+        if (w._tried === 1){ streak.reset(); b.classList.add("flash-bad"); say("No va en ese cajón. Queda un intento: conviene comparar el presente con el perfecto.", "bad"); }
+        else {
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          say("Tampoco. " + w.word + " quedó en su cajón (con borde punteado).", "bad"); place(w, true);
+        }
       });
-      function finishScene(){
-        if (si < cfg.scenes.length - 1){
-          var nx = v2el("button", "btn find-next", "Siguiente escena"); nx.type = "button";
-          nx.addEventListener("click", function(){ si++; scene(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
-          card.appendChild(nx);
-        }
-      }
-      stage.appendChild(card);
-    }
-    upd(); scene();
+      boxes[c.key] = b; boxesHost.appendChild(b);
+    });
+    shuffled(cfg.words).forEach(function(w){
+      w._tried = 0;
+      var chip = v2el("button", "token", w.word); chip.type = "button"; w._chip = chip;
+      chip.addEventListener("click", function(){
+        Array.prototype.forEach.call(pool.children, function(ch){ ch.classList.remove("sel"); });
+        if (sel === w){ sel = null; arm(false); say(""); return; }
+        sel = w; chip.classList.add("sel"); arm(true); say("Ahora, el cajón para " + w.word + ".");
+      });
+      pool.appendChild(chip);
+    });
+    upd();
   }
 
-  // ---------- Polyphemus: armado del castellano al latín (motor de la Altercatio), una frase por vez ----------
-  function armado(host, it, onDone){
-    var cur = 0, errs = 0, slotErr = 0, rev = {}, used = {}, bad = {}, msg = "", msgBad = false, done = false;
-    function bare(w){ return w.replace(/[,.;:!?]+$/, ""); }
-    var bank = shuffled(it.words.map(function(w, k){ return { t: w, k: k }; }).concat(it.decoys.map(function(w){ return { t: w, k: -1 }; })));
-    function esHtml(){
-      return it.al.replace(/\{([\d,]+):([^}]*)\}/g, function(_, ids, txt){
-        var on = !done && ids.split(",").map(Number).indexOf(cur) !== -1;
-        return '<span class="' + (on ? "on" : "") + '">' + txt + '</span>';
-      });
-    }
-    function tap(bi){
-      if (done || used[bi] || bad[bi]) return;
-      var c = bank[bi];
-      if (c.k >= 0 && bare(c.t) === bare(it.words[cur])){ used[bi] = true; cur++; slotErr = 0; msg = ""; msgBad = false; }
-      else if (c.k >= 0){ msg = "Esa va, pero más adelante."; msgBad = false; }
-      else {
-        bad[bi] = true; errs++; slotErr++; msgBad = true;
-        msg = "Esa forma no va acá: ¿quién habla y de quién?";
-        if (slotErr >= 2){
-          for (var j = 0; j < bank.length; j++) if (!used[j] && bank[j].k >= 0 && bare(bank[j].t) === bare(it.words[cur])){ used[j] = true; break; }
-          rev[cur] = true; cur++; slotErr = 0; msg = "Esta es la forma que iba (en amarillo)."; msgBad = false;
-        }
-      }
-      if (cur >= it.words.length){ done = true; render(); onDone(Object.keys(rev).length === 0, errs); return; }
-      render();
-    }
-    function render(){
-      host.innerHTML = "";
-      host.appendChild(v2el("p", "v2-es", esHtml()));
-      var slots = v2el("div", "v2-slots");
-      it.words.forEach(function(w, k){
-        var cls = k < cur ? (rev[k] ? " rev" : " fill") : (k === cur && !done ? " cur" : "");
-        slots.appendChild(v2el("div", "v2-slot" + cls, k < cur ? w : "&nbsp;"));
-      });
-      host.appendChild(slots);
-      if (done){
-        host.appendChild(v2el("div", "warm-expl" + (Object.keys(rev).length ? " rev" : ""), (Object.keys(rev).length ? "" : "<strong>¡Correcto!</strong> ") + it.expl));
-        return;
-      }
-      var bk = v2el("div", "v2-bank");
-      bank.forEach(function(c, bi){
-        var b = v2el("button", "v2-chip" + (used[bi] ? " used" : "") + (bad[bi] ? " bad" : ""), bare(c.t));
-        b.type = "button"; b.disabled = !!(used[bi] || bad[bi]);
-        b.addEventListener("click", function(){ tap(bi); });
-        bk.appendChild(b);
-      });
-      host.appendChild(bk);
-      host.appendChild(v2el("p", "v2-msg" + (msgBad ? " bad" : ""), msg || "La palabra resaltada en castellano es la que sigue en latín."));
-    }
-    render();
-  }
-  function buildPoly(cfg, stageEl, progressEl, doneBtn){
-    var k = 0;
-    var imgWrap = document.getElementById("poly-img");
-    var box = v2el("div", "find-zone ok"); imgWrap.appendChild(box);
-    function mark(zone){
-      var z = cfg.zones[zone];
-      box.style.left = z[0] + "%"; box.style.top = z[1] + "%"; box.style.width = z[2] + "%"; box.style.height = z[3] + "%";
-    }
-    function show(){
-      var it = cfg.items[k];
-      mark(it.zone);
-      progressEl.textContent = k + " / " + cfg.items.length;
-      stageEl.innerHTML = "";
-      var card = v2el("div", "bubble");
-      card.appendChild(v2el("div", "who", it.who));
-      var host = v2el("div"); card.appendChild(host);
-      stageEl.appendChild(card);
-      armado(host, it, function(ok, errs){
-        submitLog.push({ paso: cfg.paso, item: it.who + " · " + it.src, respuesta: ok ? "completa" : "con palabras reveladas", correcta: ok, primerIntento: errs === 0, errores: errs, final: true });
-        progressEl.textContent = (k + 1) + " / " + cfg.items.length;
-        if (k < cfg.items.length - 1){
-          var nx = v2el("button", "btn find-next", "Siguiente globo"); nx.type = "button";
-          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: imgWrap.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
-          card.appendChild(nx);
-        } else doneBtn.hidden = false;
-      });
-    }
-    show();
-  }
-
-  // ---------- Ithaca: una escena por vez; el globo de la respuesta se completa con una ficha ----------
-  function buildItaca(cfg, stageEl, progressEl, btnEl, streakEl){
-    var streak = makeStreak(streakEl);
-    var si = 0, solved = 0, total = cfg.scenes.length;
-    function upd(){ progressEl.innerHTML = "Escenas completas: <strong>" + solved + " / " + total + "</strong>"; btnEl.disabled = solved < total; }
-    function place(el, p){ el.style.left = p.x + "%"; el.style.top = p.y + "%"; el.style.width = p.w + "%"; }
-    function scene(){
-      var sc = cfg.scenes[si], tries = 0, closed = false;
-      stageEl.innerHTML = "";
-      var card = v2el("div", "scene-card");
-      card.appendChild(v2el("p", "scene-count", "Escena " + (si + 1) + " de " + total));
-      var comic = v2el("div", "comic");
-      var img = document.createElement("img"); img.src = sc.image; img.alt = ""; comic.appendChild(img);
-      if (sc.ask){
-        var q = v2el("div", "cbubble"); place(q, sc.ask.pos); q.style.setProperty("--tail", sc.ask.tail + "%");
-        q.appendChild(v2el("div", "who", sc.ask.who)); q.appendChild(v2el("div", "bubble-la", sc.ask.la));
-        comic.appendChild(q);
-      }
-      var a = v2el("div", "cbubble"); place(a, sc.answer.pos); a.style.setProperty("--tail", sc.answer.tail + "%");
-      a.appendChild(v2el("div", "who", sc.answer.who));
-      var aLa = v2el("div", "bubble-la", '<span class="empty">…</span>'); a.appendChild(aLa);
-      comic.appendChild(a);
-      card.appendChild(comic);
-      card.appendChild(v2el("p", "ctx-line", sc.ctx));
-      var chips = v2el("div", "opt-chips"); card.appendChild(chips);
-      var msg = v2el("p", "gen-msg"); card.appendChild(msg);
-      var es = v2el("p", "comic-es"); es.hidden = true; card.appendChild(es);
-      function close(ok, text, resp){
-        closed = true; solved++; upd();
-        aLa.textContent = text; a.classList.add(ok ? "ok" : "rev");
-        es.textContent = "Traducción: " + sc.es; es.hidden = false;
-        Array.prototype.forEach.call(chips.children, function(c){ c.disabled = true; });
-        submitLog.push({ paso: cfg.paso, item: (sc.ask ? sc.ask.la : sc.answer.who), respuesta: resp, correcta: ok, primerIntento: ok && tries === 0, final: true });
-        if (si < total - 1){
-          var nx = v2el("button", "btn find-next", "Siguiente escena"); nx.type = "button";
-          nx.addEventListener("click", function(){ si++; scene(); window.scrollTo({ top: stageEl.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
-          card.appendChild(nx);
-        }
-      }
-      shuffled(sc.options).forEach(function(o){
-        var c = v2el("button", "token", o.la); c.type = "button";
-        c.addEventListener("click", function(){
-          if (closed || c.disabled) return;
-          if (o.ok){
-            if (tries === 0) streak.hit();
-            msg.textContent = "¡Correcto!"; msg.className = "gen-msg ok";
-            close(true, o.la, tries === 0 ? "primer intento" : "segundo intento");
-            return;
-          }
-          tries++; streak.reset();
-          submitLog.push({ paso: cfg.paso, item: (sc.ask ? sc.ask.la : sc.answer.who), respuesta: o.la, correcta: false, primerIntento: false, final: false });
-          c.classList.add("bad"); c.disabled = true;
-          a.classList.remove("shake"); void a.offsetWidth; a.classList.add("shake");
-          if (tries >= 2){
-            var right = sc.options.filter(function(x){ return x.ok; })[0];
-            msg.textContent = "Esta era la respuesta (en amarillo)."; msg.className = "gen-msg bad";
-            close(false, right.la, "revelada");
-          } else {
-            msg.textContent = /\b(est|venit|videt)\b/.test(o.la) ? "No: está en 3ª persona, habla de otro. Queda un intento." : "No: esa frase no responde a esta escena. Queda un intento.";
-            msg.className = "gen-msg bad";
-          }
-        });
-        chips.appendChild(c);
-      });
-      stageEl.appendChild(card);
-    }
-    upd(); scene();
-  }
-
-  // ---------- Daedalus: una frase por pantalla, imagen limpia; globo arriba con la punta hacia quien habla
-  // + recuadro verde sobre el personaje. Las opciones se abren dentro del globo. ----------
-  function buildBand(cfg, stageId, progressId, btnId, streakId){
-    var stage = document.getElementById(stageId);
-    var streak = makeStreak(document.getElementById(streakId));
-    var total = 0, done = 0, k = 0;
-    cfg.items.forEach(function(it){ it.parts.forEach(function(p){ if (typeof p !== "string") total++; }); });
+  // ---------- Paso 3: una frase por pantalla; presente → perfecto; al resolver, la forma de Higino ----------
+  function buildOne(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, done = 0, total = cfg.items.length;
     function upd(){
-      document.getElementById(progressId).innerHTML = "Resueltos: <strong>" + done + " / " + total + "</strong>";
-      document.getElementById(btnId).disabled = done < total;
+      document.getElementById(pre + "-progress").innerHTML = "Resueltas: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = done < total;
     }
     function show(){
       var it = cfg.items[k];
       stage.innerHTML = "";
       var card = v2el("div", "scene-card");
-      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + cfg.items.length));
-      var comic = v2el("div", "comic");
-      var b = v2el("div", "cbubble flow"); b.style.setProperty("--tail", it.tail + "%");
-      b.appendChild(v2el("div", "who", it.who));
-      var row = v2el("div", "bubble-la"); b.appendChild(row);
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
+      if (it.image) card.appendChild(v2el("div", "scene-img", '<img src="' + it.image + '" alt="">'));
+      var row = v2el("div", "dd-row");
       var panels = v2el("div"), msgs = v2el("div", "dd-msgs");
-      var n = 0, got = 0;
       var es = v2el("p", "comic-es"); es.hidden = true;
+      var hig = v2el("p", "higino"); hig.hidden = true;
       var toggle = v2el("button", "btn-cast", "Ver traducción"); toggle.type = "button";
       toggle.addEventListener("click", function(){
         if (es.hidden){ es.textContent = "Traducción: " + it.es; es.hidden = false; } else es.hidden = true;
-        if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: it.who + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
+        if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: it.src + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
       });
       renderParts(row, it.parts, function(part){
-        n++;
         var d = buildDropdown(part.options, part.correct, {
-          paso: cfg.paso, item: it.who + " · " + it.src + " · " + part.correct, hint: cfg.hint, streak: streak,
+          paso: cfg.paso, item: it.src + " · " + part.correct, hint: cfg.hint, streak: streak,
           onResolve: function(){
-            done++; got++; upd();
-            if (got === n){
-              es.textContent = "Traducción: " + it.es; es.hidden = false; if (toggle.parentNode) toggle.remove();
-              if (k < cfg.items.length - 1){
-                var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
-                nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
-                card.appendChild(nx);
-              }
+            done++; upd();
+            es.textContent = "Traducción: " + it.es; es.hidden = false; if (toggle.parentNode) toggle.remove();
+            if (it.hig){ hig.innerHTML = "Higino " + it.hig; hig.hidden = false; }
+            if (k < total - 1){
+              var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+              nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+              card.appendChild(nx);
             }
           }
         });
         panels.appendChild(d.panel); msgs.appendChild(d.msg);
         return d.select;
       });
-      b.appendChild(panels); b.appendChild(msgs);
-      comic.appendChild(b);
-      var wrap = v2el("div", "quis-wrap");
-      var img = document.createElement("img"); img.src = it.image; img.alt = ""; wrap.appendChild(img);
-      var z = v2el("div", "find-zone ok");
-      z.style.left = it.zone[0] + "%"; z.style.top = it.zone[1] + "%"; z.style.width = it.zone[2] + "%"; z.style.height = it.zone[3] + "%";
-      wrap.appendChild(z); comic.appendChild(wrap);
-      card.appendChild(comic); card.appendChild(toggle); card.appendChild(es);
+      card.appendChild(row); card.appendChild(panels); card.appendChild(msgs); card.appendChild(toggle); card.appendChild(es); card.appendChild(hig);
       stage.appendChild(card);
-    }
-    upd(); show();
-  }
-
-  // ---------- Quis loquitur?: una frase por pantalla, imagen limpia. Al tocar a quien habla: recuadro verde
-  // y el globo (arriba de la imagen) pasa a apuntarle. ----------
-  function buildQuis(cfg, stageEl, progressEl, doneBtn){
-    var k = 0, solved = 0, total = cfg.items.length;
-    function upd(){ progressEl.textContent = solved + " / " + total; }
-    function show(){
-      var it = cfg.items[k], wrong = 0, closed = false;
-      stageEl.innerHTML = "";
-      var card = v2el("div", "scene-card");
-      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
-      var comic = v2el("div", "comic");
-      var b = v2el("div", "cbubble flow notail");
-      var who = v2el("div", "who unknown", "¿Quién lo dice?"); b.appendChild(who);
-      b.appendChild(v2el("div", "bubble-la", it.latin));
-      var msg = v2el("div", "find-msg"); b.appendChild(msg);
-      comic.appendChild(b);
-      var wrap = v2el("div", "quis-wrap");
-      var img = document.createElement("img"); img.src = cfg.image; img.alt = ""; img.draggable = false; wrap.appendChild(img);
-      comic.appendChild(wrap);
-      card.appendChild(comic);
-      var es = v2el("p", "comic-es"); es.hidden = true; card.appendChild(es);
-      stageEl.appendChild(card);
-      function draw(box, cls){ var d = v2el("div", "find-zone " + cls); d.style.left = box[0] + "%"; d.style.top = box[1] + "%"; d.style.width = box[2] + "%"; d.style.height = box[3] + "%"; wrap.appendChild(d); }
-      function close(ok, resp){
-        closed = true; solved++; upd();
-        var z = cfg.zones[it.zone];
-        b.classList.remove("notail"); b.style.setProperty("--tail", z.tail + "%");
-        who.textContent = it.who; who.classList.remove("unknown");
-        es.textContent = "Traducción: " + it.es; es.hidden = false;
-        submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.latin, respuesta: resp, correcta: ok, primerIntento: ok && wrong === 0, final: true });
-        if (k < total - 1){
-          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
-          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stageEl.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
-          card.appendChild(nx);
-        } else doneBtn.disabled = false;
-      }
-      wrap.addEventListener("click", function(ev){
-        if (closed) return;
-        var r = img.getBoundingClientRect();
-        var x = (ev.clientX - r.left) / r.width * 100, y = (ev.clientY - r.top) / r.height * 100;
-        var box = cfg.zones[it.zone].box;
-        if (x >= box[0] && x <= box[0] + box[2] && y >= box[1] && y <= box[1] + box[3]){
-          Array.prototype.slice.call(wrap.querySelectorAll(".find-mark")).forEach(function(e){ e.remove(); });
-          draw(box, "ok");
-          msg.textContent = wrong === 0 ? "¡Exacto!" : "¡Ahora sí!"; msg.className = "find-msg ok";
-          close(true, wrong === 0 ? "primer intento" : "segundo intento");
-          return;
-        }
-        wrong++;
-        var m = v2el("span", "find-mark", "×"); m.style.left = x + "%"; m.style.top = y + "%"; wrap.appendChild(m);
-        if (wrong >= 2){
-          draw(box, "reveal");
-          msg.textContent = "Lo dice quien quedó marcado en amarillo."; msg.className = "find-msg warn";
-          close(false, "revelada");
-        } else {
-          msg.textContent = "No es quien habla. Pista: " + it.pista + " Queda un intento."; msg.className = "find-msg bad";
-        }
-      });
     }
     upd(); show();
   }
@@ -1276,22 +952,99 @@
     return total;
   }
 
+  // =================================================================
+  // Inveni (molde Mors Laocoontis, Parte 1): aparece una expresión y se
+  // toca en la imagen. Convención 1: primer error marca × y orienta,
+  // segundo error revela la zona en amarillo.
+  // =================================================================
+  (function(){
+    var cfg = DATA.find;
+    var stage = document.getElementById("find-stage");
+    var promptHost = document.getElementById("find-prompt");
+    var progressEl = document.getElementById("find-progress");
+    var doneBtn = document.getElementById("btn-find-done");
+    var wrap = v2el("div", "hs-wrap find-wrap");
+    var img = document.createElement("img"); img.src = cfg.image; img.alt = ""; img.draggable = false;
+    wrap.appendChild(img); stage.appendChild(wrap);
+    var card = v2el("div", "find-prompt");
+    var num = v2el("div", "phrase-num");
+    var latin = v2el("p", "find-latin");
+    var msg = v2el("div", "find-msg");
+    var es = v2el("div", "cast-after"); es.hidden = true;
+    var next = v2el("button", "btn find-next", "Siguiente"); next.type = "button"; next.hidden = true;
+    [num, latin, msg, es, next].forEach(function(e){ card.appendChild(e); });
+    promptHost.appendChild(card);
+    var k = 0, wrong = 0, closed = false, total = cfg.items.length;
+    function clearMarks(){ Array.prototype.slice.call(wrap.querySelectorAll(".find-zone, .find-mark")).forEach(function(e){ e.remove(); }); }
+    function drawZones(zs, cls){
+      zs.forEach(function(z){
+        var d = v2el("div", "find-zone " + cls);
+        d.style.left = z[0] + "%"; d.style.top = z[1] + "%"; d.style.width = z[2] + "%"; d.style.height = z[3] + "%";
+        wrap.appendChild(d);
+      });
+    }
+    function direction(zs){
+      var x = zs[0][0] + zs[0][2] / 2;
+      if (x < 35) return "Está hacia la izquierda de la imagen.";
+      if (x > 65) return "Está hacia la derecha de la imagen.";
+      return "Está en la zona central de la imagen.";
+    }
+    function show(){
+      var it = cfg.items[k];
+      clearMarks(); wrong = 0; closed = false;
+      num.textContent = "Palabra " + (k + 1) + " de " + total;
+      latin.textContent = it.latin;
+      msg.textContent = ""; msg.className = "find-msg";
+      es.hidden = true; next.hidden = true;
+      progressEl.textContent = k + " / " + total;
+    }
+    function close(resp, ok){
+      var it = cfg.items[k];
+      closed = true;
+      submitLog.push({ paso: cfg.paso, item: it.latin, respuesta: resp, correcta: ok, primerIntento: ok && wrong === 0, final: true });
+      es.textContent = "Traducción: " + it.es; es.hidden = false;
+      progressEl.textContent = (k + 1) + " / " + total;
+      if (k < total - 1){ next.hidden = false; }
+      else { doneBtn.disabled = false; }
+    }
+    wrap.addEventListener("click", function(ev){
+      if (closed) return;
+      var it = cfg.items[k];
+      var r = img.getBoundingClientRect();
+      var x = (ev.clientX - r.left) / r.width * 100, y = (ev.clientY - r.top) / r.height * 100;
+      var hit = it.zones.some(function(z){ return x >= z[0] && x <= z[0] + z[2] && y >= z[1] && y <= z[1] + z[3]; });
+      if (hit){
+        drawZones(it.zones, "ok");
+        msg.textContent = wrong === 0 ? "¡Exacto!" : "¡Ahora sí!"; msg.className = "find-msg ok";
+        close(wrong === 0 ? "primer intento" : "segundo intento", true);
+        return;
+      }
+      wrong++;
+      var m = v2el("span", "find-mark", "×"); m.style.left = x + "%"; m.style.top = y + "%"; wrap.appendChild(m);
+      if (wrong >= 2){
+        drawZones(it.zones, "reveal");
+        msg.textContent = "No era ahí. El lugar correcto quedó marcado en amarillo."; msg.className = "find-msg warn";
+        close("revelada", false);
+      } else {
+        msg.textContent = "No es ahí. " + direction(it.zones) + " Queda un intento."; msg.className = "find-msg bad";
+      }
+    });
+    next.addEventListener("click", function(){ k++; show(); card.scrollIntoView({ block:"nearest", behavior:"auto" }); });
+    show();
+  })();
 
-  buildHotspotNum(HOTSPOT24, document.getElementById("img-stage"), document.getElementById("img-progress"), document.getElementById("btn-img-done"));
-  buildScenes(DATA.troya, "troya-stage", "troya-progress", "btn-troya-done", "troya-streak");
-  buildPoly(DATA.poly, document.getElementById("poly-stage"), document.getElementById("poly-progress"), document.getElementById("btn-poly-done"));
-  buildItaca(DATA.itaca, document.getElementById("itaca-stage"), document.getElementById("itaca-progress"), document.getElementById("btn-itaca-done"), document.getElementById("itaca-streak"));
-  buildBand(DATA.dedalo, "dedalo-stage", "dedalo-progress", "btn-dedalo-done", "dedalo-streak");
-  buildQuis(DATA.quis, document.getElementById("quis-stage"), document.getElementById("quis-progress"), document.getElementById("btn-quis-done"));
-  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-img"));
-  document.getElementById("btn-img-done").addEventListener("click", goStep("step-troya"));
-  document.getElementById("btn-troya-done").addEventListener("click", goStep("step-s2"));
-  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-poly"));
-  document.getElementById("btn-poly-done").addEventListener("click", goStep("step-itaca"));
-  document.getElementById("btn-itaca-done").addEventListener("click", goStep("step-s3"));
-  document.getElementById("btn-s3-done").addEventListener("click", goStep("step-dedalo"));
-  document.getElementById("btn-dedalo-done").addEventListener("click", goStep("step-quis"));
-  document.getElementById("btn-quis-done").addEventListener("click", goStep("step-fin"));
+
+  buildWarm(WARMUP26, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
+  buildHotspotNum(HOTSPOT26, document.getElementById("img-stage"), document.getElementById("img-progress"), document.getElementById("btn-img-done"));
+  buildBoxes(DATA.paso1, "p1");
+  buildOne(DATA.paso2, "p2");
+  document.getElementById("btn-warm-done").addEventListener("click", goStep("step-img"));
+  document.getElementById("btn-img-done").addEventListener("click", goStep("step-s1"));
+  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-p1"));
+  document.getElementById("btn-p1-done").addEventListener("click", goStep("step-s2"));
+  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-p2"));
+  document.getElementById("btn-p2-done").addEventListener("click", goStep("step-find"));
+  document.getElementById("btn-find-done").addEventListener("click", goStep("step-fin"));
 
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };

@@ -1295,7 +1295,7 @@
       it.addEventListener("click", function(){ toggle(false); go(s.id); });
       list.appendChild(it);
     });
-    if (k >= 0 && dots.children[k]){ var c = dots.children[k]; dots.scrollLeft = Math.max(0, c.offsetLeft - dots.clientWidth / 2); }
+    if (k >= 0 && dots.children[k] && dots.scrollWidth > dots.clientWidth){ var c = dots.children[k]; dots.scrollLeft = Math.max(0, c.offsetLeft - dots.offsetLeft - dots.clientWidth / 2); } else dots.scrollLeft = 0;
   }
   var mo = new MutationObserver(function(records){
     records.forEach(function(r){ if (r.oldValue && /(^|\s)visible(\s|$)/.test(r.oldValue)) reached[r.target.id] = true; });
