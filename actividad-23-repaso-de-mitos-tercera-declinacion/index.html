@@ -57,7 +57,7 @@
   .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
   .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
 
-  button{ font-family:var(--sans); cursor:pointer; color:inherit; }
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; touch-action:manipulation; }
   .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
   .btn:hover{ background:var(--accent-strong); }
   .btn:disabled{ opacity:.4; cursor:not-allowed; }
@@ -230,8 +230,19 @@
   .token.sel{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
   .gen-boxes{ display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
   .gen-box{ all:unset; box-sizing:border-box; display:block; cursor:pointer; border:1.5px dashed var(--rule); border-radius:10px; padding:.6rem .6rem .7rem; background:var(--surface-raised); min-height:120px; }
-  .gen-box.armed{ border-color:var(--accent); border-style:solid; }
-  .gen-box.flash-bad{ border-color:var(--incorrect); border-style:solid; background:var(--incorrect-bg); }
+  /* Un color por cajón (paleta: azul, verde, rojo, amarillo); se repite en las tarjetas ubicadas y en S2. */
+  .c-azul{ --box:var(--accent-strong); --box-bg:rgba(30,77,199,.12); }
+  .c-verde{ --box:var(--correct); --box-bg:var(--correct-bg); }
+  .c-rojo{ --box:var(--incorrect); --box-bg:var(--incorrect-bg); }
+  .c-amarillo{ --box:var(--warn); --box-bg:var(--warn-bg); }
+  .gen-box[class*="c-"]{ border:2px solid var(--box); }
+  .gen-box[class*="c-"] .gen-model b{ color:var(--box); }
+  .gen-box.armed{ box-shadow:0 0 0 3px var(--box-bg); }
+  .gen-box .token.gen-in{ border-color:var(--box); background:var(--box-bg); color:var(--box); font-weight:600; }
+  .gen-box .token.gen-rev{ border-style:dashed; }
+  .explain-box .tag[class*="c-"]{ color:var(--box); }
+  .gen-box.flash-bad{ animation:genShake .35s ease; background:var(--incorrect-bg); }
+  @keyframes genShake{ 0%,100%{ transform:translateX(0); } 25%{ transform:translateX(-5px); } 75%{ transform:translateX(5px); } }
   .gen-model{ font-family:var(--serif); font-size:1.1rem; line-height:1.3; }
   .gen-model b{ color:var(--accent-strong); }
   .gen-pat{ font-size:.75rem; color:var(--ink-muted); margin:.1rem 0 .45rem; }
@@ -279,7 +290,7 @@
     <section class="step" id="step-img">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Imago</p><h2>La caída de Ícaro</h2></div><span class="step-progress" id="img-progress">—</span></div>
-      <p class="step-instructions">Brueghel, <em>Paisaje con la caída de Ícaro</em>. Al tocar cada número se marca una parte de la escena y aparece, debajo de la imagen, la palabra latina con su enunciado.</p>
+      <p class="step-instructions">Brueghel, <em>Paisaje con la caída de Ícaro</em>. Al tocar cada número se marca una parte de la escena y aparece, debajo de la imagen, la palabra latina con su enunciado. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div id="img-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-img-done" hidden>Continuar</button></div>
     </section>
@@ -299,7 +310,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificación a partir del genitivo</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Cada cajón tiene una palabra modelo: en azul, lo que cambia del nominativo al genitivo. Cada tarjeta trae también nominativo y genitivo. La consigna: tocar una tarjeta, compararla con los modelos y tocar el cajón donde el cambio es el mismo.</p>
+      <p class="step-instructions">Cada cajón tiene una palabra modelo: en color, lo que cambia del nominativo al genitivo. Cada tarjeta trae también nominativo y genitivo. La consigna: tocar una tarjeta, compararla con los modelos y tocar el cajón donde el cambio es el mismo.</p>
       <div class="p-progress" id="p1-progress"></div>
       <div class="exercise">
         <div class="gen-pool" id="p1-pool"></div>
@@ -315,10 +326,10 @@
       <div class="explain-box">
         <p>La consonante que aparece antes de <strong>‑is</strong> en el genitivo es el final del <strong>tema</strong>:</p>
         <table>
-          <tr><td><span class="ex-latin">rex, reg‑is</span> (rey) · <span class="ex-latin">perdix, perdic‑is</span> (perdiz)</td><td>c / g: <span class="tag">tema en gutural</span></td></tr>
-          <tr><td><span class="ex-latin">uxor, uxor‑is</span> (esposa) · <span class="ex-latin">pater, patr‑is</span> (padre)</td><td>l / r: <span class="tag">tema en líquida</span></td></tr>
-          <tr><td><span class="ex-latin">nepos, nepot‑is</span> (sobrino) · <span class="ex-latin">custos, custod‑is</span> (guardia)</td><td>t / d: <span class="tag">tema en dental</span></td></tr>
-          <tr><td><span class="ex-latin">avis, avis</span> (ave) · <span class="ex-latin">canis, canis</span> (perro)</td><td>el genitivo no agrega nada nuevo: <span class="tag">temas en ‑i</span></td></tr>
+          <tr><td><span class="ex-latin">rex, reg‑is</span> (rey) · <span class="ex-latin">perdix, perdic‑is</span> (perdiz)</td><td>c / g: <span class="tag c-azul">tema en gutural</span></td></tr>
+          <tr><td><span class="ex-latin">uxor, uxor‑is</span> (esposa) · <span class="ex-latin">pater, patr‑is</span> (padre)</td><td>l / r: <span class="tag c-verde">tema en líquida</span></td></tr>
+          <tr><td><span class="ex-latin">nepos, nepot‑is</span> (sobrino) · <span class="ex-latin">custos, custod‑is</span> (guardia)</td><td>t / d: <span class="tag c-rojo">tema en dental</span></td></tr>
+          <tr><td><span class="ex-latin">avis, avis</span> (ave) · <span class="ex-latin">canis, canis</span> (perro)</td><td>el genitivo no agrega nada nuevo: <span class="tag c-amarillo">temas en ‑i</span></td></tr>
         </table>
         <p>En <span class="ex-latin">pater, frater, mater</span> cae la e: <span class="ex-latin">patris</span>, no «pateris».</p>
       </div>
@@ -344,7 +355,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>La forma en la frase</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Primero, leer la frase en latín y pensar una respuesta posible. Después, mirar la traducción para decidir entre genitivo, dativo, acusativo o ablativo. Cuando hay imagen, ayuda a entender la escena.</p>
+      <p class="step-instructions">Primero, leer la frase en latín y pensar una respuesta posible. Después, mirar la traducción para decidir entre genitivo, dativo, acusativo o ablativo.</p>
       <div class="p-progress" id="p2-progress"></div>
       <div class="exercise" id="p2-list"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar</button></div>
@@ -353,7 +364,7 @@
     <section class="step" id="step-find">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Inveni</p><h2>Otra vez Brueghel</h2></div><span class="step-progress" id="find-progress">—</span></div>
-      <p class="step-instructions">Leer la expresión y tocar en la imagen lo que dice. Atención al genitivo: dice de quién es.</p>
+      <p class="step-instructions">Leer la expresión y tocar en la imagen lo que dice. Atención al genitivo: dice de quién es. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div id="find-prompt"></div>
       <div id="find-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-find-done" disabled>Finalizar actividad</button></div>
@@ -399,10 +410,10 @@
     paso1: {
       paso: "1 - Clasificación por el genitivo",
       columns: [
-        { key:"gut", model:"re<b>x</b> → re<b>g</b>is", pat:"‑x → ‑cis / ‑gis" },
-        { key:"liq", model:"uxo<b>r</b> → uxo<b>r</b>is", pat:"‑or / ‑er → ‑oris / ‑ris" },
-        { key:"den", model:"nepo<b>s</b> → nepo<b>t</b>is", pat:"‑s → ‑tis / ‑dis" },
-        { key:"i",   model:"can<b>is</b> → can<b>is</b>", pat:"‑is → ‑is" }
+        { key:"gut", color:"c-azul", model:"re<b>x</b> → re<b>g</b>is", pat:"‑x → ‑cis / ‑gis" },
+        { key:"liq", color:"c-verde", model:"uxo<b>r</b> → uxo<b>r</b>is", pat:"‑or / ‑er → ‑oris / ‑ris" },
+        { key:"den", color:"c-rojo", model:"nepo<b>s</b> → nepo<b>t</b>is", pat:"‑s → ‑tis / ‑dis" },
+        { key:"i",   color:"c-amarillo", model:"can<b>is</b> → can<b>is</b>", pat:"‑is → ‑is" }
       ],
       words: [
         { word:"perdix, perdicis", correct:"gut" }, { word:"dux, ducis", correct:"gut" },
@@ -425,13 +436,13 @@
           castAfter:"Ícaro no sigue el consejo de su padre y vuela alto." },
         { id:3, src:"n.º 14", image:"img/polifemo.jpg",
           parts:["Vlixes oculum", {options:["Cyclopis","Cyclopi","Cyclopem","Cyclope"], correct:"Cyclopis"}, "flamma urit."],
-          castAfter:"Ulises le quema el ojo al cíclope con fuego." },
-        { id:4, src:"n.º 19",
-          parts:["Daedalus", {options:["regis","regi","regem","rege"], correct:"regi"}, "Cretae labyrinthum facit."],
-          castAfter:"Dédalo le construye un laberinto al rey de Creta." },
-        { id:5, src:"n.º 23", image:"img/argos.jpg",
+          castAfter:"Ulises quema el ojo del cíclope con fuego." },
+        { id:4, src:"n.º 23", image:"img/argos.jpg",
           parts:["Canis", {options:["Vlixis","Vlixi","Vlixem","Vlixe"], correct:"Vlixem"}, "statim agnoscit."],
-          castAfter:"El perro reconoce enseguida a Ulises." }
+          castAfter:"El perro reconoce enseguida a Ulises." },
+        { id:5, src:"n.º 19",
+          parts:["Daedalus", {options:["regis","regi","regem","rege"], correct:"regi"}, "Cretae labyrinthum facit."],
+          castAfter:"Dédalo le construye un laberinto al rey de Creta." }
       ]
     },
 
@@ -492,13 +503,13 @@
     } else {
       showStep("step-warm");
     }
-    window.scrollTo({ top:0, behavior:"smooth" });
+    window.scrollTo({ top:0, behavior:"auto" });
   });
 
   function showStep(id){
     Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
     document.getElementById(id).classList.add("visible");
-    window.scrollTo({ top:0, behavior:"smooth" });
+    window.scrollTo({ top:0, behavior:"auto" });
   }
 
   Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
@@ -521,19 +532,19 @@
 
   // ---------- Calentamiento: armado desde el castellano (motor de la Altercatio / Act. 20) ----------
   // al: castellano con tramos {índice(s) de palabra latina:texto}; **x** = palabra de 3ª declinación (negrita).
-  // decoys: otras formas de las palabras de 3ª declinación. expl: devolución al completar.
+  // Sin señuelos (decisión de Santiago, 2026-09-27: en el calentamiento solo frustran). expl: devolución al completar.
   var WARMUP23 = [
     { src:"n.º 1", arco:"Daedalus et Icarus", img:"img/warm-pasifae.jpg",
-      words:["Minos","uxorem","habet;","illa","filia","Solis","est."], decoys:["uxor","uxoris","Sol","Solem"],
+      words:["Minos","uxorem","habet;","illa","filia","Solis","est."], decoys:[],
       al:"{0:**Minos**} {2:tiene} {1:**esposa**}; {3:ella} {6:es} {4:hija} {5:del **Sol**}.",
       expl:"Fijate: <strong>uxor, uxoris</strong> (3ª declinación) acá está en acusativo, <em>uxorem</em>, porque es el objeto directo de <em>habet</em>. <strong>Sol, Solis</strong> está en genitivo, <em>Solis</em>: «del Sol». Y <strong>Minos, Minois</strong> es el sujeto: nominativo." },
     { src:"n.º 2", arco:"Theseus et Ariadna", img:"img/warm-regia.jpg",
-      words:["Theseus","ad","regiam","regis","Minois","in","Cretam","venit."], decoys:["rex","regem","Minos"],
-      al:"{0:Teseo} {7:llega} {5,6:a Creta}, {1,2:al palacio} {3:del **rey**} {4:**Minos**}.",
+      words:["Theseus","ad","regiam","regis","Minois","in","Cretam","venit."], decoys:[],
+      al:"{0:Teseo} {7:llega} {5:a} {6:Creta}, {1:al} {2:palacio} {3:del **rey**} {4:**Minos**}.",
       expl:"Fijate: <strong>rex, regis</strong> y <strong>Minos, Minois</strong> (3ª declinación) acá están en genitivo, <em>regis Minois</em>: «del rey Minos», el dueño del palacio." },
     { src:"n.º 16", arco:"Equus Troianus", img:"img/warm-troya.jpg",
-      words:["Priamus,","rex","Troianorum,","equum","in","oppidum","ducit."], decoys:["regem","regis"],
-      al:"{0:Príamo}, {1:**rey**} {2:de los troyanos}, {6:lleva} {3:el caballo} {4,5:a la ciudad}.",
+      words:["Priamus,","rex","Troianorum,","equum","in","oppidum","ducit."], decoys:[],
+      al:"{0:Príamo}, {1:**rey**} {2:de los troyanos}, {6:lleva} {3:el caballo} {4:a} {5:la ciudad}.",
       expl:"Fijate: <strong>rex, regis</strong> (3ª declinación) acá está en nominativo, <em>rex</em>, porque se refiere al sujeto, <em>Priamus</em>." }
   ];
 
@@ -612,7 +623,7 @@
         progressEl.textContent = (k + 1) + " / " + items.length;
         if (k < items.length - 1){
           var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
-          nx.addEventListener("click", function(){ k++; show(); stageEl.scrollIntoView({ block:"start", behavior:"smooth" }); });
+          nx.addEventListener("click", function(){ k++; show(); stageEl.scrollIntoView({ block:"start", behavior:"auto" }); });
           card.appendChild(nx);
         } else doneBtn.hidden = false;
       });
@@ -630,7 +641,6 @@
       { x:68.0, y:29.0, w:23.5, h:41.5, bx:80,   by:23,   enun:"navis, navis" },
       { x:35.0, y:47.7, w:15.0, h:39.1, bx:31.5, by:62,   enun:"arator, aratoris" },
       { x:49.5, y:50.1, w:4.5,  h:11.0, bx:49.5, by:44,   enun:"pastor, pastoris" },
-      { x:52.5, y:59.1, w:3.8,  h:7.0,  bx:55,   by:74,   enun:"canis, canis" },
       { x:58.8, y:61.0, w:8.5,  h:9.4,  bx:62.5, by:55.5, enun:"ovis, ovis", form:"(pl. oves)" },
       { x:83.0, y:68.9, w:5.5,  h:7.0,  bx:79.5, by:79.5, enun:"Icarus, Icari" }
     ]
@@ -700,11 +710,11 @@
     function arm(on){ Object.keys(boxes).forEach(function(k){ boxes[k].classList.toggle("armed", on); boxes[k].classList.remove("flash-bad"); }); }
     function place(w, cls){
       resolved++; w._chip.remove();
-      var t = v2el("span", "token " + cls, w.word); holders[w.correct].appendChild(t);
+      var t = v2el("span", "token gen-in" + (cls === "g-revealed" ? " gen-rev" : ""), w.word); holders[w.correct].appendChild(t);
       sel = null; arm(false); upd();
     }
     cfg.columns.forEach(function(c){
-      var b = v2el("button", "gen-box"); b.type = "button";
+      var b = v2el("button", "gen-box " + c.color); b.type = "button";
       b.appendChild(v2el("div", "gen-model", c.model));
       b.appendChild(v2el("div", "gen-pat", c.pat));
       holders[c.key] = v2el("div"); b.appendChild(holders[c.key]);
@@ -726,7 +736,7 @@
           say("No va en ese cajón. Queda un intento: conviene comparar lo que cambia entre nominativo y genitivo.", "bad");
         } else {
           submitLog.push({ paso:cfg.paso, item:w.word, respuesta:w.correct, correcta:false, respuestaRevelada:true, primerIntento:false, final:true });
-          say("Tampoco. " + w.word + " va en el cajón marcado en amarillo.", "bad");
+          say("Tampoco. " + w.word + " va en el cajón donde quedó ubicada (con borde punteado).", "bad");
           place(w, "g-revealed");
         }
       });
@@ -792,7 +802,7 @@
       panel.hidden = false; btn.classList.add("open"); btn.setAttribute("aria-expanded", "true");
       openDd = me;
       var r = panel.getBoundingClientRect();
-      if (r.bottom > window.innerHeight) panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      if (r.bottom > window.innerHeight) panel.scrollIntoView({ block: "nearest", behavior: "auto" });
     });
     function finish(){ done = true; btn.disabled = true; closeOpenDd(); }
     function choose(val, optEl){
@@ -1004,7 +1014,7 @@
         msg.textContent = "No es ahí. " + direction(it.zones) + " Queda un intento."; msg.className = "find-msg bad";
       }
     });
-    next.addEventListener("click", function(){ k++; show(); card.scrollIntoView({ block:"nearest", behavior:"smooth" }); });
+    next.addEventListener("click", function(){ k++; show(); card.scrollIntoView({ block:"nearest", behavior:"auto" }); });
     show();
   })();
 
