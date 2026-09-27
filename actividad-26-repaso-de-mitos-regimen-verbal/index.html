@@ -268,6 +268,19 @@
   .comic-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.4rem 0 0; }
   .gen-box .gen-model{ font-family:var(--sans); font-size:.95rem; }
   .step-instructions .ex-latin{ font-family:var(--serif); font-style:italic; color:var(--ink); }
+  .token.vcard{ flex-direction:column; align-items:flex-start; text-align:left; border-radius:12px; padding:.45rem .8rem; gap:.1rem; }
+  .vcard .vc-w{ font-weight:600; }
+  .vcard .vc-ex{ font-style:italic; font-size:.95rem; }
+  .vcard .vc-es{ font-family:var(--sans); font-size:.75rem; color:var(--ink-muted); }
+  .token.vcard.sel .vc-es{ color:inherit; }
+  .verb-box{ margin:.2rem 0 .5rem; padding:.45rem .7rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; font-size:.9rem; }
+  .verb-box .ex-latin{ font-family:var(--serif); font-style:italic; font-size:1.1rem; font-weight:700; }
+  .verb-box .reg{ color:var(--accent-strong); font-weight:600; }
+  #p1-pool{ display:grid; grid-template-columns:1fr 1fr; gap:.45rem; }
+  #p1-pool .token.vcard{ width:100%; min-height:0; padding:.4rem .55rem; }
+  #p1-pool .vcard .vc-w{ font-size:1rem; }
+  #p1-pool .vcard .vc-ex{ font-size:.85rem; }
+  #p1-pool .vcard .vc-es{ font-size:.7rem; }
 </style>
 </head>
 <body>
@@ -325,7 +338,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificación de los verbos por lo que piden</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Cada tarjeta trae un verbo con su significado. La consigna: tocar una tarjeta y después el cajón de lo que ese verbo pide; por ejemplo, <span class="ex-latin">dormit</span> (duerme) no pide objeto directo.</p>
+      <p class="step-instructions">Cada tarjeta trae un verbo con su significado y una frase breve del relato. La consigna: mirar en la frase qué acompaña al verbo, tocar la tarjeta y después el cajón de lo que ese verbo pide; por ejemplo, <span class="ex-latin">dormit</span> (duerme) no pide objeto directo.</p>
       <div class="p-progress" id="p1-progress"></div>
       <div class="exercise">
         <div class="gen-pool" id="p1-pool"></div>
@@ -355,7 +368,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>El caso que pide el verbo</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez. Primero, leer el latín y pensar qué caso pide el verbo (acusativo, dativo o ablativo); después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez. Arriba de cada frase está el verbo en 1ª persona con lo que rige (transitivo, intransitivo, rige dativo, rige ablativo). Primero, leer el latín y pensar qué caso corresponde; después, mirar la traducción para decidir. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p2-progress"></div>
       <div id="p2-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar</button></div>
@@ -415,25 +428,29 @@
         { key:"dat", color:"c-amarillo", model:"dativo", pat:"ej.: nocet (hace daño)" }
       ],
       words: [
-        { word:"volat (vuela)", correct:"sin" }, { word:"navigat (navega)", correct:"sin" },
-        { word:"occidit (mata)", correct:"ac" }, { word:"adiuvat (ayuda)", correct:"ac" },
-        { word:"dat (da)", correct:"acd" }, { word:"monstrat (muestra)", correct:"acd" },
-        { word:"credit (cree)", correct:"dat" }, { word:"favet (favorece)", correct:"dat" }
+        { word:"volat (vuela)", ex:"Icarus alte volat.", es:"Ícaro vuela alto.", correct:"sin" },
+        { word:"navigat (navega)", ex:"Theseus in patriam navigat.", es:"Teseo navega hacia su patria.", correct:"sin" },
+        { word:"occidit (mata)", ex:"Vlixes procos occidit.", es:"Ulises mata a los pretendientes.", correct:"ac" },
+        { word:"adiuvat (ayuda)", ex:"Minerva Vlixem adiuvat.", es:"Minerva ayuda a Ulises.", correct:"ac" },
+        { word:"dat (da)", ex:"Ariadna Theseo filum dat.", es:"Ariadna le da un hilo a Teseo.", correct:"acd" },
+        { word:"monstrat (muestra)", ex:"Ariadna Theseo exitum monstrat.", es:"Ariadna le muestra la salida a Teseo.", correct:"acd" },
+        { word:"credit (cree)", ex:"Tibi non credimus.", es:"No te creemos.", correct:"dat" },
+        { word:"favet (favorece)", ex:"Iuno Troianis non favet.", es:"Juno no les es favorable a los troyanos.", correct:"dat" }
       ]
     },
 
     // Paso 2 — una frase por pantalla, primero las que tienen imagen; palabra completa en cada opción.
     paso2: {
       paso: "2 - Caso que pide el verbo",
-      hint: "Pista: el caso lo pide el verbo (Paso 1): credo, pareo, succurro, faveo → dativo; careo, libero (de algo) → ablativo; adiuvo → acusativo.",
+      hint: "Pista: el recuadro de arriba dice qué rige el verbo.",
       items: [
-        { src:"n.º 91", image:"img/casandra.jpg", parts:["Troiani", {options:["Cassandra","Cassandram","Cassandrae"], correct:"Cassandrae"}, "non credunt."], es:"Los troyanos no le creen a Casandra." },
-        { src:"n.º 93", image:"img/daedalus.jpg", parts:["Icarus", {options:["pater","patrem","patri"], correct:"patri"}, "non paret et alte volat."], es:"Ícaro no le obedece a su padre y vuela alto." },
-        { src:"n.º 94", image:"img/hilo.jpg", parts:["Ariadna", {options:["Theseus","Theseum","Theseo"], correct:"Theseo"}, "succurrit."], es:"Ariadna le brinda ayuda a Teseo." },
-        { src:"n.º 96", image:"img/polifemo.jpg", parts:["Nunc Cyclops", {options:["oculus","oculum","oculo"], correct:"oculo"}, "caret."], es:"Ahora el cíclope carece de ojo." },
-        { src:"n.º 84", image:"img/pretendientes.jpg", parts:["Vlixes et Telemachus procos occidunt. Minerva", {options:["eos","eis","ei"], correct:"eos"}, "adiuvat."], es:"Ulises y Telémaco matan a los pretendientes. Minerva los ayuda." },
-        { src:"n.º 98", parts:["Pasiphae Daedalum", {options:["vincula","vinculorum","vinculis"], correct:"vinculis"}, "liberat."], es:"Pasífae libera a Dédalo de las cadenas." },
-        { src:"n.º 92", parts:["Minerva", {options:["Vlixes","Vlixem","Vlixi"], correct:"Vlixi"}, "favet, sed Neptunus ei non favet."], es:"Minerva le es favorable a Ulises, pero Neptuno no le es favorable." }
+        { src:"n.º 91", verb:"credo", reg:"rige dativo", image:"img/casandra.jpg", parts:["Troiani", {options:["Cassandra","Cassandram","Cassandrae"], correct:"Cassandrae"}, "non credunt."], es:"Los troyanos no le creen a Casandra." },
+        { src:"n.º 93", verb:"pareo", reg:"rige dativo", image:"img/daedalus.jpg", parts:["Icarus", {options:["pater","patrem","patri"], correct:"patri"}, "non paret et alte volat."], es:"Ícaro no le obedece a su padre y vuela alto." },
+        { src:"n.º 94", verb:"succurro", reg:"rige dativo", image:"img/hilo.jpg", parts:["Ariadna", {options:["Theseus","Theseum","Theseo"], correct:"Theseo"}, "succurrit."], es:"Ariadna le brinda ayuda a Teseo." },
+        { src:"n.º 96", verb:"careo", reg:"rige ablativo", image:"img/polifemo.jpg", parts:["Nunc Cyclops", {options:["oculus","oculum","oculo"], correct:"oculo"}, "caret."], es:"Ahora el cíclope carece de ojo." },
+        { src:"n.º 84", verb:"adiuvo", reg:"transitivo", image:"img/pretendientes.jpg", parts:["Vlixes et Telemachus procos occidunt. Minerva", {options:["eos","eis","ei"], correct:"eos"}, "adiuvat."], es:"Ulises y Telémaco matan a los pretendientes. Minerva los ayuda." },
+        { src:"n.º 98", verb:"libero", reg:"transitivo; rige ablativo", parts:["Pasiphae Daedalum", {options:["vincula","vinculorum","vinculis"], correct:"vinculis"}, "liberat."], es:"Pasífae libera a Dédalo de las cadenas." },
+        { src:"n.º 92", verb:"faveo", reg:"rige dativo", parts:["Minerva", {options:["Vlixes","Vlixem","Vlixi"], correct:"Vlixi"}, "favet, sed Neptunus ei non favet."], es:"Minerva le es favorable a Ulises, pero Neptuno no le es favorable." }
       ]
     },
 
@@ -457,7 +474,7 @@
       words:["Theseus","Ariadnam","secum","in","navigio","ducit."], decoys:[],
       al:"{0:Teseo} {5:lleva} {1:a **Ariadna**} {2:consigo} {3:en} {4:la nave}.",
       expl:"Fijate: <strong>Ariadnam</strong> está en acusativo porque es el objeto directo de <em>ducit</em> («<strong>la</strong> lleva»)." },
-    { src:"n.º 90", arco:"Reditus Vlixis", img:"img/pretendientes.jpg",
+    { src:"n.º 90", arco:"Reditus Vlixis", img:"",
       words:["Vlixes","procis","arcum","dat."], decoys:[],
       al:"{0:Ulises} {1:les} {3:da} {2:el **arco**} {1:a los **pretendientes**}.",
       expl:"Fijate: <em>dat</em> pide las dos cosas: <strong>arcum</strong>, acusativo, objeto directo; <strong>procis</strong>, dativo, objeto indirecto («<strong>les</strong> da el arco»)." },
@@ -604,7 +621,7 @@
       progressEl.textContent = k + " / " + items.length;
       stageEl.innerHTML = "";
       var card = v2el("div", "stage-card");
-      card.appendChild(v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'));
+      if (it.img) card.appendChild(v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'));
       card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
       var host = v2el("div"); card.appendChild(host);
       stageEl.appendChild(card);
@@ -731,7 +748,7 @@
     });
     shuffled(cfg.words).forEach(function(w){
       w._tried = 0;
-      var chip = v2el("button", "token", w.word); chip.type = "button"; w._chip = chip;
+      var chip = v2el("button", "token" + (w.ex ? " vcard" : ""), w.ex ? '<span class="vc-w">' + w.word + '</span><span class="vc-ex">' + w.ex + '</span><span class="vc-es">' + w.es + '</span>' : w.word); chip.type = "button"; w._chip = chip;
       chip.addEventListener("click", function(){
         Array.prototype.forEach.call(pool.children, function(ch){ ch.classList.remove("sel"); });
         if (sel === w){ sel = null; arm(false); say(""); return; }
@@ -757,6 +774,7 @@
       var card = v2el("div", "scene-card");
       card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
       if (it.image) card.appendChild(v2el("div", "scene-img", '<img src="' + it.image + '" alt="">'));
+      if (it.verb) card.appendChild(v2el("p", "verb-box", 'Verbo: <span class="ex-latin">' + it.verb + '</span> <span class="reg">(' + it.reg + ')</span>'));
       var row = v2el("div", "dd-row");
       var panels = v2el("div"), msgs = v2el("div", "dd-msgs");
       var es = v2el("p", "comic-es"); es.hidden = true;
@@ -1207,7 +1225,7 @@
     "#pnav .pn-cur{flex:0 0 auto;font:700 .78rem/1 var(--sans,system-ui,sans-serif);letter-spacing:.02em;white-space:nowrap;",
     "border:1.5px solid var(--rule,#c9c4b3);border-radius:999px;padding:.4rem .7rem;background:var(--surface-raised,#fff);color:var(--ink,#1e211d);cursor:pointer;}",
     "#pnav .pn-cur.open{border-color:var(--accent,#1e4dc7);}",
-    "#pnav .pn-dots{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden;}",
+    "#pnav .pn-dots{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;padding:0 6px;}",
     "#pnav .pn-dot{position:relative;flex:0 0 auto;width:12px;height:12px;padding:0;border-radius:50%;border:1.5px solid var(--rule,#c9c4b3);background:transparent;cursor:default;}",
     "#pnav .pn-dot::before{content:'';position:absolute;inset:-8px -4px;}",
     "#pnav .pn-dot.expl{border-radius:3px;}",
@@ -1234,7 +1252,7 @@
     return { id: id, expl: expl, kind: kind, name: name };
   }
   var steps = sections.map(info);
-  var reached = {};
+  var reached = {}, maxIdx = -1; // al retomar una actividad, todo lo anterior al punto más avanzado queda disponible
   function visibleId(){ var v = document.querySelector("section.step.visible"); return v ? v.id : null; }
   function go(id){
     sections.forEach(function(s){ s.classList.remove("visible"); });
@@ -1255,6 +1273,8 @@
   function render(){
     var v = visibleId(); if (v) reached[v] = true;
     var k = steps.map(function(s){ return s.id; }).indexOf(v);
+    if (k > maxIdx) maxIdx = k;
+    steps.forEach(function(s, i){ if (i <= maxIdx) reached[s.id] = true; });
     cur.textContent = "Pasos " + (k + 1) + "/" + steps.length + " ▾";
     dots.innerHTML = ""; list.innerHTML = "";
     steps.forEach(function(s, i){

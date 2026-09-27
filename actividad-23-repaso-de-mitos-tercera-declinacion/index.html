@@ -1180,7 +1180,7 @@
     "#pnav .pn-cur{flex:0 0 auto;font:700 .78rem/1 var(--sans,system-ui,sans-serif);letter-spacing:.02em;white-space:nowrap;",
     "border:1.5px solid var(--rule,#c9c4b3);border-radius:999px;padding:.4rem .7rem;background:var(--surface-raised,#fff);color:var(--ink,#1e211d);cursor:pointer;}",
     "#pnav .pn-cur.open{border-color:var(--accent,#1e4dc7);}",
-    "#pnav .pn-dots{display:flex;align-items:center;gap:7px;min-width:0;overflow:hidden;}",
+    "#pnav .pn-dots{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;padding:0 6px;}",
     "#pnav .pn-dot{position:relative;flex:0 0 auto;width:12px;height:12px;padding:0;border-radius:50%;border:1.5px solid var(--rule,#c9c4b3);background:transparent;cursor:default;}",
     "#pnav .pn-dot::before{content:'';position:absolute;inset:-8px -4px;}",
     "#pnav .pn-dot.expl{border-radius:3px;}",
@@ -1207,7 +1207,7 @@
     return { id: id, expl: expl, kind: kind, name: name };
   }
   var steps = sections.map(info);
-  var reached = {};
+  var reached = {}, maxIdx = -1; // al retomar una actividad, todo lo anterior al punto más avanzado queda disponible
   function visibleId(){ var v = document.querySelector("section.step.visible"); return v ? v.id : null; }
   function go(id){
     sections.forEach(function(s){ s.classList.remove("visible"); });
@@ -1228,6 +1228,8 @@
   function render(){
     var v = visibleId(); if (v) reached[v] = true;
     var k = steps.map(function(s){ return s.id; }).indexOf(v);
+    if (k > maxIdx) maxIdx = k;
+    steps.forEach(function(s, i){ if (i <= maxIdx) reached[s.id] = true; });
     cur.textContent = "Pasos " + (k + 1) + "/" + steps.length + " ▾";
     dots.innerHTML = ""; list.innerHTML = "";
     steps.forEach(function(s, i){
