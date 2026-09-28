@@ -1040,12 +1040,13 @@
       });
       b.appendChild(panels); b.appendChild(msgs);
       comic.appendChild(b);
+      comic.appendChild(toggle); comic.appendChild(es);
       var wrap = v2el("div", "quis-wrap");
       var img = document.createElement("img"); img.src = it.image; img.alt = ""; wrap.appendChild(img);
       var z = v2el("div", "find-zone ok");
       z.style.left = it.zone[0] + "%"; z.style.top = it.zone[1] + "%"; z.style.width = it.zone[2] + "%"; z.style.height = it.zone[3] + "%";
       wrap.appendChild(z); comic.appendChild(wrap);
-      card.appendChild(comic); card.appendChild(toggle); card.appendChild(es);
+      card.appendChild(comic);
       stage.appendChild(card);
     }
     upd(); show();
@@ -1067,11 +1068,18 @@
       b.appendChild(v2el("div", "bubble-la", it.latin));
       var msg = v2el("div", "find-msg"); b.appendChild(msg);
       comic.appendChild(b);
+      var es = v2el("p", "comic-es"); es.hidden = true;
+      var toggle = v2el("button", "btn-cast", "Ver traducción"); toggle.type = "button";
+      function showEs(){ es.textContent = "Traducción: " + it.es; es.hidden = false; }
+      toggle.addEventListener("click", function(){
+        if (es.hidden) showEs(); else es.hidden = true;
+        if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: it.src + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
+      });
+      comic.appendChild(toggle); comic.appendChild(es);
       var wrap = v2el("div", "quis-wrap");
       var img = document.createElement("img"); img.src = cfg.image; img.alt = ""; img.draggable = false; wrap.appendChild(img);
       comic.appendChild(wrap);
       card.appendChild(comic);
-      var es = v2el("p", "comic-es"); es.hidden = true; card.appendChild(es);
       stageEl.appendChild(card);
       function draw(box, cls){ var d = v2el("div", "find-zone " + cls); d.style.left = box[0] + "%"; d.style.top = box[1] + "%"; d.style.width = box[2] + "%"; d.style.height = box[3] + "%"; wrap.appendChild(d); }
       function close(ok, resp){
@@ -1079,7 +1087,7 @@
         var z = cfg.zones[it.zone];
         b.classList.remove("notail"); b.style.setProperty("--tail", z.tail + "%");
         who.textContent = it.who; who.classList.remove("unknown");
-        es.textContent = "Traducción: " + it.es; es.hidden = false;
+        showEs(); if (toggle.parentNode) toggle.remove();
         submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.latin, respuesta: resp, correcta: ok, primerIntento: ok && wrong === 0, final: true });
         if (k < total - 1){
           var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
