@@ -319,6 +319,20 @@
   .cbubble.flow .who.unknown{ color:#6b6f66; }
   .cbubble.flow .dd-panel{ margin-top:.5rem; }
   .cbubble .find-msg{ min-height:0; margin-top:.3rem; font-size:.82rem; }
+  /* Declinación desplegable (pedido de Santiago, 2026-10-05) */
+  details.decl{ margin:.7rem 0 0; border:1px solid var(--rule); border-radius:10px; background:var(--surface-raised); }
+  details.decl summary{ cursor:pointer; list-style:none; padding:.55rem .8rem; font-size:.88rem; font-weight:700; color:var(--accent-strong); }
+  details.decl summary::-webkit-details-marker{ display:none; }
+  details.decl summary::before{ content:"▸ "; }
+  details.decl[open] summary::before{ content:"▾ "; }
+  .decl-body{ padding:0 .8rem .6rem; line-height:1.3; }
+  .decl-body p.mini-label{ margin:.35rem 0 .15rem; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
+  .decl-body table{ border-collapse:collapse; width:100%; font-size:.9rem; }
+  .decl-body th, .decl-body td{ text-align:left; padding:.18rem .4rem .18rem 0; border-bottom:1px solid var(--rule); }
+  .decl-body th{ font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); font-weight:700; }
+  .decl-body td.la{ font-family:var(--serif); font-style:italic; font-size:1rem; color:var(--ink); }
+  .decl-body td:first-child{ color:var(--ink-muted); font-size:.82rem; width:3.6rem; }
+  .quis-next-top{ margin:.2rem 0 .7rem; }
 </style>
 </head>
 <body>
@@ -497,6 +511,7 @@
     // (tail = x % del personaje) + recuadro verde (zone). Lo que se nombra está al lado de quien habla.
     paso1: {
       paso: "1 - Hic, haec, hoc",
+      decl: "hic",
       hint: "Pista: mirar el sustantivo que sigue: género (masculino, femenino, neutro), número y caso (sujeto → nominativo; objeto directo → acusativo).",
       items: [
         { src:"P1 · 1", image:"img/polifemo.jpg", zone:[3.5,5.7,38.7,94], tail:34, who:"Polifemo", parts:[{options:["Hos","Hi","Has"], correct:"Hos"}, "homines omnes devorabo!"], es:"¡Me voy a comer a todos estos hombres!" },
@@ -527,6 +542,7 @@
     // Paso 2 — ille, illa retoman a alguien: una frase por pantalla; primero las que tienen imagen. «Ver traducción» siempre disponible (pedido de Santiago, 2026-10-05).
     paso2: {
       paso: "3 - Ille, illa en el relato",
+      decl: "ille",
       hint: "Pista: el género y el número son los de la persona retomada; el caso depende de lo que hace en su frase (sujeto → nominativo, objeto directo → acusativo).",
       items: [
         { src:"P2 · 1", image:"img/ariadna.jpg", parts:["Theseus Ariadnam reliquit; Liber", {options:["illam","illa","illum"], correct:"illam"}, "in coniugium duxit."], es:"Teseo abandonó a Ariadna; Líber la tomó por esposa." },
@@ -779,6 +795,7 @@
         return d.select;
       });
       card.appendChild(row); card.appendChild(panels); card.appendChild(msgs); card.appendChild(toggle); card.appendChild(es);
+      if (cfg.decl) card.appendChild(declBox(cfg.decl));
       stage.appendChild(card);
     }
     upd(); show();
@@ -836,6 +853,7 @@
       b.appendChild(panels); b.appendChild(msgs);
       comic.appendChild(b);
       comic.appendChild(toggle); comic.appendChild(es);
+      if (cfg.decl) comic.appendChild(declBox(cfg.decl));
       var wrap = v2el("div", "quis-wrap");
       var img = document.createElement("img"); img.src = it.image; img.alt = ""; wrap.appendChild(img);
       var z = v2el("div", "find-zone ok");
@@ -887,8 +905,12 @@
         showEs(); if (toggle.parentNode) toggle.remove();
         submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.latin, respuesta: resp, correcta: ok, primerIntento: ok && wrong === 0, final: true });
         if (k < total - 1){
+          var go = function(){ k++; show(); window.scrollTo({ top: stageEl.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); };
+          var nxTop = v2el("button", "btn find-next quis-next-top", "Siguiente frase"); nxTop.type = "button";
+          nxTop.addEventListener("click", go);
+          comic.insertBefore(nxTop, wrap);
           var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
-          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stageEl.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          nx.addEventListener("click", go);
           card.appendChild(nx);
         } else doneBtn.disabled = false;
       }
@@ -916,6 +938,27 @@
       });
     }
     upd(); show();
+  }
+
+  // ---------- Declinación completa de hic / ille, desplegable en cada frase (pedido de Santiago, 2026-10-05) ----------
+  var DECL = {
+    hic: { title: "hic, haec, hoc",
+      sg: [["nom.","hic","haec","hoc"],["gen.","huius","huius","huius"],["dat.","huic","huic","huic"],["ac.","hunc","hanc","hoc"],["abl.","hoc","hac","hoc"]],
+      pl: [["nom.","hi","hae","haec"],["gen.","horum","harum","horum"],["dat.","his","his","his"],["ac.","hos","has","haec"],["abl.","his","his","his"]] },
+    ille: { title: "ille, illa, illud",
+      sg: [["nom.","ille","illa","illud"],["gen.","illius","illius","illius"],["dat.","illi","illi","illi"],["ac.","illum","illam","illud"],["abl.","illo","illa","illo"]],
+      pl: [["nom.","illi","illae","illa"],["gen.","illorum","illarum","illorum"],["dat.","illis","illis","illis"],["ac.","illos","illas","illa"],["abl.","illis","illis","illis"]] }
+  };
+  function declBox(kind){
+    var d = DECL[kind];
+    function tbl(rows){
+      return '<table><tr><th></th><th>masc.</th><th>fem.</th><th>neutro</th></tr>' + rows.map(function(r){
+        return '<tr><td>' + r[0] + '</td><td class="la">' + r[1] + '</td><td class="la">' + r[2] + '</td><td class="la">' + r[3] + '</td></tr>';
+      }).join("") + '</table>';
+    }
+    var el = document.createElement("details"); el.className = "decl";
+    el.innerHTML = '<summary>Ver la declinación de ' + d.title + '</summary><div class="decl-body"><p class="mini-label">Singular</p>' + tbl(d.sg) + '<p class="mini-label">Plural</p>' + tbl(d.pl) + '</div>';
+    return el;
   }
 
   function goStep(id){ return function(){ saveProgress(id); showStep(id); }; }
