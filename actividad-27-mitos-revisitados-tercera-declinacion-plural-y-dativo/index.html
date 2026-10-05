@@ -512,7 +512,6 @@
         { src:"Act. 27 · 2", image:"img/cofre.jpg", parts:["Theseus", {options:["soror","sororem","sorores","sororibus"], correct:"sorores"}, "in regia videt."], es:"Teseo ve a las hermanas en el palacio." },
         { src:"Act. 27 · 3", image:"img/euriclea.jpg", parts:["Euriclea", {options:["hospes","hospitem","hospiti","hospites"], correct:"hospiti"}, {options:["pes","pedem","pedes","pedibus"], correct:"pedes"}, "lavat."], es:"Euriclea le lava los pies al huésped." },
         { src:"Act. 27 · 4", image:"img/eumeo.jpg", parts:["Eumaeus", {options:["hospes","hospitem","hospites","hospitibus"], correct:"hospitibus"}, "cibum dat;", {options:["hospes","hospitem","hospites","hospitibus"], correct:"hospites"}, "in casa dormiunt."], es:"Eumeo les da comida a los huéspedes; los huéspedes duermen en la choza." },
-        { src:"Act. 27 · 5", image:"img/perdix.jpg", parts:["Minerva Perdicem in avem mutat; nunc Perdix inter", {options:["avis","avem","aves","avibus"], correct:"aves"}, "volat."], es:"Minerva transforma a Pérdix en ave; ahora Pérdix vuela entre las aves." },
         { src:"Act. 27 · 6", image:"img/brueghel.jpg", parts:[{options:["Homo","Hominem","Homines","Hominibus"], correct:"Homines"}, "Icarum non vident."], es:"Los hombres no ven a Ícaro." },
         { src:"Act. 27 · 7", parts:["Mercurius", {options:["Vlixes","Vlixem","Vlixi","Vlixis"], correct:"Vlixi"}, "remedium dat."], es:"Mercurio le da un remedio a Ulises." },
         { src:"Act. 27 · 8", late:true, parts:["Daedalus", {options:["uxor","uxorem","uxori","uxores"], correct:"uxori"}, {options:["rex","regem","regi","regis"], correct:"regis"}, "vaccam ligneam facit."], es:"Dédalo le hace una vaca de madera a la esposa del rey." },
@@ -528,7 +527,6 @@
         { src:"Act. 27 · N1", image:"img/pretendientes.jpg", tokens:["Corpora","procorum","in","terra","iacent."], verbs:[4], roles:{0:"s"}, es:"Los cuerpos de los pretendientes yacen en el suelo." },
         { src:"Act. 27 · N2", image:"img/polifemo.jpg", tokens:["Vlixes","nomen","suum","Cyclopi","non","dicit."], verbs:[5], roles:{0:"s",1:"o"}, es:"Ulises no le dice su nombre al cíclope." },
         { src:"Act. 27 · N3", tokens:["Scylla","sex","capita","habet","et","sex","homines","consumit."], verbs:[3,7], roles:{0:"s",2:"o",6:"o"}, es:"Escila tiene seis cabezas y devora a seis hombres." },
-        { src:"Act. 27 · N4", tokens:["Capita","Scyllae","socios","Vlixis","capiunt."], verbs:[4], roles:{0:"s",2:"o"}, es:"Las cabezas de Escila atrapan a los compañeros de Ulises." },
         { src:"Act. 27 · N5", tokens:["Vlixes","multa","maria","navigat."], verbs:[3], roles:{0:"s",2:"o"}, es:"Ulises navega muchos mares." },
         { src:"Act. 27 · N6", tokens:["Nomen","Aegei","mare","habet."], verbs:[3], roles:{0:"o",2:"s"}, es:"El mar lleva el nombre de Egeo." }
       ]
@@ -542,8 +540,7 @@
         { latin:"pedes hospitis", es:"los pies del huésped", zones:[[16.2,80.0,12.4,10.9],[47.4,81.8,18.9,11.4]] },
         { latin:"caput nutricis", es:"la cabeza de la nodriza", zones:[[58.0,38.0,13.0,13.0]] },
         { latin:"caput hospitis", es:"la cabeza del huésped", zones:[[35.6,27.0,11.8,11.0]] },
-        { latin:"filum puellae", es:"el hilo de la muchacha", zones:[[84.0,9.0,15.0,34.0]] },
-        { latin:"uxor hospitis", es:"la esposa del huésped", zones:[[2.2,1.8,33.4,77.3]] }
+        { latin:"uxor Vlixis", es:"la esposa de Ulises", zones:[[2.2,1.8,33.4,77.3]] }
       ]
     }
   };
@@ -911,6 +908,12 @@
       if (it.image) card.appendChild(v2el("div", "scene-img", '<img src="' + it.image + '" alt="">'));
       var toks = v2el("div", "tokens"); var host = v2el("div");
       var es = v2el("p", "comic-es"); es.hidden = true;
+      var toggle = v2el("button", "btn-cast", "Ver traducción"); toggle.type = "button";
+      toggle.addEventListener("click", function(){
+        if (es.hidden){ es.textContent = "Traducción: " + it.es; es.hidden = false; toggle.textContent = "Ocultar traducción"; }
+        else { es.hidden = true; toggle.textContent = "Ver traducción"; }
+        if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: it.src + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
+      });
       it.tokens.forEach(function(w, idx){
         if (it.verbs.indexOf(idx) !== -1){ toks.appendChild(v2el("span", "token-verb", w)); return; }
         var chip = v2el("button", "token", w); chip.type = "button";
@@ -950,14 +953,14 @@
         toks.appendChild(chip);
       });
       function finish(){
-        es.textContent = "Traducción: " + it.es; es.hidden = false;
+        es.textContent = "Traducción: " + it.es; es.hidden = false; if (toggle.parentNode) toggle.remove();
         if (k < cfg.items.length - 1){
           var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
           nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
           card.appendChild(nx);
         }
       }
-      card.appendChild(toks); card.appendChild(host); card.appendChild(es);
+      card.appendChild(toks); card.appendChild(host); card.appendChild(toggle); card.appendChild(es);
       stage.appendChild(card);
     }
     upd(); show();
