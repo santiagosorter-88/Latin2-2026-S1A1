@@ -333,6 +333,11 @@
   .decl-body td.la{ font-family:var(--serif); font-style:italic; font-size:1rem; color:var(--ink); }
   .decl-body td:first-child{ color:var(--ink-muted); font-size:.82rem; width:3.6rem; }
   .quis-next-top{ margin:.2rem 0 .7rem; }
+  /* ---- Act. 28 (2026-10-05): sustantivos que se tocan para ver declinación y género ---- */
+  .noun-chip{ font:inherit; font-weight:700; color:inherit; background:none; border:none; border-bottom:2px dotted var(--accent); padding:0; margin:0; cursor:pointer; }
+  .noun-info{ margin:.45rem 0 .2rem; padding:.4rem .6rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; font-family:var(--sans); font-size:.85rem; line-height:1.35; color:var(--ink); }
+  .cbubble .noun-info{ background:#eef2fb; color:#1e211d; }
+  .noun-info .ex-latin{ font-family:var(--serif); font-style:italic; }
 </style>
 </head>
 <body>
@@ -397,7 +402,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Este, esta, esto: la concordancia</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla, y lo que nombra está a su lado. Mirar el sustantivo que sigue al hueco: género, número y caso; por ejemplo, <span class="ex-latin">vaccam</span> es femenino, singular y acusativo, así que va <span class="ex-latin">hanc vaccam</span>. Ojo con los tiempos: hay perfectos (<span class="ex-latin">obturaverunt</span>, «se taparon») y futuros (<span class="ex-latin">devorabo</span>, «voy a devorar»). Primero, leer el latín y pensar la forma; después, si hace falta, tocar «Ver traducción». <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla, y lo que nombra está a su lado. Mirar el sustantivo que sigue al hueco: género, número y caso; por ejemplo, <span class="ex-latin">vaccam</span> es femenino, singular y acusativo, así que va <span class="ex-latin">hanc vaccam</span>. Ojo con los tiempos: hay perfectos (<span class="ex-latin">obturaverunt</span>, «se taparon») y futuros (<span class="ex-latin">devorabo</span>, «voy a devorar»). Primero, leer el latín y pensar la forma; después, si hace falta, tocar «Ver traducción». Las palabras en <strong>negrita</strong> se pueden tocar: muestran el enunciado, la declinación y el género del sustantivo. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p1-progress"></div>
       <div id="p1-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
@@ -472,7 +477,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Is, ea o ille en el relato</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez. Para elegir hay que mirar dos cosas: a quién retoma el pronombre (género y número) y qué hace en su frase (caso). Por ejemplo, en <span class="ex-latin">Pasiphae taurum amat, sed taurus eam non amat</span>, <em>eam</em> retoma a <em>Pasiphae</em> (femenino singular) y es objeto directo de <em>amat</em>: acusativo. Cuando el pronombre es el sujeto y cambia quién hace la acción, va <em>ille, illa</em>. Casi todas las frases son de Higino, con verbos en perfecto. Primero, leer el latín y pensar una respuesta; después, si hace falta, tocar «Ver traducción». <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez. Para elegir hay que mirar dos cosas: a quién retoma el pronombre (género y número) y qué hace en su frase (caso). Por ejemplo, en <span class="ex-latin">Pasiphae taurum amat, sed taurus eam non amat</span>, <em>eam</em> retoma a <em>Pasiphae</em> (femenino singular) y es objeto directo de <em>amat</em>: acusativo. Cuando el pronombre es el sujeto y cambia quién hace la acción, va <em>ille, illa</em>. Casi todas las frases son de Higino, con verbos en perfecto. Primero, leer el latín y pensar una respuesta; después, si hace falta, tocar «Ver traducción». Las palabras en <strong>negrita</strong> se pueden tocar: muestran el enunciado, la declinación y el género del sustantivo. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p2-progress"></div>
       <div id="p2-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Finalizar actividad</button></div>
@@ -520,12 +525,12 @@
       decl: "hic",
       hint: "Pista: mirar el sustantivo que sigue: género (masculino, femenino, neutro), número y caso (sujeto → nominativo; objeto directo → acusativo).",
       items: [
-        { src:"P1 · 1", image:"img/polifemo.jpg", zone:[3.5,5.7,38.7,94], tail:34, who:"Polifemo", parts:[{options:["Hos","Hi","Has"], correct:"Hos"}, "homines omnes devorabo!"], es:"¡Me voy a comer a todos estos hombres!" },
-        { src:"P1 · 2", image:"img/polifemo.jpg", zone:[43.4,37.6,16.6,33.7], tail:48, who:"Ulises", parts:[{options:["Hae","Has","Hi"], correct:"Hae"}, "oves nos ex spelunca portabunt."], es:"Estas ovejas nos van a sacar de la cueva." },
-        { src:"P1 · 3", image:"img/pasifae.jpg", zone:[51,30,31.5,60], tail:60, who:"Pasífae", parts:[{options:["Hic","Hunc","Haec"], correct:"Hic"}, "taurus me non amat; Daedalus me adiuvabit."], es:"Este toro no me ama; Dédalo me va a ayudar." },
-        { src:"P1 · 4", image:"img/hilo.jpg", zone:[37.5,15.2,57.5,67.8], tail:60, who:"Ariadna", parts:[{options:["Hunc","Hic","Hanc"], correct:"Hunc"}, "hospitem servabo et cum eo navigabo."], es:"Voy a salvar a este huésped y voy a navegar con él." },
-        { src:"P1 · 5", image:"img/sirenas.jpg", zone:[58,22,13,45], tail:65, who:"Ulises", parts:[{options:["Hi","Hos","Hae"], correct:"Hi"}, "socii aures obturaverunt;", {options:["haec","hae","hoc"], correct:"haec"}, "vincula me tenebunt."], es:"Estos compañeros se taparon los oídos; estas ataduras me van a retener." },
-        { src:"P1 · 6", image:"img/euriclea.jpg", zone:[55,37,32,58], tail:63, who:"Euriclea", parts:[{options:["Hanc","Haec","Hunc"], correct:"Hanc"}, "cicatricem agnosco:", {options:["hic","haec","hoc"], correct:"hic"}, "hospes Vlixes est!"], es:"Reconozco esta cicatriz: ¡este huésped es Ulises!" }
+        { src:"P1 · 1", image:"img/polifemo.jpg", zone:[3.5,5.7,38.7,94], tail:34, who:"Polifemo", parts:[{options:["Hos","Hi","Has"], correct:"Hos"}, "*homines omnes devorabo!"], es:"¡Me voy a comer a todos estos hombres!" },
+        { src:"P1 · 2", image:"img/polifemo.jpg", zone:[43.4,37.6,16.6,33.7], tail:48, who:"Ulises", parts:[{options:["Hae","Has","Hi"], correct:"Hae"}, "*oves nos ex spelunca portabunt."], es:"Estas ovejas nos van a sacar de la cueva." },
+        { src:"P1 · 3", image:"img/pasifae.jpg", zone:[51,30,31.5,60], tail:60, who:"Pasífae", parts:[{options:["Hic","Hunc","Haec"], correct:"Hic"}, "*taurus me non amat; Daedalus me adiuvabit."], es:"Este toro no me ama; Dédalo me va a ayudar." },
+        { src:"P1 · 4", image:"img/hilo.jpg", zone:[37.5,15.2,57.5,67.8], tail:60, who:"Ariadna", parts:[{options:["Hunc","Hic","Hanc"], correct:"Hunc"}, "*hospitem servabo et cum eo navigabo."], es:"Voy a salvar a este huésped y voy a navegar con él." },
+        { src:"P1 · 5", image:"img/sirenas.jpg", zone:[58,22,13,45], tail:65, who:"Ulises", parts:[{options:["Hi","Hos","Hae"], correct:"Hi"}, "*socii aures obturaverunt;", {options:["haec","hae","hoc"], correct:"haec"}, "*vincula me tenebunt."], es:"Estos compañeros se taparon los oídos; estas ataduras me van a retener." },
+        { src:"P1 · 6", image:"img/euriclea.jpg", zone:[55,37,32,58], tail:63, who:"Euriclea", parts:[{options:["Hanc","Haec","Hunc"], correct:"Hanc"}, "*cicatricem agnosco:", {options:["hic","haec","hoc"], correct:"hic"}, "*hospes Vlixes est!"], es:"Reconozco esta cicatriz: ¡este huésped es Ulises!" }
       ]
     },
 
@@ -550,14 +555,14 @@
       decl: ["is", "ille"],
       hint: "Pista: el género y el número son los de la persona retomada. Objeto directo → is, ea en acusativo (eum, eam, eos, eas); sujeto que cambia quién hace la acción → ille, illa.",
       items: [
-        { src:"P2 · 1", image:"img/ariadna.jpg", parts:["Theseus Ariadnam reliquit; Liber", {options:["eam","ea","eum"], correct:"eam"}, "in coniugium duxit."], es:"Teseo abandonó a Ariadna; Líber la tomó por esposa." },
-        { src:"P2 · 2", image:"img/pretendientes.jpg", parts:["Proci arcum non intenderunt;", {options:["ille","illum","illi"], correct:"ille"}, "arcum intendit et", {options:["eos","eas","eum"], correct:"eos"}, "occidit."], es:"Los pretendientes no tensaron el arco; él, en cambio, tensó el arco y los mató." },
-        { src:"P2 · 3", image:"img/sirenas.jpg", parts:["Sirenae cantaverunt; Vlixes solus", {options:["eas","eos","eam"], correct:"eas"}, "audivit."], es:"Las sirenas cantaron; solo Ulises las oyó." },
-        { src:"P2 · 4", image:"img/warm-troya.jpg", parts:["Custodes vino lassi obdormiverunt; Achivi", {options:["eos","eas","eum"], correct:"eos"}, "occiderunt."], es:"Los guardias, cansados por el vino, se durmieron; los aqueos los mataron." },
-        { src:"P2 · 5", image:"img/eumeo.jpg", parts:["Vlixes mendicus ad Eumaeum venit; Eumaeus", {options:["eum","eam","eos"], correct:"eum"}, "non agnovit."], es:"Ulises, como mendigo, llegó adonde estaba Eumeo; Eumeo no lo reconoció." },
-        { src:"P2 · 6", image:"img/circe.jpg", parts:["Circe socios Vlixis mutavit, sed", {options:["eum","eos","eam"], correct:"eum"}, "mutare non potuit."], es:"Circe transformó a los compañeros de Ulises, pero a él no lo pudo transformar." },
-        { src:"P2 · 7", parts:["Pasiphae Minotaurum peperit; Minos", {options:["eum","eam","eos"], correct:"eum"}, "in labyrintho inclusit."], es:"Pasífae dio a luz al Minotauro; Minos lo encerró en el laberinto." },
-        { src:"P2 · 8", parts:["Proci Penelopam uxorem volebant, sed", {options:["illa","illam","illae"], correct:"illa"}, {options:["eos","eas","eum"], correct:"eos"}, "fefellit."], es:"Los pretendientes querían a Penélope por esposa, pero ella, en cambio, los engañó." }
+        { src:"P2 · 1", image:"img/ariadna.jpg", parts:["Theseus *Ariadnam reliquit; Liber", {options:["eam","ea","eum"], correct:"eam"}, "in coniugium duxit."], es:"Teseo abandonó a Ariadna; Líber la tomó por esposa." },
+        { src:"P2 · 2", image:"img/pretendientes.jpg", parts:["*Proci arcum non intenderunt;", {options:["ille","illum","illi"], correct:"ille"}, "arcum intendit et", {options:["eos","eas","eum"], correct:"eos"}, "occidit."], es:"Los pretendientes no tensaron el arco; él, en cambio, tensó el arco y los mató." },
+        { src:"P2 · 3", image:"img/sirenas.jpg", parts:["*Sirenae cantaverunt; Vlixes solus", {options:["eas","eos","eam"], correct:"eas"}, "audivit."], es:"Las sirenas cantaron; solo Ulises las oyó." },
+        { src:"P2 · 4", image:"img/warm-troya.jpg", parts:["*Custodes vino lassi obdormiverunt; Achivi", {options:["eos","eas","eum"], correct:"eos"}, "occiderunt."], es:"Los guardias, cansados por el vino, se durmieron; los aqueos los mataron." },
+        { src:"P2 · 5", image:"img/eumeo.jpg", parts:["*Vlixes mendicus ad Eumaeum venit; Eumaeus", {options:["eum","eam","eos"], correct:"eum"}, "non agnovit."], es:"Ulises, como mendigo, llegó adonde estaba Eumeo; Eumeo no lo reconoció." },
+        { src:"P2 · 6", image:"img/circe.jpg", parts:["Circe socios *Vlixis mutavit, sed", {options:["eum","eos","eam"], correct:"eum"}, "mutare non potuit."], es:"Circe transformó a los compañeros de Ulises, pero a él no lo pudo transformar." },
+        { src:"P2 · 7", parts:["Pasiphae *Minotaurum peperit; Minos", {options:["eum","eam","eos"], correct:"eum"}, "in labyrintho inclusit."], es:"Pasífae dio a luz al Minotauro; Minos lo encerró en el laberinto." },
+        { src:"P2 · 8", parts:["*Proci *Penelopam uxorem volebant, sed", {options:["illa","illam","illae"], correct:"illa"}, {options:["eos","eas","eum"], correct:"eos"}, "fefellit."], es:"Los pretendientes querían a Penélope por esposa, pero ella, en cambio, los engañó." }
       ]
     }
   };
@@ -736,6 +741,32 @@
     seals(); show();
   }
 
+  // Sustantivos en negrita que se pueden tocar: enunciado, declinación y género (no el caso: eso lo decide el estudiante).
+  var NOUNS = {
+    homines:["homo, hominis","3ª","masculino"], oves:["ovis, ovis","3ª","femenino"], taurus:["taurus, tauri","2ª","masculino"],
+    hospitem:["hospes, hospitis","3ª","masculino"], hospes:["hospes, hospitis","3ª","masculino"], socii:["socius, socii","2ª","masculino"],
+    vincula:["vinculum, vinculi","2ª","neutro"], cicatricem:["cicatrix, cicatricis","3ª","femenino"],
+    ariadnam:["Ariadna, Ariadnae","1ª","femenino"], proci:["procus, proci","2ª","masculino"], sirenae:["Sirena, Sirenae","1ª","femenino"],
+    custodes:["custos, custodis","3ª","masculino"], vlixes:["Vlixes, Vlixis","3ª","masculino"], vlixis:["Vlixes, Vlixis","3ª","masculino"],
+    minotaurum:["Minotaurus, Minotauri","2ª","masculino"], penelopam:["Penelopa, Penelopae","1ª","femenino"]
+  };
+  function nounChip(word){
+    var bare = word.replace(/[,.;:!?]+$/, ""), punct = word.slice(bare.length);
+    var info = NOUNS[bare.toLowerCase()];
+    var wrap = v2el("span");
+    var b = v2el("button", "noun-chip", bare); b.type = "button";
+    wrap.appendChild(b); if (punct) wrap.appendChild(document.createTextNode(punct));
+    b.addEventListener("click", function(ev){
+      ev.stopPropagation();
+      var row = wrap.parentNode, box = row.nextElementSibling;
+      if (!box || !box.classList.contains("noun-info")){ box = v2el("div", "noun-info"); row.parentNode.insertBefore(box, row.nextSibling); }
+      if (!box.hidden && box.dataset.w === bare){ box.hidden = true; return; }
+      box.dataset.w = bare; box.hidden = false;
+      box.innerHTML = info ? '<span class="ex-latin">' + bare + '</span>: de <strong>' + info[0] + '</strong> · sustantivo de <strong>' + info[1] + ' declinación</strong>, <strong>' + info[2] + '</strong>.' : bare;
+    });
+    return wrap;
+  }
+
   function renderParts(row, parts, makeDD){
     var pending = null;
     parts.forEach(function(part, pi){
@@ -743,6 +774,7 @@
         part.split(" ").filter(Boolean).forEach(function(w){
           if (pending && /^[,.;:!?]+$/.test(w)){ pending.appendChild(document.createTextNode(w)); pending = null; return; }
           pending = null;
+          if (w.charAt(0) === "*"){ row.appendChild(nounChip(w.slice(1))); return; }
           row.appendChild(v2el("span", null, w));
         });
         return;
