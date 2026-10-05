@@ -383,7 +383,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Este, esta, esto: la concordancia</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla, y lo que nombra está a su lado. Mirar el sustantivo que sigue al hueco: género, número y caso; por ejemplo, <span class="ex-latin">vaccam</span> es femenino, singular y acusativo, así que va <span class="ex-latin">hanc vaccam</span>. Primero, leer el latín y pensar la forma; después, mirar la traducción para decidir. En las dos últimas frases, la traducción aparece recién después del primer intento. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez; el recuadro verde marca quién habla, y lo que nombra está a su lado. Mirar el sustantivo que sigue al hueco: género, número y caso; por ejemplo, <span class="ex-latin">vaccam</span> es femenino, singular y acusativo, así que va <span class="ex-latin">hanc vaccam</span>. Ojo con los tiempos: hay perfectos (<span class="ex-latin">biberunt</span>, «tomaron») y futuros (<span class="ex-latin">devorabo</span>, «voy a devorar»). Primero, leer el latín y pensar la forma; después, si hace falta, tocar «Ver traducción». <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p1-progress"></div>
       <div id="p1-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
@@ -453,7 +453,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Ille, illa en el relato</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez. Para elegir hay que mirar dos cosas: a quién retoma el pronombre (género y número) y qué hace en su frase (caso). Por ejemplo, en <span class="ex-latin">Minos uxorem habet; illa filia Solis est</span>, <em>illa</em> retoma a <em>uxorem</em> (femenino singular), pero es sujeto de <em>est</em>: nominativo. Primero, leer el latín y pensar una respuesta; después, mirar la traducción para decidir. En las dos últimas frases, la traducción aparece recién después del primer intento. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una frase por vez. Para elegir hay que mirar dos cosas: a quién retoma el pronombre (género y número) y qué hace en su frase (caso). Por ejemplo, en <span class="ex-latin">Minos uxorem habet; illa filia Solis est</span>, <em>illa</em> retoma a <em>uxorem</em> (femenino singular), pero es sujeto de <em>est</em>: nominativo. Casi todas las frases son de Higino, con verbos en perfecto. Primero, leer el latín y pensar una respuesta; después, si hace falta, tocar «Ver traducción». <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p2-progress"></div>
       <div id="p2-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Finalizar actividad</button></div>
@@ -500,13 +500,13 @@
       paso: "1 - Hic, haec, hoc",
       hint: "Pista: mirar el sustantivo que sigue: género (masculino, femenino, neutro), número y caso (sujeto → nominativo; objeto directo → acusativo).",
       items: [
-        { src:"P1 · 1", image:"img/polifemo.jpg", zone:[3.5,5.7,38.7,94], tail:34, who:"Polifemo", parts:[{options:["Has","Hae","Hos"], correct:"Has"}, "oves amo."], es:"Amo estas ovejas." },
-        { src:"P1 · 2", image:"img/polifemo.jpg", zone:[43.4,37.6,16.6,33.7], tail:48, who:"Ulises", parts:[{options:["Hae","Has","Hi"], correct:"Hae"}, "oves nos servant!"], es:"¡Estas ovejas nos salvan!" },
-        { src:"P1 · 3", image:"img/pasifae.jpg", zone:[51,30,31.5,60], tail:60, who:"Pasífae", parts:[{options:["Hunc","Hanc","Hic"], correct:"Hunc"}, "taurum amo."], es:"Amo a este toro." },
-        { src:"P1 · 4", image:"img/hilo.jpg", zone:[3.8,20,33.7,70], tail:29, who:"Teseo", parts:[{options:["Hoc","Hic","Haec"], correct:"Hoc"}, "filum me servat."], es:"Este hilo me salva." },
-        { src:"P1 · 5", image:"img/sirenas.jpg", zone:[58,22,13,45], tail:65, who:"Ulises", parts:[{options:["Hi","Hos","Hae"], correct:"Hi"}, "socii me non audiunt!"], es:"¡Estos compañeros no me oyen!" },
-        { src:"P1 · 6", late:true, image:"img/euriclea.jpg", zone:[55,37,32,58], tail:63, who:"Euriclea", parts:[{options:["Hanc","Haec","Hunc"], correct:"Hanc"}, "cicatricem agnosco:", {options:["hic","haec","hoc"], correct:"hic"}, "hospes Vlixes est!"], es:"Reconozco esta cicatriz: ¡este huésped es Ulises!" },
-        { src:"P1 · 7", late:true, image:"img/pretendientes.jpg", zone:[30,14,32,80], tail:41, who:"Ulises", parts:[{options:["Hic","Hoc","Hunc"], correct:"Hic"}, "arcus meus est;", {options:["haec","hic","hanc"], correct:"haec"}, "regia mea est!"], es:"¡Este arco es mío; este palacio es mío!" }
+        { src:"P1 · 1", image:"img/polifemo.jpg", zone:[3.5,5.7,38.7,94], tail:34, who:"Polifemo", parts:[{options:["Hos","Hi","Has"], correct:"Hos"}, "homines omnes devorabo!"], es:"¡Me voy a comer a todos estos hombres!" },
+        { src:"P1 · 2", image:"img/polifemo.jpg", zone:[43.4,37.6,16.6,33.7], tail:48, who:"Ulises", parts:[{options:["Hae","Has","Hi"], correct:"Hae"}, "oves nos ex spelunca portabunt."], es:"Estas ovejas nos van a sacar de la cueva." },
+        { src:"P1 · 3", image:"img/pasifae.jpg", zone:[51,30,31.5,60], tail:60, who:"Pasífae", parts:[{options:["Hic","Hunc","Haec"], correct:"Hic"}, "taurus me non amat; Daedalus me adiuvabit."], es:"Este toro no me ama; Dédalo me va a ayudar." },
+        { src:"P1 · 4", image:"img/hilo.jpg", zone:[37.5,15.2,57.5,67.8], tail:60, who:"Ariadna", parts:[{options:["Hunc","Hic","Hanc"], correct:"Hunc"}, "hospitem servabo et cum eo navigabo."], es:"Voy a salvar a este huésped y voy a navegar con él." },
+        { src:"P1 · 5", image:"img/sirenas.jpg", zone:[58,22,13,45], tail:65, who:"Ulises", parts:[{options:["Hi","Hos","Hae"], correct:"Hi"}, "socii aures obturaverunt;", {options:["haec","hae","hoc"], correct:"haec"}, "vincula me tenebunt."], es:"Estos compañeros se taparon los oídos; estas ataduras me van a retener." },
+        { src:"P1 · 6", image:"img/euriclea.jpg", zone:[55,37,32,58], tail:63, who:"Euriclea", parts:[{options:["Hanc","Haec","Hunc"], correct:"Hanc"}, "cicatricem agnosco:", {options:["hic","haec","hoc"], correct:"hic"}, "hospes Vlixes est!"], es:"Reconozco esta cicatriz: ¡este huésped es Ulises!" },
+        { src:"P1 · 7", image:"img/pretendientes.jpg", zone:[30,14,32,80], tail:41, who:"Ulises", parts:[{options:["Hi","Hos","Hae"], correct:"Hi"}, "proci vinum meum biberunt;", {options:["hanc","haec","hunc"], correct:"hanc"}, "regiam liberabo!"], es:"Estos pretendientes se tomaron mi vino; ¡voy a liberar este palacio!" }
       ]
     },
 
@@ -515,30 +515,30 @@
     quis: {
       paso: "2 - Quis loquitur",
       items: [
-        { src:"Q · 1", image:"img/vaca.jpg", who:"Dédalo", box:[41,26,22,62], tail:51, latin:"Haec vacca lignea est, sed taurum fallit.", es:"Esta vaca es de madera, pero engaña al toro.", pista:"«haec vacca»: quien habla tiene la vaca al lado." },
-        { src:"Q · 2", image:"img/vaca.jpg", who:"Pasífae", box:[17,17,24,48], tail:28, latin:"Illa vacca pulchra est!", es:"¡Aquella vaca es hermosa!", pista:"«illa vacca»: quien habla está lejos de la vaca." },
-        { src:"Q · 3", image:"img/penelope.jpg", who:"Penélope", box:[33,12,26,78], tail:41, latin:"Hanc telam interdiu texo, noctu detexo.", es:"Esta tela la tejo de día y la destejo de noche.", pista:"«hanc telam»: quien habla está junto a la tela." },
-        { src:"Q · 4", image:"img/penelope.jpg", who:"Un pretendiente", box:[60,4,40,52], tail:82, latin:"Illa uxor mea erit!", es:"¡Aquella va a ser mi esposa!", pista:"«illa»: habla alguien que mira a Penélope desde lejos." },
-        { src:"Q · 5", image:"img/perdix.jpg", who:"Minerva", box:[47,43,42.5,50], tail:69, latin:"Ille vir nepotem de tecto deiecit.", es:"Aquel hombre arrojó a su sobrino del techo.", pista:"«ille vir»: habla de alguien que está lejos, arriba." },
-        { src:"Q · 6", image:"img/perdix.jpg", who:"Dédalo", box:[42,9.5,23,12.5], tail:54, latin:"Illa dea puerum servat!", es:"¡Aquella diosa salva al muchacho!", pista:"«illa dea»: quien habla ve a la diosa de lejos, desde arriba." },
-        { src:"Q · 7", image:"img/pretendientes.jpg", who:"Ulises", box:[30,14,32,80], tail:41, latin:"Hunc arcum nemo intendere potuit!", es:"¡Nadie pudo tensar este arco!", pista:"«hunc arcum»: quien habla tiene el arco en la mano." },
-        { src:"Q · 8", image:"img/pretendientes.jpg", who:"Un pretendiente", box:[74,14,26,36], tail:87, latin:"Ille mendicus Vlixes est!", es:"¡Aquel mendigo es Ulises!", pista:"«ille mendicus»: habla de alguien que está lejos, enfrente." }
+        { src:"Q · 1", image:"img/vaca.jpg", who:"Dédalo", box:[41,26,22,62], tail:51, latin:"Hanc vaccam tibi feci: taurus eam amabit.", es:"Te hice esta vaca: el toro la va a amar.", pista:"«hanc vaccam… feci»: quien habla tiene al lado la vaca que hizo." },
+        { src:"Q · 2", image:"img/vaca.jpg", who:"Pasífae", box:[17,17,24,48], tail:28, latin:"Illam vaccam intrabo; taurus me non videbit.", es:"Voy a entrar en aquella vaca; el toro no me va a ver.", pista:"«illam vaccam… intrabo»: habla quien va a entrar en la vaca, que la ve de lejos." },
+        { src:"Q · 3", image:"img/penelope.jpg", who:"Penélope", box:[33,12,26,78], tail:41, latin:"Hanc telam noctu detexo: sic Vlixem exspectabo.", es:"Esta tela la destejo de noche: así voy a esperar a Ulises.", pista:"«hanc telam»: quien habla está junto a la tela y espera a Ulises." },
+        { src:"Q · 4", image:"img/penelope.jpg", who:"Un pretendiente", box:[60,4,40,52], tail:82, latin:"Illa uxor mea erit; regiam habebo!", es:"Aquella va a ser mi esposa; ¡voy a tener el palacio!", pista:"«illa»: habla de Penélope alguien que la mira desde lejos, desde la ventana." },
+        { src:"Q · 5", image:"img/perdix.jpg", who:"Dédalo", box:[42,9.5,23,12.5], tail:54, latin:"Illum puerum de tecto deieci!", es:"¡Arrojé del techo a aquel muchacho!", pista:"«de tecto deieci»: lo arrojó quien está arriba, en el techo; el muchacho ya está lejos, cayendo." },
+        { src:"Q · 6", image:"img/perdix.jpg", who:"Minerva", box:[47,43,42.5,50], tail:69, latin:"Hunc puerum in avem mutabo.", es:"Voy a transformar a este muchacho en ave.", pista:"«hunc puerum»: quien habla tiene al muchacho cerca, al alcance de la mano." },
+        { src:"Q · 7", image:"img/pretendientes.jpg", who:"Ulises", box:[30,14,32,80], tail:41, latin:"Hunc arcum ego solus intendi!", es:"¡Solo yo tensé este arco!", pista:"«hunc arcum… intendi»: quien habla tiene el arco tenso en la mano." },
+        { src:"Q · 8", image:"img/pretendientes.jpg", who:"Un pretendiente", box:[74,14,26,36], tail:87, latin:"Ille mendicus Vlixes est! Quis nos servabit?", es:"¡Aquel mendigo es Ulises! ¿Quién nos va a salvar?", pista:"«ille mendicus»: habla de alguien que está lejos, enfrente; «nos»: son varios." }
       ]
     },
 
-    // Paso 2 — ille, illa retoman a alguien: una frase por pantalla; primero las que tienen imagen. late:true = «Ver traducción» recién después del primer error.
+    // Paso 2 — ille, illa retoman a alguien: una frase por pantalla; primero las que tienen imagen. «Ver traducción» siempre disponible (pedido de Santiago, 2026-10-05).
     paso2: {
       paso: "3 - Ille, illa en el relato",
       hint: "Pista: el género y el número son los de la persona retomada; el caso depende de lo que hace en su frase (sujeto → nominativo, objeto directo → acusativo).",
       items: [
-        { src:"P2 · 1", image:"img/ariadna.jpg", parts:["Ariadna in insula dormit, et Theseus", {options:["illa","illam","illum"], correct:"illam"}, "relinquit."], es:"Ariadna duerme en la isla, y Teseo la abandona." },
-        { src:"P2 · 2", image:"img/pretendientes.jpg", parts:["Vlixes et Telemachus procos occidunt; Minerva", {options:["illi","illos","illas"], correct:"illos"}, "adiuvat."], es:"Ulises y Telémaco matan a los pretendientes; Minerva los ayuda." },
-        { src:"P2 · 3", image:"img/sirenas.jpg", parts:["Vlixes ad Sirenas venit;", {options:["illae","illas","illi"], correct:"illae"}, "eum vocant."], es:"Ulises llega adonde están las sirenas; ellas lo llaman." },
-        { src:"P2 · 4", image:"img/warm-troya.jpg", parts:["Achivi in equo sunt; noctu", {options:["illi","illos","illae"], correct:"illi"}, "ex equo exeunt."], es:"Los aqueos están en el caballo; de noche ellos salen del caballo." },
-        { src:"P2 · 5", image:"img/hilo.jpg", parts:["Ariadna Theseum amat;", {options:["illa","illam","ille"], correct:"illa"}, "filum dat, et", {options:["ille","illum","illa"], correct:"ille"}, "Minotaurum occidit."], es:"Ariadna ama a Teseo; ella le da el hilo, y él mata al Minotauro." },
-        { src:"P2 · 6", image:"img/daedalus.jpg", parts:["Daedalus pennas facit et", {options:["illas","illam","illos"], correct:"illas"}, "Icaro dat."], es:"Dédalo hace alas y se las da a Ícaro." },
-        { src:"P2 · 7", late:true, image:"img/circe.jpg", parts:["Circe socios in bestias mutat;", {options:["illa","illam","ille"], correct:"illa"}, "Vlixem mutare non potest, quod Mercurius", {options:["illum","illam","ille"], correct:"illum"}, "adiuvat."], es:"Circe transforma a los compañeros en bestias; ella no puede transformar a Ulises, porque Mercurio lo ayuda." },
-        { src:"P2 · 8", late:true, parts:["Penelope procos fallit:", {options:["illa","illam","illae"], correct:"illa"}, "noctu telam detexit, et", {options:["illi","illos","illa"], correct:"illi"}, "hoc non vident."], es:"Penélope engaña a los pretendientes: ella desteje la tela de noche, y ellos no ven esto." }
+        { src:"P2 · 1", image:"img/ariadna.jpg", parts:["Theseus Ariadnam reliquit; Liber", {options:["illam","illa","illum"], correct:"illam"}, "in coniugium duxit."], es:"Teseo abandonó a Ariadna; Líber la tomó por esposa." },
+        { src:"P2 · 2", image:"img/pretendientes.jpg", parts:["Proci arcum non intenderunt;", {options:["ille","illum","illi"], correct:"ille"}, "intendit et", {options:["illos","illi","illas"], correct:"illos"}, "occidit."], es:"Los pretendientes no tensaron el arco; él lo tensó y los mató." },
+        { src:"P2 · 3", image:"img/sirenas.jpg", parts:["Vlixes Sirenas audivit;", {options:["illae","illas","illi"], correct:"illae"}, "se in mare deiecerunt."], es:"Ulises oyó a las sirenas; ellas se arrojaron al mar." },
+        { src:"P2 · 4", image:"img/warm-troya.jpg", parts:["Custodes vino lassi obdormiverunt; Achivi", {options:["illos","illi","illas"], correct:"illos"}, "occiderunt."], es:"Los guardias, cansados por el vino, se durmieron; los aqueos los mataron." },
+        { src:"P2 · 5", image:"img/hilo.jpg", parts:["Ariadna Theseum amavit:", {options:["illa","illam","ille"], correct:"illa"}, "exitum monstravit,", {options:["ille","illum","illa"], correct:"ille"}, "Minotaurum occidit."], es:"Ariadna amó a Teseo: ella le mostró la salida, él mató al Minotauro." },
+        { src:"P2 · 6", image:"img/daedalus.jpg", parts:["Daedalus pennas sibi et filio fecit;", {options:["illi","illos","illae"], correct:"illi"}, "avolaverunt."], es:"Dédalo se hizo alas para él y para su hijo; ellos se fueron volando." },
+        { src:"P2 · 7", image:"img/circe.jpg", parts:["Circe socios Vlixis mutavit;", {options:["illum","illam","ille"], correct:"illum"}, "mutare non potuit."], es:"Circe transformó a los compañeros de Ulises; a él no lo pudo transformar." },
+        { src:"P2 · 8", parts:["Proci Penelopam uxorem volebant, sed", {options:["illa","illam","illae"], correct:"illa"}, {options:["illos","illi","illas"], correct:"illos"}, "fefellit."], es:"Los pretendientes querían a Penélope por esposa, pero ella los engañó." }
       ]
     }
   };
