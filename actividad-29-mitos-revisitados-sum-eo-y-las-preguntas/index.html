@@ -323,7 +323,16 @@
   .quis-wrap.still{ cursor:default; }
   .find-zone.ans{ border:3px solid #6f9bff; background:rgba(111,155,255,.16); }
   .cbubble.flow.up{ margin:14px 0 0; }
+  .cbubble.ask{ border-color:#4f9a2f; }
   .cbubble.ask .who{ color:#2f6b1c; }
+  .cbubble.answer{ border-color:#3a6fe0; }
+  .cbubble.answer::after{ border-color:#3a6fe0; }
+  .gw{ font:inherit; color:inherit; background:none; border:none; border-bottom:1px dotted #8a8a80; padding:0; margin:0; cursor:pointer; }
+  .gw.on{ background:#fff3c4; border-bottom-color:#93701c; }
+  .gloss-line{ margin:.1rem 0 .4rem; padding:.4rem .65rem; border-radius:8px; background:var(--surface-raised); border-left:3px solid var(--accent); font-size:.9rem; color:var(--ink); }
+  .gloss-line .ex-latin{ font-family:var(--serif); font-style:italic; font-weight:700; }
+  .ask-tr{ margin:0 0 .7rem; }
+  .ask-next-top{ margin:.5rem 0 0; }
   .cbubble .bubble-la{ display:flex; flex-wrap:wrap; align-items:center; }
   .qslot{ display:inline-flex; align-items:center; justify-content:center; min-width:3.6rem; min-height:1.9rem; padding:0 .45rem; margin-right:.25rem; border:2px dashed #8a8a80; border-radius:8px; color:#8a8a80; font-family:var(--sans); font-style:normal; font-size:.9rem; background:#fff; }
   .qslot.ok{ border:2px solid #4f7a34; background:#e4ecd7; color:#4f7a34; font-family:var(--serif); font-style:italic; font-size:1rem; font-weight:700; }
@@ -377,13 +386,15 @@
       <div class="step-nav top-nav"></div>
       <div class="step-head"><div><p class="eyebrow">Antes del Paso 1</p><h2>Palabras para preguntar</h2></div></div>
       <div class="explain-box">
-        <h3 class="box-h">1 · Quién, qué, por qué</h3>
+        <h3 class="box-h">1 · Quién, qué, por qué, cómo, cuándo</h3>
         <div class="ex-list">
           <div><span class="ex-latin"><strong>quis?</strong></span> ¿quién? — <span class="ex-latin"><strong>Quis</strong> es?</span> (¿<strong>Quién</strong> sos?)</div>
           <div><span class="ex-latin"><strong>quid?</strong></span> ¿qué? — <span class="ex-latin"><strong>Quid</strong> facere possum?</span> (¿<strong>Qué</strong> puedo hacer?)</div>
           <div><span class="ex-latin"><strong>cur?</strong></span> ¿por qué? — <span class="ex-latin"><strong>Cur</strong> mihi auxilium das?</span> (¿<strong>Por qué</strong> me ayudás?)</div>
+          <div><span class="ex-latin"><strong>quomodo?</strong></span> ¿cómo?, ¿de qué manera? — <span class="ex-latin"><strong>Quomodo</strong> Theseus ex labyrintho exiit? — Filo.</span> (¿<strong>Cómo</strong> salió Teseo del laberinto? — Con el hilo.)</div>
+          <div><span class="ex-latin"><strong>quando?</strong></span> ¿cuándo? — <span class="ex-latin"><strong>Quando</strong> Troiani obdormiverunt? — Noctu.</span> (¿<strong>Cuándo</strong> se durmieron los troyanos? — De noche.)</div>
         </div>
-        <p>Las tres ya las viste en la Actividad 24. <span class="ex-latin">Quis</span> pregunta por una persona; <span class="ex-latin">quid</span>, por una cosa; <span class="ex-latin">cur</span>, por un motivo (la respuesta suele empezar con <span class="ex-latin">quod</span>, «porque»).</p>
+        <p>Las tres primeras ya las viste en la Actividad 24. <span class="ex-latin">Quis</span> pregunta por una persona; <span class="ex-latin">quid</span>, por una cosa; <span class="ex-latin">cur</span>, por un motivo (la respuesta suele empezar con <span class="ex-latin">quod</span>, «porque»); <span class="ex-latin">quomodo</span>, por la manera; <span class="ex-latin">quando</span>, por el momento (<span class="ex-latin">noctu</span>, «de noche»; <span class="ex-latin">cras</span>, «mañana»).</p>
       </div>
       <div class="explain-box">
         <h3 class="box-h">2 · Cuatro preguntas sobre el lugar</h3>
@@ -410,7 +421,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>La pregunta que falta</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una escena por vez: arriba de la imagen, la pregunta con un hueco; abajo, la respuesta. Leer la respuesta y elegir la palabra para preguntar que le corresponde; por ejemplo, si la respuesta es <span class="ex-latin">In insula Dia</span> (<em>in</em> + ablativo), la pregunta empieza con <span class="ex-latin">ubi</span>. Primero, leer el latín y pensar una respuesta; después, si hace falta, tocar «Ver traducción». <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Una escena por vez: arriba, la pregunta con un hueco (borde verde) y, debajo, la respuesta (borde azul). <strong>Primero hay que leer la respuesta: es la que muestra qué se pregunta.</strong> Por ejemplo, si la respuesta es <span class="ex-latin">In insula Dia</span> (<em>in</em> + ablativo, un lugar), la pregunta empieza con <span class="ex-latin">ubi</span>. Cada palabra latina de los globos se puede tocar para ver qué significa; el botón «Ver traducción» muestra el diálogo entero en castellano. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div class="p-progress" id="p1-progress"></div>
       <div id="p1-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
@@ -483,8 +494,8 @@
         <h3 class="box-h">3 · El perfecto de los compuestos</h3>
         <p>En los compuestos, el perfecto suele ir <strong>sin la v</strong>: <span class="ex-latin">redii, rediit, redierunt</span>; <span class="ex-latin">exii, exiit, exierunt</span>.</p>
         <div class="ex-list">
-          <div><span class="ex-latin">Theseus filo ex labyrintho <strong>exiit</strong>.</span> (Teseo <strong>salió</strong> del laberinto gracias al hilo.)</div>
-          <div><span class="ex-latin">Daedalus ab Athenis in exilium <strong>abiit</strong>.</span> (Dédalo <strong>se fue</strong> de Atenas al exilio.) Así lo escribe Higino; ya lo viste en las preguntas.</div>
+          <div><span class="ex-latin">Theseus filo ex labyrintho <strong>exiit</strong>.</span> (Teseo <strong>salió</strong> del laberinto gracias al hilo.) Ya la viste en las preguntas.</div>
+          <div><span class="ex-latin">Daedalus ab Athenis in exilium <strong>abiit</strong>.</span> (Dédalo <strong>se fue</strong> de Atenas al exilio.) Así lo escribe Higino.</div>
         </div>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 2</button></div>
@@ -504,7 +515,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Ulises cuenta su viaje</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez: arriba, lo que cuenta el narrador; abajo, lo mismo dicho por Ulises, que habla de sí mismo («yo»). Cada frase trae el <strong>enunciado</strong> del verbo: la última forma es el perfecto en 1ª persona, la que dice «yo»; por ejemplo, <span class="ex-latin">feci</span> (hice). Ojo: no todas las frases están en perfecto. Al terminar, queda escrito el relato completo.</p>
+      <p class="step-instructions">Una frase por vez: arriba, lo que cuenta el narrador; abajo, lo mismo dicho por Ulises, que habla de sí mismo («yo»). Cada frase trae el <strong>enunciado</strong> del verbo: la última forma es el perfecto en 1ª persona del singular («yo»); de ahí sale el tema de perfectum, al que se suma la desinencia. Por ejemplo, <span class="ex-latin">feci</span> → <span class="ex-latin">fec‑</span>: <span class="ex-latin">feci</span> (yo hice), <span class="ex-latin">fecimus</span> (nosotros hicimos), <span class="ex-latin">fecit</span> (él hizo). Hay que pensar quién hace cada acción: Ulises solo, Ulises con sus compañeros u otro. Ojo: no todas las frases están en perfecto. Al terminar, queda escrito el relato completo.</p>
       <div class="p-progress" id="p3-progress"></div>
       <div class="story" id="p3-story" hidden><p class="story-h">El relato de Ulises</p><ol id="p3-story-list"></ol></div>
       <div id="p3-stage"></div>
@@ -553,51 +564,71 @@
       paso: "1 - La pregunta que falta",
       items: [
         { src:"P1 · 1", image:"img/eumeo.jpg", ctx:"Ulises llega disfrazado de mendigo a la choza de Eumeo.",
-          ask:{ who:"Eumeo", la:"___ venisti?", box:[13,44,20,48], tail:22 },
+          ask:{ who:"Eumeo", la:"___ venisti?", box:[13,44,20,48] },
           ans:{ who:"Ulises", la:"Ex Creta veni.", box:[48,50,15,37], tail:55 },
           options:["Unde","Ubi","Quo"], correct:"Unde", pista:"la respuesta dice de dónde viene: ex + ablativo.",
           es:"—¿De dónde viniste? —Vine de Creta." },
         { src:"P1 · 2", image:"img/polifemo.jpg", ctx:"En la cueva, el cíclope interroga a Ulises.",
-          ask:{ who:"El cíclope", la:"___ est navigium tuum?", box:[3.5,5.7,38.7,94], tail:33 },
+          ask:{ who:"El cíclope", la:"___ est navigium tuum?", box:[3.5,5.7,38.7,94] },
           ans:{ who:"Ulises", la:"Neptunus id fluctibus disiecit.", box:[43.4,37.6,16.6,33.7], tail:50 },
           options:["Ubi","Quis","Cur"], correct:"Ubi", pista:"el cíclope pregunta por el lugar en que está la nave.",
           es:"—¿Dónde está tu nave? —Neptuno la destrozó con las olas." },
         { src:"P1 · 3", image:"img/polifemo.jpg", ctx:"Los compañeros buscan cómo escapar de la cueva.",
-          ask:{ who:"Los compañeros", la:"___ exire possumus?", box:[60,30.5,35.4,51.4], tail:76 },
+          ask:{ who:"Los compañeros", la:"___ exire possumus?", box:[60,30.5,35.4,51.4] },
           ans:{ who:"Ulises", la:"Sub ovibus!", box:[43.4,37.6,16.6,33.7], tail:50 },
-          options:["Qua","Quo","Unde"], correct:"Qua", pista:"la respuesta no dice adónde ni de dónde: dice por dónde, el camino para salir.",
-          es:"—¿Por dónde podemos salir? —¡Debajo de las ovejas!" },
+          options:["Quomodo","Quo","Unde"], correct:"Quomodo", pista:"la respuesta no es un lugar adonde ir ni de donde venir: dice de qué manera van a salir.",
+          es:"—¿Cómo podemos salir? —¡Debajo de las ovejas!" },
         { src:"P1 · 4", image:"img/hilo.jpg", ctx:"Ariadna le da el hilo a Teseo.",
-          ask:{ who:"Ariadna", la:"___ is?", box:[37.5,15.2,57.5,67.8], tail:60 },
+          ask:{ who:"Ariadna", la:"___ is?", box:[37.5,15.2,57.5,67.8] },
           ans:{ who:"Teseo", la:"In labyrinthum, ad Minotaurum.", box:[3.8,20,33.7,70], tail:29 },
           options:["Quo","Ubi","Unde"], correct:"Quo", pista:"la respuesta dice adónde va: in / ad + acusativo.",
           es:"—¿Adónde vas? —Al laberinto, hacia el Minotauro." },
         { src:"P1 · 5", image:"img/vaca.jpg", ctx:"Dédalo le muestra a Pasífae lo que construyó.",
-          ask:{ who:"Pasífae", la:"___ mihi fabricavisti?", box:[17,17,24,48], tail:28 },
+          ask:{ who:"Pasífae", la:"___ mihi fabricavisti?", box:[17,17,24,48] },
           ans:{ who:"Dédalo", la:"Vaccam ligneam tibi fabricavi.", box:[41,26,22,62], tail:51 },
           options:["Quid","Quis","Cur"], correct:"Quid", pista:"la respuesta es una cosa: una vaca de madera.",
           es:"—¿Qué me fabricaste? —Te fabriqué una vaca de madera." },
-        { src:"P1 · 6", image:"img/sirenas.jpg", ctx:"Las sirenas rodean la nave de Ulises.",
-          ask:{ who:"Una sirena", la:"___ navigabis, Vlixes?", box:[77,18,20,32], tail:86 },
-          ans:{ who:"Ulises", la:"In patriam navigabo.", box:[58,28,12,38], tail:63 },
-          options:["Quo","Unde","Ubi"], correct:"Quo", pista:"la respuesta dice adónde: in + acusativo.",
-          es:"—¿Adónde vas a navegar, Ulises? —Voy a navegar a mi patria." },
-        { src:"P1 · 7", image:"img/penelope.jpg", ctx:"Penélope teje de día y desteje de noche.",
-          ask:{ who:"Un pretendiente", la:"___ telam noctu detexuisti?", box:[60,4,40,52], tail:82 },
-          ans:{ who:"Penélope", la:"Quod uxor Vlixis sum.", box:[33,12,26,78], tail:41 },
-          options:["Cur","Quid","Qua"], correct:"Cur", pista:"la respuesta empieza con quod, «porque»: da un motivo.",
-          es:"—¿Por qué destejiste la tela de noche? —Porque soy la esposa de Ulises." },
-        { src:"P1 · 8", image:"img/eumeo.jpg", ctx:"Ulises, todavía disfrazado, pregunta por su esposa.",
-          ask:{ who:"Ulises", la:"___ est Penelope?", box:[48,50,15,37], tail:55 },
+        { src:"P1 · 6", image:"img/daedalus.jpg", ctx:"Dédalo e Ícaro, encerrados en Creta, preparan la huida.",
+          ask:{ who:"Ícaro", la:"___ ex Creta fugiemus?", box:[50,22,47,60] },
+          ans:{ who:"Dédalo", la:"Per caelum: pennas paravi.", box:[10,30,30,57], tail:33 },
+          options:["Qua","Quo","Unde"], correct:"Qua", pista:"la respuesta dice por dónde, el camino: per + acusativo.",
+          es:"—¿Por dónde vamos a escapar de Creta? —Por el cielo: preparé alas." },
+        { src:"P1 · 7", image:"img/sirenas.jpg", ctx:"Las sirenas cantan, pero los remeros siguen remando.",
+          ask:{ who:"Una sirena", la:"___ socii tui nos non audiunt?", box:[77,18,20,32] },
+          ans:{ who:"Ulises", la:"Quod ceram in auribus habent.", box:[58,28,12,38], tail:63 },
+          options:["Cur","Quid","Quo"], correct:"Cur", pista:"la respuesta empieza con quod, «porque»: da un motivo.",
+          es:"—¿Por qué tus compañeros no nos oyen? —Porque tienen cera en los oídos." },
+        { src:"P1 · 8", image:"img/penelope.jpg", ctx:"Los pretendientes presionan a Penélope para que elija esposo.",
+          ask:{ who:"Un pretendiente", la:"___ uxor mea eris?", box:[60,4,40,52] },
+          ans:{ who:"Penélope", la:"Cras! Hodie telam texo.", box:[33,12,26,78], tail:41 },
+          options:["Quando","Cur","Ubi"], correct:"Quando", pista:"la respuesta dice un momento: cras, «mañana».",
+          es:"—¿Cuándo vas a ser mi esposa? —¡Mañana! Hoy tejo la tela." },
+        { src:"P1 · 9", image:"img/eumeo.jpg", ctx:"Ulises, todavía disfrazado, pregunta por su esposa.",
+          ask:{ who:"Ulises", la:"___ est Penelope?", box:[48,50,15,37] },
           ans:{ who:"Eumeo", la:"In regia, cum procis.", box:[13,44,20,48], tail:22 },
           options:["Ubi","Quo","Qua"], correct:"Ubi", pista:"la respuesta dice dónde está: in + ablativo.",
           es:"—¿Dónde está Penélope? —En el palacio, con los pretendientes." },
-        { src:"P1 · 9", ctx:"Polifemo grita desde la cueva; llegan los otros cíclopes.",
+        { src:"P1 · 10", ctx:"Polifemo grita desde la cueva; llegan los otros cíclopes.",
           ask:{ who:"Los cíclopes", la:"___ te excaecavit?" },
           ans:{ who:"Polifemo", la:"Nemo me excaecavit!" },
           options:["Quis","Quid","Ubi"], correct:"Quis", pista:"la respuesta es una persona, aunque sea «Nadie».",
           es:"—¿Quién te dejó ciego? —¡Nadie me dejó ciego!" }
-      ]
+      ],
+      // Glosas de las palabras de los globos (se tocan para verlas). Clave: forma en minúscula, sin puntuación.
+      gloss: {
+        "venisti":"viniste (venio, venis, venire, veni)", "ex":"de, desde (+ ablativo)", "creta":"Creta (la isla)", "veni":"vine (venio)",
+        "est":"está, es (sum)", "navigium":"nave (navigium, navigii)", "tuum":"tu (tuus, tua, tuum)", "neptunus":"Neptuno",
+        "id":"la, lo (is, ea, id; acá retoma a navigium)", "fluctibus":"con las olas (fluctus, fluctus)", "disiecit":"destrozó, despedazó (disicio, disicis, disicere, disieci)",
+        "exire":"salir (exeo)", "possumus":"podemos (possum)", "sub":"debajo de (+ ablativo)", "ovibus":"las ovejas (ovis, ovis)",
+        "is":"vas (eo, is, ire, ivi)", "in":"en, a (in + acusativo: adónde; in + ablativo: dónde)", "labyrinthum":"el laberinto (labyrinthus, labyrinthi)", "ad":"hacia, a (+ acusativo)", "minotaurum":"el Minotauro",
+        "mihi":"me, para mí (ego)", "fabricavisti":"fabricaste (fabrico, fabricas, fabricare, fabricavi)", "vaccam":"vaca (vacca, vaccae)", "ligneam":"de madera (ligneus, lignea, ligneum)", "tibi":"te, para vos (tu)", "fabricavi":"fabriqué (fabrico)",
+        "fugiemus":"vamos a escapar (fugio, futuro)", "per":"por, a través de (+ acusativo)", "caelum":"el cielo (caelum, caeli)", "pennas":"alas, plumas (penna, pennae)", "paravi":"preparé (paro, paras, parare, paravi)",
+        "socii":"los compañeros (socius, socii)", "tui":"tus (tuus, tua, tuum)", "nos":"a nosotras (nos)", "non":"no", "audiunt":"oyen (audio)", "quod":"porque",
+        "ceram":"cera (cera, cerae)", "auribus":"los oídos (auris, auris)", "habent":"tienen (habeo)",
+        "uxor":"esposa (uxor, uxoris)", "mea":"mi (meus, mea, meum)", "eris":"vas a ser (sum, futuro)", "cras":"mañana", "hodie":"hoy", "telam":"la tela (tela, telae)", "texo":"tejo (texo, texis, texere, texui)",
+        "penelope":"Penélope", "regia":"el palacio (regia, regiae)", "cum":"con (+ ablativo)", "procis":"los pretendientes (procus, proci)",
+        "te":"te, a vos (tu)", "excaecavit":"dejó ciego (excaeco, excaecas, excaecare, excaecavi)", "nemo":"nadie", "me":"me, a mí (ego)"
+      }
     },
 
     // Inveni — preguntas que se responden tocando el cuadro de Jordaens (zonas de la Act. 24, verificadas con PIL).
@@ -624,26 +655,27 @@
         { src:"P2 · 3", image:"img/polifemo.jpg", zone:[3.5,5.7,38.7,94], tail:33, who:"Polifemo", parts:["Vos cibus meus", {options:["estis","sunt","sumus"], correct:"estis"}, ": omnes devorabo!"], es:"Ustedes son mi comida: ¡me los voy a comer a todos!" },
         { src:"P2 · 4", image:"img/euriclea.jpg", zone:[27,25,28,55], tail:41, who:"Ulises, a Euriclea", parts:["Vlixes", {options:["sum","es","est"], correct:"sum"}, ", sed proci me non agnoverunt."], es:"Soy Ulises, pero los pretendientes no me reconocieron." },
         { src:"P2 · 5", image:"img/eumeo.jpg", zone:[13,44,20,48], tail:22, who:"Eumeo", parts:["Proci in regia", {options:["sunt","est","estis"], correct:"sunt"}, "et pecora Vlixis consumunt."], es:"Los pretendientes están en el palacio y se comen el ganado de Ulises." },
-        { src:"P2 · 6", image:"img/pretendientes.jpg", zone:[62,10,38,42], tail:80, who:"Un pretendiente", parts:["Vlixes", {options:["rediit","redii","redierunt"], correct:"rediit"}, "! Ubi", {options:["fuit","fui","fuerunt"], correct:"fuit"}, "?"], es:"¡Ulises volvió! ¿Dónde estuvo?" },
+        { src:"P2 · 6", image:"img/pretendientes.jpg", zone:[62,10,38,42], tail:80, who:"Un pretendiente", parts:["Vlixes viginti annos procul", {options:["fuit","fui","fuerunt"], correct:"fuit"}, ", sed nunc", {options:["rediit","redii","redierunt"], correct:"rediit"}, "!"], es:"Ulises estuvo lejos veinte años, ¡pero ahora volvió!" },
         { src:"P2 · 7", image:"img/sirenas.jpg", zone:[58,28,12,38], tail:63, who:"Ulises, a los compañeros", parts:["Ad Sirenas", {options:["imus","itis","eunt"], correct:"imus"}, ": aures vestras cera obturabo."], es:"Vamos hacia las sirenas: les voy a tapar los oídos con cera." },
         { src:"P2 · 8", image:"img/daedalus.jpg", zone:[10,30,30,57], tail:33, who:"Dédalo, a Ícaro", parts:["Pasiphae nos liberavit; nunc ex Creta", {options:["abimus","abeunt","abitis"], correct:"abimus"}, "."], es:"Pasífae nos liberó; ahora nos vamos de Creta." }
       ]
     },
 
-    // Paso 3 — del narrador (3ª persona) a Ulises (1ª). enun = partes del enunciado; hl = índice de la forma que
-    // se resalta (-1: ninguna; la última frase vuelve al presente y no se regala). Arriba se va armando el relato completo.
+    // Paso 3 — del narrador (3ª persona) a Ulises (1ª). enun = partes del enunciado, sin resaltar (v2: la forma pedida
+    // puede ser «yo», «nosotros» o seguir en 3ª, así que hay que pensar quién hace la acción). Arriba se arma el relato.
     paso3: {
       paso: "4 - Ulises cuenta su viaje",
-      hint: "Pista: Ulises habla de sí mismo («yo»). La última forma del enunciado es el perfecto en 1ª persona.",
+      hint: "Pista: ¿quién hace la acción? Ulises solo («yo»: ‑i), Ulises con sus compañeros («nosotros»: ‑imus) u otro («él»: ‑it).",
       items: [
-        { src:"P3 · 1", narr:"Vlixes ad Cyclopem venit.", parts:["Ad Cyclopem", {options:["veni","venit","venio"], correct:"veni"}, "."], enun:["venio","venis","venire","veni"], hl:3, mean:"llegar, venir", es:"Llegué adonde estaba el cíclope." },
-        { src:"P3 · 2", narr:"In spelunca Cyclopis fuit.", parts:["In spelunca Cyclopis", {options:["fui","fuit","sum"], correct:"fui"}, "."], enun:["sum","es","esse","fui"], hl:3, mean:"ser, estar", es:"Estuve en la cueva del cíclope." },
-        { src:"P3 · 3", narr:"Cyclopi vinum dedit.", parts:["Cyclopi vinum", {options:["dedi","dedit","do"], correct:"dedi"}, "."], enun:["do","das","dare","dedi"], hl:3, mean:"dar", es:"Le di vino al cíclope." },
-        { src:"P3 · 4", narr:"Cum sociis ex spelunca exiit.", parts:["Cum sociis ex spelunca", {options:["exii","exiit","exeo"], correct:"exii"}, "."], enun:["exeo","exis","exire","exii"], hl:3, mean:"salir", es:"Salí de la cueva con mis compañeros." },
-        { src:"P3 · 5", narr:"Sociis cera aures obturavit.", parts:["Sociis cera aures", {options:["obturavi","obturavit","obturo"], correct:"obturavi"}, "."], enun:["obturo","obturas","obturare","obturavi"], hl:3, mean:"tapar", es:"A mis compañeros les tapé los oídos con cera." },
-        { src:"P3 · 6", narr:"Multos socios amisit.", parts:["Multos socios", {options:["amisi","amisit","amitto"], correct:"amisi"}, "."], enun:["amitto","amittis","amittere","amisi"], hl:3, mean:"perder", es:"Perdí muchos compañeros." },
-        { src:"P3 · 7", narr:"Solus in patriam rediit.", parts:["Solus in patriam", {options:["redii","rediit","redeo"], correct:"redii"}, "."], enun:["redeo","redis","redire","redii"], hl:3, mean:"volver", es:"Volví solo a mi patria." },
-        { src:"P3 · 8", narr:"Nunc in regia sua est.", parts:["Nunc in regia mea", {options:["sum","est","fui"], correct:"sum"}, "."], enun:["sum","es","esse","fui"], hl:-1, mean:"ser, estar", es:"Ahora estoy en mi palacio." }
+        { src:"P3 · 1", narr:"Vlixes cum sociis ad Cyclopem venit.", parts:["Cum sociis ad Cyclopem", {options:["venimus","veni","venerunt"], correct:"venimus"}, "."], enun:["venio","venis","venire","veni"], mean:"llegar, venir", es:"Con mis compañeros llegamos adonde estaba el cíclope." },
+        { src:"P3 · 2", narr:"Vlixes et socii in spelunca Cyclopis fuerunt.", parts:["In spelunca Cyclopis", {options:["fuimus","fui","fuerunt"], correct:"fuimus"}, "."], enun:["sum","es","esse","fui"], mean:"ser, estar", es:"Estuvimos en la cueva del cíclope." },
+        { src:"P3 · 3", narr:"Cyclops sex socios Vlixis devoravit.", parts:["Cyclops sex socios meos", {options:["devoravit","devoravi","devoravimus"], correct:"devoravit"}, "."], enun:["devoro","devoras","devorare","devoravi"], mean:"devorar", es:"El cíclope devoró a seis de mis compañeros." },
+        { src:"P3 · 4", narr:"Vlixes Cyclopi vinum dedit.", parts:["Cyclopi vinum", {options:["dedi","dedimus","dedit"], correct:"dedi"}, "."], enun:["do","das","dare","dedi"], mean:"dar", es:"Le di vino al cíclope." },
+        { src:"P3 · 5", narr:"Vlixes et socii sub ovibus ex spelunca exierunt.", parts:["Sub ovibus ex spelunca", {options:["exiimus","exii","exierunt"], correct:"exiimus"}, "."], enun:["exeo","exis","exire","exii"], mean:"salir", es:"Salimos de la cueva debajo de las ovejas." },
+        { src:"P3 · 6", narr:"Vlixes sociis cera aures obturavit.", parts:["Sociis cera aures", {options:["obturavi","obturavimus","obturavit"], correct:"obturavi"}, "."], enun:["obturo","obturas","obturare","obturavi"], mean:"tapar", es:"A mis compañeros les tapé los oídos con cera." },
+        { src:"P3 · 7", narr:"Vlixes multos socios amisit.", parts:["Multos socios", {options:["amisi","amisimus","amisit"], correct:"amisi"}, "."], enun:["amitto","amittis","amittere","amisi"], mean:"perder", es:"Perdí muchos compañeros." },
+        { src:"P3 · 8", narr:"Vlixes solus in patriam rediit.", parts:["Solus in patriam", {options:["redii","rediimus","redierunt"], correct:"redii"}, "."], enun:["redeo","redis","redire","redii"], mean:"volver", es:"Volví solo a mi patria." },
+        { src:"P3 · 9", narr:"Nunc Vlixes in regia sua est.", parts:["Nunc in regia mea", {options:["sum","fui","sumus"], correct:"sum"}, "."], enun:["sum","es","esse","fui"], mean:"ser, estar", es:"Ahora estoy en mi palacio." }
       ]
     }
   };
@@ -831,25 +863,47 @@
       document.getElementById(pre + "-progress").innerHTML = "Resueltas: <strong>" + solved + " / " + total + "</strong>";
       document.getElementById("btn-" + pre + "-done").disabled = solved < total;
     }
+    // Cada palabra latina del globo se toca y muestra su glosa debajo de los globos.
+    function glossWords(host, text, glossEl){
+      text.split(" ").filter(Boolean).forEach(function(w){
+        var key = w.toLowerCase().replace(/[^a-z]/g, "");
+        var g = cfg.gloss[key];
+        if (!g){ host.appendChild(document.createTextNode(w + " ")); return; }
+        var b = v2el("button", "gw", w); b.type = "button";
+        b.addEventListener("click", function(){
+          Array.prototype.forEach.call(document.querySelectorAll(".gw.on"), function(x){ x.classList.remove("on"); });
+          b.classList.add("on");
+          glossEl.innerHTML = '<span class="ex-latin">' + w.replace(/[,.;:!?]+$/, "") + "</span> → " + g;
+          glossEl.hidden = false;
+        });
+        host.appendChild(b); host.appendChild(document.createTextNode(" "));
+      });
+    }
     function show(){
       var it = cfg.items[k], tries = 0, closed = false;
       stage.innerHTML = "";
       var card = v2el("div", "scene-card");
       card.appendChild(v2el("p", "scene-count", "Escena " + (k + 1) + " de " + total));
       card.appendChild(v2el("p", "ctx-line", it.ctx));
+      var glossEl = v2el("p", "gloss-line"); glossEl.hidden = true;
       var comic = v2el("div", "comic");
-      var q = v2el("div", "cbubble flow ask" + (it.image ? "" : " notail"));
-      if (it.image) q.style.setProperty("--tail", it.ask.tail + "%");
+      // Pregunta: borde verde, como el recuadro de quien pregunta.
+      var q = v2el("div", "cbubble flow ask notail");
       q.appendChild(v2el("div", "who", it.ask.who));
       var la = v2el("div", "bubble-la");
-      var bits = it.ask.la.split("___");
       var slot = v2el("span", "qslot", "…");
       la.appendChild(slot);
-      if (bits[1]) la.appendChild(document.createTextNode(bits[1]));
+      glossWords(la, it.ask.la.split("___")[1] || "", glossEl);
       q.appendChild(la);
       var chips = v2el("div", "opt-chips"); q.appendChild(chips);
       var msg = v2el("div", "find-msg"); q.appendChild(msg);
       comic.appendChild(q);
+      // Respuesta: debajo de la pregunta, borde azul como el recuadro de quien responde (sin punta: entre el globo y la
+      // imagen van la glosa y la traducción).
+      var a = v2el("div", "cbubble flow answer notail");
+      a.appendChild(v2el("div", "who", it.ans.who + " responde"));
+      var ala = v2el("div", "bubble-la"); glossWords(ala, it.ans.la, glossEl); a.appendChild(ala);
+      comic.appendChild(a);
       if (it.image){
         var wrap = v2el("div", "quis-wrap still");
         var img = document.createElement("img"); img.src = it.image; img.alt = ""; wrap.appendChild(img);
@@ -857,13 +911,11 @@
         boxEl(wrap, it.ans.box, "find-zone ans");
         comic.appendChild(wrap);
       }
-      var a = v2el("div", "cbubble flow up answer" + (it.image ? "" : " notail"));
-      if (it.image) a.style.setProperty("--tail", it.ans.tail + "%");
-      a.appendChild(v2el("div", "who", it.ans.who));
-      a.appendChild(v2el("div", "bubble-la", it.ans.la));
-      comic.appendChild(a);
+      var trHost = v2el("div", "ask-tr");
+      trHost.appendChild(glossEl);
+      var tr = translationToggle(cfg, it, trHost);
+      comic.insertBefore(trHost, wrap || null);
       card.appendChild(comic);
-      var tr = translationToggle(cfg, it, card);
       stage.appendChild(card);
       function close(ok, resp){
         closed = true; solved++; upd();
@@ -872,9 +924,11 @@
         tr.reveal();
         submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.ask.la.replace("___", it.correct), respuesta: resp, correcta: ok, primerIntento: ok && tries === 0, final: true });
         if (k < total - 1){
+          var go = function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); };
+          var nxTop = v2el("button", "btn find-next ask-next-top", "Siguiente escena"); nxTop.type = "button";
+          nxTop.addEventListener("click", go); trHost.appendChild(nxTop);
           var nx = v2el("button", "btn find-next", "Siguiente escena"); nx.type = "button";
-          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
-          card.appendChild(nx);
+          nx.addEventListener("click", go); card.appendChild(nx);
         }
       }
       shuffled(it.options).forEach(function(o){
@@ -1000,7 +1054,7 @@
       var card = v2el("div", "scene-card");
       card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
       card.appendChild(v2el("p", "p3-line", 'Lo cuenta el narrador: <span class="ex-latin">' + it.narr + '</span>'));
-      var forms = it.enun.map(function(f, i){ return i === it.hl ? "<strong>" + f + "</strong>" : f; }).join(", ");
+      var forms = it.enun.join(", ");
       card.appendChild(v2el("p", "p3-enun", 'Enunciado: <span class="ex-latin">' + forms + '</span> (' + it.mean + ')'));
       var row = v2el("div", "dd-row"); row.appendChild(v2el("span", "p3-line p3-who", "Lo cuenta Ulises:"));
       var panels = v2el("div"), msgs = v2el("div", "dd-msgs");
