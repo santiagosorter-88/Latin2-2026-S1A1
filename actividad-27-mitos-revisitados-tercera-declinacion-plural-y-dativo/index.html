@@ -288,6 +288,8 @@
   .explain-box table.tbl-mini td, .explain-box table.tbl-mini th{ display:table-cell; padding:.25rem .9rem .25rem 0; border-bottom:1px solid var(--rule); text-align:left; }
   .tbl-mini th{ font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
   .tbl-mini td.la{ font-family:var(--serif); font-style:italic; font-size:1.08rem; }
+  .hs-num.colored, .hs-num.colored.seen{ color:#fff; }
+  .hs-num.colored.cur{ box-shadow:0 0 0 3px #fff, 0 0 0 5px rgba(0,0,0,.55); }
   .zdbg{ position:absolute; border:2px dashed #ff2d55; background:rgba(255,45,85,.12); z-index:5; pointer-events:none; }
   .zdbg span{ position:absolute; left:0; top:0; background:#ff2d55; color:#fff; font:700 11px/1.3 var(--sans); padding:0 .3em; white-space:nowrap; }
 </style>
@@ -385,12 +387,22 @@
         <h3 class="box-h">2 · Atención con la ‑i</h3>
         <p>En la 2ª declinación, ‑i es genitivo singular (<span class="ex-latin">caput <strong>tauri</strong></span>, la cabeza <strong>del toro</strong>) o nominativo plural (<span class="ex-latin"><strong>Achivi</strong></span>, los aqueos). En la 3ª declinación, ‑i es <strong>dativo singular</strong> (<span class="ex-latin"><strong>regi</strong></span>, <strong>al rey</strong>). El enunciado dice cuál es: <span class="ex-latin">taurus, tauri</span> es de 2ª; <span class="ex-latin">rex, regis</span> es de 3ª.</p>
       </div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s2-done">Continuar</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s2-done">Continuar a Paso 2</button></div>
+    </section>
+
+    <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>La forma en la frase</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <p class="step-instructions">Una frase por vez. Primero, leer el latín y pensar qué caso y qué número corresponden; después, mirar la traducción para decidir. Por ejemplo, en <span class="ex-latin">Theseus sorores videt</span> el verbo ya tiene sujeto, así que <em>sorores</em> es objeto directo. En las dos últimas frases, la traducción aparece recién después del primer intento. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <div class="p-progress" id="p2-progress"></div>
+      <div id="p2-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar</button></div>
     </section>
 
     <section class="step" id="step-s3">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Antes del Paso 2</p><h2>Los neutros de la 3ª declinación</h2></div></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 3</p><h2>Los neutros de la 3ª declinación</h2></div></div>
       <div class="explain-box">
         <h3 class="box-h">1 · Una sola regla</h3>
         <p>En los neutros, el acusativo es siempre igual al nominativo. En plural, los dos terminan en <strong>‑a</strong>.</p>
@@ -406,30 +418,30 @@
         <h3 class="box-h">2 · Cómo saber si es sujeto u objeto</h3>
         <p>La forma no lo dice: lo dicen el verbo y el sentido.</p>
         <div class="ex-list">
-          <div><span class="ex-latin">Illud <strong>mare nomen</strong> Aegei habet.</span> (Ese <strong>mar</strong> lleva el <strong>nombre</strong> de Egeo.) → <em>mare</em> es el sujeto; <em>nomen</em>, el objeto directo.</div>
-          <div><span class="ex-latin">Minotaurus <strong>caput</strong> tauri habet.</span> (El Minotauro tiene <strong>cabeza</strong> de toro.) → <em>caput</em> es el objeto directo.</div>
+          <div><span class="ex-latin">Pasiphae Minotaurum parit; hic <strong>caput</strong> tauri habet, sed <strong>corpus</strong> humanum.</span> (Pasífae da a luz al Minotauro; este tiene <strong>cabeza</strong> de toro, pero <strong>cuerpo</strong> humano.) → <em>caput</em> y <em>corpus</em> son objeto directo de <em>habet</em>.</div>
+          <div><span class="ex-latin">Duo <strong>monstra</strong> ex mari veniunt.</span> (Dos <strong>monstruos</strong> salen del mar.) → <em>monstra</em>, neutro plural, es el sujeto de <em>veniunt</em>. Ya la viste en <em>Mors Laocoontis</em>; es de la 2ª declinación, pero la regla es la misma.</div>
         </div>
       </div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 2</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 3</button></div>
     </section>
 
-    <section class="step" id="step-p2">
+    <section class="step" id="step-p3">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>La forma en la frase</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Neutros: ¿sujeto u objeto directo?</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase por vez. Primero, leer el latín y pensar qué caso y qué número corresponden; después, mirar la traducción para decidir. Por ejemplo, en <span class="ex-latin">Theseus sorores videt</span> el verbo ya tiene sujeto, así que <em>sorores</em> es objeto directo. En las dos últimas frases, la traducción aparece recién después del primer intento. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
-      <div class="p-progress" id="p2-progress"></div>
-      <div id="p2-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar</button></div>
+      <p class="step-instructions">Una frase por vez; el verbo ya está marcado. Tocar cada palabra y decir si es el sujeto o el objeto directo. Como la forma neutra no lo dice, hay que mirar el verbo y el sentido; por ejemplo, en <span class="ex-latin">Nomen Aegei mare habet</span> el que «tiene» es el mar. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <div class="p-progress" id="p3-progress"></div>
+      <div id="p3-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p3-done" disabled>Continuar</button></div>
     </section>
 
     <section class="step" id="step-find">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Inveni</p><h2>Otra vez Euriclea</h2></div><span class="step-progress" id="find-progress">—</span></div>
-      <p class="step-instructions">Leer la expresión y tocar en la imagen lo que nombra. Atención al genitivo <span class="ex-latin">hospitis</span>: dice de quién es. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
+      <p class="step-instructions">Leer la expresión y tocar en la imagen lo que nombra. Atención a los genitivos: dicen de quién es cada cosa; por ejemplo, <span class="ex-latin">caput nutricis</span> no es lo mismo que <span class="ex-latin">caput hospitis</span>. <strong>Recordá que si la imagen se ve muy chiquita podés hacer zoom.</strong></p>
       <div id="find-prompt"></div>
       <div id="find-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-find-done" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p3">← Volver</button><button class="btn" id="btn-find-done" disabled>Finalizar actividad</button></div>
     </section>
 
     <section class="step" id="step-fin">
@@ -465,7 +477,7 @@
 
   var DATA = {
     castToggle: true,
-    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Inveni"]],
+    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Paso 3"], ["4 -","Inveni"]],
 
     // Paso 1 — caso y número (cajones 2×2). Tarjeta: forma + enunciado + significado.
     // Sin formas que se piden en el Paso 2 (hospiti, custodes, homines), según la conv. 26.
@@ -480,10 +492,12 @@
       words: [
         { word:"uxorem", ex:"uxor, uxoris", es:"esposa", correct:"acs" },
         { word:"nepotem", ex:"nepos, nepotis", es:"sobrino", correct:"acs" },
+        { word:"tempestatem", ex:"tempestas, tempestatis", es:"tormenta", correct:"acs" },
         { word:"patri", ex:"pater, patris", es:"padre", correct:"dts" },
         { word:"Minoi", ex:"Minos, Minois", es:"Minos", correct:"dts" },
+        { word:"Perdici", ex:"Perdix, Perdicis", es:"Pérdix", correct:"dts" },
         { word:"duces", ex:"dux, ducis", es:"jefe", correct:"pl" },
-        { word:"aves", ex:"avis, avis", es:"ave", correct:"pl" },
+        { word:"canes", ex:"canis, canis", es:"perro", correct:"pl" },
         { word:"sororibus", ex:"soror, sororis", es:"hermana", correct:"dtp" },
         { word:"ovibus", ex:"ovis, ovis", es:"oveja", correct:"dtp" }
       ]
@@ -497,20 +511,38 @@
         { src:"Act. 27 · 1", image:"img/polifemo.jpg", parts:["Polyphemus", {options:["ovis","ovem","oves","ovibus"], correct:"oves"}, "in spelunca tenet."], es:"Polifemo tiene las ovejas en la cueva." },
         { src:"Act. 27 · 2", image:"img/cofre.jpg", parts:["Theseus", {options:["soror","sororem","sorores","sororibus"], correct:"sorores"}, "in regia videt."], es:"Teseo ve a las hermanas en el palacio." },
         { src:"Act. 27 · 3", image:"img/euriclea.jpg", parts:["Euriclea", {options:["hospes","hospitem","hospiti","hospites"], correct:"hospiti"}, {options:["pes","pedem","pedes","pedibus"], correct:"pedes"}, "lavat."], es:"Euriclea le lava los pies al huésped." },
-        { src:"Act. 27 · 4", parts:["Polyphemus", {options:["Cyclops","Cyclopem","Cyclopes","Cyclopibus"], correct:"Cyclopibus"}, "dicit: «Nemo me occidit!»"], es:"Polifemo les dice a los cíclopes: «¡Nadie me mata!»" },
-        { src:"Act. 27 · 5", parts:["Mercurius", {options:["Vlixes","Vlixem","Vlixi","Vlixis"], correct:"Vlixi"}, "remedium dat."], es:"Mercurio le da un remedio a Ulises." },
-        { src:"Act. 27 · 6", late:true, parts:["Troiani", {options:["custos","custodem","custodes","custodibus"], correct:"custodibus"}, "vinum dant;", {options:["custos","custodem","custodes","custodibus"], correct:"custodes"}, "dormiunt."], es:"Los troyanos les dan vino a los guardias; los guardias duermen." },
-        { src:"Act. 27 · 7", late:true, parts:["Scylla sex", {options:["caput","capita","capitibus"], correct:"capita"}, "habet et sex", {options:["homo","homines","hominibus"], correct:"homines"}, "consumit."], es:"Escila tiene seis cabezas y devora a seis hombres." }
+        { src:"Act. 27 · 4", image:"img/eumeo.jpg", parts:["Eumaeus", {options:["hospes","hospitem","hospites","hospitibus"], correct:"hospitibus"}, "cibum dat;", {options:["hospes","hospitem","hospites","hospitibus"], correct:"hospites"}, "in casa dormiunt."], es:"Eumeo les da comida a los huéspedes; los huéspedes duermen en la choza." },
+        { src:"Act. 27 · 5", image:"img/perdix.jpg", parts:["Minerva Perdicem in avem mutat; nunc Perdix inter", {options:["avis","avem","aves","avibus"], correct:"aves"}, "volat."], es:"Minerva transforma a Pérdix en ave; ahora Pérdix vuela entre las aves." },
+        { src:"Act. 27 · 6", image:"img/brueghel.jpg", parts:[{options:["Homo","Hominem","Homines","Hominibus"], correct:"Homines"}, "Icarum non vident."], es:"Los hombres no ven a Ícaro." },
+        { src:"Act. 27 · 7", parts:["Mercurius", {options:["Vlixes","Vlixem","Vlixi","Vlixis"], correct:"Vlixi"}, "remedium dat."], es:"Mercurio le da un remedio a Ulises." },
+        { src:"Act. 27 · 8", late:true, parts:["Daedalus", {options:["uxor","uxorem","uxori","uxores"], correct:"uxori"}, {options:["rex","regem","regi","regis"], correct:"regis"}, "vaccam ligneam facit."], es:"Dédalo le hace una vaca de madera a la esposa del rey." },
+        { src:"Act. 27 · 9", late:true, parts:["Ariadna", {options:["soror","sororem","sorores","sororibus"], correct:"sororem"}, "habet;", {options:["soror","sororem","sorores","sororibus"], correct:"sorores"}, "filiae Minois sunt."], es:"Ariadna tiene una hermana; las hermanas son hijas de Minos." }
+      ]
+    },
+
+    // Paso 3 — neutros: tocar el sujeto y el objeto directo (la forma neutra no lo dice; deciden el verbo y el sentido).
+    paso3: {
+      paso: "3 - Neutros: sujeto u objeto",
+      hint: "Pista: la forma neutra no dice si es sujeto u objeto: lo deciden el verbo y el sentido.",
+      items: [
+        { src:"Act. 27 · N1", image:"img/pretendientes.jpg", tokens:["Corpora","procorum","in","terra","iacent."], verbs:[4], roles:{0:"s"}, es:"Los cuerpos de los pretendientes yacen en el suelo." },
+        { src:"Act. 27 · N2", image:"img/polifemo.jpg", tokens:["Vlixes","nomen","suum","Cyclopi","non","dicit."], verbs:[5], roles:{0:"s",1:"o"}, es:"Ulises no le dice su nombre al cíclope." },
+        { src:"Act. 27 · N3", tokens:["Scylla","sex","capita","habet","et","sex","homines","consumit."], verbs:[3,7], roles:{0:"s",2:"o",6:"o"}, es:"Escila tiene seis cabezas y devora a seis hombres." },
+        { src:"Act. 27 · N4", tokens:["Capita","Scyllae","socios","Vlixis","capiunt."], verbs:[4], roles:{0:"s",2:"o"}, es:"Las cabezas de Escila atrapan a los compañeros de Ulises." },
+        { src:"Act. 27 · N5", tokens:["Vlixes","multa","maria","navigat."], verbs:[3], roles:{0:"s",2:"o"}, es:"Ulises navega muchos mares." },
+        { src:"Act. 27 · N6", tokens:["Nomen","Aegei","mare","habet."], verbs:[3], roles:{0:"o",2:"s"}, es:"El mar lleva el nombre de Egeo." }
       ]
     },
 
     // Inveni — misma imagen del Imago. Zonas PROVISORIAS: Santiago las ajusta a mano (ver con ?zonas en la URL).
     find: {
-      paso: "3 - Inveni",
+      paso: "4 - Inveni",
       image: "img/euriclea.jpg",
       items: [
         { latin:"pedes hospitis", es:"los pies del huésped", zones:[[16.2,80.0,12.4,10.9],[47.4,81.8,18.9,11.4]] },
-        { latin:"nutrix", es:"la nodriza", zones:[[53.9,39.1,45.3,56.4]] },
+        { latin:"caput nutricis", es:"la cabeza de la nodriza", zones:[[58.0,38.0,13.0,13.0]] },
+        { latin:"caput hospitis", es:"la cabeza del huésped", zones:[[35.6,27.0,11.8,11.0]] },
+        { latin:"filum puellae", es:"el hilo de la muchacha", zones:[[84.0,9.0,15.0,34.0]] },
         { latin:"uxor hospitis", es:"la esposa del huésped", zones:[[2.2,1.8,33.4,77.3]] }
       ]
     }
@@ -529,7 +561,7 @@
     { src:"Act. 15", arco:"Daedalus et Icarus", img:"img/caida.jpg",
       words:["Homines","id","mare","Icarium","vocant."], decoys:[],
       al:"{0:Los **hombres**} {4:llaman} {3:Icario} {1:a ese} {2:**mar**}.",
-      expl:"Fijate: <strong>homo, hominis</strong> está en nominativo plural, <em>homines</em> (sujeto). <strong>mare, maris</strong> es neutro: en acusativo queda igual que en nominativo, <em>mare</em>." }
+      expl:"Fijate: <strong>homo, hominis</strong> está en nominativo plural, <em>homines</em> (sujeto). <strong>mare, maris</strong> es neutro: en acusativo queda igual que en nominativo, <em>mare</em>. Y <strong>id</strong> («ese») es la forma neutra del pronombre <em>is, ea, id</em>: concuerda con <em>mare</em>, por eso es neutro, y también queda igual en nominativo y en acusativo." }
   ];
 
   var IDK = "No lo sé todavía";
@@ -699,11 +731,13 @@
       var s = cfg.spots[i];
       zone.style.left = s.x + "%"; zone.style.top = s.y + "%"; zone.style.width = s.w + "%"; zone.style.height = s.h + "%";
       zone.hidden = false;
+      zone.style.borderColor = s.color || "";
       nums.forEach(function(n, j){ n.classList.toggle("cur", j === i); });
     }
     cfg.spots.forEach(function(s, i){
       var n = v2el("button", "hs-num", String(i + 1)); n.type = "button";
       n.style.left = s.bx + "%"; n.style.top = s.by + "%";
+      if (s.color){ n.style.background = s.color; n.classList.add("colored"); }
       n.setAttribute("aria-label", "Número " + (i + 1));
       n.addEventListener("click", function(){
         mark(i);
@@ -711,7 +745,7 @@
         n.classList.add("seen"); found++; upd();
         submitLog.push({ paso: "En la imagen", item: s.enun, respuesta: "descubierta", correcta: null });
         var li = v2el("li"); li.style.order = i;
-        var b = v2el("button", null, '<span class="n">' + (i + 1) + '</span><span class="enun">' + s.enun + '</span>' + (s.form ? ' <span class="form">' + s.form + '</span>' : ""));
+        var b = v2el("button", null, '<span class="n"' + (s.color ? ' style="background:' + s.color + '"' : '') + '>' + (i + 1) + '</span><span class="enun">' + s.enun + '</span>' + (s.form ? ' <span class="form">' + s.form + '</span>' : ""));
         b.type = "button"; b.addEventListener("click", function(){ mark(i); });
         li.appendChild(b); list.appendChild(li);
       });
@@ -728,10 +762,10 @@
   var HOTSPOT27 = {
     image: "img/euriclea.jpg",
     spots: [
-      { x:18.3, y:26.4, w:35.6, h:60.9, bx:15.1, by:27.3, enun:"hospes, hospitis" },
-      { x:53.9, y:39.1, w:45.3, h:56.4, bx:97.0, by:80.0, enun:"nutrix, nutricis" },
-      { x:16.2, y:80.0, w:50.1, h:13.2, bx:35.6, by:95.5, enun:"pes, pedis", form:"(pl. pedes)" },
-      { x:2.2,  y:1.8,  w:33.4, h:77.3, bx:39.9, by:10.9, enun:"uxor, uxoris" }
+      { x:18.3, y:26.4, w:35.6, h:60.9, bx:35.5, by:43.6, color:"#1e4dc7", enun:"hospes, hospitis" },
+      { x:53.9, y:39.1, w:45.3, h:56.4, bx:66.8, by:58.0, color:"#4f7a34", enun:"nutrix, nutricis" },
+      { x:16.2, y:80.0, w:50.1, h:13.2, bx:56.0, by:87.0, color:"#b5502e", enun:"pes, pedis", form:"(pl. pedes)" },
+      { x:2.2,  y:1.8,  w:33.4, h:77.3, bx:18.3, by:23.6, color:"#c99a1c", enun:"uxor, uxoris" }
     ]
   };
 
@@ -853,6 +887,77 @@
         return d.select;
       });
       card.appendChild(row); card.appendChild(panels); card.appendChild(msgs); card.appendChild(toggle); card.appendChild(es);
+      stage.appendChild(card);
+    }
+    upd(); show();
+  }
+
+  // ---------- Paso 3: tocar el sujeto y el objeto directo (una frase por pantalla; convención 1 por palabra) ----------
+  function buildRoles(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, done = 0, total = 0;
+    cfg.items.forEach(function(it){ total += Object.keys(it.roles).length; });
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Funciones encontradas: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = done < total;
+    }
+    var LBL = { s:"Es el sujeto", o:"Es el objeto directo" };
+    function show(){
+      var it = cfg.items[k], need = Object.keys(it.roles).length, got = 0;
+      stage.innerHTML = "";
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + cfg.items.length));
+      if (it.image) card.appendChild(v2el("div", "scene-img", '<img src="' + it.image + '" alt="">'));
+      var toks = v2el("div", "tokens"); var host = v2el("div");
+      var es = v2el("p", "comic-es"); es.hidden = true;
+      it.tokens.forEach(function(w, idx){
+        if (it.verbs.indexOf(idx) !== -1){ toks.appendChild(v2el("span", "token-verb", w)); return; }
+        var chip = v2el("button", "token", w); chip.type = "button";
+        var tried = {}, solved = false, role = it.roles[idx];
+        function panel(){
+          host.innerHTML = "";
+          Array.prototype.forEach.call(toks.children, function(c){ c.classList.remove("open"); });
+          chip.classList.add("open");
+          var p = v2el("div", "word-panel");
+          if (!role){ p.appendChild(v2el("span", "word-feedback info", "Esta palabra no es el sujeto ni el objeto directo.")); host.appendChild(p); return; }
+          ["s","o"].forEach(function(r){
+            var b = v2el("button", "word-opt", LBL[r]); b.type = "button";
+            if (solved){ b.disabled = true; if (r === role) b.classList.add("answered-ok"); }
+            else if (tried[r]){ b.disabled = true; b.classList.add("answered-bad"); }
+            b.addEventListener("click", function(){
+              if (solved || tried[r]) return;
+              var ok = r === role;
+              submitLog.push({ paso: cfg.paso, item: it.src + " · " + w, respuesta: LBL[r], correcta: ok, primerIntento: ok && !Object.keys(tried).length, final: ok });
+              if (ok){
+                solved = true; done++; got++; upd();
+                if (!Object.keys(tried).length) streak.hit();
+                chip.classList.remove("g-bad"); chip.classList.add(Object.keys(tried).length ? "g-revealed" : "g-ok");
+                if (got === need) finish();
+              } else { tried[r] = true; streak.reset(); chip.classList.add("g-bad"); }
+              panel();
+            });
+            p.appendChild(b);
+          });
+          if (!solved && Object.keys(tried).length) p.appendChild(v2el("span", "word-feedback bad", "No es correcta. " + cfg.hint));
+          if (solved) p.appendChild(v2el("span", "word-feedback ok", "¡Correcto! " + LBL[role] + "."));
+          host.appendChild(p);
+        }
+        chip.addEventListener("click", function(){
+          if (chip.classList.contains("open") && host.firstChild){ host.innerHTML = ""; chip.classList.remove("open"); return; }
+          panel();
+        });
+        toks.appendChild(chip);
+      });
+      function finish(){
+        es.textContent = "Traducción: " + it.es; es.hidden = false;
+        if (k < cfg.items.length - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+      card.appendChild(toks); card.appendChild(host); card.appendChild(es);
       stage.appendChild(card);
     }
     upd(); show();
@@ -1122,13 +1227,15 @@
   buildHotspotNum(HOTSPOT27, document.getElementById("img-stage"), document.getElementById("img-progress"), document.getElementById("btn-img-done"));
   buildBoxes(DATA.paso1, "p1");
   buildOne(DATA.paso2, "p2");
+  buildRoles(DATA.paso3, "p3");
   document.getElementById("btn-warm-done").addEventListener("click", goStep("step-img"));
   document.getElementById("btn-img-done").addEventListener("click", goStep("step-s1"));
   document.getElementById("btn-s1-done").addEventListener("click", goStep("step-p1"));
   document.getElementById("btn-p1-done").addEventListener("click", goStep("step-s2"));
-  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-s3"));
-  document.getElementById("btn-s3-done").addEventListener("click", goStep("step-p2"));
-  document.getElementById("btn-p2-done").addEventListener("click", goStep("step-find"));
+  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-p2"));
+  document.getElementById("btn-p2-done").addEventListener("click", goStep("step-s3"));
+  document.getElementById("btn-s3-done").addEventListener("click", goStep("step-p3"));
+  document.getElementById("btn-p3-done").addEventListener("click", goStep("step-find"));
   document.getElementById("btn-find-done").addEventListener("click", goStep("step-fin"));
   drawZonesDebug();
 
