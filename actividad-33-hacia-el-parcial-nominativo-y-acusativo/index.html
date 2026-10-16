@@ -506,6 +506,24 @@
   .tg-sub.pre{ color:var(--ink-muted); font-weight:600; }
   .vb-chip.rev{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
   .tg-sub.rev{ color:var(--warn); }
+  /* Act. 33, revisión del 2026-10-16: Paso 1 de a una frase (buildSeq33), tabla de repaso */
+  .seq-la{ font-family:var(--serif); font-size:1.3rem; line-height:1.45; margin:.2rem 0 .4rem; }
+  .seq-la b{ font-weight:700; background:var(--warn-bg); padding:0 .15em; border-radius:4px; }
+  .seq-boxes{ display:grid; grid-template-columns:repeat(3, 1fr); gap:.45rem; margin-top:.9rem; }
+  .seq-box{ min-height:0; padding:.5rem .45rem .55rem; text-align:left; }
+  .seq-box .gen-name{ font-size:1.05rem; }
+  .seq-sub{ font-size:.72rem; line-height:1.25; color:var(--ink-muted); margin-bottom:.3rem; }
+  .seq-box .gen-model{ font-size:.92rem; line-height:1.3; }
+  .seq-box:disabled{ opacity:.45; cursor:default; }
+  .seq-log{ display:flex; flex-direction:column; gap:.4rem; margin:0 0 1rem; }
+  .seq-done{ padding:.4rem .7rem; border-left:4px solid var(--box); background:var(--surface); border-radius:6px; font-size:.95rem; }
+  .seq-done.rev{ border-left-style:dashed; }
+  .seq-tag{ font-weight:700; color:var(--box); margin-right:.3rem; }
+  .seq-done-la{ font-family:var(--serif); } .seq-done-la b{ color:var(--box); }
+  .tbl-decl th{ white-space:nowrap; }
+  .tbl-decl td.la b{ color:var(--accent-strong); }
+  .explain-box table.tbl-decl td, .explain-box table.tbl-decl th{ padding:.25rem .5rem .25rem 0; }
+  .tbl-decl{ width:100%; } .explain-box table.tbl-decl th{ font-size:.62rem; letter-spacing:.02em; padding-right:.35rem; } .explain-box table.tbl-decl td.la{ font-size:.95rem; padding-right:.3rem; }
 </style>
 </head>
 <body>
@@ -531,54 +549,61 @@
     <section class="step" id="step-s1">
       <div class="step-nav top-nav"></div>
       <div class="step-head"><div><p class="eyebrow">Para empezar</p><h2>El nominativo: sujeto o predicativo</h2></div></div>
-      <div class="consigna"><p>Tres preguntas sobre el nominativo. Conviene pensar una respuesta antes de abrir cada una.</p></div>
+      <div class="consigna"><p>Tres preguntas para pensar el nominativo. La idea es intentar una respuesta con lo que ya saben y recién después abrir la que está debajo de cada pregunta.</p></div>
       <div class="explain-box"><div class="dlg" id="dlg-s1"></div></div>
-      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar al calentamiento</button></div>
+      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-s2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Para empezar (2)</p><h2>El acusativo: objeto, lugar o predicativo</h2></div></div>
+      <div class="explain-box">
+        <h3 class="box-h">Repaso: nominativo y acusativo</h3>
+        <p>Antes de las funciones, las terminaciones. En las tres primeras declinaciones (y en los adjetivos de primera clase, que siguen la 1ª y la 2ª):</p>
+        <table class="tbl-mini tbl-decl">
+          <tr><th></th><th>1ª</th><th>2ª</th><th>2ª neutro</th><th>3ª</th></tr>
+          <tr><th>Nom. sg.</th><td class="la">sagitt<b>a</b></td><td class="la">mur<b>us</b></td><td class="la">convivi<b>um</b></td><td class="la">soror</td></tr>
+          <tr><th>Acus. sg.</th><td class="la">sagitt<b>am</b></td><td class="la">mur<b>um</b></td><td class="la">convivi<b>um</b></td><td class="la">soror<b>em</b></td></tr>
+          <tr><th>Nom. pl.</th><td class="la">sagitt<b>ae</b></td><td class="la">mur<b>i</b></td><td class="la">convivi<b>a</b></td><td class="la">soror<b>es</b></td></tr>
+          <tr><th>Acus. pl.</th><td class="la">sagitt<b>as</b></td><td class="la">mur<b>os</b></td><td class="la">convivi<b>a</b></td><td class="la">soror<b>es</b></td></tr>
+        </table>
+        <ul class="val-list"><li>El acusativo singular termina en <strong>‑m</strong> (<em>‑am, ‑um, ‑em</em>) y el plural, en <strong>‑s</strong> (<em>‑as, ‑os, ‑es</em>).</li><li>En la 3ª, el nominativo singular varía (<em>soror</em>, <em>navis</em>, <em>Pallas</em>): se reconoce por el enunciado. El nominativo y el acusativo plural son iguales (<em>‑es</em>).</li><li>En los neutros, nominativo y acusativo son siempre iguales: se ven antes del Paso 2.</li></ul>
+      </div>
+      <div class="consigna"><p>Dos preguntas para pensar el acusativo. La idea, otra vez, es intentar una respuesta antes de abrir la que está debajo.</p></div>
+      <div class="explain-box"><div class="dlg" id="dlg-s2"></div></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-s2-done">Continuar al calentamiento</button></div>
     </section>
 
     <section class="step" id="step-warm">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Calentamiento</p><h2>Del castellano al latín</h2></div><span class="step-progress" id="warm-progress">—</span></div>
       <div class="consigna"><p>Tres frases de la <em>Eneida</em> para armar en latín, palabra por palabra. La palabra resaltada en castellano es la que sigue. En <strong>negrita</strong>, las palabras que en latín van en nominativo o en acusativo.</p></div>
       <div class="v2-seals" id="warm-seals"></div>
       <div id="warm-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-warm-done" hidden>Continuar</button></div>
-    </section>
-
-    <section class="step" id="step-s2">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Antes del Paso 1</p><h2>El acusativo: objeto, lugar o predicativo</h2></div></div>
-      <div class="consigna"><p>Dos preguntas sobre el acusativo. Conviene pensar una respuesta antes de abrir cada una.</p></div>
-      <div class="explain-box"><div class="dlg" id="dlg-s2"></div></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-s2-done">Continuar a Paso 1</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-warm-done" hidden>Continuar a Paso 1</button></div>
     </section>
 
     <section class="step" id="step-p1">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificación por función</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Funciones del acusativo</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
       <div class="explain-box p1-expl">
         <h3 class="box-h">Qué mirar en la palabra en negrita</h3>
-        <div class="p1-row c-azul"><p class="p1-name">S · sujeto</p><p>Un <strong>nominativo</strong> que <strong>concuerda con el verbo</strong> en número y persona:</p><p class="exb-la"><b>Dido</b> convivium parat. <span class="p1-es">«Dido prepara un banquete.»</span></p></div>
-        <div class="p1-row c-verde"><p class="p1-name">PS · predicativo subjetivo</p><p>Un <strong>nominativo</strong> que <strong>dice algo del sujeto</strong>: con <em>sum</em>, o un adjetivo separado que dice cómo está el sujeto durante la acción:</p><p class="exb-la">Dea <b>irata</b> Aeolo dicit. <span class="p1-es">«La diosa, enojada, le dice a Eolo.»</span></p></div>
-        <div class="p1-row c-rojo"><p class="p1-name">OD · objeto directo</p><p>Un <strong>acusativo</strong> que <strong>pide el verbo</strong>:</p><p class="exb-la">Troiani <b>mensas</b> consumunt. <span class="p1-es">«Los troyanos se comen las mesas.»</span></p></div>
-        <div class="p1-row c-amarillo"><p class="p1-name">CL · circunstancial de lugar</p><p><em>in</em> o <em>ad</em> + <strong>acusativo</strong>: <strong>hacia dónde</strong>. La etiqueta es para todo el bloque:</p><p class="exb-la">Troiani <b>in Libyam</b> perveniunt. <span class="p1-es">«Los troyanos llegan a Libia.»</span></p></div>
+        <div class="p1-row c-rojo"><p class="p1-name">OD · objeto directo</p><p>El acusativo que <strong>pide el verbo</strong>: qué o a quién.</p></div>
+        <div class="p1-row c-amarillo"><p class="p1-name">CL · circunstancial de lugar</p><p><em>in</em> o <em>ad</em> + acusativo: <strong>hacia dónde</strong>. La etiqueta va para todo el bloque.</p></div>
+        <div class="p1-row c-verde"><p class="p1-name">PO · predicativo objetivo</p><p>Un acusativo que <strong>dice cómo está el OD</strong> durante la acción. Con el pronombre, queda afuera: «lo ven ciego».</p></div>
       </div>
-      <div class="consigna"><p>Cada tarjeta trae una frase con una palabra (o un bloque) en <strong>negrita</strong>. Tocar una tarjeta y después el cajón de la función que cumple esa palabra en la frase.</p><p>«Ver traducción», debajo de cada tarjeta, muestra el castellano de la frase.</p></div>
+      <div class="consigna"><p>Una frase por vez, con una palabra (o un bloque) en <strong>negrita</strong>, siempre en acusativo. Tocar el cajón de la función que cumple. «Ver traducción» muestra el castellano de la frase.</p></div>
       <div class="p-progress" id="p1-progress"></div>
-      <div class="exercise">
-        <div id="p1-st"></div>
-        <div class="gen-pool case-pool" id="p1-pool"></div>
-        <div class="gen-boxes" id="p1-boxes"></div>
-        <p class="gen-msg" id="p1-msg"></p>
-      </div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
+      <div id="p1-stage"></div>
+      <div class="seq-log" id="p1-log"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
     </section>
 
     <section class="step" id="step-s3">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Antes del Paso 2</p><h2>Los neutros</h2></div></div>
-      <div class="consigna"><p>Dos preguntas sobre los neutros. Conviene pensar una respuesta antes de abrir cada una.</p></div>
+      <div class="consigna"><p>Dos preguntas para pensar los neutros. Como antes, la idea es intentar una respuesta antes de abrir la que está debajo.</p></div>
       <div class="explain-box"><div class="dlg" id="dlg-s3"></div></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 2</button></div>
     </section>
@@ -587,7 +612,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Caso y función</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <div class="consigna"><p>En cada frase, solo las palabras en <strong>nominativo o acusativo</strong> son fichas; el resto ya tiene su subíndice, en gris. Para cada ficha:</p><ol class="cons-ol"><li>decidir el <strong>caso</strong>: nominativo o acusativo;</li><li>decidir la <strong>función</strong>: S, PS, OD, PO o CL.</li></ol><p>Una ficha empezada se termina antes de pasar a otra.</p></div>
+      <div class="consigna"><p>En cada frase, solo las palabras en <strong>nominativo o acusativo</strong> son fichas; el resto ya tiene su subíndice, en gris. Para cada ficha:</p><ol class="cons-ol"><li>decidir el <strong>caso</strong>: nominativo o acusativo;</li><li>decidir la <strong>función</strong>: si es nominativo, S o PS; si es acusativo, OD, PO o CL.</li></ol><p>Una ficha empezada se termina antes de pasar a otra.</p></div>
       <div class="p-progress" id="p2-progress"></div>
       <div id="p2-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar a Paso 3</button></div>
@@ -656,34 +681,43 @@
   var DATA = {
     sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Paso 3"]],
 
+    // Fuentes de S1 y S2 (2026-10-16, revisión de Santiago): Di Tullio y Malcuori, Gramática del español para maestros y
+    // profesores del Uruguay (2013), §27.1 (p. 370: atributo con verbos copulativos; predicativo con verbos de significado
+    // pleno, «Irene llegó eufórica») y §27.3.2 (p. 375: dos predicaciones, paráfrasis con coordinadas «Viajé y estaba muy
+    // congestionada», estado transitorio, concordancia); §27.3.1 (p. 374: pronominalización, «La tiene aguileña»). Terminología
+    // de los cuadernillos IES 1 (PS «modifica al sujeto a través del verbo», obligatorio / no obligatorio; «al pronominalizar el
+    // OD, el PO no queda absorbido por el pronombre»), sin citarlos. Pinkster 1995, §8.5.1 (prueba del pronombre).
     s1: [
       { q:"Una palabra en nominativo, ¿es siempre el sujeto?",
         a:"<p>Dos frases para empezar:</p>" +
           EX("Dea <u>irata</u> Aeolo dicit.", "La diosa, <strong>enojada</strong>, le dice a Eolo.", "Libro I · ya la viste en la Actividad 32") +
           EX("Italia <u>vera patria vestra</u> est.", "Italia es <strong>vuestra verdadera patria</strong>.", "Libro III, recortada: lo dicen los Penates") +
-          "<p>Las palabras subrayadas están en nominativo, pero el sujeto es otro: <span class=\"ex-latin\">Dea</span> en la primera, <span class=\"ex-latin\">Italia</span> en la segunda. Las subrayadas no dicen de quién se habla: <strong>dicen algo del sujeto</strong>. Esa función se llama <strong>predicativo subjetivo</strong> (<span class=\"lab\">PS</span>).</p>" +
-          "<p>Un nominativo, entonces, puede cumplir dos funciones: <strong>S</strong> o <strong>PS</strong>.</p>" +
-          "<h4 class=\"dlg-sub\">Cómo se distinguen</h4>" +
+          "<p>Lo subrayado está en nominativo, pero no es el sujeto: el sujeto es <span class=\"ex-latin\">Dea</span> en la primera frase e <span class=\"ex-latin\">Italia</span> en la segunda. Lo subrayado <strong>dice algo del sujeto</strong>: cómo está la diosa, qué es Italia.</p>" +
+          "<p>Esa función se llama <strong>predicativo subjetivo</strong> (<span class=\"lab\">PS</span>): un constituyente del predicado que <strong>modifica al sujeto a través del verbo</strong>. Un nominativo, entonces, puede ser <strong>S</strong> o <strong>PS</strong>.</p>" +
+          "<h4 class=\"dlg-sub\">Primera diferencia: con qué concuerda</h4>" +
           "<ul class=\"val-list\"><li>El <strong>S</strong> concuerda con el <strong>verbo</strong> en número y persona: <span class=\"ex-latin\">Dea … dicit</span>, 3ª del singular.</li>" +
-          "<li>El <strong>PS</strong> concuerda con el <strong>sujeto</strong>: va en nominativo como él y, si es un adjetivo, también en género y número (<span class=\"ex-latin\">Dea irata</span>, femenino singular).</li></ul>" },
-      { q:"¿Cuándo un nominativo es PS?",
-        a:"<p>En dos casos.</p>" +
-          "<h4 class=\"dlg-sub\">Con el verbo <em>sum</em></h4>" +
-          "<p>Lo que se dice del sujeto con <em>sum</em> va en nominativo y es PS:</p>" +
+          "<li>El <strong>PS</strong> concuerda con el <strong>sujeto</strong>: está en su mismo caso y, si es un adjetivo, en su mismo género y número: <span class=\"ex-latin\">Dea irata</span>, nominativo femenino singular.</li></ul>" +
+          "<h4 class=\"dlg-sub\">Segunda diferencia: el PS es otra predicación</h4>" +
+          "<p>Una oración con PS dice <strong>dos cosas</strong> del sujeto: lo que hace y cómo está. Por eso se puede desarmar en dos oraciones unidas por «y», sin que cambie el sentido:</p>" +
+          EX("Dea irata Aeolo dicit.", "→ «La diosa le dice a Eolo <u>y está enojada</u>.»") +
+          "<p>El sujeto, en cambio, no se puede separar así: es aquello de lo que se dicen las dos cosas.</p>" },
+      { q:"¿Con qué verbos aparece el PS?",
+        a:"<p>Con dos clases de verbos, y en cada una cumple un papel distinto.</p>" +
+          "<h4 class=\"dlg-sub\">Con <em>sum</em>: PS obligatorio</h4>" +
           EX("Italia <u>vera patria vestra</u> est.", "Italia es <strong>vuestra verdadera patria</strong>.") +
-          "<p><span class=\"ex-latin\">est</span> une a <span class=\"ex-latin\">Italia</span> con lo que se dice de ella; lo que la frase informa está en el PS.</p>" +
-          "<h4 class=\"dlg-sub\">Un adjetivo separado del sustantivo</h4>" +
+          "<p><span class=\"ex-latin\">est</span> casi no tiene significado propio: une al sujeto con lo que se dice de él. Sin el PS la oración no informa nada («Italia es…»). Por eso, con <em>sum</em>, el PS es <strong>obligatorio</strong>.</p>" +
+          "<h4 class=\"dlg-sub\">Con los demás verbos: PS no obligatorio</h4>" +
           EX("Dea <u>irata</u> Aeolo dicit.", "La diosa, <strong>enojada</strong>, le dice a Eolo.") +
-          "<p><span class=\"ex-latin\">irata</span> dice <strong>cómo está la diosa mientras habla</strong>. Se puede sacar y la frase sigue completa (<span class=\"ex-latin\">Dea Aeolo dicit</span>), pero no es un circunstancial: concuerda con <span class=\"ex-latin\">Dea</span> y dice algo de ella. En castellano, este predicativo suele ir entre comas.</p>" },
+          "<p><span class=\"ex-latin\">dicit</span> tiene significado pleno y la oración está completa sin el PS: <span class=\"ex-latin\">Dea Aeolo dicit</span>. Lo que agrega <span class=\"ex-latin\">irata</span> es un <strong>estado pasajero</strong> del sujeto mientras ocurre la acción. Este PS es casi siempre un <strong>adjetivo</strong>, porque tiene que concordar con el sujeto; en castellano suele ir entre comas.</p>" },
       { q:"¿Todo adjetivo que concuerda con un sustantivo es predicativo?",
-        a:"<p>No todos. Compárese con los anteriores:</p>" +
+        a:"<p>No. Compárense:</p>" +
           EX("Iris <u>feminas Troianas</u> incitat.", "Iris incita <strong>a las mujeres troyanas</strong>.", "Libro V, recortada") +
-          "<p><span class=\"ex-latin\">Troianas</span> concuerda con <span class=\"ex-latin\">feminas</span> (acusativo femenino plural), pero no dice cómo están las mujeres mientras Iris las incita: dice <strong>cuáles</strong> mujeres. Está <strong>adentro</strong> del sintagma <span class=\"ex-latin\">feminas Troianas</span>, que en el nivel 1 lleva un solo subíndice (OD); en el nivel 2, <span class=\"ex-latin\">Troianas</span> es <span class=\"lab\">At</span>.</p>" +
-          "<h4 class=\"dlg-sub\">Una prueba: reemplazar el sustantivo por un pronombre</h4>" +
-          "<p>Si el sustantivo se reemplaza por un pronombre, el <strong>atributo</strong> desaparece con él; el <strong>predicativo</strong>, en cambio, queda:</p>" +
-          "<ul class=\"val-list\"><li>«Iris incita a las mujeres troyanas» → «Iris <u>las</u> incita»: «troyanas» se fue con el sustantivo. Es <strong>atributo</strong>.</li>" +
-          "<li>«La diosa, enojada, le dice a Eolo» → «<u>Ella</u>, enojada, le dice a Eolo»: «enojada» queda. Es <strong>predicativo</strong>.</li></ul>" +
-          "<p>La posición ayuda (un adjetivo separado de su sustantivo suele ser predicativo), pero no decide: con el acusativo va a aparecer un predicativo pegado a su sustantivo. Lo que decide es si el adjetivo dice <strong>cuál</strong> (atributo) o <strong>cómo está durante la acción</strong> (predicativo).</p>" }
+          EX("Dea <u>irata</u> Aeolo dicit.", "La diosa, <strong>enojada</strong>, le dice a Eolo.") +
+          "<p><span class=\"ex-latin\">Troianas</span> concuerda con <span class=\"ex-latin\">feminas</span>, pero no dice nada a través del verbo: dice <strong>cuáles</strong> mujeres. Forma un solo constituyente con <span class=\"ex-latin\">feminas</span> (en el nivel 1, un solo subíndice: OD) y en el nivel 2 es <strong>atributo</strong> (<span class=\"lab\">At</span>). <span class=\"ex-latin\">irata</span>, en cambio, es un constituyente aparte: un estado de la diosa mientras habla.</p>" +
+          "<h4 class=\"dlg-sub\">La prueba de las dos oraciones</h4>" +
+          "<ul class=\"val-list\"><li>«La diosa le dice a Eolo <u>y está enojada</u>»: el sentido se mantiene. <span class=\"ex-latin\">irata</span> es <strong>predicativo</strong>.</li>" +
+          "<li>«Iris incita a las mujeres <u>y son troyanas</u>»: el sentido cambia, porque la frase ya no dice a qué mujeres incita. <span class=\"ex-latin\">Troianas</span> es <strong>atributo</strong>.</li></ul>" +
+          "<p>Con el acusativo hay otra prueba, la del pronombre: está en la explicación siguiente.</p>" }
     ],
 
     s2: [
@@ -692,13 +726,15 @@
           EX("Troiani <u>mensas</u> consumunt.", "Los troyanos se comen <strong>las mesas</strong>.", "Libro VII · ya la viste en la Actividad 32") +
           EX("Postea Troiani <u>in Libyam</u> perveniunt.", "Después, los troyanos llegan <strong>a Libia</strong>.", "Libro I · ya la viste en la Actividad 32") +
           EX("Troiani <u>Cyclopem caecum</u> vident.", "Los troyanos ven <strong>al cíclope ciego</strong>.", "Libro III, recortada") +
-          "<h4 class=\"dlg-sub\">Cómo se reconoce</h4>" +
-          "<p>En singular termina en <strong>‑m</strong> (<em>mens<u>am</u></em>, <em>mur<u>um</u></em>, <em>Cyclop<u>em</u></em>); en plural, en <strong>‑s</strong> (<em>mens<u>as</u></em>, <em>mur<u>os</u></em>, <em>Cyclop<u>es</u></em>). Los neutros son un caso aparte: se ven antes del Paso 2.</p>" +
-          "<h4 class=\"dlg-sub\">Tres funciones</h4>" +
           "<ul class=\"val-list\"><li><strong>OD</strong>: lo que pide un verbo transitivo. <span class=\"ex-latin\">consumunt</span> necesita algo que se coma: <span class=\"ex-latin\">mensas</span>.</li>" +
-          "<li><strong>Término de una preposición</strong> (<em>in</em>, <em>ad</em>): <span class=\"ex-latin\">in Libyam</span> dice hacia dónde llegan. Todo el bloque lleva <strong>CL</strong>; en el nivel 2, <span class=\"ex-latin\">in</span><sub class=\"tg-sub\">NS</sub> <span class=\"ex-latin\">Libyam</span><sub class=\"tg-sub\">T</sub>.</li>" +
-          "<li><strong>PO</strong> (predicativo objetivo): <span class=\"ex-latin\">caecum</span> no dice cuál cíclope, sino <strong>cómo está</strong> cuando lo ven. Con la prueba del pronombre: «los troyanos <u>lo</u> ven ciego»: «ciego» queda. El PO dice algo del OD, como el PS dice algo del sujeto.</li></ul>" +
-          "<p>En <span class=\"ex-latin\">Cyclopem caecum</span>, el predicativo va pegado a su sustantivo: la posición no alcanza para decidir.</p>" },
+          "<li><strong>CL</strong>: con <em>in</em> o <em>ad</em>, el acusativo dice <strong>hacia dónde</strong>. La etiqueta va para todo el bloque: <span class=\"ex-latin\">in Libyam</span><sub class=\"tg-sub\">CL</sub>; en el nivel 2, <span class=\"ex-latin\">in</span><sub class=\"tg-sub\">NS</sub> <span class=\"ex-latin\">Libyam</span><sub class=\"tg-sub\">T</sub>.</li>" +
+          "<li><strong>PO</strong> (predicativo objetivo): <span class=\"ex-latin\">caecum</span> no dice cuál cíclope, sino <strong>cómo está</strong> cuando lo ven. El PO <strong>modifica al objeto directo a través del verbo</strong>, como el PS al sujeto.</li></ul>" +
+          "<h4 class=\"dlg-sub\">La prueba del pronombre</h4>" +
+          "<p>Si el OD se reemplaza por <em>lo, la, los, las</em>, el atributo queda absorbido por el pronombre; el PO, no:</p>" +
+          "<ul class=\"val-list\"><li>«Los troyanos ven al cíclope ciego» → «Los troyanos <u>lo</u> ven <u>ciego</u>»: «ciego» queda afuera del pronombre. Es <strong>PO</strong>.</li>" +
+          "<li>«Iris incita a las mujeres troyanas» → «Iris <u>las</u> incita»: «troyanas» desaparece con el pronombre. Es <strong>atributo</strong>.</li>" +
+          "<li>Lo mismo en el castellano de todos los días: «Tomo el café caliente» → «<u>Lo</u> tomo <u>caliente</u>».</li></ul>" +
+          "<p>La posición no decide: en <span class=\"ex-latin\">Cyclopem caecum</span>, el PO va pegado a su sustantivo.</p>" },
       { q:"¿Y <em>in</em> con ablativo?",
         a:EX("Interea Dido novam urbem <u>in Libya</u> condit.", "Mientras tanto, Dido funda una nueva ciudad <strong>en Libia</strong>.", "Libro I") +
           "<p><span class=\"ex-latin\">in Libya</span> también es <strong>CL</strong>. La preposición <em>in</em> rige dos casos, y el caso cambia el sentido:</p>" +
@@ -708,13 +744,11 @@
     ],
 
     s3: [
-      { q:"¿Por qué los neutros son tramposos?",
+      { q:"¿Por qué los neutros se prestan a confusión?",
         a:"<p>Dos frases:</p>" +
           EX("Dido <u>convivium</u> parat.", "Dido prepara <strong>un banquete</strong>.", "Libro I · ya la viste en la Actividad 32") +
           EX("<u>Fatum tuum</u> te in Italiam vocat!", "¡<strong>Tu destino</strong> te llama a Italia!", "Libro IV, recortada: se lo dice Mercurio a Eneas") +
-          "<p><span class=\"ex-latin\">convivium</span> es OD y <span class=\"ex-latin\">fatum</span> es S, pero terminan igual. En los neutros, <strong>el nominativo y el acusativo son siempre iguales</strong>:</p>" +
-          "<ul class=\"val-list\"><li>en la 2ª declinación, ‑<em>um</em> en singular y ‑<em>a</em> en plural (<em>convivium</em>, <em>convivia</em>);</li>" +
-          "<li>en la 3ª, el singular varía y el plural termina en ‑<em>a</em> (<em>corpus</em>, <em>corpora</em>, que ya apareció en el Paso 1).</li></ul>" +
+          "<p><span class=\"ex-latin\">convivium</span> es OD y <span class=\"ex-latin\">fatum</span> es S, pero terminan igual. En los neutros, <strong>el nominativo y el acusativo son siempre iguales</strong>: en la 2ª declinación, ‑<em>um</em> en singular y ‑<em>a</em> en plural (<em>convivium</em>, <em>convivia</em>). Lo mismo pasa con los adjetivos neutros: <em>novum</em>, <em>nova</em>.</p>" +
           "<h4 class=\"dlg-sub\">Qué decide, entonces</h4>" +
           "<p>La forma no decide; deciden <strong>el verbo y las otras palabras</strong>. <span class=\"ex-latin\">parat</span> necesita alguien que prepare y algo preparado: <span class=\"ex-latin\">Dido</span> solo puede ser nominativo, así que <span class=\"ex-latin\">convivium</span> es lo preparado (OD). <span class=\"ex-latin\">vocat</span> necesita alguien que llame y alguien llamado: <span class=\"ex-latin\">te</span> solo puede ser acusativo, así que <span class=\"ex-latin\">fatum</span> es el que llama (S).</p>" },
       { q:"¿Pasa lo mismo con los pronombres neutros?",
@@ -722,41 +756,29 @@
           "<p>Con los pronombres neutros pasa lo mismo: <span class=\"ex-latin\">hoc</span>, «esto», puede ser nominativo o acusativo. Acá es OD, porque el sujeto de <span class=\"ex-latin\">nescit</span> ya está (<span class=\"ex-latin\">Dido</span>) y «no saber» necesita algo que no se sabe.</p>" }
     ],
 
-    // ---------- Paso 1 · cajones con tarjetas-frase (buildCases33). tag = la palabra en negrita; wes = su traducción.
-    // Repregunta: el mismo sustantivo/adjetivo en el otro número, mismo caso, con la palabra en castellano; señuelos =
-    // otros casos de la misma palabra. Sin repregunta: Aeolus (nombre propio) y ad inferos (solo plural).
+    // ---------- Paso 1 · solo acusativo: OD · CL · PO, una frase por vez (buildSeq33). Revisión de Santiago, 2026-10-16:
+    // cuatro funciones de dos casos eran demasiado; sin repreguntas (paso con muchas respuestas); sin neutros de la 3ª.
+    // Frases del §7 (las tarjetas S del diseño, con otra palabra en negrita) + PO que pasa Santiago (PENDIENTE).
     paso1: {
-      paso: "1 - Clasificación por función",
-      hint: "Queda un intento: mirar el caso de la palabra en negrita y qué relación tiene con el verbo.",
+      paso: "1 - Funciones del acusativo",
+      hint: "Queda un intento: mirar si hay preposición y si la palabra dice qué o a quién, o cómo está el OD.",
       columns: [
-        { key:"S",  color:"c-azul",     name:"S · sujeto",               model:"<span class=\"la\"><b>Dido</b> convivium parat</span>" },
-        { key:"PS", color:"c-verde",    name:"PS · predicativo subjetivo", model:"<span class=\"la\">Dea <b>irata</b> dicit</span>" },
-        { key:"OD", color:"c-rojo",     name:"OD · objeto directo",       model:"<span class=\"la\">Troiani <b>mensas</b> consumunt</span>" },
-        { key:"CL", color:"c-amarillo", name:"CL · circ. de lugar",       model:"<span class=\"la\"><b>in Libyam</b> perveniunt</span>" }
+        { key:"OD", color:"c-rojo",     name:"OD", sub:"objeto directo", model:"<span class=\"la\">Troiani <b>mensas</b> consumunt</span>" },
+        { key:"CL", color:"c-amarillo", name:"CL", sub:"preposición + acusativo", model:"<span class=\"la\"><b>in Libyam</b> perveniunt</span>" },
+        { key:"PO", color:"c-verde",    name:"PO", sub:"predicativo objetivo", model:"<span class=\"la\">Cyclopem <b>caecum</b> vident</span>" }
       ],
       words: [
-        { tag:"Aeolus", la:"<b>Aeolus</b> statim ventos solvit.", es:"Eolo suelta inmediatamente los vientos.", wes:"Eolo", correct:"S",
-          why:"<em>Aeolus</em> está en nominativo y concuerda con <em>solvit</em> (3ª del singular): es el sujeto." },
-        { tag:"Sagitta", la:"<b>Sagitta</b> Aeneam vulneravit.", es:"Una flecha hirió a Eneas.", wes:"una flecha", correct:"S",
-          why:"<em>sagitta</em> está en nominativo y concuerda con <em>vulneravit</em>: es el sujeto. Un sujeto no tiene por qué ser una persona.",
-          st:{ q:"Si fueran varias flechas, ¿cómo sería «las flechas»?", ok:"sagittae", bad:["sagittas","sagittis"], why:"<em>sagittae</em>, «las flechas»: nominativo plural. <em>sagittas</em> es acusativo plural y <em>sagittis</em>, dativo o ablativo plural." } },
-        { tag:"maestus", la:"Post convivium, Aeneas de Troiae excidio <b>maestus</b> narrat.", es:"Después del banquete, Eneas, triste, narra la destrucción de Troya.", wes:"triste", correct:"PS",
-          why:"<em>maestus</em> está en nominativo, separado de <em>Aeneas</em>: dice cómo está Eneas mientras narra. Es PS.",
-          st:{ q:"Si narraran Eneas y sus compañeros, ¿cómo sería «tristes»?", ok:"maesti", bad:["maestos","maestis"], why:"<em>maesti</em>, «tristes»: nominativo plural, como el sujeto. <em>maestos</em> es acusativo plural y <em>maestis</em>, dativo o ablativo plural." } },
-        { tag:"solus", la:"Turnus Pallantem <b>solus</b> petivit.", es:"Turno, solo, atacó a Palante.", wes:"solo", correct:"PS",
-          why:"<em>solus</em> está en nominativo y concuerda con <em>Turnus</em>, no con <em>Pallantem</em>: dice cómo atacó Turno. Es PS.",
-          st:{ q:"Si atacaran varios guerreros, ¿cómo sería «solos»?", ok:"soli", bad:["solos","solis"], why:"<em>soli</em>, «solos»: nominativo plural. <em>solos</em> es acusativo plural y <em>solis</em>, dativo o ablativo plural." } },
         { tag:"formam", la:"Iris <b>formam</b> feminae Troianae sumit.", es:"Iris toma la forma de una mujer troyana.", wes:"la forma", correct:"OD",
-          why:"<em>formam</em> está en acusativo (‑am): es lo que Iris toma, lo que pide <em>sumit</em>. Es OD.",
-          st:{ q:"Si Iris tomara varias formas, ¿cómo sería «las formas»?", ok:"formas", bad:["formae","formis"], why:"<em>formas</em>, «las formas»: acusativo plural (‑as). <em>formae</em> es nominativo plural y <em>formis</em>, dativo o ablativo plural." } },
-        { tag:"corpus", la:"Aeneas <b>corpus</b> Pallantis vidit et flevit.", es:"Eneas vio el cuerpo de Palante y lloró.", wes:"el cuerpo", correct:"OD",
-          why:"<em>corpus</em> es un neutro de la 3ª declinación (<em>corpus, corporis</em>): termina en ‑us, pero no es un nominativo de la 2ª. El sujeto de <em>vidit</em> es <em>Aeneas</em>; <em>corpus</em> es lo que ve: OD.",
-          st:{ q:"Si fueran varios cuerpos, ¿cómo sería «los cuerpos»?", ok:"corpora", bad:["corporum","corporibus"], why:"<em>corpora</em>, «los cuerpos»: acusativo plural neutro (‑a). <em>corporum</em> es genitivo plural y <em>corporibus</em>, dativo o ablativo plural." } },
+          why:"<em>formam</em> (‑am, 1ª declinación) es lo que Iris toma, lo que pide <em>sumit</em>: OD." },
+        { tag:"Aeneam", la:"Sagitta <b>Aeneam</b> vulneravit.", es:"Una flecha hirió a Eneas.", wes:"a Eneas", correct:"OD",
+          why:"<em>Aeneam</em> (‑am) es a quién hiere la flecha: OD. No hay preposición." },
+        { tag:"Pallantem", la:"Turnus <b>Pallantem</b> solus petivit.", es:"Turno, solo, atacó a Palante.", wes:"a Palante", correct:"OD",
+          why:"<em>Pallantem</em> (‑em, 3ª declinación) es a quién ataca Turno: OD." },
         { tag:"ad inferos", la:"Aeneas <b>ad inferos</b> descendit.", es:"Eneas desciende a los infiernos.", wes:"a los infiernos", correct:"CL",
           why:"<em>ad</em> + acusativo plural (‑os): hacia dónde desciende Eneas. Todo el bloque lleva CL." },
         { tag:"in navem", la:"Turnus <b>in navem</b> fugit.", es:"Turno huye a una nave.", wes:"a una nave", correct:"CL",
-          why:"<em>in</em> + acusativo (<em>navem</em>, ‑em, de <em>navis</em>): hacia dónde huye Turno. Todo el bloque lleva CL.",
-          st:{ q:"Si huyera a varias naves, ¿cómo sería «a las naves»?", ok:"in naves", bad:["in navibus","in navium"], why:"<em>in naves</em>, «a las naves»: acusativo plural (‑es), hacia dónde. <em>in navibus</em> sería «en las naves» (ablativo) y <em>navium</em> es genitivo plural." } }
+          why:"<em>in</em> + acusativo (<em>navem</em>, ‑em): hacia dónde huye Turno. Todo el bloque lleva CL." }
+        // PENDIENTE: dos o tres tarjetas de PO con las frases que pasa Santiago.
       ]
     },
 
@@ -768,6 +790,7 @@
       cases: [["nom","Nominativo"],["acc","Acusativo"]],
       funcs: ["S","PS","OD","PO","CL"],
       funcCase: { S:"nom", PS:"nom", OD:"acc", PO:"acc", CL:"acc" },
+      funcsByCase: { nom:["S","PS"], acc:["OD","PO","CL"] },
       items: [
         { src:"P2 · 1 (Libro VI)", es:"Allí Eneas ve a su padre y está contento.",
           words:["Ibi","Aeneas","patrem","suum","videt","et","laetus","est."], pre:{ 0:"CL", 4:"NV", 5:"NC", 7:"NV" },
@@ -779,8 +802,7 @@
                 bad:{ PO:"<em>patrem suum</em> es a quién ve Eneas, no cómo lo ve.", CL:"No hay preposición: <em>patrem suum</em> es lo que pide <em>videt</em>." } },
               { i:6, c:"nom", f:"PS", es:"contento", cw:"‑us es nominativo; el acusativo sería <em>laetum</em>.",
                 why:"nominativo (‑us); no va pegado a un sustantivo y, con <em>est</em>, dice cómo está Eneas.",
-                bad:{ S:"El sujeto ya es <em>Aeneas</em>; <em>laetus</em> dice cómo está." },
-                st:{ q:"Si fueran Eneas y Ascanio, ¿cómo sería «contentos»?", ok:"laeti", bad:["laetos","laetis"], why:"<em>laeti</em>, «contentos»: nominativo plural. <em>laetos</em> es acusativo plural y <em>laetis</em>, dativo o ablativo plural." } } ] },
+                bad:{ S:"El sujeto ya es <em>Aeneas</em>; <em>laetus</em> dice cómo está." } } ] },
         { src:"P2 · 2 (Libro XII)", es:"Turno dejó a su hermana y corrió hacia los muros.",
           words:["Turnus","sororem","reliquit","et","ad","muros","cucurrit."], pre:{ 2:"NV", 3:"NC", 6:"NV" },
           v:[ { i:0, c:"nom", f:"S", es:"Turno", cw:"‑us es nominativo; el acusativo sería <em>Turnum</em>.",
@@ -791,8 +813,7 @@
                 bad:{ CL:"No hay preposición: <em>sororem</em> es lo que pide <em>reliquit</em>.", PO:"<em>sororem</em> es a quién deja, no cómo la deja." } },
               { i:4, span:[4,5], c:"acc", f:"CL", es:"hacia los muros", cw:"<em>muros</em> (‑os) es acusativo plural; además, <em>ad</em> va siempre con acusativo.",
                 why:"<em>muros</em> (‑os) es acusativo plural, después de <em>ad</em> y con un verbo de movimiento: hacia dónde corre. Todo el bloque es CL.",
-                bad:{ OD:"<em>muros</em> va con <em>ad</em>: el bloque dice hacia dónde corre, no lo que pide el verbo.", PO:"<em>ad muros</em> dice hacia dónde corre Turno." },
-                st:{ q:"¿Cómo sería «hacia el muro»?", ok:"ad murum", bad:["ad muro","ad muri"], why:"<em>ad murum</em>: acusativo singular (‑um). <em>muro</em> es dativo o ablativo y <em>muri</em>, genitivo singular o nominativo plural." } } ] },
+                bad:{ OD:"<em>muros</em> va con <em>ad</em>: el bloque dice hacia dónde corre, no lo que pide el verbo.", PO:"<em>ad muros</em> dice hacia dónde corre Turno." } } ] },
         { src:"P2 · 3 (Libro X, recortada)", es:"Mezencio vio a su hijo muerto.",
           words:["Mezentius","filium","mortuum","vidit."], pre:{ 3:"NV" },
           v:[ { i:0, c:"nom", f:"S", es:"Mezencio", cw:"‑us es nominativo; el acusativo sería <em>Mezentium</em>.",
@@ -800,12 +821,10 @@
                 bad:{ PS:"<em>Mezentius</em> concuerda con <em>vidit</em>: es de quién se habla." } },
               { i:1, c:"acc", f:"OD", es:"a su hijo", cw:"‑um es acusativo; el nominativo es <em>filius</em>.",
                 why:"acusativo (‑um): es a quién ve Mezencio.",
-                bad:{ PO:"<em>filium</em> es a quién ve; el que dice cómo lo ve es otro.", CL:"No hay preposición: <em>filium</em> es lo que pide <em>vidit</em>." },
-                st:{ q:"¿Cómo sería «a sus hijos»?", ok:"filios", bad:["filii","filiis"], why:"<em>filios</em>: acusativo plural (‑os). <em>filii</em> es nominativo plural y <em>filiis</em>, dativo o ablativo plural." } },
+                bad:{ PO:"<em>filium</em> es a quién ve; el que dice cómo lo ve es otro.", CL:"No hay preposición: <em>filium</em> es lo que pide <em>vidit</em>." } },
               { i:2, c:"acc", f:"PO", es:"muerto", cw:"‑um es acusativo; el nominativo sería <em>mortuus</em>.",
                 why:"acusativo (‑um) que concuerda con <em>filium</em>, pero no dice a quién ve, sino <strong>cómo</strong> lo ve: «lo vio muerto». Con el pronombre, «muerto» queda: es PO.",
-                bad:{ OD:"El OD ya es <em>filium</em>, a quién ve. <em>mortuum</em> dice cómo lo ve: «lo vio muerto».", CL:"No hay preposición ni lugar: <em>mortuum</em> dice cómo lo ve." },
-                st:{ q:"Si fueran los dos hijos, ¿cómo sería «muertos»?", ok:"mortuos", bad:["mortui","mortuis"], why:"<em>mortuos</em>, «muertos»: acusativo plural, como <em>filios</em>. <em>mortui</em> es nominativo plural y <em>mortuis</em>, dativo o ablativo plural." } } ] }
+                bad:{ OD:"El OD ya es <em>filium</em>, a quién ve. <em>mortuum</em> dice cómo lo ve: «lo vio muerto».", CL:"No hay preposición ni lugar: <em>mortuum</em> dice cómo lo ve." } } ] }
       ]
     },
 
@@ -816,16 +835,14 @@
       items: [
         { src:"P3 · 1 (Libro X)", es:"Turno tomó los despojos, pero no vio el futuro.",
           ok:"Turnus[S] spolia[OD] cepit[NV] , sed[NC] futura[OD] non[CNeg] vidit[NV] .",
-          bad:["Turnus[CL] spolia[NV] cepit[S] , sed[OD] futura[NV] non[PS] vidit[NC] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>spolia</em> y <em>futura</em> son neutros plurales (‑a), iguales en nominativo y acusativo: como el sujeto ya es <em>Turnus</em>, los dos son OD. <em>cepit</em> y <em>vidit</em> son los NV."],
-          st:{ q:"¿Cuál de estas tres está en acusativo?", ok:"Turnum", bad:["Turnus","Pallas"], why:"<em>Turnum</em>: acusativo singular (‑um). <em>Turnus</em> y <em>Pallas</em> son nominativos." } },
+          bad:["Turnus[CL] spolia[NV] cepit[S] , sed[OD] futura[NV] non[PS] vidit[NC] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>spolia</em> y <em>futura</em> son neutros plurales (‑a), iguales en nominativo y acusativo: como el sujeto ya es <em>Turnus</em>, los dos son OD. <em>cepit</em> y <em>vidit</em> son los NV."] },
         { src:"P3 · 2 (Libro X)", es:"Turno mató a Palante y Palante cayó a tierra.",
           ok:"Turnus[S] Pallantem[OD] necavit[NV] et[NC] Pallas[S] in_terram[CL] cecidit[NV] .",
           bad:["Turnus[OD] Pallantem[S] necavit[NV] et[NC] Pallas[OD] in_terram[S] cecidit[NV] .", "<em>Turnus</em> y <em>Pallas</em> están en nominativo: son los sujetos. <em>Pallantem</em> (‑em) es el acusativo: a quién mata Turno. <em>in terram</em> dice hacia dónde cae: CL."],
           st:{ q:"¿Cuál de estas tres está en acusativo?", ok:"Pallantem", bad:["Pallas","Aeneas"], why:"<em>Pallantem</em>: acusativo singular (‑em). <em>Pallas</em> y <em>Aeneas</em> son nominativos." } },
         { src:"P3 · 3 (Libro X)", es:"Turno arrancó el tahalí de Palante y estuvo contento.",
           ok:"Turnus[S] balteum_Pallantis[OD] rapuit[NV] et[NC] laetus[PS] fuit[NV] .",
-          bad:["Turnus[NV] balteum_Pallantis[PS] rapuit[S] et[NC] laetus[OD] fuit[CL] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>balteum Pallantis</em> (‑um) es lo que arranca: OD. <em>laetus</em>, nominativo con <em>fuit</em>, dice cómo estuvo Turno: PS."],
-          st:{ q:"¿Cuál de estas tres está en acusativo?", ok:"balteum", bad:["laetus","Turnus"], why:"<em>balteum</em>: acusativo singular (‑um). <em>laetus</em> y <em>Turnus</em> son nominativos." } }
+          bad:["Turnus[NV] balteum_Pallantis[PS] rapuit[S] et[NC] laetus[OD] fuit[CL] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>balteum Pallantis</em> (‑um) es lo que arranca: OD. <em>laetus</em>, nominativo con <em>fuit</em>, dice cómo estuvo Turno: PS."] }
       ]
     }
   };
@@ -841,13 +858,11 @@
     { src:"Calentamiento 2 (Libro I)", arco:"Aeneis I · Neptunus",
       words:["Neptunus","ventos","videt;","iratus","statim","undas","placat."], decoys:[],
       al:"{0:**Neptuno**} {2:ve} {1:**los vientos**}; {3:**enojado**,} {6:calma} {4:inmediatamente} {5:**las olas**}.",
-      expl:"<em>iratus</em>: nominativo, separado de <em>Neptunus</em>; dice cómo está mientras calma las olas (PS). <em>ventos</em> y <em>undas</em> son acusativos: OD.",
-      st:{ q:"Si fuera un solo viento, ¿cómo sería «el viento»?", ok:"ventum", bad:["venti","vento"], why:"<em>ventum</em>, «el viento»: acusativo singular (‑um). <em>venti</em> es nominativo plural y <em>vento</em>, dativo o ablativo singular." } },
+      expl:"<em>iratus</em>: nominativo, separado de <em>Neptunus</em>; dice cómo está mientras calma las olas (PS). <em>ventos</em> y <em>undas</em> son acusativos: OD." },
     { src:"Calentamiento 3 (Libro I, recortada)", arco:"Aeneis I · Tempestas",
       words:["Magna","tempestas","Troianos","vexat."], decoys:[],
       al:"{0:**Una gran**} {1:**tormenta**} {3:sacude} {2:**a los troyanos**}.",
-      expl:"<em>tempestas</em> es un nominativo de la 3ª declinación (<em>tempestas, tempestatis</em>): es lo que sacude, el S, y <em>magna</em> va adentro del sintagma. <em>Troianos</em> (‑os): OD.",
-      st:{ q:"Si fuera un solo troyano, ¿cómo sería «al troyano»?", ok:"Troianum", bad:["Troiani","Troiano"], why:"<em>Troianum</em>, «al troyano»: acusativo singular (‑um). <em>Troiani</em> es nominativo plural y <em>Troiano</em>, dativo o ablativo singular." } }
+      expl:"<em>tempestas</em> es un nominativo de la 3ª declinación (<em>tempestas, tempestatis</em>): es lo que sacude, el S, y <em>magna</em> va adentro del sintagma. <em>Troianos</em> (‑os): OD." }
   ];
 
   var IDK = "No lo sé todavía";
@@ -1489,6 +1504,72 @@
     upd();
   }
 
+  // ---------- Paso 1 · una frase por vez con cajones (buildSeq33, Act. 33, revisión del 2026-10-16): reemplaza a buildCases33
+  // (8 tarjetas en grilla = demasiado scroll, y en modo oscuro no se veía cuál estaba elegida). Arriba, UNA tarjeta-frase
+  // grande con su «Ver traducción» (oculta); abajo, los cajones en una fila; se toca directamente el cajón. Las frases ya
+  // clasificadas quedan a la vista debajo, enteras, con la palabra en el color de su cajón. Sin repreguntas. ----------
+  function buildSeq33(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var stage = document.getElementById(pre + "-stage"), log = document.getElementById(pre + "-log");
+    var words = shuffled(cfg.words), k = 0, total = words.length, cols = {};
+    cfg.columns.forEach(function(c){ cols[c.key] = c; });
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Frases clasificadas: <strong>" + k + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = k < total;
+    }
+    function show(){
+      stage.innerHTML = "";
+      if (k >= total){ upd(); return; }
+      var w = words[k], tried = 0, over = false;
+      var card = v2el("div", "scene-card seq-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
+      card.appendChild(v2el("p", "seq-la", w.la));
+      var es = v2el("p", "pair-es", w.es); es.hidden = true;
+      var t = v2el("button", "btn-cast", "Ver traducción"); t.type = "button";
+      t.addEventListener("click", function(){ es.hidden = !es.hidden; t.textContent = es.hidden ? "Ver traducción" : "Ocultar traducción"; });
+      card.appendChild(t); card.appendChild(es);
+      var row = v2el("div", "seq-boxes"), msg = v2el("p", "gen-msg");
+      cfg.columns.forEach(function(c){
+        var b = v2el("button", "gen-box seq-box " + c.color, '<div class="gen-name">' + c.name + '</div><div class="seq-sub">' + c.sub + '</div><div class="gen-model">' + c.model + "</div>"); b.type = "button";
+        b.addEventListener("click", function(){
+          if (over) return;
+          if (c.key === w.correct){
+            over = true;
+            submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: true, primerIntento: tried === 0, final: true });
+            if (tried === 0) streak.hit();
+            msg.className = "gen-msg ok"; msg.innerHTML = CERTE + " <em>" + w.tag + "</em> («" + w.wes + "»): " + c.key + ".";
+            done(false); return;
+          }
+          tried++;
+          submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+          b.classList.remove("flash-bad"); void b.offsetWidth; b.classList.add("flash-bad"); b.disabled = true;
+          if (tried === 1){ streak.reset(); msg.className = "gen-msg bad"; msg.innerHTML = "No es " + c.key + ". " + cfg.hint; }
+          else {
+            over = true;
+            submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+            msg.className = "gen-msg bad"; msg.innerHTML = "Era " + w.correct + ": " + w.why;
+            done(true);
+          }
+        });
+        row.appendChild(b);
+      });
+      card.appendChild(row); card.appendChild(msg);
+      stage.appendChild(card);
+      function done(rev){
+        var c = cols[w.correct];
+        var li = v2el("div", "seq-done " + c.color + (rev ? " rev" : ""), '<span class="seq-tag">' + c.key + "</span> " + '<span class="seq-done-la">' + w.la + "</span>");
+        log.insertBefore(li, log.firstChild);
+        k++; upd();
+        if (k < total){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ show(); stage.scrollIntoView({ block: "start", behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+    }
+    upd(); show();
+  }
+
   // ---------- Paso 2 · Caso y función (buildFunc, Act. 33): generalización de buildVerbs para las Act. 33-35. La frase se lee
   // entera; solo los constituyentes del tema son fichas (un bloque de varias palabras = UNA ficha, con el subíndice al final);
   // el resto llega con su subíndice ya puesto, en gris (it.pre = {índice: etiqueta}). Pregunta 1: el caso (cfg.cases);
@@ -1535,11 +1616,13 @@
       card.appendChild(line);
       var ask = v2el("div", "vb-ask"); ask.hidden = true; card.appendChild(ask);
       var info = v2el("div", "tg-info"); info.hidden = true; card.appendChild(info);
+      var stHost = v2el("div"); card.appendChild(stHost);
       var tr = translationToggle(cfg, it, card);
       stage.appendChild(card);
 
       function setInfo(cls, html){ info.hidden = false; info.className = "tg-info" + (cls ? " " + cls : ""); info.innerHTML = html; }
       function pick(v){
+        if (stOpen){ var sb0 = stHost.querySelector(".st-box"); if (sb0){ sb0.classList.add("st-flash"); sb0.scrollIntoView({ block: "nearest", behavior: "auto" }); } return; }
         if (busy && busy !== v){ setInfo("", "Falta terminar con <em>" + busy._t + "</em>."); return; }
         it.v.forEach(function(x){ x._el.classList.remove("sel"); });
         sel = v; v._el.classList.add("sel");
@@ -1551,7 +1634,7 @@
         var head = '<span class="vb-name">' + v._t + "</span>";
         var q, opts;
         if (v._st === 0){ q = head + " · ¿" + cfg.cases.map(function(c){ return c[1].toLowerCase(); }).join(" o ") + "?"; opts = cfg.cases; }
-        else { q = head + " está en " + caseName(v.c) + ". ¿Qué función cumple?"; opts = cfg.funcs.map(function(f){ return [f, TAGS[f]]; }); }
+        else { q = head + " está en " + caseName(v.c) + ". ¿Qué función cumple?"; opts = (cfg.funcsByCase ? cfg.funcsByCase[v.c] : cfg.funcs).map(function(f){ return [f, TAGS[f]]; }); }
         ask.appendChild(v2el("p", "vb-q", q));
         var row = v2el("div", "tg-pal");
         opts.forEach(function(o){
@@ -1600,7 +1683,8 @@
         else if (v._clean && v.st){
           setInfo("ok", CERTE + " " + txt(v) + " «" + v.es + "».");
           busy = v; stOpen = true; upd();
-          var sb = stretchBox(info, v.st, it.src + " · " + v._t, function(){ busy = null; stOpen = false; upd(); check(); });
+          stHost.innerHTML = "";
+          var sb = stretchBox(stHost, v.st, it.src + " · " + v._t, function(){ busy = null; stOpen = false; upd(); sb.classList.remove("st-flash"); check(); });
           sb.scrollIntoView({ block: "nearest", behavior: "auto" });
         } else { explainDone(v); check(); }
       }
@@ -1686,12 +1770,12 @@
   buildDialog("dlg-s2", DATA.s2);
   buildDialog("dlg-s3", DATA.s3);
   buildWarm32(WARMUP33, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
-  buildCases33(DATA.paso1, "p1");
+  buildSeq33(DATA.paso1, "p1");
   buildFunc(DATA.paso2, "p2");
   buildAnal(DATA.paso3, "p3");
-  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-warm"));
-  document.getElementById("btn-warm-done").addEventListener("click", goStep("step-s2"));
-  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-p1"));
+  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-s2"));
+  document.getElementById("btn-warm-done").addEventListener("click", goStep("step-p1"));
+  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-warm"));
   document.getElementById("btn-p1-done").addEventListener("click", goStep("step-s3"));
   document.getElementById("btn-s3-done").addEventListener("click", goStep("step-p2"));
   document.getElementById("btn-p2-done").addEventListener("click", goStep("step-p3"));
