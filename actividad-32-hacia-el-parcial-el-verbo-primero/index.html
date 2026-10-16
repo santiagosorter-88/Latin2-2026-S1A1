@@ -446,6 +446,29 @@
   .tr-msg em{ font-family:var(--serif); }
   #rule-s2 .tbl-mini td.la b{ color:var(--incorrect); }
 
+  /* Act. 32, 2026-10-16: consignas legibles, repregunta, cajones con nombre grande */
+  .consigna{ margin:0 0 1.2rem; padding:.8rem 1rem; border-left:4px solid var(--accent); background:var(--surface); border-radius:8px; color:var(--ink); font-size:1rem; line-height:1.55; }
+  .consigna p{ margin:0 0 .45rem; } .consigna p:last-child{ margin-bottom:0; }
+  .p1-expl .tag{ font-weight:700; }
+  .p1-expl .tag[class*="c-"]{ color:var(--box); }
+  .p1-expl b{ color:var(--accent-strong); }
+  .gen-name{ font-family:var(--sans); font-weight:700; font-size:.95rem; color:var(--box, var(--accent-strong)); margin-bottom:.15rem; }
+  .gen-box .gen-model{ font-size:1.15rem; }
+  .st-box{ margin:.7rem 0 .2rem; padding:.7rem .85rem; border:1.5px solid var(--accent); border-radius:8px; background:var(--surface-raised); color:var(--ink); }
+  .st-h{ margin:0 0 .2rem; font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-strong); }
+  .st-q{ margin:0 0 .5rem; font-size:.98rem; }
+  .st-q em, .st-msg em{ font-family:var(--serif); }
+  .st-opt{ font-family:var(--serif); font-weight:400; font-size:1.02rem; }
+  .tg-tag.st-right{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); text-decoration:none; opacity:1; }
+  .tg-tag.st-wrong{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .st-opt:disabled:not(.st-right):not(.st-wrong){ opacity:.55; border-color:var(--rule); background:transparent; color:var(--ink-muted); text-decoration:none; }
+  .st-msg{ margin:.5rem 0 0; font-size:.92rem; }
+  .st-msg.bad{ color:var(--incorrect); }
+  .tg-info .st-box{ background:var(--surface); }
+  .vb-name{ font-family:var(--serif); font-style:italic; font-weight:700; font-size:1.12rem; }
+  .lang-list li{ margin:.45rem 0; }
+  .ex-ot{ font-style:italic; }
+
   .tg-sdnote{ margin-right:.35em; }
 </style>
 </head>
@@ -489,7 +512,7 @@
     <section class="step" id="step-s2">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Antes del Paso 1</p><h2>Imperativo (Shh... Sólo escucha)</h2></div></div>
-      <p class="step-instructions">En cada par, una de las dos frases da una orden. Tocarla. No cuenta para el resultado.</p>
+      <div class="consigna"><p>En cada par hay dos frases: una <strong>da una orden</strong> (el verbo está en imperativo) y la otra <strong>afirma algo</strong> (el verbo está conjugado en indicativo). La tarea es tocar la frase que da la orden.</p><p>Si el latín no alcanza para decidir, «Ver traducción» muestra el castellano de las dos frases.</p></div>
       <div id="pairs-s2"></div>
       <div class="explain-box" id="rule-s2" hidden>
         <h3 class="box-h">Cómo se forma</h3>
@@ -501,7 +524,7 @@
           <tr><td class="la">veni‑re</td><td class="la"><b>veni</b></td><td class="la"><b>veni‑te</b></td></tr>
           <tr><td class="la">contemne‑re</td><td class="la"><b>contemne</b></td><td class="la"><b>contemn‑ite</b></td></tr>
         </table>
-        <p>No tiene desinencia personal: en el singular es el tema solo, y el plural agrega <strong>‑te</strong> (en la 3ª conjugación, con <em>i</em>: <span class="ex-latin">contemnite</span>). Por eso el sujeto nunca está escrito: es siempre desinencial, (SD: 2da sg.) o (SD: 2da pl.).</p>
+        <p>Esa vocal final (<span class="ex-latin">aud<b>e</b></span>, <span class="ex-latin">retin<b>e</b></span>, <span class="ex-latin">ven<b>i</b></span>) <strong>no es una desinencia</strong>: es la <strong>vocal temática</strong> del verbo (‑ā en la 1ª conjugación, ‑ē en la 2ª, ‑ī en la 4ª; en la 3ª, una vocal de unión ‑ĕ), la misma que aparece en el infinitivo antes del formante ‑re. Es la estructura que el cuadernillo da para todo verbo, <em>raíz + vocal temática + desinencia personal</em> (Latín I; Latín II, Tema 11): el imperativo singular es el «tema puro», raíz + vocal temática, sin ninguna desinencia personal. El plural agrega ‑te (en la 3ª conjugación, con <em>i</em>: <span class="ex-latin">contemnite</span>). Por eso el sujeto nunca está escrito: es siempre desinencial, (SD: 2da sg.) o (SD: 2da pl.).</p>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-s2-done">Continuar a Paso 1</button></div>
     </section>
@@ -510,12 +533,23 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Clasificación de las formas verbales</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Las cuatro formas salen del enunciado; cada cajón muestra de dónde, con <span class="ex-latin">amo, amas, amare, amavi</span>. Cada tarjeta trae la forma y el enunciado de su verbo. Tocar una tarjeta y después el cajón.</p>
+      <div class="explain-box p1-expl">
+        <h3 class="box-h">De dónde sale cada forma</h3>
+        <p>Todo sale del enunciado del verbo. Con <span class="ex-latin">amo, amas, amare, amavi</span>:</p>
+        <div class="ex-list">
+          <div><span class="tag c-azul">Presente</span>: el tema de presente, que se ve en <span class="ex-latin">amas</span> o en <span class="ex-latin">amare</span> (<span class="ex-latin">ama‑</span>), más la desinencia personal: <span class="ex-latin">ama‑<b>t</b></span>, <span class="ex-latin">ama‑<b>nt</b></span>.</div>
+          <div><span class="tag c-verde">Pretérito perfecto</span>: la 4ª forma sin la ‑i (<span class="ex-latin">amav‑</span>), más la desinencia de perfecto: <span class="ex-latin">amav‑<b>it</b></span>, <span class="ex-latin">amav‑<b>erunt</b></span>.</div>
+          <div><span class="tag c-amarillo">Infinitivo</span>: la 3ª forma, con el formante <b>‑re</b>: <span class="ex-latin">ama‑<b>re</b></span>.</div>
+          <div><span class="tag c-rojo">Imperativo</span>: el tema de presente solo, sin desinencia: <span class="ex-latin">ama</span>; en plural, más <b>‑te</b>: <span class="ex-latin">ama‑<b>te</b></span>.</div>
+        </div>
+      </div>
+      <div class="consigna"><p>Cada tarjeta trae una forma y el enunciado de su verbo. Tocar una tarjeta y después el cajón que le corresponde.</p></div>
       <div class="p-progress" id="p1-progress"></div>
       <div class="exercise">
         <div class="gen-pool" id="p1-pool"></div>
         <div class="gen-boxes" id="p1-boxes"></div>
         <p class="gen-msg" id="p1-msg"></p>
+        <div id="p1-st"></div>
       </div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
     </section>
@@ -541,7 +575,7 @@
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Del castellano al análisis</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <p class="step-instructions">Una frase en castellano y tres análisis de su versión latina. Solo uno es posible; conviene leer cada análisis completo, porque alguno se tuerce recién al final.</p>
+      <p class="step-instructions">Una frase en castellano y dos análisis de su versión latina: uno es correcto y el otro no puede serlo. Tocar el correcto.</p>
       <div class="p-progress" id="p3-progress"></div>
       <div id="p3-stage"></div>
       <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-p3-done" disabled>Finalizar actividad</button></div>
@@ -588,153 +622,173 @@
   };
   var CERTE = '<span class="certe">✓ Certe</span>';
 
+  // Todas las frases salen del banco de la Eneida (docs de Latín II). Como ejemplos, preferir 1ª/2ª declinación, presente y
+  // sin is/ea/id (regla del 2026-10-16); «(adaptada)» marca las ediciones mínimas.
   var DATA = {
     sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Paso 3"]],
 
-    // ---------- Separador 1 (buildDialog): por qué partir del verbo, con respaldo gramatical. No suma decisiones.
+    // ---------- Separador 1 (buildDialog): por qué partir del verbo. No suma decisiones.
     s1: [
-      { q:"¿Por qué tantos métodos de análisis parten del verbo conjugado?",
-        a:"<p>Porque el verbo determina cuántos participantes necesita la oración y qué papel cumple cada uno: lo que la gramática llama <strong>estructura argumental</strong> (o <strong>valencia</strong>, desde Lucien Tesnière, 1959). El cuadernillo lo dice así: la función de un constituyente depende de los <strong>papeles temáticos asignados por el verbo principal</strong>.</p>" +
-          "<p><span class=\"ex-latin\">do</span> pide tres participantes: quien da, lo que se da y quien lo recibe. En latín cada papel tiene su caso: <span class=\"ex-latin\"><strong>Ocnus</strong> <strong>urbi</strong> <strong>nomen</strong> matris dedit</span> (Ocno le dio <strong>a la ciudad</strong> el nombre de su madre; Libro X): nominativo, dativo, acusativo. <span class=\"ex-latin\">credo</span>, en cambio, pide dos, y el segundo en dativo: <span class=\"ex-latin\">illi <strong>ei</strong> credunt</span> (ellos <strong>le</strong> creen; Libro II).</p>" +
-          "<p>Como en latín esos papeles se marcan con el caso y no con el orden de las palabras, el verbo es el punto desde el cual se interpretan los casos. Además, su desinencia personal concuerda con el sujeto; por eso el sujeto puede no estar escrito (sujeto desinencial).</p>" },
+      { q:"¿Por qué tantos métodos de análisis empiezan por el verbo conjugado?",
+        a:"<p>Porque el verbo anticipa qué otros elementos va a tener la frase. Narrar es narrar algo a alguien: en <span class=\"ex-latin\">Sinon <strong>Troianis</strong> <strong>falsam causam</strong> narrat</span> (Sinón <strong>les</strong> cuenta <strong>a los troyanos</strong> <strong>una explicación falsa</strong>; Libro II), <span class=\"ex-latin\">narrat</span> pide quién cuenta (<span class=\"ex-latin\">Sinon</span>, en nominativo), qué cuenta (<span class=\"ex-latin\">falsam causam</span>, en acusativo) y a quién (<span class=\"ex-latin\">Troianis</span>, en dativo). Navegar, en cambio, no es navegar algo: en <span class=\"ex-latin\">Troiani <strong>in Thraciam</strong> navigant</span> (Los troyanos navegan <strong>hacia Tracia</strong>; Libro III) no hay objeto directo, sino un lugar.</p>" +
+          "<p>En latín cada uno de esos elementos se reconoce por su caso, no por el lugar que ocupa en la frase. Por eso, una vez que se sabe cuál es el verbo, se sabe qué casos buscar. Además, la desinencia del verbo dice la persona y el número del sujeto: aunque el sujeto no esté escrito, se sabe quién es (sujeto desinencial). La gramática llama <strong>valencia</strong> a esta capacidad del verbo de pedir ciertos complementos.</p>" },
       { q:"¿Es el único camino para entender una frase?",
-        a:"<p>No. También se puede leer en el orden del texto e ir anticipando: un nominativo abre la posibilidad de un sujeto; un dativo, la de alguien que recibe o a quien algo afecta; un acusativo, la de un objeto. Como el verbo latino suele ir al final, esa lectura lineal arma hipótesis que el verbo confirma o corrige.</p>" +
+        a:"<p>No. También se puede leer en el orden del texto e ir anticipando. En <span class=\"ex-latin\">Neptunus ventos videt</span> (Neptuno ve los vientos; Libro I), <span class=\"ex-latin\">Neptunus</span> está en nominativo: puede ser el sujeto. <span class=\"ex-latin\">ventos</span> está en acusativo: puede ser el objeto. <span class=\"ex-latin\">videt</span>, en 3ª persona del singular, lo confirma. Como el verbo latino suele ir al final, esta lectura arma hipótesis que el verbo confirma o corrige.</p>" +
           "<p>Los dos caminos se complementan. Partir del verbo es un método de <strong>análisis</strong>, útil para justificar cada función en el parcial; leer anticipando es una estrategia de <strong>lectura</strong>.</p>" },
-      { q:"¿Sirven estas categorías (verbo conjugado, sujeto, objeto) para cualquier lengua?",
-        a:"<p>Sirven muy bien para lenguas como el latín y el castellano: flexivas, de la familia indoeuropea, con un verbo conjugado que concuerda con el sujeto. En otras lenguas rinden menos:</p>" +
-          "<ul><li>En <strong>chino mandarín</strong> el verbo no se conjuga (no marca persona ni tiempo): las relaciones entre las palabras las dan el orden y algunas partículas.</li>" +
-          "<li>En <strong>vasco</strong>, el sujeto de un verbo intransitivo se marca igual que el objeto de uno transitivo y distinto del sujeto de un transitivo (es una lengua <strong>ergativa</strong>): la categoría «sujeto» deja de ser tan clara.</li>" +
-          "<li>En las lenguas <strong>polisintéticas</strong>, como el inuktitut, una sola palabra verbal puede equivaler a una oración entera.</li></ul>" +
+      { q:"¿Sirven estas categorías (verbo conjugado, sujeto, objeto directo) para cualquier lengua?",
+        a:"<p>Sirven muy bien para el latín y el castellano: dos lenguas de la familia indoeuropea, que marcan las funciones con terminaciones y tienen un verbo conjugado que concuerda con el sujeto. En otras lenguas rinden menos.</p>" +
+          "<ul class=\"lang-list\">" +
+          "<li><strong>Chino mandarín</strong> (China). El verbo no se conjuga: no cambia según la persona ni el tiempo. <span class=\"ex-ot\">Wǒ ài nǐ</span> es «yo te amo» y <span class=\"ex-ot\">Nǐ ài wǒ</span>, «tú me amas»: las mismas tres palabras, en otro orden. Lo que en latín hacen la desinencia y el caso, acá lo hace el orden.</li>" +
+          "<li><strong>Vasco o euskera</strong> (País Vasco, en el norte de España y el sudoeste de Francia). Es una lengua <strong>ergativa</strong>. En <span class=\"ex-ot\">Gizona etorri da</span> («El hombre vino»), <span class=\"ex-ot\">gizona</span> («el hombre») no lleva ninguna marca. En <span class=\"ex-ot\">Gizon<strong>ak</strong> ogia jan du</span> («El hombre comió el pan»), el que come lleva una marca propia, ‑k, y lo comido, <span class=\"ex-ot\">ogia</span> («el pan»), aparece sin marca, igual que el que vino. Es decir: el vasco agrupa al sujeto de «venir» con el objeto de «comer», justo al revés que el latín, donde los dos sujetos van en nominativo.</li>" +
+          "<li><strong>Náhuatl</strong> (México; la lengua de los mexicas, hablada hoy por más de un millón y medio de personas). Es una lengua <strong>polisintética</strong>: una sola palabra verbal puede incluir al sujeto y al objeto. <span class=\"ex-ot\">Ninacacua</span> («como carne») se forma con <span class=\"ex-ot\">ni‑</span> («yo»), <span class=\"ex-ot\">naca‑</span> («carne») y <span class=\"ex-ot\">cua</span> («comer»): la oración entera es una palabra, y no hay un objeto directo separado al que ponerle un subíndice.</li>" +
+          "<li><strong>Inuktitut</strong> (la lengua de los inuit del Ártico canadiense, en el extremo norte de América). Llega más lejos que el náhuatl: <span class=\"ex-ot\">Qangatasuukkuvimmuuriaqalaaqtunga</span>, una sola palabra, significa «Voy a tener que ir al aeropuerto».</li></ul>" +
           "<p>Las categorías de análisis no son universales: describen cómo está organizada una lengua. Las que usamos acá describen bien una lengua articulada alrededor del verbo conjugado.</p>" }
     ],
 
-    // ---------- Separador 2 (buildPairs): pares para comparar, sin puntaje. imp = la frase que da la orden.
+    // ---------- Separador 2 (buildPairs): pares para comparar. imp = la frase que da la orden. st = repregunta.
     pairs: [
       { a:{ la:"Euander Aeneae parvam domum ostendit.", es:"Evandro le muestra a Eneas una casa pequeña." },
         b:{ la:"Euander dicit: «Aude, hospes, opes contemnere!»", es:"Evandro dice: «¡Atrévete, huésped, a despreciar las riquezas!»", imp:true },
-        note:"<span class=\"ex-latin\">ostendit</span> lleva la desinencia personal ‑t; <span class=\"ex-latin\">aude</span> es el tema de presente solo (<span class=\"ex-latin\">aude‑re</span>), sin desinencia. Libro VIII." },
-      { a:{ la:"Ea sororem habet.", es:"Ella tiene una hermana." },
+        note:"<span class=\"ex-latin\">ostendit</span> lleva la desinencia personal ‑t; <span class=\"ex-latin\">aude</span> es el tema de presente solo (<span class=\"ex-latin\">aude‑re</span>). Libro VIII (adaptada).",
+        st:{ q:"Si Evandro les hablara a varios huéspedes, ¿cómo sería la orden?", ok:"audete", bad:["audent","audere"], why:"Al tema de presente se le agrega ‑te: <em>aude‑te</em>. <em>audent</em> es «se atreven» (‑nt) y <em>audere</em>, el infinitivo." } },
+      { a:{ la:"Cupido formam Ascanii sumit.", es:"Cupido adopta la apariencia de Ascanio." },
         b:{ la:"Soror autem ei consilium dat: «Amorem tuum retine!»", es:"Pero la hermana le da un consejo: «¡Conserva tu amor!»", imp:true },
-        note:"<span class=\"ex-latin\">habet</span> lleva la desinencia ‑t; <span class=\"ex-latin\">retine</span> es el tema de presente solo (<span class=\"ex-latin\">retine‑re</span>). Libro IV." },
+        note:"<span class=\"ex-latin\">sumit</span> lleva la desinencia ‑t; <span class=\"ex-latin\">retine</span> es el tema de presente solo (<span class=\"ex-latin\">retine‑re</span>). Libros I y IV.",
+        st:{ q:"¿Y si la hermana se lo dijera a varias personas?", ok:"retinete", bad:["retinent","retinere"], why:"Tema de presente + ‑te: <em>retine‑te</em>." } },
       { a:{ la:"Aeneas dicit: «Ad pugnam venite!»", es:"Eneas dice: «¡Vengan al combate!»", imp:true },
         b:{ la:"Dares et Entellus ad pugnam veniunt.", es:"Dares y Entelo van al combate." },
-        note:"<span class=\"ex-latin\">veniunt</span> lleva la desinencia ‑nt (3ª pl.); <span class=\"ex-latin\">venite</span> es el tema de presente (<span class=\"ex-latin\">veni‑re</span>) + ‑te: imperativo plural. Libro V." }
+        note:"<span class=\"ex-latin\">veniunt</span> lleva la desinencia ‑nt (3ª pl.); <span class=\"ex-latin\">venite</span> es el tema de presente (<span class=\"ex-latin\">veni‑re</span>) + ‑te. Libro V (adaptada).",
+        st:{ q:"¿Y si Eneas se lo dijera a uno solo de los troyanos?", ok:"veni", bad:["venit","venire"], why:"El singular es el tema de presente solo: <em>veni</em>. <em>venit</em> es «viene» (‑t)." } }
     ],
 
-    // ---------- Separador 3 (buildDialog).
+    // ---------- Separador 3 (buildDialog): primero los ejemplos, después la explicación.
     s3: [
       { q:"¿Y el infinitivo puede tener su propio objeto directo?",
-        a:"<p>Sí. El infinitivo conserva su naturaleza verbal: puede llevar complementos, como un verbo conjugado. Pasa lo mismo en castellano: en «Juno quiere destruir», el infinitivo está solo; en «Juno quiere destruir <strong>a los troyanos</strong>», lleva su propio objeto. Cuando tiene complementos forma una <strong>construcción de infinitivo</strong> (el cuadernillo la llama construcción verboidal de infinitivo, CVI), y todo el bloque cumple una sola función respecto del verbo conjugado.</p>" +
-          "<div class=\"ex-list\">" +
-          "<div><span class=\"ex-latin\">Iuno Troianos odit et <u>eos perdere</u> cupit.</span> (Juno odia a los troyanos y quiere <strong>destruirlos</strong>; Libro I.) → <span class=\"ex-latin\">eos perdere</span><sub class=\"tg-sub\">OD‑Constr. Inf.</sub>; dentro: <span class=\"ex-latin\">eos</span><sub class=\"tg-sub\">OD</sub> <span class=\"ex-latin\">perdere</span><sub class=\"tg-sub\">N</sub></div>" +
-          "<div><span class=\"ex-latin\">Iuno <u>nomen Troianorum delere</u> voluit.</span> (Juno quiso <strong>borrar el nombre de los troyanos</strong>; Libro XII.) → dentro: <span class=\"ex-latin\">nomen Troianorum</span><sub class=\"tg-sub\">OD</sub> <span class=\"ex-latin\">delere</span><sub class=\"tg-sub\">N</sub></div>" +
-          "</div>" },
+        a:"<div class=\"ex-list\">" +
+          "<div><span class=\"ex-latin\">Iuno <u>Troianos perdere</u> cupit.</span> (Juno quiere <strong>destruir a los troyanos</strong>; Libro I, adaptada.)</div>" +
+          "<div><span class=\"ex-latin\">Turnus <u>naves incendere</u> vult.</span> (Turno quiere <strong>incendiar las naves</strong>; Libro IX, adaptada.)</div>" +
+          "</div>" +
+          "<p>Sí. En las dos frases el infinitivo lleva su propio acusativo: <span class=\"ex-latin\">Troianos</span> es lo que hay que destruir; <span class=\"ex-latin\">naves</span>, lo que hay que incendiar. Pasa lo mismo en castellano: en «Juno quiere destruir» el infinitivo está solo; en «Juno quiere destruir a los troyanos», tiene un objeto propio.</p>" +
+          "<p>El infinitivo es una forma doble, como dice el cuadernillo: hacia afuera funciona como un sustantivo (acá, el OD de <span class=\"ex-latin\">cupit</span> y de <span class=\"ex-latin\">vult</span>); hacia adentro, como un verbo, y por eso puede tener complementos. Cuando los tiene, forma una <strong>construcción de infinitivo</strong>, y todo el bloque lleva un solo subíndice: <span class=\"ex-latin\">Troianos perdere</span><sub class=\"tg-sub\">OD‑Constr. Inf.</sub>. En el nivel 2 se desglosa: <span class=\"ex-latin\">Troianos</span><sub class=\"tg-sub\">OD</sub> <span class=\"ex-latin\">perdere</span><sub class=\"tg-sub\">N</sub>.</p>" },
       { q:"¿Cómo sé hasta dónde llega la construcción?",
-        a:"<p>Por el sentido del infinitivo: lo que depende de él (su objeto, su lugar) queda adentro. El sujeto del verbo conjugado queda afuera: en <span class=\"ex-latin\">Iuno nomen Troianorum delere voluit</span>, <span class=\"ex-latin\">Iuno</span> es el S de <span class=\"ex-latin\">voluit</span>. En el nivel 1 el bloque lleva un solo subíndice; en el nivel 2, el infinitivo es el núcleo [N] y cada complemento lleva su función.</p>" }
+        a:"<p>Preguntándole al infinitivo qué necesita. <span class=\"ex-latin\">perdere</span> es destruir a alguien: ¿a quién? <span class=\"ex-latin\">Troianos</span>; entonces <span class=\"ex-latin\">Troianos</span> está adentro de la construcción. ¿Y <span class=\"ex-latin\">Iuno</span>? Es la que quiere: es el sujeto de <span class=\"ex-latin\">cupit</span> y queda afuera.</p>" +
+          "<p>Es la misma jerarquía que con un genitivo dentro de un objeto directo: en «el escudo de Vulcano», «de Vulcano» no es un elemento suelto de la oración, sino que está adentro del objeto. Lo que depende del infinitivo, del mismo modo, no se separa: va adentro del bloque.</p>" }
     ],
 
-    // ---------- Paso 1 · cajones (buildBoxes). Cuatro formas, cada una con su origen en el enunciado. Sin futuros, sin verbos con infijo ‑n‑.
+    // ---------- Paso 1 · cajones. La explicación de cada forma va en una caja visible arriba (no en letra chica en el cajón).
     paso1: {
       paso: "1 - Clasificación de las formas verbales",
-      hint: "Queda un intento: ¿tiene desinencia personal? ¿Sobre qué tema está: el de presente o el de perfecto? ¿Termina en ‑re?",
+      hint: "Queda un intento: volver a la explicación de arriba y mirar con qué termina la forma.",
       columns: [
-        { key:"pres", color:"c-azul",     name:"presente", model:"<span class=\"la\">ama‑<b>t</b></span>", pat:"presente: tema de presente (amo, amas) + desinencia personal" },
-        { key:"perf", color:"c-verde",    name:"pretérito perfecto", model:"<span class=\"la\">amav‑<b>it</b></span>", pat:"perfecto: 4ª forma (amavi) sin ‑i + desinencia de perfecto" },
-        { key:"inf",  color:"c-amarillo", name:"infinitivo", model:"<span class=\"la\">ama‑<b>re</b></span>", pat:"infinitivo: 3ª forma, formante ‑re" },
-        { key:"imp",  color:"c-rojo",     name:"imperativo", model:"<span class=\"la\">ama · ama‑<b>te</b></span>", pat:"imperativo: tema de presente solo; plural + ‑te" }
+        { key:"pres", color:"c-azul",     name:"Presente", model:"<span class=\"la\">ama<b>t</b></span>" },
+        { key:"perf", color:"c-verde",    name:"Pretérito perfecto", model:"<span class=\"la\">amav<b>it</b></span>" },
+        { key:"inf",  color:"c-amarillo", name:"Infinitivo", model:"<span class=\"la\">ama<b>re</b></span>" },
+        { key:"imp",  color:"c-rojo",     name:"Imperativo", model:"<span class=\"la\">ama · ama<b>te</b></span>" }
       ],
       words: [
-        { word:"navigant", ex:"navigo, navigas, navigare, navigavi", es:"navegar", correct:"pres" },
-        { word:"condunt", ex:"condo, condis, condere, condidi", es:"fundar", correct:"pres" },
-        { word:"posuerunt", ex:"pono, ponis, ponere, posui", es:"poner", correct:"perf" },
-        { word:"flevit", ex:"fleo, fles, flere, flevi", es:"llorar", correct:"perf" },
-        { word:"redire", ex:"redeo, redis, redire, redii", es:"volver", correct:"inf" },
-        { word:"descendere", ex:"descendo, descendis, descendere, descendi", es:"descender", correct:"inf" },
-        { word:"dicite", ex:"dico, dicis, dicere, dixi", es:"decir", correct:"imp" },
-        { word:"convertite", ex:"converto, convertis, convertere, converti", es:"volver, dirigir", correct:"imp" }
+        { word:"vexant", ex:"vexo, vexas, vexare, vexavi", es:"acosar", correct:"pres", why:"tema de presente <em>vexa‑</em> + desinencia personal ‑nt.",
+          st:{ q:"¿Cuál es el infinitivo de <em>vexant</em>?", ok:"vexare", bad:["vexavit","vexa"], why:"La 3ª forma del enunciado: <em>vexa‑re</em>." } },
+        { word:"condunt", ex:"condo, condis, condere, condidi", es:"fundar", correct:"pres", why:"tema de presente + desinencia personal ‑nt.",
+          st:{ q:"¿Y el pretérito perfecto en la misma persona (3ª pl.)?", ok:"condiderunt", bad:["condidit","condere"], why:"4ª forma sin ‑i (<em>condid‑</em>) + ‑erunt." } },
+        { word:"posuerunt", ex:"pono, ponis, ponere, posui", es:"poner", correct:"perf", why:"<em>posui</em> sin ‑i (<em>posu‑</em>) + ‑erunt.",
+          st:{ q:"¿Y el presente en la misma persona (3ª pl.)?", ok:"ponunt", bad:["posuit","ponere"], why:"Tema de presente + ‑nt: <em>ponunt</em>." } },
+        { word:"flevit", ex:"fleo, fles, flere, flevi", es:"llorar", correct:"perf", why:"<em>flevi</em> sin ‑i (<em>flev‑</em>) + ‑it.",
+          st:{ q:"¿Y el presente en la misma persona (3ª sg.)?", ok:"flet", bad:["flevi","flere"], why:"Tema de presente <em>fle‑</em> + ‑t." } },
+        { word:"redire", ex:"redeo, redis, redire, redii", es:"volver", correct:"inf", why:"es la 3ª forma del enunciado: formante ‑re.",
+          st:{ q:"¿Cuál es el pretérito perfecto, 3ª sg.?", ok:"rediit", bad:["redit","redire"], why:"<em>redii</em> sin ‑i (<em>redi‑</em>) + ‑it. <em>redit</em> es el presente." } },
+        { word:"descendere", ex:"descendo, descendis, descendere, descendi", es:"descender", correct:"inf", why:"es la 3ª forma del enunciado: formante ‑re.",
+          st:{ q:"¿Cuál es el imperativo singular?", ok:"descende", bad:["descendit","descendi"], why:"El infinitivo sin ‑re: <em>descende</em>. <em>descendi</em> es el perfecto («descendí»)." } },
+        { word:"dicite", ex:"dico, dicis, dicere, dixi", es:"decir", correct:"imp", why:"tema de presente + ‑te (en la 3ª conjugación, con <em>i</em>).",
+          st:{ q:"¿Cuál es el infinitivo de <em>dicite</em>?", ok:"dicere", bad:["dicit","dixit"], why:"La 3ª forma del enunciado: <em>dicere</em>." } },
+        { word:"convertite", ex:"converto, convertis, convertere, converti", es:"volver, dirigir", correct:"imp", why:"tema de presente + ‑te (en la 3ª conjugación, con <em>i</em>).",
+          st:{ q:"¿Y la orden a una sola persona?", ok:"converte", bad:["convertit","converti"], why:"El tema solo: <em>converte</em>. <em>converti</em> es el perfecto." } }
       ]
     },
 
-    // ---------- Paso 2 · función de las formas verbales (buildVerbs). words = la frase palabra por palabra; v = formas verbales:
-    // {i: índice de la palabra, f:"NV"|"ODinf"|"ODci", es: traducción del constituyente, why, span:[desde, hasta] (solo ODci),
-    //  n2:[[texto, tag]…] (solo ODci), sd:{p, ref} (NV sin sujeto escrito), bad:{NV|OD|ODinf|ODci: devolución si se elige eso}}.
-    // Decisiones: NV = 1; infinitivo = 2 (OD + tipo); SD = 1.
+    // ---------- Paso 2 · función de las formas verbales (buildVerbs). st = repregunta tras acertar todo al primer intento.
     paso2: {
       paso: "2 - Función de las formas verbales",
       items: [
         { src:"P2 · 1 (Libro II)", es:"Dido quiere escuchar la historia de Eneas; él siente un gran dolor, pero comienza a narrar.",
           words:["Dido","fabulam","Aeneae","audire","vult;","ille","magnum","dolorem","sentit,","sed","incipit","narrare."],
-          v:[ { i:3, f:"ODci", span:[1,3], es:"escuchar la historia de Eneas", why:"<em>fabulam Aeneae</em> (acusativo con su genitivo) es el OD de <em>audire</em>.", n2:[["fabulam Aeneae","OD"],["audire","N"]],
-                bad:{ NV:"<em>audire</em> termina en ‑re: es infinitivo y no tiene desinencia personal.", ODinf:"Fijate en <em>fabulam</em>: está en acusativo, ¿qué verbo lo pide, <em>vult</em> o <em>audire</em>?" } },
-              { i:4, f:"NV", es:"quiere", why:"‑t: 3ª sg. del presente de <em>volo</em>.",
-                bad:{ OD:"<em>vult</em> tiene desinencia personal (‑t): es un verbo conjugado." } },
-              { i:8, f:"NV", es:"siente", why:"‑t: 3ª sg. del presente de <em>sentio</em>.",
-                bad:{ OD:"<em>sentit</em> tiene desinencia personal (‑t): es un verbo conjugado." } },
-              { i:10, f:"NV", es:"comienza", why:"‑t: 3ª sg. del presente de <em>incipio</em>.",
-                bad:{ OD:"<em>incipit</em> tiene desinencia personal (‑t): es un verbo conjugado." } },
+          v:[ { i:3, f:"ODci", span:[1,3], es:"escuchar la historia de Eneas", why:"<em>fabulam Aeneae</em> es el OD de <em>audire</em>.", n2:[["fabulam Aeneae","OD"],["audire","N"]],
+                bad:{ NV:"<em>audire</em> termina en ‑re: es infinitivo y no tiene desinencia personal.", ODinf:"Fijate en <em>fabulam</em>: está en acusativo, ¿qué verbo lo pide, <em>vult</em> o <em>audire</em>?" },
+                st:{ q:"¿Cuál es el núcleo de la construcción <em>fabulam Aeneae audire</em>?", ok:"audire", bad:["fabulam","Aeneae"], why:"El infinitivo es el núcleo [N]; <em>fabulam Aeneae</em> es su OD." } },
+              { i:4, f:"NV", es:"quiere", why:"‑t: 3ª sg. del presente de <em>volo</em>.", bad:{ OD:"<em>vult</em> tiene desinencia personal (‑t): es un verbo conjugado." },
+                st:{ q:"Si quisieran Dido y su hermana, ¿cómo sería el verbo?", ok:"volunt", bad:["vult","velle"], why:"3ª pl.: <em>volunt</em>. <em>velle</em> es el infinitivo." } },
+              { i:8, f:"NV", es:"siente", why:"‑t: 3ª sg. del presente de <em>sentio</em>.", bad:{ OD:"<em>sentit</em> tiene desinencia personal (‑t): es un verbo conjugado." },
+                st:{ q:"¿Qué es lo que siente Eneas (el OD de <em>sentit</em>)?", ok:"magnum dolorem", bad:["ille","fabulam"], why:"<em>magnum dolorem</em>, en acusativo: «un gran dolor»." } },
+              { i:10, f:"NV", es:"comienza", why:"‑t: 3ª sg. del presente de <em>incipio</em>.", bad:{ OD:"<em>incipit</em> tiene desinencia personal (‑t): es un verbo conjugado." },
+                st:{ q:"¿Cuál es el sujeto de <em>incipit</em>?", ok:"ille", bad:["Dido","dolorem"], why:"<em>ille</em> («él», Eneas): con <em>sed</em> cambia el sujeto." } },
               { i:11, f:"ODinf", es:"narrar", why:"infinitivo sin complementos: es lo que comienza a hacer.",
-                bad:{ NV:"<em>narrare</em> termina en ‑re: es infinitivo.", ODci:"<em>narrare</em> no tiene complementos: la frase termina ahí, e <em>ille</em> es el sujeto de <em>incipit</em>." } } ] },
+                bad:{ NV:"<em>narrare</em> termina en ‑re: es infinitivo.", ODci:"<em>narrare</em> no tiene complementos: la frase termina ahí, e <em>ille</em> es el sujeto de <em>incipit</em>." },
+                st:{ q:"Si dijera <em>incipit fabulam narrare</em>, ¿qué sería <em>fabulam narrare</em>?", ok:"OD‑Constr. Inf.", bad:["OD (Inf. Obj.)","NV"], why:"Con <em>fabulam</em>, el infinitivo ya tiene un complemento: es una construcción." } } ] },
         { src:"P2 · 2 (Libro VII)", es:"Latino no quiere abrir las puertas de la guerra.",
           words:["Latinus","portas","belli","aperire","non","vult."],
           v:[ { i:3, f:"ODci", span:[1,3], es:"abrir las puertas de la guerra", why:"<em>portas belli</em> es el OD de <em>aperire</em>.", n2:[["portas belli","OD"],["aperire","N"]],
-                bad:{ NV:"<em>aperire</em> termina en ‑re: es infinitivo.", ODinf:"Fijate en <em>portas</em>: está en acusativo, ¿qué verbo lo pide?" } },
-              { i:5, f:"NV", es:"quiere", why:"‑t: 3ª sg. del presente de <em>volo</em>.",
-                bad:{ OD:"<em>vult</em> tiene desinencia personal (‑t): es un verbo conjugado." } } ] },
+                bad:{ NV:"<em>aperire</em> termina en ‑re: es infinitivo.", ODinf:"Fijate en <em>portas</em>: está en acusativo, ¿qué verbo lo pide?" },
+                st:{ q:"¿A qué verbo niega <em>non</em>?", ok:"vult", bad:["aperire","portas"], why:"<em>non vult</em>: «no quiere». Latino no quiere; lo que no quiere es abrir las puertas." } },
+              { i:5, f:"NV", es:"quiere", why:"‑t: 3ª sg. del presente de <em>volo</em>.", bad:{ OD:"<em>vult</em> tiene desinencia personal (‑t): es un verbo conjugado." },
+                st:{ q:"¿Cuál es el sujeto de <em>vult</em>?", ok:"Latinus", bad:["portas","belli"], why:"<em>Latinus</em>, en nominativo." } } ] },
         { src:"P2 · 3 (Libro XI, adaptada: bellum recusavit → pugnare non voluit)", es:"Diomedes elogió a Eneas, pero no quiso combatir.",
           words:["Diomedes","Aeneam","laudavit,","sed","pugnare","non","voluit."],
-          v:[ { i:2, f:"NV", es:"elogió", why:"‑it sobre el tema de perfecto <em>laudav‑</em>.",
-                bad:{ OD:"<em>laudavit</em> tiene desinencia personal (‑it): es un verbo conjugado." } },
+          v:[ { i:2, f:"NV", es:"elogió", why:"‑it sobre el tema de perfecto <em>laudav‑</em>.", bad:{ OD:"<em>laudavit</em> tiene desinencia personal (‑it): es un verbo conjugado." },
+                st:{ q:"¿Y en presente?", ok:"laudat", bad:["laudant","laudare"], why:"Tema de presente <em>lauda‑</em> + ‑t." } },
               { i:4, f:"ODinf", es:"combatir", why:"infinitivo sin complementos: es lo que Diomedes no quiso hacer.",
-                bad:{ NV:"<em>pugnare</em> termina en ‑re: es infinitivo y no tiene desinencia personal.", ODci:"<em>pugnare</em> no tiene complementos: <em>non</em> niega a <em>voluit</em>, y <em>Aeneam</em> es el OD de <em>laudavit</em>." } },
-              { i:6, f:"NV", es:"quiso", why:"‑it sobre el tema de perfecto <em>volu‑</em> (<em>volo, vis, velle, volui</em>).",
-                bad:{ OD:"<em>voluit</em> tiene desinencia personal (‑it): es un verbo conjugado." } } ] },
+                bad:{ NV:"<em>pugnare</em> termina en ‑re: es infinitivo y no tiene desinencia personal.", ODci:"<em>pugnare</em> no tiene complementos: <em>non</em> niega a <em>voluit</em>, y <em>Aeneam</em> es el OD de <em>laudavit</em>." },
+                st:{ q:"Si dijera <em>Troianos oppugnare non voluit</em>, ¿qué sería <em>Troianos oppugnare</em>?", ok:"OD‑Constr. Inf.", bad:["OD (Inf. Obj.)","NV"], why:"<em>Troianos</em> es el OD del infinitivo: ya es una construcción." } },
+              { i:6, f:"NV", es:"quiso", why:"‑it sobre el tema de perfecto <em>volu‑</em> (<em>volo, vis, velle, volui</em>).", bad:{ OD:"<em>voluit</em> tiene desinencia personal (‑it): es un verbo conjugado." },
+                st:{ q:"¿Y en presente?", ok:"vult", bad:["volunt","velle"], why:"<em>vult</em>, 3ª sg. del presente de <em>volo</em>." } } ] },
         { src:"P2 · 4 (Libro I)", es:"La diosa, enojada, le dice a Eolo: «Ataca la nave troyana: te daré una hermosa ninfa».",
           words:["Dea","irata","Aeolo","dicit:","«Navem","troianam","oppugna:","pulchram","nympham","tibi","dabo!»"],
-          v:[ { i:3, f:"NV", es:"dice", why:"‑t: 3ª sg. del presente de <em>dico</em>.",
-                bad:{ OD:"<em>dicit</em> tiene desinencia personal (‑t): es un verbo conjugado." } },
+          v:[ { i:3, f:"NV", es:"dice", why:"‑t: 3ª sg. del presente de <em>dico</em>.", bad:{ OD:"<em>dicit</em> tiene desinencia personal (‑t): es un verbo conjugado." },
+                st:{ q:"¿Cuál es el sujeto de <em>dicit</em>?", ok:"Dea", bad:["Aeolo","nympham"], why:"<em>Dea</em> (Juno), en nominativo; <em>Aeolo</em> es a quién le dice." } },
               { i:6, f:"NV", es:"ataca", why:"imperativo: el tema de presente solo (<em>oppugna‑re</em>).", sd:{ p:"2da sg.", ref:"Eolo" },
-                bad:{ OD:"<em>oppugna</em> no termina en ‑re: no es infinitivo. Es el tema de presente solo, un imperativo." } },
+                bad:{ OD:"<em>oppugna</em> no termina en ‑re: no es infinitivo. Es el tema de presente solo, un imperativo." },
+                st:{ q:"Si Juno se lo pidiera a todos los vientos, ¿cómo sería la orden?", ok:"oppugnate", bad:["oppugnant","oppugnare"], why:"Tema de presente + ‑te." } },
               { i:10, f:"NV", es:"daré", why:"‑bo: futuro de la 1ª conjugación, 1ª persona.", sd:{ p:"1ra sg.", ref:"Juno" },
-                bad:{ OD:"<em>dabo</em> tiene desinencia personal (‑o): es un verbo conjugado." } } ] }
+                bad:{ OD:"<em>dabo</em> tiene desinencia personal (‑o): es un verbo conjugado." },
+                st:{ q:"¿Cómo diría Juno «te doy» (en presente)?", ok:"do", bad:["dat","dabit"], why:"<em>do</em>, 1ª sg. del presente. <em>dabit</em> es «dará»." } } ] }
       ]
     },
 
-    // ---------- Paso 3 · del castellano al análisis (buildAnal): frase en castellano + tres análisis latinos. Un señuelo absurdo
-    // desde el principio; otro igual al correcto en la primera mitad. Errores entre categorías incompatibles, sobre verbos e
-    // infinitivos. Sintaxis: «palabra[TAG]», «_» = espacio dentro de un bloque.
+    // ---------- Paso 3 · del castellano al análisis (buildAnal): el correcto y uno claramente absurdo.
     paso3: {
       paso: "3 - Del castellano al análisis",
       items: [
         { src:"P3 · 1 (Libro X)", es:"Juno hizo una imagen de Eneas y engañó a Turno.",
           ok:"Iuno[S] imaginem_Aeneae[OD] fecit[NV] et[NC] Turnum[OD] decepit[NV] .",
-          bad:[ ["Iuno[NV] imaginem_Aeneae[S] fecit[OD] et[NC] Turnum[OD] decepit[NV] .", "<em>Iuno</em> está en nominativo: es el sujeto. <em>fecit</em> (‑it, perfecto de <em>facio</em>) es el NV."],
-                ["Iuno[S] imaginem_Aeneae[OD] fecit[NV] et[NC] Turnum[OD] decepit[CNeg] .", "<em>decepit</em>, con ‑it, es el segundo verbo conjugado (perfecto de <em>decipio</em>): NV, no una negación."] ] },
+          bad:["Iuno[NV] imaginem_Aeneae[S] fecit[OD] et[CNeg] Turnum[NV] decepit[CL] .", "<em>Iuno</em> está en nominativo: es el sujeto. <em>fecit</em> y <em>decepit</em> (‑it) son los verbos conjugados, y <em>et</em> los une (NC)."],
+          st:{ q:"¿Cuál es el NV de la segunda parte de la frase?", ok:"decepit", bad:["Turnum","et"], why:"<em>decepit</em>: «engañó». <em>Turnum</em> es su OD." } },
         { src:"P3 · 2 (Libro XII)", es:"Turno no temió la muerte y volvió al combate.",
           ok:"Turnus[S] mortem[OD] non[CNeg] timuit[NV] et[NC] ad_pugnam[CL] rediit[NV] .",
-          bad:[ ["Turnus[NV] mortem[S] non[OD] timuit[CL] et[NC] ad_pugnam[CL] rediit[NV] .", "<em>Turnus</em> está en nominativo: es el sujeto. El primer NV es <em>timuit</em> (‑it)."],
-                ["Turnus[S] mortem[OD] non[CNeg] timuit[NV] et[NV] ad_pugnam[CL] rediit[NC] .", "<em>et</em> no es un verbo: une los dos verbos (NC). <em>rediit</em>, con ‑it, es el segundo NV."] ] },
+          bad:["Turnus[NV] mortem[S] non[OD] timuit[CL] et[NV] ad_pugnam[NC] rediit[CNeg] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>timuit</em> y <em>rediit</em> (‑it) son los NV; <em>non</em> es la negación."],
+          st:{ q:"¿A qué verbo niega <em>non</em>?", ok:"timuit", bad:["rediit","pugnam"], why:"<em>non timuit</em>: «no temió». Volver, sí volvió." } },
         { src:"P3 · 3 (Libro X)", es:"Eneas capturó a ocho jóvenes y quiso sacrificárselos a Palante.",
           ok:"Aeneas[S] octo_iuvenes[OD] cepit[NV] et[NC] eos_Pallanti_immolare[ODci] voluit[NV] .",
-          bad:[ ["Aeneas[OD] octo_iuvenes[NV] cepit[S] et[NC] eos_Pallanti_immolare[ODci] voluit[NV] .", "<em>Aeneas</em> está en nominativo: es el sujeto. <em>cepit</em> (‑it, perfecto de <em>capio</em>) es el NV; <em>octo iuvenes</em> es lo que capturó."],
-                ["Aeneas[S] octo_iuvenes[OD] cepit[NV] et[NC] eos_Pallanti_immolare[NC] voluit[CNeg] .", "<em>immolare</em> termina en ‑re: con <em>eos</em> y <em>Pallanti</em> forma la construcción de infinitivo, el OD de <em>voluit</em>; no es un nexo. Y <em>voluit</em> es el NV."] ] }
+          bad:["Aeneas[OD] octo_iuvenes[NV] cepit[S] et[CL] eos_Pallanti_immolare[CNeg] voluit[NC] .", "<em>Aeneas</em> está en nominativo: es el sujeto. <em>cepit</em> y <em>voluit</em> (‑it) son los NV, e <em>immolare</em> (‑re) forma con sus complementos el OD de <em>voluit</em>."],
+          st:{ q:"¿Cuál es el núcleo de <em>eos Pallanti immolare</em>?", ok:"immolare", bad:["eos","Pallanti"], why:"El infinitivo es el núcleo [N]; <em>eos</em> y <em>Pallanti</em> son sus complementos." } }
       ]
     }
   };
 
-  // ---------- Calentamiento: armado del castellano al latín, sin señuelos. **x** = el verbo conjugado. Futuros solo en ‑bo/‑bi.
+  // ---------- Calentamiento: armado del castellano al latín, sin señuelos. **x** = el verbo conjugado. st = repregunta.
   var WARMUP32 = [
     { src:"Calentamiento 1 (Libro I)", arco:"Aeneis I · Libya",
       words:["Postea","Troiani","in","Libyam","perveniunt."], decoys:[],
       al:"{0:Después,} {1:los troyanos} {4:**llegan**} {2:a} {3:Libia}.",
-      expl:"<em>perveniunt</em> lleva la desinencia ‑nt: es el verbo conjugado (3ª pl.)." },
+      expl:"<em>perveniunt</em> lleva la desinencia ‑nt: es el verbo conjugado (3ª pl.).",
+      st:{ q:"Si llegara un solo troyano (<em>Troianus</em>), ¿cómo sería el verbo?", ok:"pervenit", bad:["pervenis","pervenio"], why:"3ª sg.: ‑t." } },
     { src:"Calentamiento 2 (Libro I)", arco:"Aeneis I · Dido",
       words:["Dido","convivium","parat","et","Troianos","ad","mensam","invitat."], decoys:[],
       al:"{0:Dido} {2:**prepara**} {1:un banquete} {3:e} {7:**invita**} {4:a los troyanos} {5:a} {6:la mesa}.",
-      expl:"Dos verbos conjugados, <em>parat</em> e <em>invitat</em> (‑t, 3ª sg.), unidos por <em>et</em>: el mismo sujeto, <em>Dido</em>." },
+      expl:"Dos verbos conjugados, <em>parat</em> e <em>invitat</em> (‑t, 3ª sg.), unidos por <em>et</em>.",
+      st:{ q:"<em>parat</em> e <em>invitat</em> están en singular. Si fueran Dido y su hermana, ¿cómo serían?", ok:"parant … invitant", bad:["paras … invitas","paratis … invitatis"], why:"3ª pl.: ‑nt." } },
     { src:"Calentamiento 3 (Libro IX)", arco:"Aeneis IX · Turnus",
       words:["Turnus","monstrum","vidit,","sed","signum","male","intellexit."], decoys:[],
       al:"{0:Turno} {2:**vio**} {1:el prodigio,} {3:pero} {6:**entendió**} {5:mal} {4:la señal}.",
-      expl:"<em>vidit</em> e <em>intellexit</em>: ‑it sobre el tema de perfecto (<em>vid‑</em>, <em>intellex‑</em>)." }
+      expl:"<em>vidit</em> e <em>intellexit</em>: ‑it sobre el tema de perfecto (<em>vid‑</em>, <em>intellex‑</em>).",
+      st:{ q:"¿Cómo serían los dos verbos en presente?", ok:"videt … intellegit", bad:["vident … intellegunt","vides … intellegis"], why:"3ª sg. del presente: <em>videt</em>, <em>intellegit</em>." } }
   ];
 
   var IDK = "No lo sé todavía";
@@ -998,41 +1052,170 @@
     });
   }
 
-  // ---------- Pares para comparar (Act. 32, separador del imperativo): tocar la frase que da la orden. Sin puntaje.
-  // Al resolver todos los pares aparece la regla (ruleId). ----------
+  // ---------- Repregunta (Act. 32, «Stretch It» de Lemov, Teach Like a Champion 3.0, técnica 17: la recompensa de una
+  // respuesta correcta es una pregunta un poco más exigente). Aparece SOLO tras un acierto al primer intento, en lugar de
+  // una explicación que el ojo saltea. st = {q, ok, bad:[…], why}. Un intento; no suma al resultado (paso "Repregunta").
+  // Mientras está pendiente, el paso no avanza. ----------
+  function stretchBox(host, st, item, onDone){
+    var box = v2el("div", "st-box");
+    box.appendChild(v2el("p", "st-h", "Repregunta"));
+    box.appendChild(v2el("p", "st-q", st.q));
+    var row = v2el("div", "tg-pal"), msg = v2el("p", "st-msg"), over = false, btns = [];
+    shuffled([{ t: st.ok, ok: true }].concat(st.bad.map(function(b){ return { t: b }; }))).forEach(function(o){
+      var b = v2el("button", "tg-tag st-opt", o.t); b.type = "button"; o.el = b; btns.push(o);
+      b.addEventListener("click", function(){
+        if (over) return; over = true;
+        submitLog.push({ paso: "Repregunta", item: item + " · " + st.q.replace(/<[^>]+>/g, ""), respuesta: o.t.replace(/<[^>]+>/g, ""), correcta: !!o.ok, primerIntento: !!o.ok, final: true });
+        btns.forEach(function(x){ x.el.disabled = true; if (x.ok) x.el.classList.add("st-right"); });
+        if (o.ok){ msg.innerHTML = CERTE + (st.why ? " " + st.why : ""); }
+        else { b.classList.add("st-wrong"); msg.className = "st-msg bad"; msg.innerHTML = "Era <em>" + st.ok + "</em>." + (st.why ? " " + st.why : ""); }
+        if (onDone) onDone();
+      });
+      row.appendChild(b);
+    });
+    box.appendChild(row); box.appendChild(msg);
+    host.appendChild(box);
+    return box;
+  }
+
+  // ---------- Calentamiento (warmArmado de la 27) con repregunta al terminar sin errores ----------
+  function buildWarm32(items, stageEl, progressEl, doneBtn, sealsEl){
+    var lit = {}, k = 0;
+    function seals(){
+      sealsEl.innerHTML = "";
+      items.forEach(function(it){ sealsEl.appendChild(v2el("span", "v2-seal" + (lit[it.arco] ? " on" : ""), it.arco)); });
+    }
+    function show(){
+      var it = items[k];
+      progressEl.textContent = k + " / " + items.length;
+      stageEl.innerHTML = "";
+      var card = v2el("div", "stage-card");
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
+      var host = v2el("div"); card.appendChild(host);
+      stageEl.appendChild(card);
+      warmArmado(host, it, function(ok, errs){
+        submitLog.push({ paso: "0 - Calentamiento", item: it.arco + " · " + it.src, respuesta: ok ? "completa" : "con palabras reveladas", correcta: ok, errores: errs });
+        lit[it.arco] = true; seals();
+        progressEl.textContent = (k + 1) + " / " + items.length;
+        function next(){
+          if (k < items.length - 1){
+            var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+            nx.addEventListener("click", function(){ k++; show(); stageEl.scrollIntoView({ block:"start", behavior:"auto" }); });
+            card.appendChild(nx);
+          } else doneBtn.hidden = false;
+        }
+        if (errs === 0 && it.st){ var ex = host.querySelector(".warm-expl"); if (ex) ex.remove(); stretchBox(card, it.st, it.src, next); }
+        else next();
+      });
+    }
+    seals(); show();
+  }
+
+  // ---------- Pares para comparar (separador del imperativo): tocar la frase que da la orden. «Ver traducción» por par.
+  // No suma al resultado. Al resolver todos los pares aparece la regla (ruleId). ----------
   function buildPairs(hostId, pairs, ruleId){
     var host = document.getElementById(hostId), left = pairs.length;
     pairs.forEach(function(pr, n){
       var card = v2el("div", "stage-card pair-card");
       card.appendChild(v2el("p", "scene-count", "Par " + (n + 1) + " de " + pairs.length));
-      var opts = v2el("div", "tr-opts"), msg = v2el("p", "tr-msg"), over = false, btns = [];
+      var opts = v2el("div", "tr-opts"), msg = v2el("p", "tr-msg"), over = false, wrong = 0, btns = [];
+      var tr = v2el("button", "btn-cast", "Ver traducción"); tr.type = "button";
       shuffled([pr.a, pr.b]).forEach(function(o){
-        var b = v2el("button", "tr-opt la-opt", '<span class="ex-latin">' + o.la + "</span>"); b.type = "button";
+        var b = v2el("button", "tr-opt la-opt", '<span class="ex-latin">' + o.la + '</span><span class="pair-es" hidden>' + o.es + "</span>"); b.type = "button";
         btns.push({ b: b, o: o });
         b.addEventListener("click", function(){
           if (over || b.disabled) return;
           if (o.imp){
             over = true; b.classList.add("ok");
-            btns.forEach(function(x){ x.b.disabled = true; x.b.insertAdjacentHTML("beforeend", '<span class="pair-es">' + x.o.es + "</span>"); });
-            msg.className = "tr-msg"; msg.innerHTML = CERTE + " " + pr.note;
-            if (--left === 0) document.getElementById(ruleId).hidden = false;
+            btns.forEach(function(x){ x.b.disabled = true; x.b.querySelector(".pair-es").hidden = false; });
+            tr.remove();
+            function fin(){ if (--left === 0) document.getElementById(ruleId).hidden = false; }
+            if (wrong === 0 && pr.st){ msg.innerHTML = ""; stretchBox(card, pr.st, "Imperativo · par " + (n + 1), fin); }
+            else { msg.className = "tr-msg"; msg.innerHTML = pr.note; fin(); }
           } else {
-            b.disabled = true; b.classList.add("bad");
-            msg.className = "tr-msg bad"; msg.innerHTML = "Esta no da una orden: mirar cómo termina el verbo.";
+            wrong++; b.disabled = true; b.classList.add("bad");
+            msg.className = "tr-msg bad"; msg.innerHTML = "Esta frase no da una orden: mirar el final del verbo.";
           }
         });
         opts.appendChild(b);
       });
-      card.appendChild(opts); card.appendChild(msg);
+      tr.addEventListener("click", function(){
+        var on = tr.textContent === "Ver traducción";
+        btns.forEach(function(x){ x.b.querySelector(".pair-es").hidden = !on; });
+        tr.textContent = on ? "Ocultar traducción" : "Ver traducción";
+      });
+      card.appendChild(opts); card.appendChild(tr); card.appendChild(msg);
       host.appendChild(card);
     });
   }
 
-  // ---------- Paso 2 · Función de las formas verbales (buildVerbs, Act. 32; reemplaza al buildTags de la v1): la frase se lee
-  // entera y solo las formas verbales son fichas. Ficha → NV u OD; si es OD, segunda decisión: infinitivo solo o construcción.
-  // Convención 1 en cada decisión (con dos opciones, el error deja solo la correcta). SD en recuadro inmediatamente debajo de
-  // la frase. Cada acierto muestra la traducción del constituyente. ----------
-  var PERSONS = [["1ra sg.","yo"],["2da sg.","vos"],["3ra sg.","él, ella"],["1ra pl.","nosotros"],["2da pl.","ustedes"],["3ra pl.","ellos, ellas"]];
+  // ---------- Paso 1 · cajones (buildBoxes de la 27/31) con repregunta tras un acierto al primer intento ----------
+  function buildBoxes32(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var pool = document.getElementById(pre + "-pool"), boxesHost = document.getElementById(pre + "-boxes"), msgEl = document.getElementById(pre + "-msg");
+    var stHost = document.getElementById(pre + "-st");
+    var boxes = {}, holders = {}, sel = null, total = cfg.words.length, resolved = 0, pending = false;
+    function say(t, cls){ msgEl.innerHTML = t; msgEl.className = "gen-msg" + (cls ? " " + cls : ""); }
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Tarjetas clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = resolved < total || pending;
+    }
+    function arm(on){ Object.keys(boxes).forEach(function(k){ boxes[k].classList.toggle("armed", on); boxes[k].classList.remove("flash-bad"); }); }
+    function place(w, rev){
+      resolved++; w._chip.remove();
+      holders[w.correct].appendChild(v2el("span", "token gen-in" + (rev ? " gen-rev" : ""), w.word));
+      sel = null; arm(false); upd();
+    }
+    cfg.columns.forEach(function(c){
+      var b = v2el("button", "gen-box " + c.color); b.type = "button";
+      b.appendChild(v2el("div", "gen-name", c.name));
+      b.appendChild(v2el("div", "gen-model", c.model));
+      holders[c.key] = v2el("div"); b.appendChild(holders[c.key]);
+      b.addEventListener("click", function(){
+        if (pending){ say("Falta responder la repregunta (debajo de los cajones)."); return; }
+        if (!sel){ say("Primero, una tarjeta; después, el cajón."); return; }
+        var w = sel;
+        if (c.key === w.correct){
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: true, primerIntento: w._tried === 0, final: true });
+          var first = w._tried === 0;
+          if (first) streak.hit();
+          say(CERTE + " <em>" + w.word + "</em>: " + c.name + ".", "ok"); place(w, false);
+          if (first && w.st){
+            pending = true; upd(); stHost.innerHTML = "";
+            stretchBox(stHost, w.st, w.word, function(){ pending = false; upd(); });
+          }
+          return;
+        }
+        w._tried++;
+        submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+        if (w._tried === 1){ streak.reset(); b.classList.add("flash-bad"); say("No va en ese cajón. " + (cfg.hint || "Queda un intento."), "bad"); }
+        else {
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          say("Tampoco. <em>" + w.word + "</em> quedó en su cajón (con borde punteado): " + w.why, "bad"); place(w, true);
+        }
+      });
+      boxes[c.key] = b; boxesHost.appendChild(b);
+    });
+    shuffled(cfg.words).forEach(function(w){
+      w._tried = 0;
+      var chip = v2el("button", "token vcard", '<span class="vc-w">' + w.word + '</span><span class="vc-ex">' + w.ex + '</span><span class="vc-es">' + w.es + '</span>'); chip.type = "button"; w._chip = chip;
+      chip.addEventListener("click", function(){
+        if (pending){ say("Falta responder la repregunta (debajo de los cajones)."); return; }
+        Array.prototype.forEach.call(pool.children, function(ch){ ch.classList.remove("sel"); });
+        if (sel === w){ sel = null; arm(false); say(""); return; }
+        sel = w; chip.classList.add("sel"); arm(true); say("");
+        stHost.innerHTML = "";
+      });
+      pool.appendChild(chip);
+    });
+    upd();
+  }
+
+  // ---------- Paso 2 · Función de las formas verbales (buildVerbs): la frase se lee entera y solo las formas verbales son
+  // fichas. Ficha → NV u OD; si es OD → infinitivo solo o construcción; si el NV no tiene sujeto escrito → sujeto desinencial,
+  // en el MISMO recuadro y con la ficha todavía marcada (pedido de Santiago, 2026-10-16: no se entendía de qué verbo era la
+  // pregunta). Tras un acierto al primer intento en todas las decisiones de la ficha, repregunta. ----------
+  var PERSONS = [["1ra sg.","yo"],["2da sg.","tú"],["3ra sg.","él, ella"],["1ra pl.","nosotros"],["2da pl.","ustedes"],["3ra pl.","ellos, ellas"]];
   function bareW(w){ return w.replace(/^[«"]+/, "").replace(/[,.;:!?»"]+$/, ""); }
   function buildVerbs(cfg, pre){
     var stage = document.getElementById(pre + "-stage");
@@ -1044,8 +1227,8 @@
       document.getElementById("btn-" + pre + "-done").disabled = done < total;
     }
     function show(){
-      var it = cfg.items[k], need = 0, got = 0, sel = null;
-      it.v.forEach(function(v){ need += v.f === "NV" ? 1 : 2; if (v.sd) need++; v._st = 0; v._tried = {}; v._sub = null; });
+      var it = cfg.items[k], left = it.v.length, sel = null, busy = null;
+      it.v.forEach(function(v){ v._st = 0; v._tried = {}; v._sub = null; v._clean = true; });
       stage.innerHTML = "";
       var card = v2el("div", "scene-card");
       card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + cfg.items.length));
@@ -1065,13 +1248,13 @@
         wEls.push(core); line.appendChild(wrap); line.appendChild(document.createTextNode(" "));
       });
       card.appendChild(line);
-      var sdHost = v2el("div"); card.appendChild(sdHost);
       var ask = v2el("div", "vb-ask"); ask.hidden = true; card.appendChild(ask);
       var info = v2el("div", "tg-info"); info.hidden = true; card.appendChild(info);
       var n2Host = v2el("div"); card.appendChild(n2Host);
       var tr = translationToggle(cfg, it, card);
       stage.appendChild(card);
 
+      function W(v){ return bareW(it.words[v.i]); }
       function label(v, tag){
         if (v._sub) v._sub.remove();
         v._sub = v2el("sub", "tg-sub", TAGS[tag]);
@@ -1079,95 +1262,82 @@
       }
       function setInfo(cls, html){ info.hidden = false; info.className = "tg-info" + (cls ? " " + cls : ""); info.innerHTML = html; }
       function pick(v){
+        if (busy && busy !== v){ setInfo("", "Falta terminar con <em>" + W(busy) + "</em>."); return; }
         it.v.forEach(function(x){ x._el.classList.remove("sel"); });
         sel = v; v._el.classList.add("sel");
-        renderAsk();
+        if (v._st === 3){ ask.hidden = true; explainDone(v); return; }
+        info.hidden = true; renderAsk();
       }
       function renderAsk(){
-        var v = sel; ask.innerHTML = "";
-        if (!v || v._st === 2){ ask.hidden = true; if (v) explainDone(v); return; }
-        ask.hidden = false;
-        var opts = v._st === 0 ? [["NV","NV"],["OD","OD"]] : [["ODinf","OD (Inf. Obj.): infinitivo solo"],["ODci","OD‑Constr. Inf.: con complementos"]];
-        ask.appendChild(v2el("p", "vb-q", '<span class="ex-latin">' + bareW(it.words[v.i]) + "</span>" + (v._st === 0 ? ": ¿NV u OD?" : ": ¿infinitivo solo o construcción de infinitivo?")));
+        var v = sel; ask.innerHTML = ""; ask.hidden = false;
+        var head = '<span class="vb-name">' + W(v) + "</span>";
+        var q, opts;
+        if (v._st === 0){ q = head + " · ¿NV u OD?"; opts = [["NV","NV"],["OD","OD"]]; }
+        else if (v._st === 1){ q = head + " es OD. ¿Infinitivo solo o construcción de infinitivo?"; opts = [["ODinf","OD (Inf. Obj.): infinitivo solo"],["ODci","OD‑Constr. Inf.: con complementos"]]; }
+        else { q = head + " es NV. No hay sujeto escrito para <em>" + W(v) + "</em> («" + v.es + "»). ¿Cuál es el sujeto desinencial?"; opts = PERSONS.map(function(p){ return [p[0], p[0] + " (" + p[1] + ")"]; }); }
+        ask.appendChild(v2el("p", "vb-q", q));
         var row = v2el("div", "tg-pal");
         opts.forEach(function(o){
           var b = v2el("button", "tg-tag", o[1]); b.type = "button";
-          if (v._tried[o[0]]) b.disabled = true;
+          if (v._tried[v._st + ":" + o[0]]) b.disabled = true;
           b.addEventListener("click", function(){ choose(v, o[0]); });
           row.appendChild(b);
         });
         ask.appendChild(row);
+        if (v._st === 2) ask.scrollIntoView({ block: "nearest", behavior: "auto" });
       }
-      function correctAt(v){ return v._st === 0 ? (v.f === "NV" ? "NV" : "OD") : v.f; }
+      function want(v){ return v._st === 0 ? (v.f === "NV" ? "NV" : "OD") : v._st === 1 ? v.f : v.sd.p; }
       function choose(v, ans){
-        var want = correctAt(v), lvl = v._st === 0 ? "función" : "tipo de OD", tries = Object.keys(v._tried).filter(function(t){ return t.indexOf(v._st + ":") === 0; }).length;
-        var key = v._st + ":" + ans;
-        var item = it.src + " · " + bareW(it.words[v.i]) + " (" + lvl + ")";
-        if (ans === want){
-          submitLog.push({ paso: cfg.paso, item: item, respuesta: TAGS[ans], correcta: true, primerIntento: tries === 0, final: true });
+        var w = want(v), st = v._st;
+        var tries = Object.keys(v._tried).filter(function(t){ return t.indexOf(st + ":") === 0; }).length;
+        var lvl = st === 0 ? "función" : st === 1 ? "tipo de OD" : "SD";
+        var item = it.src + " · " + W(v) + " (" + lvl + ")";
+        var shown = st === 2 ? ans : TAGS[ans];
+        if (ans === w){
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: true, primerIntento: tries === 0, final: true });
           if (tries === 0) streak.hit();
-          done++; got++; upd();
-          if (v._st === 0 && v.f !== "NV"){
-            v._st = 1; label(v, "OD");
-            setInfo("ok", CERTE + ' <span class="ex-latin">' + bareW(it.words[v.i]) + "</span>: infinitivo con función de OD.");
-            renderAsk(); return;
-          }
-          finishVerb(v, tries === 0 ? "ok" : "ok");
-          return;
+          done++; upd();
+          if (st === 0 && v.f !== "NV"){ v._st = 1; label(v, "OD"); busy = v; renderAsk(); return; }
+          if (st === 2){ addSD(v, false); }
+          else if (v.sd){ v._st = 2; label(v, "NV"); busy = v; renderAsk(); return; }
+          finishVerb(v); return;
         }
-        v._tried[key] = true; v._tried[ans] = true; streak.reset();
-        submitLog.push({ paso: cfg.paso, item: item, respuesta: TAGS[ans], correcta: false, primerIntento: false, final: false });
+        v._tried[st + ":" + ans] = true; v._clean = false; streak.reset(); busy = v;
+        submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: false, primerIntento: false, final: false });
+        if (st === 2 && tries >= 1){
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: w, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          done++; upd(); addSD(v, true); finishVerb(v); return;
+        }
         v._el.classList.add("bad");
-        setInfo("bad", "No es " + TAGS[ans].replace(/\.$/, "") + ". " + ((v.bad && v.bad[ans]) || ""));
+        setInfo("bad", st === 2 ? "No es esa persona. Queda un intento: mirar el final del verbo (en el imperativo, ‑te es plural)."
+                                : "No es " + TAGS[ans].replace(/\.$/, "") + ". " + ((v.bad && v.bad[ans]) || ""));
         renderAsk();
       }
+      function addSD(v, rev){
+        var note = v2el("span", "tg-sdnote" + (rev ? " rev" : ""), "(SD: " + v.sd.p + " = " + v.sd.ref + ")");
+        var wrapW = v._el.parentNode; wrapW.parentNode.insertBefore(note, wrapW.nextSibling); wrapW.parentNode.insertBefore(document.createTextNode(" "), note);
+      }
       function finishVerb(v){
-        v._st = 2; v._el.classList.remove("bad", "sel"); v._el.classList.add("ok");
+        v._st = 3; busy = null; v._el.classList.remove("bad"); v._el.classList.add("ok");
         label(v, v.f);
         if (v.span){
           for (var j = v.span[0]; j <= v.span[1]; j++) wEls[j].classList.add("vb-span");
-          // el subíndice va al final del bloque
           var last = wEls[v.span[1]];
           v._sub.remove(); last.parentNode.insertBefore(v._sub, last.nextSibling);
         }
-        sel = null; ask.hidden = true;
-        explainDone(v);
-        if (v.sd) askSD(v); else check();
+        ask.hidden = true; left--;
+        if (v._clean && v.st){
+          setInfo("ok", CERTE + " " + txt(v) + " «" + v.es + "».");
+          busy = v; stretchBox(info, v.st, it.src + " · " + W(v), function(){ busy = null; check(); });
+        } else { explainDone(v); check(); }
       }
-      function explainDone(v){
-        var txt = v.span ? it.words.slice(v.span[0], v.span[1] + 1).map(bareW).join(" ") : bareW(it.words[v.i]);
-        setInfo("ok", CERTE + ' <span class="ex-latin">' + txt + "</span><sub class=\"tg-sub\">" + TAGS[v.f] + "</sub> «" + v.es + "»: " + v.why);
+      function txt(v){
+        var t = v.span ? it.words.slice(v.span[0], v.span[1] + 1).map(bareW).join(" ") : W(v);
+        return '<span class="ex-latin">' + t + '</span><sub class="tg-sub">' + TAGS[v.f] + "</sub>";
       }
-      function askSD(v){
-        var tried = 0;
-        var box = v2el("div", "tg-sd");
-        box.appendChild(v2el("p", null, 'No hay sujeto escrito para <span class="ex-latin">' + bareW(it.words[v.i]) + "</span> («" + v.es + "»). <strong>¿Cuál es el sujeto desinencial?</strong>"));
-        var row = v2el("div", "tg-pal"), msg = v2el("p", "msg");
-        PERSONS.forEach(function(ps){
-          var b = v2el("button", "tg-tag", ps[0] + " (" + ps[1] + ")"); b.type = "button";
-          b.addEventListener("click", function(){
-            if (b.disabled) return;
-            var ok = ps[0] === v.sd.p, item = it.src + " · SD de " + bareW(it.words[v.i]);
-            submitLog.push({ paso: cfg.paso, item: item, respuesta: ps[0], correcta: ok, primerIntento: ok && tried === 0, final: ok });
-            if (!ok){
-              tried++; streak.reset(); b.disabled = true;
-              if (tried < 2){ msg.textContent = "No es esa persona. Queda un intento: mirar la desinencia (en el imperativo, ‑te es plural)."; return; }
-              submitLog.push({ paso: cfg.paso, item: item, respuesta: v.sd.p, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
-            } else if (tried === 0) streak.hit();
-            var note = v2el("span", "tg-sdnote" + (ok ? "" : " rev"), "(SD: " + v.sd.p + " = " + v.sd.ref + ")");
-            var wrapW = v._el.parentNode; wrapW.parentNode.insertBefore(note, wrapW.nextSibling); wrapW.parentNode.insertBefore(document.createTextNode(" "), note); // al final de su cláusula
-            box.remove(); done++; got++; upd();
-            setInfo(ok ? "ok" : "rev", (ok ? CERTE + " " : "Era esta persona: ") + "(SD: " + v.sd.p + " = " + v.sd.ref + "): sujeto desinencial de <em>" + bareW(it.words[v.i]) + "</em>.");
-            check();
-          });
-          row.appendChild(b);
-        });
-        box.appendChild(row); box.appendChild(msg);
-        sdHost.appendChild(box);
-        box.scrollIntoView({ block: "nearest", behavior: "auto" });
-      }
+      function explainDone(v){ setInfo("ok", txt(v) + " «" + v.es + "»: " + v.why); }
       function check(){
-        if (got < need) return;
+        if (left > 0 || busy) return;
         var withN2 = it.v.filter(function(x){ return x.n2; });
         if (withN2.length){
           var n2 = v2el("div", "tg-n2");
@@ -1198,8 +1368,9 @@
     }).join(" ").replace(/ <span class="an-p">([.,;:!?»])/g, '<span class="an-p">$1').replace(/«<\/span> /g, "«</span>");
   }
 
-  // ---------- Paso 3 · Del castellano al análisis (buildAnal, Act. 32; reemplaza al buildTrad de la v1): castellano + tres
-  // análisis latinos (correcto + dos señuelos propios). Primer error: se tacha + devolución; segundo: se revela. Una decisión. ----------
+  // ---------- Paso 3 · Del castellano al análisis (buildAnal): castellano + DOS análisis, el correcto y uno claramente
+  // absurdo (pedido de Santiago, 2026-10-16: el objetivo es acostumbrarse a leer un análisis, no distinguir en fino).
+  // Error = se revela con la devolución; acierto al primer intento = repregunta. Una decisión por frase. ----------
   function buildAnal(cfg, pre){
     var stage = document.getElementById(pre + "-stage");
     var streak = makeStreak(document.getElementById(pre + "-streak"));
@@ -1209,38 +1380,35 @@
       document.getElementById("btn-" + pre + "-done").disabled = done < total;
     }
     function show(){
-      var it = cfg.items[k], wrong = 0, over = false;
+      var it = cfg.items[k], over = false;
       stage.innerHTML = "";
       var card = v2el("div", "scene-card");
       card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
       card.appendChild(v2el("p", "an-es", it.es));
       var opts = v2el("div", "tr-opts"), msg = v2el("p", "tr-msg"), btns = [];
-      shuffled([{ s: it.ok, ok: true }].concat(it.bad.map(function(b){ return { s: b[0], why: b[1] }; }))).forEach(function(o){
+      shuffled([{ s: it.ok, ok: true }, { s: it.bad[0], why: it.bad[1] }]).forEach(function(o){
         var b = v2el("button", "tr-opt an-opt", analysisHtml(o.s)); b.type = "button"; o.el = b; btns.push(o);
         b.addEventListener("click", function(){
-          if (over || b.disabled) return;
+          if (over) return; over = true;
+          btns.forEach(function(x){ x.el.disabled = true; });
           if (o.ok){
-            submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: it.ok, correcta: true, primerIntento: wrong === 0, final: true });
-            if (wrong === 0) streak.hit();
-            b.classList.add("ok"); msg.className = "tr-msg"; msg.innerHTML = CERTE;
-            end(); return;
-          }
-          wrong++; streak.reset(); b.disabled = true; b.classList.add("bad");
-          submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: o.s, correcta: false, primerIntento: false, final: false });
-          if (wrong >= 2){
+            submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: it.ok, correcta: true, primerIntento: true, final: true });
+            streak.hit(); b.classList.add("ok"); msg.className = "tr-msg"; msg.innerHTML = CERTE;
+            if (it.st){ stretchBox(card, it.st, it.src, end); return; }
+          } else {
+            submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: o.s, correcta: false, primerIntento: false, final: false });
             submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: it.ok, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+            streak.reset(); b.classList.add("bad");
             btns.forEach(function(x){ if (x.ok) x.el.classList.add("rev"); });
             msg.className = "tr-msg bad"; msg.innerHTML = o.why + " El análisis correcto queda marcado en amarillo.";
-            end(); return;
           }
-          msg.className = "tr-msg bad"; msg.innerHTML = "Queda un intento. " + o.why;
+          end();
         });
         opts.appendChild(b);
       });
       card.appendChild(opts); card.appendChild(msg);
       stage.appendChild(card);
       function end(){
-        over = true; btns.forEach(function(x){ x.el.disabled = true; });
         done++; upd();
         if (k < total - 1){
           var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
@@ -1257,8 +1425,8 @@
   buildDialog("dlg-s1", DATA.s1);
   buildPairs("pairs-s2", DATA.pairs, "rule-s2");
   buildDialog("dlg-s3", DATA.s3);
-  buildWarm(WARMUP32, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
-  buildBoxes(DATA.paso1, "p1");
+  buildWarm32(WARMUP32, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
+  buildBoxes32(DATA.paso1, "p1");
   buildVerbs(DATA.paso2, "p2");
   buildAnal(DATA.paso3, "p3");
   document.getElementById("btn-s1-done").addEventListener("click", goStep("step-warm"));
@@ -1271,7 +1439,7 @@
 
   // ---------- Evaluación + envío ----------
   var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
-  var SCORE_EXCLUDE_PASOS = [];
+  var SCORE_EXCLUDE_PASOS = ["Repregunta"];
   function computeScore(){
     var items = submitLog.filter(function(e){
       return e.correcta !== null && e.correcta !== undefined && e.final !== false &&
