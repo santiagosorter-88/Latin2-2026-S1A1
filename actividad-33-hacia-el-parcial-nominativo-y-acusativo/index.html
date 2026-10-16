@@ -752,8 +752,14 @@
           "<h4 class=\"dlg-sub\">Qué decide, entonces</h4>" +
           "<p>La forma no decide; deciden <strong>el verbo y las otras palabras</strong>. <span class=\"ex-latin\">parat</span> necesita alguien que prepare y algo preparado: <span class=\"ex-latin\">Dido</span> solo puede ser nominativo, así que <span class=\"ex-latin\">convivium</span> es lo preparado (OD). <span class=\"ex-latin\">vocat</span> necesita alguien que llame y alguien llamado: <span class=\"ex-latin\">te</span> solo puede ser acusativo, así que <span class=\"ex-latin\">fatum</span> es el que llama (S).</p>" },
       { q:"¿Pasa lo mismo con los pronombres neutros?",
-        a:EX("Dido <u>hoc</u> nescit.", "Dido no sabe <strong>esto</strong>.", "Libro I") +
-          "<p>Con los pronombres neutros pasa lo mismo: <span class=\"ex-latin\">hoc</span>, «esto», puede ser nominativo o acusativo. Acá es OD, porque el sujeto de <span class=\"ex-latin\">nescit</span> ya está (<span class=\"ex-latin\">Dido</span>) y «no saber» necesita algo que no se sabe.</p>" }
+        a:"<p>Con los pronombres neutros pasa lo mismo: la misma forma sirve de nominativo y de acusativo. Dos pares:</p>" +
+          EX("Dido <u>hoc</u> nescit.", "Dido no sabe <strong>esto</strong>.", "Libro I") +
+          EX("<u>Hoc</u> Didonem vexat.", "<strong>Esto</strong> atormenta a Dido.", "adaptada del Libro I") +
+          "<p>En la primera, <span class=\"ex-latin\">hoc</span> es OD: el sujeto de <span class=\"ex-latin\">nescit</span> ya está, <span class=\"ex-latin\">Dido</span>, en nominativo. En la segunda, <span class=\"ex-latin\">Didonem</span> está en acusativo, así que el sujeto de <span class=\"ex-latin\">vexat</span> es <span class=\"ex-latin\">hoc</span>.</p>" +
+          EX("Laocoon <u>id</u> timet.", "Laocoonte <strong>lo</strong> teme.", "mito de Laocoonte") +
+          EX("<u>Id</u> Laocoontem vexat.", "<strong>Eso</strong> atormenta a Laocoonte.", "mito de Laocoonte") +
+          "<p>Con <span class=\"ex-latin\">id</span>, el neutro de <em>is, ea, id</em>, pasa lo mismo: es OD en la primera (el sujeto es <span class=\"ex-latin\">Laocoon</span>) y S en la segunda (<span class=\"ex-latin\">Laocoontem</span> es acusativo). En castellano se traduce «eso» o, como objeto, «lo».</p>" +
+          "<p>Otra vez, la forma no decide: decide qué otra palabra de la frase está en nominativo o en acusativo.</p>" }
     ],
 
     // ---------- Paso 1 · solo acusativo: OD · CL · PO, una frase por vez (buildSeq33). Revisión de Santiago, 2026-10-16:
@@ -778,7 +784,15 @@
           why:"<em>ad</em> + acusativo plural (‑os): hacia dónde desciende Eneas. Todo el bloque lleva CL." },
         { tag:"in navem", la:"Turnus <b>in navem</b> fugit.", es:"Turno huye a una nave.", wes:"a una nave", correct:"CL",
           why:"<em>in</em> + acusativo (<em>navem</em>, ‑em): hacia dónde huye Turno. Todo el bloque lleva CL." }
-        // PENDIENTE: dos o tres tarjetas de PO con las frases que pasa Santiago.
+        ,
+        // PO: frases editadas aprobadas por Santiago el 2026-10-16 (Libro VI: Didonis umbram → Didonem miseram; mito de
+        // Ariadna, Act. 21-22; Libro XI: corpus Pallantis → Pallantem mortuum).
+        { tag:"miseram", la:"Ibi Aeneas Didonem <b>miseram</b> videt.", es:"Allí Eneas ve a Dido desdichada.", wes:"desdichada", correct:"PO",
+          why:"<em>miseram</em> (‑am) concuerda con <em>Didonem</em>, pero no dice a quién ve Eneas, sino cómo la ve: «la ve desdichada». Es PO." },
+        { tag:"solam", la:"Theseus Ariadnam <b>solam</b> in insula relinquit.", es:"Teseo deja sola a Ariadna en la isla.", wes:"sola", correct:"PO",
+          why:"<em>solam</em> concuerda con <em>Ariadnam</em> y dice cómo la deja Teseo: «la deja sola». Es PO." },
+        { tag:"mortuum", la:"Aeneas Pallantem <b>mortuum</b> vidit et flevit.", es:"Eneas vio muerto a Palante y lloró.", wes:"muerto", correct:"PO",
+          why:"<em>mortuum</em> concuerda con <em>Pallantem</em> y dice cómo lo vio Eneas: «lo vio muerto». Es PO." }
       ]
     },
 
