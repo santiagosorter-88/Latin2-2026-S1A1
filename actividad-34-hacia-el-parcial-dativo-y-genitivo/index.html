@@ -1,0 +1,2065 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Actividad 34 — Hacia el parcial (dativo y genitivo)</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; touch-action:manipulation; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .phrase-block{ padding:1.1rem 0; border-top:1px solid var(--rule); }
+  .phrase-block:first-of-type{ border-top:none; }
+  .phrase-num{ font-size:.75rem; color:var(--ink-muted); font-weight:600; letter-spacing:.05em; margin-bottom:.5rem; }
+  .phrase-cast{ font-size:.98rem; color:var(--ink); margin-bottom:.6rem; }
+  .tokens{ display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .token{ display:inline-flex; align-items:center; justify-content:center; font-family:var(--serif); font-size:1.15rem; line-height:1.2; min-height:2.75rem; border:1.5px solid var(--rule); background:var(--surface-raised); border-radius:var(--radius-chip); padding:.5rem 1.05rem; cursor:pointer; transition:border-color .15s ease, background .15s ease, color .15s ease; }
+  .token:hover{ border-color:var(--accent); }
+  .token.open{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .token.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .token.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .token.g-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .token:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .token-verb{ font-family:var(--serif); font-size:1.15rem; border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); border-radius:var(--radius-chip); padding:.35rem 1.05rem; }
+
+  .word-panel{ margin:.6rem 0 .2rem; padding:.7rem .8rem; background:var(--surface-raised); border:1px solid var(--rule); border-radius:8px; display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  .word-opt{ display:inline-flex; align-items:center; justify-content:center; font-family:var(--sans); font-size:.85rem; font-weight:600; border:1.5px solid var(--rule); border-radius:var(--radius-chip); min-height:2.2rem; padding:.45rem .9rem; cursor:pointer; background:transparent; color:var(--ink); }
+  .word-opt:hover{ border-color:var(--accent); }
+  .word-opt.answered-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .word-opt.answered-bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); }
+  .word-opt:disabled{ cursor:default; opacity:.6; }
+  .word-feedback{ font-size:.85rem; font-weight:600; margin-left:.2rem; flex:0 0 100%; }
+  .word-feedback.ok{ color:var(--correct); } .word-feedback.bad{ color:var(--incorrect); } .word-feedback.info{ color:var(--ink-muted); font-weight:500; }
+
+  .p-progress{ font-size:.9rem; color:var(--ink-muted); margin-bottom:1.2rem; } .p-progress strong{ color:var(--ink); }
+
+  .explain-box{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem; box-shadow:var(--shadow); margin-bottom:1.75rem; font-size:1.02rem; line-height:1.65; }
+  .explain-box p{ margin:0 0 .8rem; } .explain-box p:last-child{ margin-bottom:0; }
+  .explain-box .ex-latin{ font-family:var(--serif); font-style:italic; }
+
+  .dd-row{ display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; font-family:var(--serif); font-size:1.25rem; margin-bottom:.5rem; }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .step-nav.bottom-nav{ justify-content:space-between; align-items:center; }
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{
+    font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule);
+    border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer;
+    background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+  .score-summary{ font-size:.92rem; color:var(--ink-muted); margin-top:.7rem; }
+  .score-summary strong{ color:var(--ink); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+
+  .streak{ display:inline-block; font-size:.8rem; font-weight:700; border:1.5px solid var(--accent); color:var(--accent-strong); border-radius:999px; padding:.2rem .75rem; white-space:nowrap; }
+  .streak.zero{ border-color:var(--rule); color:var(--ink-muted); }
+  .streak-note{ color:var(--ink-muted); font-size:.78rem; margin:-.6rem 0 .8rem; }
+  .cast-after{ font-size:.92rem; color:var(--ink-muted); margin:.45rem 0 0; font-style:italic; }
+  button.dd{ font-family:var(--sans); font-size:.95rem; font-weight:600; padding:.35rem .7rem; border-radius:8px; border:2px solid var(--rule); background:var(--surface-raised); color:var(--ink); cursor:pointer; min-width:4.5rem; }
+  button.dd::after{ content:" ▾"; color:var(--ink-muted); font-size:.8em; }
+  button.dd.open{ border-color:var(--accent); }
+  button.dd:disabled{ cursor:default; opacity:1; }
+  button.dd:disabled::after{ content:""; }
+  button.dd.g-ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  button.dd.g-bad{ border-color:var(--incorrect); }
+  button.dd.g-idk, button.dd.g-revealed{ border-color:var(--warn); background:var(--warn-bg); color:var(--ink); }
+  .dd-panel{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.55rem 0 .2rem; padding:.6rem; background:var(--surface-raised); border:1.5px solid var(--accent); border-radius:8px; }
+  .dd-panel[hidden]{ display:none; }
+  .dd-opt{ font-family:var(--serif); font-size:1.05rem; border:1.5px solid var(--rule); border-radius:999px; padding:.35rem .95rem; background:var(--surface); color:var(--ink); cursor:pointer; }
+  .dd-opt:hover{ border-color:var(--accent); }
+  .dd-opt.idk{ font-family:var(--sans); font-size:.85rem; border-style:dashed; color:var(--ink-muted); }
+  .dd-opt:disabled{ cursor:default; border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .dd-msgs .dd-msg{ margin-top:.25rem; }
+  .dd-msg{ font-size:.82rem; color:var(--ink-muted); }
+  .dd-msg.bad{ color:var(--incorrect); }
+  .btn-cast{ font-family:var(--sans); font-size:.8rem; font-weight:600; margin-top:.55rem; border:1px dashed var(--rule); border-radius:999px; padding:.3rem .85rem; background:transparent; color:var(--accent-strong); cursor:pointer; }
+  .btn-cast:hover{ border-color:var(--accent); }
+
+  /* ---- Del molde de la Actividad 22 v3 (2026-09-21): hotspot de vocabulario, desinencia sola, corregí nivel 2, imagen-pista ---- */
+  .step-progress{ font-size:.85rem; color:var(--ink-muted); }
+  .v2-seals{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.2rem 0 1rem; }
+  .v2-seal{ font-family:var(--serif); font-style:italic; font-size:.88rem; padding:.3rem .75rem; border-radius:var(--radius-chip); border:1.5px solid var(--rule); color:var(--ink-muted); }
+  .v2-seal.on{ border:1.5px solid var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .v2-arc-tag{ font-size:.82rem; color:var(--ink-muted); margin:0 0 .4rem; }
+  .v2-trad{ display:block; margin-top:.35rem; font-style:italic; color:var(--ink); }
+  .stage-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.3rem 1.4rem 1.5rem; margin-bottom:1rem; box-shadow:var(--shadow); }
+  .v2-warm-img{ border-radius:8px; overflow:hidden; margin:-.2rem 0 .7rem; background:#0000; }
+  .v2-warm-img img{ display:block; width:100%; max-height:200px; object-fit:cover; }
+
+  .hs-wrap{ position:relative; margin-top:.3rem; box-shadow:var(--shadow); border-radius:var(--radius-card); line-height:0; }
+  .hs-wrap img{ width:100%; height:auto; display:block; border-radius:var(--radius-card); -webkit-user-select:none; user-select:none; }
+  .hs-dot{ position:absolute; width:24px; height:24px; margin:-12px 0 0 -12px; border-radius:50%; border:3px solid #fff; background:var(--accent); cursor:pointer; padding:0; box-shadow:0 1px 4px rgba(0,0,0,.4); animation:hsPulse 1.8s ease-in-out infinite; }
+  @keyframes hsPulse{ 0%,100%{ box-shadow:0 0 0 0 rgba(30,77,199,.5);} 50%{ box-shadow:0 0 0 9px rgba(30,77,199,0);} }
+  .hs-dot.seen{ background:#5a6b57; animation:none; cursor:default; }
+  .hs-label{ position:absolute; transform:translate(-50%,-100%); margin-top:-16px; background:#fff; color:#1e211d; font-family:var(--serif); font-style:italic; font-size:1.1rem; padding:.6rem 1.5rem; border-radius:8px; box-shadow:0 1px 5px rgba(0,0,0,.4); white-space:nowrap; pointer-events:none; z-index:2; }
+  .hs-label.below{ transform:translate(-50%,0); margin-top:16px; }
+  .hs-count{ font-size:.85rem; color:var(--ink-muted); margin:.6rem 0 0; }
+
+  .item-img{ margin:0 0 .8rem; border-radius:8px; overflow:hidden; background:var(--surface-raised); }
+  .item-img img{ display:block; width:100%; max-height:220px; object-fit:contain; }
+
+
+  /* ---- Agregados Actividad 23 v2 (2026-09-27): armado desde el castellano, Imago con números, cajones, Inveni ---- */
+  .top-nav .btn-fwd{ margin-left:auto; }
+  .btn-back{ font-size:.85rem; padding:.5rem .9rem; }
+  .v2-es{ font-size:1.08rem; line-height:1.8; margin:.1rem 0 .8rem; }
+  .v2-es span.on{ background:var(--warn-bg); border-bottom:2px solid var(--warn); }
+  .v2-es strong{ font-weight:700; }
+  .v2-slots{ display:flex; flex-wrap:wrap; gap:.45rem; margin:.3rem 0 1rem; }
+  .v2-slot{ min-width:4.2rem; min-height:2.5rem; padding:.35rem .75rem; border:1.5px dashed var(--rule); border-radius:8px; font-family:var(--serif); font-size:1.12rem; display:flex; align-items:center; justify-content:center; }
+  .v2-slot.cur{ border-color:var(--accent); border-style:solid; }
+  .v2-slot.fill{ border-style:solid; border-color:var(--correct); background:var(--correct-bg); }
+  .v2-slot.rev{ border-style:solid; border-color:var(--warn); background:var(--warn-bg); }
+  .v2-bank{ display:flex; flex-wrap:wrap; gap:.5rem; }
+  .v2-chip{ display:inline-flex; align-items:center; justify-content:center; min-height:2.75rem; font-family:var(--serif); font-size:1.1rem; padding:.45rem .95rem; border-radius:var(--radius-chip); border:1.5px solid var(--rule); background:var(--surface-raised); color:inherit; cursor:pointer; }
+  .v2-chip:hover{ border-color:var(--accent); }
+  .v2-chip.used{ visibility:hidden; }
+  .v2-chip.bad{ text-decoration:line-through; opacity:.45; cursor:default; }
+  .v2-msg{ min-height:1.4rem; margin:.7rem 0 0; font-size:.9rem; color:var(--ink-muted); }
+  .v2-msg.bad{ color:var(--incorrect); }
+  .warm-expl{ margin:.8rem 0 0; padding:.75rem .9rem; border-radius:8px; background:var(--correct-bg); color:var(--ink); font-size:.95rem; line-height:1.55; }
+  .warm-expl.rev{ background:var(--warn-bg); }
+  .warm-expl em{ font-family:var(--serif); }
+
+  .hs-num{ position:absolute; width:22px; height:22px; margin:-11px 0 0 -11px; padding:0; border-radius:50%; border:2px solid #fff; background:var(--accent); color:#fff; font:700 12px/18px var(--sans); text-align:center; cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.45); z-index:3; }
+  .hs-num::before{ content:""; position:absolute; inset:-11px; }
+  .hs-num.seen{ background:#5a6b57; }
+  .hs-num.cur{ background:#ffd24a; color:#1e211d; }
+  .hs-zone{ position:absolute; border:2.5px solid #ffd24a; box-shadow:0 0 0 2px rgba(0,0,0,.45); border-radius:5px; pointer-events:none; z-index:2; }
+  .hs-list{ list-style:none; margin:.8rem 0 0; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:.35rem .8rem; }
+  .hs-list li button{ all:unset; cursor:pointer; display:flex; align-items:center; gap:.45rem; font-family:var(--serif); font-size:1.08rem; padding:.2rem 0; }
+  .hs-list .n{ flex:0 0 auto; width:20px; height:20px; border-radius:50%; background:#5a6b57; color:#fff; font:700 11px/20px var(--sans); text-align:center; }
+  .hs-list .enun{ font-style:italic; }
+  .hs-list .form{ color:var(--ink-muted); font-size:.85rem; font-family:var(--sans); }
+
+  .find-wrap{ cursor:crosshair; }
+  .find-zone{ position:absolute; border-radius:6px; pointer-events:none; z-index:3; }
+  .find-zone.ok{ border:3px solid #7ee05a; background:rgba(126,224,90,.2); }
+  .find-zone.reveal{ border:3px solid #ffd24a; background:rgba(255,210,74,.25); }
+  .find-mark{ position:absolute; transform:translate(-50%,-50%); font:700 1.5rem/1 var(--sans); color:#ff3b30; text-shadow:0 0 3px #fff, 0 0 6px #fff; pointer-events:none; z-index:4; }
+  .find-prompt{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1rem 1.2rem; box-shadow:var(--shadow); margin-bottom:1rem; }
+  .find-latin{ font-family:var(--serif); font-style:italic; font-size:1.5rem; margin:.1rem 0 .3rem; }
+  .find-msg{ font-size:.88rem; font-weight:600; min-height:2.7em; }
+  .find-msg.ok{ color:var(--correct); } .find-msg.bad{ color:var(--incorrect); } .find-msg.warn{ color:var(--warn); }
+  .find-next{ margin-top:.6rem; }
+
+  .gen-pool{ display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1rem; min-height:2.75rem; }
+  .gen-pool:empty::after{ content:'Todas las tarjetas están en su cajón.'; color:var(--ink-muted); font-size:.9rem; }
+  .token.sel{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+  .gen-boxes{ display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+  .gen-box{ all:unset; box-sizing:border-box; display:block; cursor:pointer; border:1.5px dashed var(--rule); border-radius:10px; padding:.6rem .6rem .7rem; background:var(--surface-raised); min-height:120px; }
+  /* Un color por cajón (paleta: azul, verde, rojo, amarillo); se repite en las tarjetas ubicadas y en S2. */
+  .c-azul{ --box:var(--accent-strong); --box-bg:rgba(30,77,199,.12); }
+  .c-verde{ --box:var(--correct); --box-bg:var(--correct-bg); }
+  .c-rojo{ --box:var(--incorrect); --box-bg:var(--incorrect-bg); }
+  .c-amarillo{ --box:var(--warn); --box-bg:var(--warn-bg); }
+  .gen-box[class*="c-"]{ border:2px solid var(--box); }
+  .gen-box[class*="c-"] .gen-model b{ color:var(--box); }
+  .gen-box.armed{ box-shadow:0 0 0 3px var(--box-bg); }
+  .gen-box .token.gen-in{ border-color:var(--box); background:var(--box-bg); color:var(--box); font-weight:600; }
+  .gen-box .token.gen-rev{ border-style:dashed; }
+  .explain-box .tag[class*="c-"]{ color:var(--box); }
+  .gen-box.flash-bad{ animation:genShake .35s ease; background:var(--incorrect-bg); }
+  @keyframes genShake{ 0%,100%{ transform:translateX(0); } 25%{ transform:translateX(-5px); } 75%{ transform:translateX(5px); } }
+  .gen-model{ font-family:var(--serif); font-size:1.1rem; line-height:1.3; }
+  .gen-model b{ color:var(--accent-strong); }
+  .gen-pat{ font-size:.75rem; color:var(--ink-muted); margin:.1rem 0 .45rem; }
+  .gen-box .token{ font-size:.95rem; min-height:2rem; padding:.2rem .65rem; margin:.15rem .15rem 0 0; cursor:default; }
+  .gen-msg{ min-height:1.4rem; font-size:.88rem; margin:.6rem 0 0; color:var(--ink-muted); }
+  .gen-msg.bad{ color:var(--incorrect); } .gen-msg.ok{ color:var(--correct); }
+
+  .sep-sub{ font-size:.85rem; color:var(--ink-muted); margin:-.2rem 0 0; }
+  .explain-box table{ border-collapse:collapse; margin:.2rem 0 .8rem; font-size:.95rem; }
+  .explain-box td{ padding:.3rem .7rem .3rem 0; vertical-align:top; border-bottom:1px solid var(--rule); }
+  .explain-box tr:last-child td{ border-bottom:none; }
+  .explain-box .tag{ font-weight:700; white-space:nowrap; }
+  @media (max-width:520px){ .explain-box tr{ display:block; padding:.45rem 0; border-bottom:1px solid var(--rule); } .explain-box tr:last-child{ border-bottom:none; } .explain-box td{ display:block; padding:.1rem 0; border:none; } }
+
+  /* ---- Actividad 26 (2026-09-27): régimen verbal ---- */
+  .box-h{ font-family:var(--sans); font-size:.78rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent-strong); margin:0 0 .7rem; }
+  .ex-list{ display:grid; grid-template-columns:1fr; gap:.55rem; font-size:.95rem; margin:.3rem 0 .8rem; }
+  .ex-list > div{ padding:.45rem .7rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; }
+  .scene-card{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1rem 1rem 1.2rem; box-shadow:var(--shadow); margin-bottom:1.3rem; }
+  .scene-count{ font-size:.8rem; color:var(--ink-muted); margin:0 0 .5rem; font-weight:600; }
+  .scene-img{ border-radius:8px; overflow:hidden; background:var(--surface-raised); margin-bottom:.9rem; line-height:0; }
+  .scene-img img{ display:block; width:100%; }
+  .comic-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.4rem 0 0; }
+  .gen-box .gen-model{ font-family:var(--sans); font-size:.95rem; }
+  .step-instructions .ex-latin{ font-family:var(--serif); font-style:italic; color:var(--ink); }
+  .token.vcard{ flex-direction:column; align-items:flex-start; text-align:left; border-radius:12px; padding:.45rem .8rem; gap:.1rem; }
+  .vcard .vc-w{ font-weight:600; }
+  .vcard .vc-ex{ font-style:italic; font-size:.95rem; }
+  .vcard .vc-es{ font-family:var(--sans); font-size:.75rem; color:var(--ink-muted); }
+  .token.vcard.sel .vc-es{ color:inherit; }
+  .verb-box{ margin:.2rem 0 .5rem; padding:.45rem .7rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; font-size:.9rem; }
+  .verb-box .ex-latin{ font-family:var(--serif); font-style:italic; font-size:1.1rem; font-weight:700; }
+  .verb-box .reg{ color:var(--accent-strong); font-weight:600; }
+  #p1-pool{ display:grid; grid-template-columns:1fr 1fr; gap:.45rem; }
+  #p1-pool .token.vcard{ width:100%; min-height:0; padding:.4rem .55rem; }
+  #p1-pool .vcard .vc-w{ font-size:1rem; }
+  #p1-pool .vcard .vc-ex{ font-size:.85rem; }
+  #p1-pool .vcard .vc-es{ font-size:.7rem; }
+
+  /* ---- Actividad 27 (2026-10-05): tablas chicas, modo de revisión de zonas (?zonas) ---- */
+  .tbl-mini{ border-collapse:collapse; margin:.3rem 0 .8rem; font-size:.95rem; }
+  .explain-box table.tbl-mini tr{ display:table-row; padding:0; border:none; }
+  .explain-box table.tbl-mini td, .explain-box table.tbl-mini th{ display:table-cell; padding:.25rem .9rem .25rem 0; border-bottom:1px solid var(--rule); text-align:left; }
+  .tbl-mini th{ font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
+  .tbl-mini td.la{ font-family:var(--serif); font-style:italic; font-size:1.08rem; }
+  .hs-num.colored, .hs-num.colored.seen{ color:#fff; }
+  .hs-num.colored.cur{ box-shadow:0 0 0 3px #fff, 0 0 0 5px rgba(0,0,0,.55); }
+  .zdbg{ position:absolute; border:2px dashed #ff2d55; background:rgba(255,45,85,.12); z-index:5; pointer-events:none; }
+  .zdbg span{ position:absolute; left:0; top:0; background:#ff2d55; color:#fff; font:700 11px/1.3 var(--sans); padding:0 .3em; white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis; box-sizing:border-box; }
+  /* ---- Actividad 28 (2026-10-05): historieta y Quis loquitur? (de la Act. 24) ---- */
+  .bubble-la{ display:flex; flex-wrap:wrap; align-items:center; gap:.4rem; font-family:var(--serif); font-size:1.2rem; line-height:1.35; }
+  .find-mark{ position:absolute; transform:translate(-50%,-50%); font:700 1.5rem/1 var(--sans); color:#ff3b30; text-shadow:0 0 3px #fff, 0 0 6px #fff; pointer-events:none; z-index:4; }
+  .quis-wrap{ position:relative; line-height:0; cursor:crosshair; }
+  .quis-wrap img{ width:100%; display:block; border-radius:8px; }
+  .comic{ position:relative; line-height:1.3; }
+  .comic img{ display:block; width:100%; border-radius:8px; }
+  .cbubble{ position:absolute; background:#fff; color:#1e211d; border:2px solid #1e211d; border-radius:14px; padding:.35rem .6rem .45rem; box-shadow:0 2px 6px rgba(0,0,0,.35); z-index:2; }
+  .cbubble::after{ content:""; position:absolute; left:var(--tail,30%); bottom:-9px; width:14px; height:14px; margin-left:-7px; background:#fff; border-right:2px solid #1e211d; border-bottom:2px solid #1e211d; transform:rotate(45deg); }
+  .cbubble.up::after{ bottom:auto; top:-9px; transform:rotate(-135deg); }
+  .cbubble .who{ font-size:.62rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#17399c; margin-bottom:.1rem; }
+  .cbubble .bubble-la{ font-size:1rem; gap:.25rem; }
+  .cbubble button.dd{ font-size:.85rem; padding:.2rem .45rem; min-width:3.6rem; background:#fff; color:#1e211d; }
+  .cbubble.ok{ border-color:var(--correct); }
+  .cbubble.rev{ border-color:var(--warn); }
+  .cbubble.shake{ animation:genShake .35s ease; }
+  .cbubble .empty{ color:#8a8a80; font-style:italic; font-family:var(--sans); font-size:.85rem; }
+  .comic-ctl{ margin-top:.7rem; }
+  .comic-es{ font-size:.92rem; color:var(--ink-muted); font-style:italic; margin:.4rem 0 0; }
+  .comic-es b{ font-style:normal; color:var(--ink); }
+  .cbubble.left::after{ left:-9px; top:var(--tail); bottom:auto; margin:-7px 0 0 0; transform:rotate(135deg); }
+  .cbubble.right::after{ left:auto; right:-9px; top:var(--tail); bottom:auto; margin:-7px 0 0 0; transform:rotate(-45deg); }
+  .cbubble.flow{ position:relative; margin:0 0 14px; }
+  .cbubble.flow.notail::after{ display:none; }
+  .cbubble.flow .who.unknown{ color:#6b6f66; }
+  .cbubble.flow .dd-panel{ margin-top:.5rem; }
+  .cbubble .find-msg{ min-height:0; margin-top:.3rem; font-size:.82rem; }
+  /* Act. 29 */
+  .quis-wrap.still{ cursor:default; }
+  .find-zone.ans{ border:3px solid #6f9bff; background:rgba(111,155,255,.16); }
+  .cbubble.flow.up{ margin:14px 0 0; }
+  .cbubble.ask{ border-color:#4f9a2f; }
+  .cbubble.ask .who{ color:#2f6b1c; }
+  .cbubble.answer{ border-color:#3a6fe0; }
+  .cbubble.answer::after{ border-color:#3a6fe0; }
+  .gw{ font:inherit; color:inherit; background:none; border:none; border-bottom:1px dotted #8a8a80; padding:0; margin:0; cursor:pointer; }
+  .gw.on{ background:#fff3c4; border-bottom-color:#93701c; }
+  .gloss-line{ margin:.1rem 0 .4rem; padding:.4rem .65rem; border-radius:8px; background:var(--surface-raised); border-left:3px solid var(--accent); font-size:.9rem; color:var(--ink); }
+  .gloss-line .ex-latin{ font-family:var(--serif); font-style:italic; font-weight:700; }
+  .ask-tr{ margin:0 0 .7rem; }
+  .ask-next-top{ margin:.5rem 0 0; }
+  .cbubble .bubble-la{ display:flex; flex-wrap:wrap; align-items:center; }
+  .qslot{ display:inline-flex; align-items:center; justify-content:center; min-width:3.6rem; min-height:1.9rem; padding:0 .45rem; margin-right:.25rem; border:2px dashed #8a8a80; border-radius:8px; color:#8a8a80; font-family:var(--sans); font-style:normal; font-size:.9rem; background:#fff; }
+  .qslot.ok{ border:2px solid #4f7a34; background:#e4ecd7; color:#4f7a34; font-family:var(--serif); font-style:italic; font-size:1rem; font-weight:700; }
+  .qslot.rev{ border:2px solid #93701c; background:#f2e6c2; color:#93701c; font-family:var(--serif); font-style:italic; font-size:1rem; font-weight:700; }
+  .opt-chips{ display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.55rem; }
+  .cbubble .opt-chips .token{ font-size:1rem; min-height:2.5rem; padding:.3rem .9rem; background:#fff; color:#1e211d; border-color:#b9b4a3; }
+  .cbubble .opt-chips .token.g-ok{ border-color:#4f7a34; background:#e4ecd7; color:#4f7a34; }
+  .cbubble .opt-chips .token.g-bad{ border-color:#b5502e; background:#f3ded4; color:#b5502e; text-decoration:line-through; }
+  .cbubble .opt-chips .token.g-revealed{ border-color:#93701c; background:#f2e6c2; color:#93701c; }
+  .cbubble .find-msg.ok{ color:#4f7a34; } .cbubble .find-msg.bad{ color:#b5502e; } .cbubble .find-msg.warn{ color:#93701c; }
+  .ctx-line{ font-size:.9rem; color:var(--ink-muted); margin:0 0 .6rem; }
+  .tbl-q td, .tbl-q th{ font-size:.86rem; }
+  .tbl-v td small{ display:block; font-size:.74rem; color:var(--ink-muted); line-height:1.2; }
+  .tbl-v td .la{ font-weight:700; }
+  .p3-line{ font-size:.9rem; color:var(--ink-muted); margin:.1rem 0 .5rem; }
+  .p3-line .ex-latin{ color:var(--ink); font-family:var(--serif); font-style:italic; font-size:1.05rem; }
+  .p3-who{ margin:0 .2rem 0 0; }
+  .p3-enun{ margin:.2rem 0 .7rem; padding:.45rem .7rem; background:var(--surface-raised); border-left:3px solid var(--accent); border-radius:6px; font-size:.9rem; }
+  .p3-enun .ex-latin{ font-family:var(--serif); font-style:italic; font-size:1.08rem; }
+  .p3-enun strong{ color:var(--accent-strong); }
+  .story{ background:var(--surface); border:1px solid var(--rule); border-left:4px solid var(--accent); border-radius:var(--radius-card); padding:.7rem 1rem .5rem; margin-bottom:1rem; }
+  .story-h{ font-size:.72rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-muted); margin:0 0 .3rem; }
+  .story ol{ margin:0; padding-left:1.4rem; }
+  .story li{ font-family:var(--serif); font-style:italic; font-size:1.05rem; margin:.15rem 0; }
+  .story li strong{ color:var(--accent-strong); }
+  .story-end{ margin:.7rem 0 0; font-size:.9rem; color:var(--correct); font-weight:600; }
+  .tbl-mini span.la{ font-family:var(--serif); font-style:italic; font-size:1.05rem; }
+
+  /* Act. 31 */
+  .dcol{ color:var(--box); font-weight:700; }
+  .tipo{ font-weight:700; }
+  .tipo[class*="c-"]{ color:var(--box); }
+  .tbl-p td.es b{ color:var(--ink-muted); }
+  .p3-who{ font-weight:600; display:block; width:100%; flex-basis:100%; margin-bottom:.2rem; }
+  .tbl-p td:first-child{ white-space:nowrap; }
+  .zlabel{ position:absolute; left:0; top:-1.3rem; font:700 .7rem/1 var(--sans,system-ui,sans-serif); background:#ff0; color:#000; padding:.1rem .25rem; white-space:nowrap; }
+
+  /* ---- Act. 32 v2 (2026-10-14): diálogos (buildDialog), pares (buildPairs), formas verbales (buildVerbs), análisis (buildAnal) ---- */
+  .gen-box .gen-model .la{ font-family:var(--serif); font-style:italic; font-size:1.08rem; }
+  .gen-box .gen-model b{ color:var(--box); }
+  .dlg{ display:flex; flex-direction:column; gap:.9rem; }
+  .dlg-item{ padding:.75rem .9rem; background:var(--surface-raised); border:1px solid var(--rule); border-left:4px solid var(--accent); border-radius:8px; }
+  .dlg-q{ margin:0; font-weight:700; line-height:1.45; }
+  .dlg-who{ display:block; font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); margin-bottom:.15rem; }
+  .dlg-btn{ font-family:var(--sans); font-size:.82rem; font-weight:600; margin-top:.5rem; border:1px dashed var(--accent); border-radius:999px; padding:.35rem .9rem; background:transparent; color:var(--accent-strong); cursor:pointer; min-height:2.2rem; }
+  .dlg-btn:hover{ background:var(--surface); }
+  .dlg-a{ margin-top:.55rem; padding-top:.55rem; border-top:1px dashed var(--rule); font-size:.98rem; line-height:1.6; }
+  .dlg-a[hidden]{ display:none; }
+  .dlg-a p{ margin:0 0 .5rem; } .dlg-a p:last-child{ margin-bottom:0; }
+  .dlg-a .ex-latin{ font-family:var(--serif); font-style:italic; }
+  .dlg-a ul{ margin:.2rem 0 .5rem; padding-left:1.2rem; } .dlg-a li{ margin:.2rem 0; }
+  .dlg-a .lab{ font-family:var(--sans); font-weight:700; font-size:.85em; color:var(--accent-strong); white-space:nowrap; }
+  .dlg-a sub, .tg-sub{ font-family:var(--sans); font-style:normal; font-weight:700; font-size:.62em; color:var(--accent-strong); margin-left:.1em; }
+
+  .tg-sdnote{ font-family:var(--sans); font-size:.85rem; font-weight:700; color:var(--correct); white-space:nowrap; }
+  .tg-sdnote.rev{ color:var(--warn); }
+  .tg-pal{ display:flex; flex-wrap:wrap; gap:.4rem; margin:0 0 .6rem; }
+  .tg-tag{ display:inline-flex; align-items:center; justify-content:center; min-height:2.4rem; padding:.35rem .8rem; font-family:var(--sans); font-size:.88rem; font-weight:700; border:1.5px solid var(--accent); border-radius:8px; background:var(--surface-raised); color:var(--accent-strong); cursor:pointer; }
+  .tg-tag:hover{ background:var(--surface); }
+  .tg-tag:disabled{ cursor:default; border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .tg-info{ min-height:1.5rem; margin:.2rem 0 .3rem; padding:.6rem .8rem; border-radius:8px; background:var(--surface-raised); border:1px solid var(--rule); font-size:.92rem; line-height:1.5; }
+  .tg-info.ok{ background:var(--correct-bg); border-color:var(--correct); }
+  .tg-info.bad{ background:var(--incorrect-bg); border-color:var(--incorrect); }
+  .tg-info.rev{ background:var(--warn-bg); border-color:var(--warn); }
+  .tg-info .ex-latin{ font-family:var(--serif); font-style:italic; }
+  .tg-info strong.lbl{ font-family:var(--sans); }
+  .tg-sd{ margin:.6rem 0 .3rem; padding:.65rem .8rem; border-radius:8px; border:1.5px solid var(--accent); background:var(--surface-raised); }
+  .tg-sd p{ margin:0 0 .45rem; font-size:.95rem; }
+  .tg-sd .tg-pal{ margin:0; }
+  .tg-sd .msg{ font-size:.85rem; margin:.45rem 0 0; color:var(--incorrect); font-weight:600; }
+  .tg-n2{ margin:.7rem 0 .2rem; padding:.55rem .8rem; border-left:3px solid var(--accent); background:var(--surface-raised); border-radius:6px; }
+  .tg-n2-h{ font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-muted); margin:0 0 .2rem; }
+  .tg-n2 .row{ font-family:var(--serif); font-size:1.1rem; margin:.15rem 0; }
+  .tg-n2 .row .of{ font-family:var(--sans); font-size:.78rem; color:var(--ink-muted); margin-right:.35rem; }
+
+  .tr-opts{ display:flex; flex-direction:column; gap:.5rem; }
+  .tr-opt{ display:block; width:100%; text-align:left; min-height:2.75rem; padding:.6rem .9rem; font-family:var(--sans); font-size:.98rem; line-height:1.4; border:1.5px solid var(--rule); border-radius:10px; background:var(--surface-raised); color:var(--ink); cursor:pointer; }
+  .tr-opt:hover{ border-color:var(--accent); }
+  .tr-opt:disabled{ cursor:default; }
+  .tr-opt.bad{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .tr-opt.ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); font-weight:600; }
+  .tr-opt.rev{ border-color:var(--warn); background:var(--warn-bg); color:var(--ink); font-weight:600; }
+  .tr-msg{ margin:.7rem 0 0; font-size:.92rem; line-height:1.5; min-height:1.4rem; }
+  .tr-msg.bad{ color:var(--incorrect); } .tr-msg.ok{ color:var(--correct); }
+  .tr-msg .ex-latin{ font-family:var(--serif); font-style:italic; }
+
+  .certe{ font-family:var(--serif); font-variant:small-caps; letter-spacing:.04em; font-weight:700; color:var(--correct); margin-right:.2rem; }
+  .pair-card .tr-opt .ex-latin{ font-family:var(--serif); font-style:italic; font-size:1.08rem; }
+  .pair-es{ display:block; font-size:.85rem; font-style:normal; color:var(--ink-muted); margin-top:.2rem; text-decoration:none; }
+  .tr-opt.bad .pair-es{ color:var(--incorrect); }
+  .vb-line{ font-family:var(--serif); font-size:1.25rem; line-height:2.6; margin:.1rem 0 .7rem; }
+  .vb-w{ white-space:nowrap; }
+  .vb-chip{ font:inherit; line-height:1.2; padding:.3rem .6rem; min-height:2.5rem; border:2px solid var(--accent); border-radius:8px; background:var(--surface-raised); color:var(--accent-strong); cursor:pointer; }
+  .vb-chip.sel{ background:var(--accent); color:var(--accent-ink); }
+  .vb-chip.bad{ border-color:var(--incorrect); }
+  .vb-chip.bad.sel{ background:var(--incorrect); color:#fff; }
+  .vb-chip.ok{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); }
+  .vb-chip.ok.sel{ box-shadow:0 0 0 3px var(--correct); }
+  .vb-span{ text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:5px; }
+  .vb-line .tg-sub{ font-size:.6em; }
+  .vb-ask{ margin:.2rem 0 .6rem; padding:.6rem .8rem; border:1.5px solid var(--accent); border-radius:8px; background:var(--surface-raised); }
+  .vb-q{ margin:0 0 .45rem; font-size:.95rem; }
+  .vb-q .ex-latin{ font-family:var(--serif); font-style:italic; font-size:1.05rem; }
+  .tg-info em{ font-family:var(--serif); }
+  .an-es{ font-size:1.05rem; font-weight:600; margin:.1rem 0 .8rem; }
+  .an-opt{ font-family:var(--serif); font-size:1.08rem; line-height:1.9; }
+  .an-opt .an-w.multi{ text-decoration:underline; text-underline-offset:4px; }
+  .an-opt.bad .an-w, .an-opt.bad .tg-sub{ color:var(--incorrect); }
+  .an-opt.ok .tg-sub{ color:var(--correct); }
+  .tr-opt.an-opt.bad{ text-decoration:none; opacity:.75; }
+  .tr-msg em{ font-family:var(--serif); }
+  #rule-s2 .tbl-mini td.la b{ color:var(--incorrect); }
+
+  /* Act. 32, 2026-10-16: consignas legibles, repregunta, cajones con nombre grande */
+  .consigna{ margin:0 0 1.2rem; padding:.8rem 1rem; border-left:4px solid var(--accent); background:var(--surface); border-radius:8px; color:var(--ink); font-size:1rem; line-height:1.55; }
+  .consigna p{ margin:0 0 .45rem; } .consigna p:last-child{ margin-bottom:0; }
+  .p1-expl .tag{ font-weight:700; }
+  .p1-expl .tag[class*="c-"]{ color:var(--box); }
+  .p1-expl b{ color:var(--accent-strong); }
+  .gen-name{ font-family:var(--sans); font-weight:700; font-size:.95rem; color:var(--box, var(--accent-strong)); margin-bottom:.15rem; }
+  .gen-box .gen-model{ font-size:1.15rem; }
+  .st-box{ margin:.7rem 0 .2rem; padding:.7rem .85rem; border:1.5px solid var(--accent); border-radius:8px; background:var(--surface-raised); color:var(--ink); }
+  .st-h{ margin:0 0 .2rem; font-size:.7rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-strong); }
+  .st-q{ margin:0 0 .5rem; font-size:.98rem; }
+  .st-q em, .st-msg em{ font-family:var(--serif); }
+  .st-opt{ font-family:var(--serif); font-weight:400; font-size:1.02rem; }
+  .tg-tag.st-right{ border-color:var(--correct); background:var(--correct-bg); color:var(--correct); text-decoration:none; opacity:1; }
+  .tg-tag.st-wrong{ border-color:var(--incorrect); background:var(--incorrect-bg); color:var(--incorrect); text-decoration:line-through; }
+  .st-opt:disabled:not(.st-right):not(.st-wrong){ opacity:.55; border-color:var(--rule); background:transparent; color:var(--ink-muted); text-decoration:none; }
+  .st-msg{ margin:.5rem 0 0; font-size:.92rem; }
+  .st-msg.bad{ color:var(--incorrect); }
+  .tg-info .st-box{ background:var(--surface); }
+  .vb-name{ font-family:var(--serif); font-style:italic; font-weight:700; font-size:1.12rem; }
+  .lang-list li{ margin:.45rem 0; }
+  .ex-ot{ font-style:italic; }
+
+  /* Act. 32, 2026-10-16 (2): diagramación de ejemplos, colores por forma, traducción por frase */
+  .exb{ margin:.7rem 0 .9rem; text-align:center; }
+  .exb-la{ margin:0; font-family:var(--serif); font-style:italic; font-size:1.15rem; line-height:1.45; color:var(--ink); }
+  .exb-es{ margin:.15rem 0 0; font-size:.92rem; color:var(--ink-muted); }
+  .exb-es strong{ color:var(--ink); }
+  .exb-src{ font-size:.8rem; }
+  .dlg-sub{ margin:1rem 0 .3rem; font-family:var(--sans); font-size:.95rem; font-weight:700; color:var(--accent-strong); }
+  .val-list{ margin:.2rem 0 .7rem; padding-left:1.2rem; } .val-list li{ margin:.25rem 0; }
+  .cons-ol{ margin:.3rem 0 0; padding-left:1.3rem; } .cons-ol li{ margin:.2rem 0; }
+  .p1-row{ margin:.7rem 0; padding:.55rem .8rem; border-left:4px solid var(--box); background:var(--surface-raised); border-radius:6px; }
+  .p1-row p{ margin:0 0 .3rem; } .p1-row p:last-child{ margin:0; }
+  .p1-row .p1-name{ font-weight:700; color:var(--box); }
+  .p1-row .exb-la{ font-size:1.05rem; text-align:left; }
+  .p1-row b{ color:var(--box); }
+  .p1-expl .cz{ color:var(--accent-strong); } .p1-expl .cv{ color:var(--correct); } .p1-expl .ca{ color:var(--warn); }
+  .p1-expl .exb-la .ca b{ color:var(--warn); }
+  .pair-opts{ display:flex; flex-direction:column; gap:.7rem; }
+  .pair-opt .pair-tr{ margin-top:.3rem; }
+  .pair-es{ display:block; margin:.35rem 0 0; font-size:.92rem; font-style:italic; color:var(--ink-muted); }
+  .pair-es[hidden]{ display:none; }
+  .st-flash{ box-shadow:0 0 0 4px rgba(30,77,199,.22); }
+
+  .tg-sdnote{ margin-right:.35em; }
+  /* Act. 33 (2026-10-16): tarjetas-frase en cajones (buildCases33), caso y función (buildFunc), [hidden] global */
+  [hidden]{ display:none !important; }
+  .case-pool{ display:grid; grid-template-columns:1fr 1fr; gap:.55rem; }
+  .pc-card{ display:flex; flex-direction:column; align-items:flex-start; gap:.2rem; min-width:0; }
+  .pc-card .token.vcard{ width:100%; min-height:0; padding:.5rem .65rem; }
+  .pc-card .vc-ex{ font-size:.98rem; font-style:normal; line-height:1.35; }
+  .pc-card .vc-ex b{ font-weight:700; }
+  .pc-card .btn-cast{ margin-top:0; font-size:.74rem; padding:.2rem .7rem; }
+  .pc-card .pair-es{ margin:0 .2rem; font-size:.82rem; }
+  .p1-es{ display:block; font-family:var(--sans); font-style:normal; font-size:.85rem; color:var(--ink-muted); }
+  .vb-pre{ color:var(--ink-muted); }
+  .tg-sub.pre{ color:var(--ink-muted); font-weight:600; }
+  .vb-chip.rev{ border-color:var(--warn); background:var(--warn-bg); color:var(--warn); }
+  .tg-sub.rev{ color:var(--warn); }
+  /* Act. 33, revisión del 2026-10-16: Paso 1 de a una frase (buildSeq33), tabla de repaso */
+  .seq-la{ font-family:var(--serif); font-size:1.3rem; line-height:1.45; margin:.2rem 0 .4rem; }
+  .seq-la b{ font-weight:700; background:var(--warn-bg); padding:0 .15em; border-radius:4px; }
+  .seq-boxes{ display:grid; grid-template-columns:repeat(3, 1fr); gap:.45rem; margin-top:.9rem; }
+  .seq-box{ min-height:0; padding:.5rem .45rem .55rem; text-align:left; }
+  .seq-box .gen-name{ font-size:1.05rem; }
+  .seq-sub{ font-size:.72rem; line-height:1.25; color:var(--ink-muted); margin-bottom:.3rem; }
+  .seq-box .gen-model{ font-size:.92rem; line-height:1.3; }
+  .seq-box:disabled{ opacity:.45; cursor:default; }
+  .seq-log{ display:flex; flex-direction:column; gap:.4rem; margin:0 0 1rem; }
+  .seq-done{ padding:.4rem .7rem; border-left:4px solid var(--box); background:var(--surface); border-radius:6px; font-size:.95rem; }
+  .seq-done.rev{ border-left-style:dashed; }
+  .seq-tag{ font-weight:700; color:var(--box); margin-right:.3rem; }
+  .seq-done-la{ font-family:var(--serif); } .seq-done-la b{ color:var(--box); }
+  .tbl-decl th{ white-space:nowrap; }
+  .tbl-decl td.la b{ color:var(--accent-strong); }
+  .explain-box table.tbl-decl td, .explain-box table.tbl-decl th{ padding:.25rem .5rem .25rem 0; }
+  .tbl-decl{ width:100%; } .explain-box table.tbl-decl th{ font-size:.62rem; letter-spacing:.02em; padding-right:.35rem; } .explain-box table.tbl-decl td.la{ font-size:.95rem; padding-right:.3rem; }
+  /* Act. 34 (2026-10-16): declinación desplegable (Act. 28), bloques subrayados con fichas adentro, renglón del nivel 2 */
+  details.decl{ margin:.7rem 0 0; border:1px solid var(--rule); border-radius:10px; background:var(--surface-raised); }
+  details.decl summary{ cursor:pointer; list-style:none; padding:.55rem .8rem; font-size:.88rem; font-weight:700; color:var(--accent-strong); }
+  details.decl summary::-webkit-details-marker{ display:none; }
+  details.decl summary::before{ content:"▸ "; }
+  details.decl[open] summary::before{ content:"▾ "; }
+  .decl-body{ padding:0 .8rem .6rem; line-height:1.3; }
+  .decl-body p.mini-label{ margin:.35rem 0 .15rem; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
+  .decl-body table{ border-collapse:collapse; width:100%; font-size:.9rem; }
+  .explain-box .decl-body table tr{ display:table-row; padding:0; border:none; }
+  .explain-box .decl-body th, .explain-box .decl-body td, .decl-body th, .decl-body td{ display:table-cell; text-align:left; padding:.18rem .4rem .18rem 0; border-bottom:1px solid var(--rule); }
+  .decl-body th{ font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-muted); font-weight:700; }
+  .decl-body td.la{ font-family:var(--serif); font-style:italic; font-size:1rem; color:var(--ink); }
+  .decl-body td:first-child{ color:var(--ink-muted); font-size:.82rem; width:3.6rem; }
+  .vb-blk .vb-t, .vb-blk .vb-chip{ text-decoration:underline; text-decoration-thickness:1.5px; text-underline-offset:5px; }
+  .n2-box{ margin:0 0 .7rem; padding:.45rem .7rem; border-left:3px solid var(--correct); background:var(--surface-raised); border-radius:6px; }
+  .n2-box .n2-h{ margin:0 0 .2rem; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
+  .n2-box p{ margin:.15rem 0; font-family:var(--serif); font-size:1.08rem; line-height:1.6; }
+  .n2-box .an-w.multi, .n2-demo .u{ text-decoration:underline; text-underline-offset:4px; }
+  .n2-demo{ text-align:center; font-size:1.1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
+
+  <p class="eyebrow">Latín · Actividad 34</p>
+  <h1>Hacia el parcial 3: Dativo y genitivo</h1>
+  <p class="lede">Para preparar el parcial: qué funciones cumplen el dativo (objeto indirecto o dativo régimen) y el genitivo (especificativo, adentro de un sintagma), cómo se distinguen de formas iguales y cómo se ven en <em>is</em> e <em>ille</em>.</p>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+
+    <section class="step" id="step-s1">
+      <div class="step-nav top-nav"></div>
+      <div class="step-head"><div><p class="eyebrow">Para empezar</p><h2>El dativo: a quién, para quién</h2></div></div>
+      <div class="explain-box">
+        <h3 class="box-h">Repaso: genitivo y dativo</h3>
+        <p>Antes de las funciones, las terminaciones. Con el nominativo al lado, porque varias formas coinciden:</p>
+        <table class="tbl-mini tbl-decl">
+          <tr><th></th><th>1ª</th><th>2ª</th><th>3ª</th></tr>
+          <tr><th>Nom. sg.</th><td class="la">sagitt<b>a</b></td><td class="la">amic<b>us</b></td><td class="la">soror</td></tr>
+          <tr><th>Gen. sg.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>i</b></td><td class="la">soror<b>is</b></td></tr>
+          <tr><th>Dat. sg.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>o</b></td><td class="la">soror<b>i</b></td></tr>
+          <tr><th>Nom. pl.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>i</b></td><td class="la">soror<b>es</b></td></tr>
+          <tr><th>Gen. pl.</th><td class="la">sagitt<b>arum</b></td><td class="la">amic<b>orum</b></td><td class="la">soror<b>um</b></td></tr>
+          <tr><th>Dat. pl.</th><td class="la">sagitt<b>is</b></td><td class="la">amic<b>is</b></td><td class="la">soror<b>ibus</b></td></tr>
+        </table>
+        <ul class="val-list"><li>En la 1ª, <strong>‑ae</strong> sirve para tres casos: genitivo y dativo singular, y nominativo plural.</li><li>En la 2ª, <strong>‑i</strong> es genitivo singular o nominativo plural; el dativo singular es <strong>‑o</strong>.</li><li>En la 3ª, <strong>‑i</strong> es el dativo singular y <strong>‑is</strong>, el genitivo singular.</li></ul>
+      </div>
+      <div class="consigna"><p>Tres preguntas para pensar el dativo. La idea es intentar una respuesta con lo que ya saben y recién después abrir la que está debajo de cada pregunta.</p></div>
+      <div class="explain-box"><div class="dlg" id="dlg-s1"></div></div>
+      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-s2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Para empezar (2)</p><h2>El genitivo: «de quién»</h2></div></div>
+      <div class="consigna"><p>Dos preguntas para pensar el genitivo. La idea, otra vez, es intentar una respuesta antes de abrir la que está debajo.</p></div>
+      <div class="explain-box"><div class="dlg" id="dlg-s2"></div></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-s2-done">Continuar al calentamiento</button></div>
+    </section>
+
+    <section class="step" id="step-warm">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Calentamiento</p><h2>Del castellano al latín</h2></div><span class="step-progress" id="warm-progress">—</span></div>
+      <div class="consigna"><p>Tres frases de la <em>Eneida</em> para armar en latín, palabra por palabra. La palabra resaltada en castellano es la que sigue. En <strong>negrita</strong>, lo que en latín va en dativo o en genitivo (y el «le» que duplica al dativo).</p></div>
+      <div class="v2-seals" id="warm-seals"></div>
+      <div id="warm-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-warm-done" hidden>Continuar a Paso 1</button></div>
+    </section>
+
+    <section class="step" id="step-p1">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Dativo o genitivo, y qué función</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <div class="explain-box p1-expl">
+        <h3 class="box-h">Qué mirar en la palabra en negrita</h3>
+        <div class="p1-row c-rojo"><p class="p1-name">OI · objeto indirecto</p><p>Dativo que es el <strong>tercer elemento</strong> del verbo: el verbo ya tiene sujeto y objeto directo, y el dativo dice a quién se da, se dice o se muestra algo.</p></div>
+        <div class="p1-row c-amarillo"><p class="p1-name">Dativo régimen</p><p>Dativo que es el <strong>segundo elemento</strong> del verbo: el verbo no tiene objeto directo y pide el dativo (<em>faveo, noceo, pareo, credo</em>).</p></div>
+        <div class="p1-row c-verde"><p class="p1-name">Esp · genitivo</p><p>No depende del verbo sino de un <strong>sustantivo</strong>: va adentro de su sintagma. En el nivel 2 lleva Esp.</p></div>
+      </div>
+      <div class="consigna"><p>Una frase por vez, con una palabra en <strong>negrita</strong>, en dativo o en genitivo. Tocar el cajón de la función que cumple. «Ver traducción» muestra el castellano de la frase.</p></div>
+      <div class="p-progress" id="p1-progress"></div>
+      <div id="p1-stage"></div>
+      <div class="seq-log" id="p1-log"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-s3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Antes del Paso 2</p><h2>Los pronombres en dativo y genitivo</h2></div></div>
+      <div class="consigna"><p>Dos preguntas para pensar <em>is</em> e <em>ille</em> en dativo y en genitivo. Como antes, la idea es intentar una respuesta antes de abrir la que está debajo. Debajo están las dos declinaciones completas.</p></div>
+      <div class="explain-box"><div class="dlg" id="dlg-s3"></div><div id="s3-decl"></div></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 2</button></div>
+    </section>
+
+    <section class="step" id="step-p2">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Caso y función</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <div class="consigna"><p>En cada frase, solo son fichas las palabras terminadas en <em>‑ae, ‑i, ‑is</em> y los pronombres que pueden ser dativo o genitivo; el resto ya tiene su subíndice, en gris. Para cada ficha:</p><ol class="cons-ol"><li>decidir el <strong>caso</strong>: dativo, genitivo o nominativo;</li><li>si es dativo, decidir la <strong>función</strong>: OI o Dativo régimen; si es genitivo, <strong>de qué palabra depende</strong>; si es nominativo, S o PS.</li></ol><p>Los genitivos resueltos se anotan debajo de la frase en el <strong>nivel 2</strong>, como en el parcial. Una ficha empezada se termina antes de pasar a otra.</p></div>
+      <div class="p-progress" id="p2-progress"></div>
+      <div id="p2-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar a Paso 3</button></div>
+    </section>
+
+    <section class="step" id="step-p3">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Del castellano al análisis</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
+      <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
+      <div class="consigna"><p>Una frase en castellano y dos análisis de su versión latina: uno es correcto y el otro no puede serlo. Tocar el correcto.</p></div>
+      <div class="p-progress" id="p3-progress"></div>
+      <div id="p3-stage"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-p3-done" disabled>Finalizar actividad</button></div>
+    </section>
+    <section class="step" id="step-fin">
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="respuesta libre" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="respuesta libre" required /></div>
+      </div>
+      <div class="submit-bar">
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+        <span class="status" id="status"></span>
+      </div>
+      <p class="score-summary" id="score-summary" hidden></p>
+    </section>
+
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+
+  // Etiquetas del parcial (diseño 32-36, §2). Clave interna → texto visible (con guion que no corta: ‑).
+  // CNeg (no «CN»): Santiago, 2026-10-14 — CN y NC juntos se confunden.
+  // 2026-10-16 (§11): se retira «OI/Dativo interés». OI queda SOLO para el tercer argumento (do, dico, narro, ostendo…;
+  // Pinkster 1995, §2.2). El dativo segundo argumento (faveo, noceo, pareo, credo, appareo) es DatReg. Se suman DatPos,
+  // AblReg y CTema (de + ablativo «sobre, acerca de»; CT queda para tiempo).
+  var TAGS = {
+    NV:"NV", S:"S", OD:"OD", ODinf:"OD (Inf. Obj.)", ODci:"OD‑Constr. Inf.", OI:"OI",
+    DatReg:"Dativo régimen", DatPos:"Dativo posesivo", AblReg:"Ablativo régimen",
+    PS:"PS", PO:"PO", CL:"CL", CT:"CT", CTema:"CTema", CInst:"CInstrumento", CCausa:"CCausa", CComp:"CCompañía",
+    CNeg:"CNeg", NC:"NC", Con:"Conector",
+    N:"N", At:"At", Esp:"Esp", NS:"NS", T:"T", Apos:"Aposición"
+  };
+  var CERTE = '<span class="certe">✓ Certe</span>';
+  // Frase de ejemplo en bloque propio: latín al centro, traducción debajo (regla de diagramación del 2026-10-16).
+  function EX(la, es, src){ return '<div class="exb"><p class="exb-la">' + la + '</p><p class="exb-es">' + es + (src ? ' <span class="exb-src">(' + src + ')</span>' : '') + '</p></div>'; }
+
+  // Frases del banco de la Eneida y de la Act. 26 (publicada), según el §8 del diseño 32-36 (revisado el 2026-10-16) y las
+  // reglas de la revisión de la Act. 33 (SKILL, conv. 38). «recortada» = se sacó una cláusula entera. OI = solo tercer
+  // argumento (Pinkster, Sintaxis y semántica del latín, 1995, §2.2, p. 17); Dativo régimen = dativo segundo argumento
+  // (Pinkster, OLS I, 2015, §4.24, p. 104).
+  var DATA = {
+    sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Paso 3"]],
+
+    s1: [
+      { q:"¿Qué función cumple un dativo?",
+        a:"<p>Dos frases:</p>" +
+          EX("Dea irata <u>Aeolo</u> dicit.", "La diosa, enojada, <strong>le</strong> dice <strong>a Eolo</strong>.", "Libro I · ya la viste en la Actividad 32") +
+          EX("Anchises <u>filio suo</u> Romanos futuros ostendit.", "Anquises <strong>le</strong> muestra <strong>a su hijo</strong> los futuros romanos.", "Libro VI, recortada") +
+          "<p><span class=\"ex-latin\">dicit</span> y <span class=\"ex-latin\">ostendit</span> piden <strong>tres elementos</strong>: alguien que dice o muestra (el S), algo dicho o mostrado (el OD) y alguien a quien se le dice o se le muestra. Decir es decir algo a alguien; mostrar es mostrar algo a alguien. En la primera frase lo dicho no está escrito (viene después, en discurso directo), pero el verbo lo implica.</p>" +
+          "<p>Ese tercer elemento va en dativo y es el <strong>objeto indirecto</strong> (<span class=\"lab\">OI</span>). Lo piden los verbos de comunicación y de transferencia: <em>do, dico, narro, ostendo, promitto, mando</em>.</p>" },
+      { q:"¿Y con verbos que no tienen objeto directo?",
+        a:"<p>Dos frases:</p>" +
+          EX("Iuno <u>Troianis</u> non favet.", "Juno no <strong>les</strong> es favorable <strong>a los troyanos</strong>.", "ya la viste en la Actividad 26") +
+          EX("Troiani <u>Cassandrae</u> non credunt.", "Los troyanos no <strong>le</strong> creen <strong>a Casandra</strong>.", "ya la viste en la Actividad 26") +
+          "<p><span class=\"ex-latin\">favet</span> y <span class=\"ex-latin\">credunt</span> piden <strong>solo dos elementos</strong>: quién favorece o cree, y a quién. El dativo no es un tercer elemento sino <strong>el segundo</strong>: ocupa el lugar que en otros verbos ocupa el objeto directo. Por eso no es OI: es <strong>Dativo régimen</strong>, el dativo que el verbo rige.</p>" +
+          "<h4 class=\"dlg-sub\">Qué verbos lo piden</h4>" +
+          "<ul class=\"val-list\"><li><em>faveo</em> (favorecer), <em>noceo</em> (hacer daño), <em>pareo</em> (obedecer), <em>credo</em> (creer).</li>" +
+          "<li>Verbos compuestos con preverbio, como <em>appareo</em> (aparecerse a alguien).</li></ul>" +
+          "<p>En castellano, varios se traducen con objeto directo («Ícaro no obedece a su padre»); en latín, el verbo pide dativo. Por eso conviene aprenderlos con el caso que rigen: <em>pareo</em> + dativo.</p>" },
+      { q:"¿Cómo ayuda el castellano a encontrar un dativo?",
+        a:"<p>Si en la traducción aparece <strong>«le» o «les»</strong>, casi seguro hay un dativo en la frase latina. Por eso conviene traducir duplicando el pronombre, como en las frases de arriba:</p>" +
+          EX("Dea irata Aeolo dicit.", "La diosa, enojada, <u>le</u> dice <u>a Eolo</u>.") +
+          "<p>«le» y «a Eolo» nombran a la misma persona: en latín hay una sola palabra, <span class=\"ex-latin\">Aeolo</span>, en dativo. Sirve para los dos usos, el OI y el Dativo régimen.</p>" }
+    ],
+
+    s2: [
+      { q:"¿Qué función cumple un genitivo en la oración?",
+        a:"<p>Dos frases:</p>" +
+          EX("Cupido formam <u>Ascanii</u> sumit.", "Cupido adopta la apariencia <strong>de Ascanio</strong>.", "Libro I · ya la viste en la Actividad 32") +
+          EX("Turnus castra <u>Troianorum</u> vidit.", "Turno vio el campamento <strong>de los troyanos</strong>.", "Libro IX, recortada") +
+          "<p>El genitivo no cumple por sí solo una función en la oración: <strong>depende de un sustantivo</strong> (<span class=\"ex-latin\">formam</span>, <span class=\"ex-latin\">castra</span>) y está <strong>adentro</strong> de su sintagma. Por eso no lleva subíndice propio en el nivel 1: el subíndice es del bloque entero. Aparece en el <strong>nivel 2</strong>, como <span class=\"lab\">Esp</span>:</p>" +
+          "<p class=\"n2-demo\"><span class=\"ex-latin u\">formam Ascanii</span><sub class=\"tg-sub\">OD</sub> → <span class=\"ex-latin\">formam</span><sub class=\"tg-sub\">N</sub> <span class=\"ex-latin\">Ascanii</span><sub class=\"tg-sub\">Esp</sub></p>" +
+          "<h4 class=\"dlg-sub\">La prueba del pronombre</h4>" +
+          "<p>Si el OD se reemplaza por un pronombre, el genitivo se va con él: «Turno vio el campamento de los troyanos» → «Turno <u>lo</u> vio». «de los troyanos» no queda afuera, porque es parte del OD. Es la misma prueba que separaba al atributo del predicativo en la Actividad 33.</p>" },
+      { q:"¿Cómo se reconoce un genitivo?",
+        a:"<p>Por las terminaciones del repaso: en singular, <em>‑ae</em> (1ª), <em>‑i</em> (2ª), <em>‑is</em> (3ª); en plural, <em>‑arum</em>, <em>‑orum</em> y, en la 3ª, <em>‑um</em>. Las del plural no se confunden con nada. Las del singular, sí:</p>" +
+          "<ul class=\"val-list\"><li><em>‑ae</em> puede ser genitivo, dativo o nominativo plural (<em>sagittae</em>).</li>" +
+          "<li><em>‑i</em> puede ser genitivo de la 2ª, nominativo plural de la 2ª o dativo de la 3ª (<em>amici</em>, <em>sorori</em>).</li></ul>" +
+          "<h4 class=\"dlg-sub\">Qué decide, entonces</h4>" +
+          "<ul class=\"val-list\"><li>Si hay un <strong>sustantivo</strong> del que la palabra pueda depender («la apariencia de Ascanio»): genitivo.</li>" +
+          "<li>Si el <strong>verbo</strong> pide un elemento más, a quién: dativo.</li>" +
+          "<li>Si el verbo está en <strong>plural</strong> y no tiene otro sujeto: nominativo plural.</li></ul>" }
+    ],
+
+    s3: [
+      { q:"¿Cómo se ve <em>is</em> en dativo y en genitivo?",
+        a:"<p>Dos frases:</p>" +
+          EX("Soror autem <u>ei</u> consilium dat.", "Pero la hermana <strong>le</strong> da un consejo.", "Libro IV · ya la viste en la Actividad 32") +
+          EX("Pyrrhus Priamum et filium <u>eius</u> occidit.", "Pirro mata a Príamo y a <strong>su</strong> hijo.", "Libro II, recortada") +
+          "<ul class=\"val-list\"><li><span class=\"ex-latin\">ei</span> es el <strong>dativo</strong> singular: <span class=\"ex-latin\">dat</span> ya tiene OD (<span class=\"ex-latin\">consilium</span>), y <span class=\"ex-latin\">ei</span> es a quién se lo da: OI.</li>" +
+          "<li><span class=\"ex-latin\">eius</span> es el <strong>genitivo</strong> singular: depende de <span class=\"ex-latin\">filium</span>, «el hijo <strong>de él</strong>». En castellano suena mejor «su hijo». En el nivel 2, <span class=\"ex-latin\">eius</span> es Esp.</li></ul>" +
+          "<p>Dativo: <em>ei</em> (singular), <em>eis</em> (plural). Genitivo: <em>eius</em> (singular), <em>eorum, earum</em> (plural).</p>" },
+      { q:"¿Y <em>ille</em>?",
+        a:"<p>Dativo: <em>illi</em> (singular), <em>illis</em> (plural). Genitivo: <em>illius</em> (singular), <em>illorum, illarum</em> (plural).</p>" +
+          "<p>Pero <em>illi</em> es también el <strong>nominativo plural</strong> masculino («ellos»), como <em>illae</em> es el femenino:</p>" +
+          EX("Iris feminas Troianas incitat; <u>illae</u> naves incendunt.", "Iris incita a las mujeres troyanas; <strong>ellas</strong> incendian las naves.", "Libro V, recortada") +
+          "<p>Lo que decide es el verbo: si está en plural y no tiene otro sujeto, <em>illi</em> es el sujeto. Con <em>is</em> pasa algo parecido, porque <em>ei</em> también puede ser nominativo plural; pero como sujeto que cambia se usa <em>ille</em>.</p>" }
+    ],
+
+    // ---------- Paso 1 · OI · Dativo régimen · Esp, una frase por vez (buildSeq33). Revisión de la Act. 33: pocas categorías,
+    // sin repreguntas. Las dos tarjetas «S (parece dativo o genitivo)» del §8 salen (no es una función del dativo ni del
+    // genitivo); los nominativos plurales en ‑i se practican en el Paso 2 (illi).
+    paso1: {
+      paso: "1 - Dativo o genitivo",
+      hint: "Queda un intento: mirar si la palabra depende de un sustantivo o del verbo, y si el verbo ya tiene objeto directo.",
+      columns: [
+        { key:"OI",     color:"c-rojo",     name:"OI",             sub:"dativo: tercer elemento", model:"<span class=\"la\">Dea <b>Aeolo</b> dicit</span>" },
+        { key:"DatReg", color:"c-amarillo", name:"Dativo régimen", sub:"dativo: segundo elemento", model:"<span class=\"la\">Iuno <b>Troianis</b> non favet</span>" },
+        { key:"Esp",    color:"c-verde",    name:"Esp",            sub:"genitivo: depende de un sustantivo", model:"<span class=\"la\">formam <b>Ascanii</b> sumit</span>" }
+      ],
+      words: [
+        { tag:"Iulo", la:"Euryalus matrem <b>Iulo</b> commendavit.", es:"Euríalo le encomendó su madre a Iulo.", wes:"a Iulo", correct:"OI",
+          why:"<em>Iulo</em> (‑o, 2ª declinación) es dativo. <em>commendavit</em> ya tiene OD (<em>matrem</em>): <em>Iulo</em> es el tercer elemento, a quién se la encomienda. OI." },
+        { tag:"Latinis", la:"Aeneas <b>Latinis</b> pacem dedit.", es:"Eneas les dio la paz a los latinos.", wes:"a los latinos", correct:"OI",
+          why:"<em>Latinis</em> (‑is) es dativo plural. <em>dedit</em> ya tiene OD (<em>pacem</em>): <em>Latinis</em> es a quiénes se la da. OI." },
+        { tag:"patri", la:"Icarus <b>patri</b> non paret.", es:"Ícaro no le obedece a su padre.", wes:"a su padre", correct:"DatReg",
+          why:"<em>patri</em> (‑i, 3ª declinación) es dativo. <em>paret</em> pide solo dos elementos, quién obedece y a quién: el dativo es el segundo. Dativo régimen." },
+        { tag:"fratri", la:"Ariadna <b>fratri</b> nocet.", es:"Ariadna le hace daño a su hermano.", wes:"a su hermano", correct:"DatReg",
+          why:"<em>fratri</em> (‑i, 3ª declinación) es dativo. <em>nocet</em> no tiene OD: pide quién hace daño y a quién. Dativo régimen." },
+        { tag:"castrorum", la:"Nisus et Euryalus portam <b>castrorum</b> simul custodiverunt.", es:"Niso y Euríalo custodiaron juntos la puerta del campamento.", wes:"del campamento", correct:"Esp",
+          why:"<em>castrorum</em> (‑orum) es genitivo plural. Depende de <em>portam</em>: «la puerta del campamento». Está adentro del OD; en el nivel 2, Esp." },
+        { tag:"deorum", la:"Mater <b>deorum</b> naves in nymphas vertit.", es:"La madre de los dioses convirtió las naves en ninfas.", wes:"de los dioses", correct:"Esp",
+          why:"<em>deorum</em> (‑orum) es genitivo plural. Depende de <em>Mater</em>: «la madre de los dioses». Está adentro del sujeto; en el nivel 2, Esp." }
+      ]
+    },
+
+    // ---------- Paso 2 · caso y función (buildFunc de la 33, extendido para el genitivo). Fichas = formas en ‑ae, ‑i, ‑is y
+    // pronombres en dativo o genitivo, y sus dobles (illi, nominativo plural). Para el genitivo, la segunda pregunta es «¿de qué
+    // palabra depende?» (dep = índice correcto, deps = opciones); al resolverlo se anota el nivel 2 debajo de la frase (n2).
+    // blocks = constituyentes de varias palabras (subrayados); pre = subíndices ya puestos, en gris, sobre la última palabra.
+    paso2: {
+      paso: "2 - Caso y función",
+      cases: [["dat","Dativo"],["gen","Genitivo"],["nom","Nominativo"]],
+      funcs: ["OI","DatReg","S","PS"],
+      funcCase: { OI:"dat", DatReg:"dat", S:"nom", PS:"nom" },
+      funcsByCase: { dat:["OI","DatReg"], nom:["S","PS"] },
+      items: [
+        { src:"P2 · 1 (Libro II)", es:"Sinón les cuenta a los troyanos una explicación falsa, y ellos le creen.",
+          words:["Sinon","Troianis","falsam","causam","narrat,","et","illi","ei","credunt."], blocks:[[2,3]], pre:{ 0:"S", 3:"OD", 4:"NV", 5:"NC", 8:"NV" },
+          v:[ { i:1, c:"dat", f:"OI", es:"a los troyanos", cw:"‑is es dativo (o ablativo) plural de la 1ª y la 2ª. El nominativo sería <em>Troiani</em> y el genitivo, <em>Troianorum</em>.",
+                why:"dativo plural (‑is). <em>narrat</em> ya tiene OD (<em>falsam causam</em>): <em>Troianis</em> es el tercer elemento, a quiénes se cuenta.",
+                bad:{ DatReg:"<em>narrat</em> pide tres elementos: quién cuenta, qué cuenta (<em>falsam causam</em>) y a quién. El dativo es el tercero." } },
+              { i:6, c:"nom", f:"S", es:"ellos", cw:"<em>illi</em> podría ser dativo singular de <em>ille</em>, pero <em>credunt</em> está en plural y no tiene otro sujeto: es nominativo plural.",
+                why:"nominativo plural de <em>ille</em>: <em>credunt</em> (3ª del plural) no tiene otro sujeto. Son los troyanos, que ahora pasan a ser el sujeto.",
+                bad:{ PS:"<em>illi</em> concuerda con <em>credunt</em>: es el que cree, no lo que se dice de él." } },
+              { i:7, c:"dat", f:"DatReg", es:"le (a Sinón)", cw:"<em>ei</em> es el dativo singular de <em>is</em>; el sujeto de <em>credunt</em> ya es <em>illi</em>.",
+                why:"dativo de <em>is</em> (retoma a Sinón). <em>credunt</em> pide solo dos elementos, quién cree y a quién; no hay un tercero. En la misma frase está el contraste: <em>narrat</em> tiene OD, y por eso <em>Troianis</em> es OI.",
+                bad:{ OI:"<em>credunt</em> no tiene OD: pide quién cree y a quién. El dativo es el segundo elemento, no el tercero." } } ] },
+        { src:"P2 · 2 (Libro IX)", es:"La madre de Euríalo vio la cabeza de su hijo y lloró.",
+          words:["Mater","Euryali","caput","filii","vidit","et","flevit."], blocks:[[0,1],[2,3]], pre:{ 1:"S", 3:"OD", 4:"NV", 5:"NC", 6:"NV" },
+          v:[ { i:1, c:"gen", f:"Esp", dep:0, deps:[0,2,4], es:"de Euríalo", n2:"Mater_Euryali[S] → Mater[N] Euryali[Esp]",
+                cw:"‑i puede ser genitivo singular o nominativo plural de la 2ª; el dativo sería <em>Euryalo</em>. Y no es nominativo plural: <em>vidit</em> está en singular y hay un solo Euríalo.",
+                why:"genitivo singular (‑i, 2ª declinación): «la madre de Euríalo». Está adentro del sujeto.",
+                bad:{ 2:"<em>caput</em> ya tiene su genitivo, <em>filii</em>: «la cabeza del hijo».", 4:"Un genitivo no depende del verbo, sino de un sustantivo." } },
+              { i:3, c:"gen", f:"Esp", dep:2, deps:[0,2,4], es:"de su hijo", n2:"caput_filii[OD] → caput[N] filii[Esp]",
+                cw:"‑i puede ser genitivo singular o nominativo plural de la 2ª; el dativo sería <em>filio</em>. Y el sujeto ya es <em>Mater</em>.",
+                why:"genitivo singular (‑i, 2ª declinación): «la cabeza de su hijo». Está adentro del OD.",
+                bad:{ 0:"<em>Mater</em> ya tiene su genitivo, <em>Euryali</em>: «la madre de Euríalo».", 4:"Un genitivo no depende del verbo, sino de un sustantivo." } } ] },
+        { src:"P2 · 3 (Libro XI)", es:"Evandro le encargó a Eneas la muerte de Turno.",
+          words:["Evander","Aeneae","mortem","Turni","mandavit."], blocks:[[2,3]], pre:{ 0:"S", 3:"OD", 4:"NV" },
+          v:[ { i:1, c:"dat", f:"OI", es:"a Eneas", cw:"‑ae puede ser genitivo o dativo singular (o nominativo plural). No hay un sustantivo del que dependa, y <em>mandavit</em> pide a quién se encarga algo: dativo.",
+                why:"dativo (‑ae, 1ª declinación). <em>mandavit</em> ya tiene OD (<em>mortem Turni</em>): <em>Aeneae</em> es a quién se le encarga, el tercer elemento.",
+                bad:{ DatReg:"<em>mandavit</em> tiene OD (<em>mortem Turni</em>): el dativo es el tercer elemento." } },
+              { i:3, c:"gen", f:"Esp", dep:2, deps:[0,2,4], es:"de Turno", n2:"mortem_Turni[OD] → mortem[N] Turni[Esp]",
+                cw:"‑i, 2ª declinación: genitivo singular. El dativo sería <em>Turno</em>, y no es nominativo plural (hay un solo Turno).",
+                why:"genitivo singular (‑i): «la muerte de Turno». Está adentro del OD.",
+                bad:{ 0:"«Evandro de Turno» no tiene sentido: <em>Turni</em> va con <em>mortem</em>.", 4:"Un genitivo no depende del verbo, sino de un sustantivo." } } ] },
+        { src:"P2 · 4 (Actividad 26)", es:"Minerva le es favorable a Ulises, pero Neptuno no le es favorable.",
+          words:["Minerva","Vlixi","favet,","sed","Neptunus","ei","non","favet."], pre:{ 0:"S", 2:"NV", 3:"NC", 4:"S", 6:"CNeg", 7:"NV" },
+          v:[ { i:1, c:"dat", f:"DatReg", es:"a Ulises", cw:"‑i es el dativo singular de <em>Vlixes, Vlixis</em> (3ª declinación); el genitivo sería <em>Vlixis</em>.",
+                why:"dativo (‑i, 3ª declinación). <em>favet</em> pide solo dos elementos, quién favorece y a quién.",
+                bad:{ OI:"<em>favet</em> no tiene OD: el dativo es el segundo elemento, no el tercero." } },
+              { i:5, c:"dat", f:"DatReg", es:"le (a Ulises)", cw:"<em>ei</em> es el dativo singular de <em>is</em>; el sujeto de <em>favet</em> ya es <em>Neptunus</em>.",
+                why:"dativo de <em>is</em> (retoma a Ulises). Otra vez <em>favet</em>: solo dos elementos.",
+                bad:{ OI:"<em>favet</em> no tiene OD: el dativo es el segundo elemento, no el tercero." } } ] }
+      ]
+    },
+
+    // ---------- Paso 3 · del castellano al análisis (buildAnal): el correcto y uno claramente absurdo. Una sola repregunta
+    // (frase 2): «¿Cuál de estas tres está en dativo?».
+    paso3: {
+      paso: "3 - Del castellano al análisis",
+      items: [
+        { src:"P3 · 1 (Libro XII)", es:"Turno tomó la lanza y le prometió la muerte a Eneas.",
+          ok:"Turnus[S] hastam[OD] cepit[NV] et[NC] Aeneae[OI] mortem[OD] promisit[NV] .",
+          bad:["Turnus[CL] hastam[NV] cepit[S] et[OD] Aeneae[NV] mortem[NC] promisit[PS] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>Aeneae</em> (‑ae) es el dativo: a quién le promete la muerte, el tercer elemento de <em>promisit</em> (OI). <em>hastam</em> y <em>mortem</em> son los OD; <em>cepit</em> y <em>promisit</em>, los NV."] },
+        { src:"P3 · 2 (Libro XII)", es:"Júpiter le concedió a Juno el nombre latino.",
+          ok:"Iuppiter[S] Iunoni[OI] nomen_Latinum[OD] concessit[NV] .",
+          bad:["Iuppiter[NV] Iunoni[CL] nomen_Latinum[S] concessit[OI] .", "<em>Iuppiter</em> es el sujeto y <em>concessit</em>, el NV. <em>Iunoni</em> (‑i, 3ª) es dativo: a quién le concede Júpiter, el tercer elemento (OI). <em>nomen Latinum</em> es lo concedido: OD."],
+          st:{ q:"¿Cuál de estas tres está en dativo?", ok:"Iunoni", bad:["Iuno","Iunonem"], why:"<em>Iunoni</em>: dativo singular (‑i). <em>Iuno</em> es nominativo y <em>Iunonem</em>, acusativo." } },
+        { src:"P3 · 3 (Libro XII)", es:"Juno quiso borrar el nombre de los troyanos.",
+          ok:"Iuno[S] nomen_Troianorum_delere[ODci] voluit[NV] .",
+          bad:["Iuno[NV] nomen_Troianorum_delere[CL] voluit[S] .", "<em>Iuno</em> es el sujeto y <em>voluit</em>, el NV. <em>Troianorum</em> (‑orum) es genitivo: depende de <em>nomen</em> y va adentro del bloque. Todo <em>nomen Troianorum delere</em> es lo que Juno quiso: OD‑Constr. Inf."] }
+      ]
+    }
+  };
+
+  // ---------- Calentamiento: armado del castellano al latín, sin señuelos. **x** = lo que en latín va en dativo o genitivo
+  // (y el «le» que lo duplica). Una sola repregunta (frase 1), con la devolución importante en su why (SKILL, conv. 38).
+  var WARMUP34 = [
+    { src:"Calentamiento 1 (Libro IX)", arco:"Aeneis IX · Nisus",
+      words:["Nisus","amico","consilium","suum","dixit."], decoys:[],
+      al:"{0:Niso} **le** {4:dijo} {3:su} {2:plan} {1:**al amigo**}.",
+      expl:"<em>amico</em> (‑o, 2ª declinación) es dativo: <em>dixit</em> ya tiene OD (<em>consilium suum</em>), y <em>amico</em> es a quién se lo dice, el OI.",
+      st:{ q:"<em>amico</em> es dativo singular, «al amigo». ¿Cómo sería «a los amigos»?", ok:"amicis", bad:["amicos","amicorum"], why:"<em>amicis</em>, «a los amigos»: dativo plural (‑is). <em>amicos</em> es acusativo plural («a los amigos» como OD) y <em>amicorum</em>, genitivo plural («de los amigos»)." } },
+    { src:"Calentamiento 2 (Libro XI)", arco:"Aeneis XI · Camilla",
+      words:["Camilla","Turno","auxilium","promisit."], decoys:[],
+      al:"{0:Camila} **le** {3:prometió} {2:ayuda} {1:**a Turno**}.",
+      expl:"<em>Turno</em> (‑o) es dativo: <em>promisit</em> ya tiene OD (<em>auxilium</em>), y <em>Turno</em> es a quién se la promete, el OI." },
+    { src:"Calentamiento 3 (Libro VIII, recortada)", arco:"Aeneis VIII · Clipeus",
+      words:["Aeneas","clipeum","Volcani","spectat."], decoys:[],
+      al:"{0:Eneas} {3:contempla} {1:el escudo} {2:**de Vulcano**}.",
+      expl:"<em>Volcani</em> (‑i, 2ª declinación) es genitivo: depende de <em>clipeum</em>, «el escudo de Vulcano». No depende del verbo: está adentro del OD." }
+  ];
+
+  // Declinaciones de is e ille (desplegable «Ver la declinación de…», Act. 28).
+  var DECL = {
+    is: { title: "is, ea, id",
+      sg: [["nom.","is","ea","id"],["gen.","eius","eius","eius"],["dat.","ei","ei","ei"],["ac.","eum","eam","id"],["abl.","eo","ea","eo"]],
+      pl: [["nom.","ei (ii)","eae","ea"],["gen.","eorum","earum","eorum"],["dat.","eis (iis)","eis (iis)","eis (iis)"],["ac.","eos","eas","ea"],["abl.","eis (iis)","eis (iis)","eis (iis)"]] },
+    ille: { title: "ille, illa, illud",
+      sg: [["nom.","ille","illa","illud"],["gen.","illius","illius","illius"],["dat.","illi","illi","illi"],["ac.","illum","illam","illud"],["abl.","illo","illa","illo"]],
+      pl: [["nom.","illi","illae","illa"],["gen.","illorum","illarum","illorum"],["dat.","illis","illis","illis"],["ac.","illos","illas","illa"],["abl.","illis","illis","illis"]] }
+  };
+  function declBox(kind){
+    var d = DECL[kind];
+    function tbl(rows){
+      return '<table><tr><th></th><th>masc.</th><th>fem.</th><th>neutro</th></tr>' + rows.map(function(r){
+        return '<tr><td>' + r[0] + '</td><td class="la">' + r[1] + '</td><td class="la">' + r[2] + '</td><td class="la">' + r[3] + '</td></tr>';
+      }).join("") + '</table>';
+    }
+    var el = document.createElement("details"); el.className = "decl";
+    el.innerHTML = '<summary>Ver la declinación de ' + d.title + '</summary><div class="decl-body"><p class="mini-label">Singular</p>' + tbl(d.sg) + '<p class="mini-label">Plural</p>' + tbl(d.pl) + '</div>';
+    return el;
+  }
+
+  var IDK = "No lo sé todavía";
+  var IDK_VALUE = "__idk__";
+
+  function shuffled(arr){
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+    return a;
+  }
+
+  var identity = { email:"" };
+  var submitLog = [];
+  var flagged = {};
+  var retryQueue = [], retryIndex = 0;
+
+  // ---------- Guardar/retomar progreso (convención 3) ----------
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId, submitLog: submitLog, flagged: Object.keys(flagged) })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.getElementById("main").classList.add("visible");
+    if (restored && restored.step){
+      submitLog = restored.submitLog || [];
+      (restored.flagged || []).forEach(function(k){ flagged[k] = true; });
+      showStep(document.getElementById(restored.step) ? restored.step : "step-s1");
+    } else {
+      showStep("step-s1");
+    }
+    window.scrollTo({ top:0, behavior:"auto" });
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"auto" });
+  }
+
+  Array.from(document.querySelectorAll("[data-back-step]")).forEach(function(button){
+    button.addEventListener("click", function(){
+      var previousStep = button.dataset.backStep;
+      saveProgress(previousStep);
+      showStep(previousStep);
+    });
+  });
+
+  // ---------- "Primer intento": aciertos seguidos sin ningún error ----------
+  function makeStreak(el){
+    var n = 0;
+    function render(){ el.textContent = "Primer intento: " + n; el.classList.toggle("zero", n === 0); }
+    render();
+    return { hit: function(){ n++; render(); }, reset: function(){ n = 0; render(); } };
+  }
+
+  function v2el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  function renderParts(row, parts, makeDD){
+    var pending = null;
+    parts.forEach(function(part, pi){
+      if (typeof part === "string"){
+        part.split(" ").filter(Boolean).forEach(function(w){
+          if (pending && /^[,.;:!?]+$/.test(w)){ pending.appendChild(document.createTextNode(w)); pending = null; return; }
+          pending = null;
+          row.appendChild(v2el("span", null, w));
+        });
+        return;
+      }
+      var sel = makeDD(part);
+      var nx = parts[pi + 1];
+      if (typeof nx === "string" && /^[,.;:!?]/.test(nx)){
+        var keep = v2el("span"); keep.style.whiteSpace = "nowrap"; keep.appendChild(sel); row.appendChild(keep); pending = keep;
+      } else row.appendChild(sel);
+    });
+  }
+
+  function boxEl(wrap, box, cls, label){
+    var d = v2el("div", cls, label ? "<span>" + label + "</span>" : null);
+    d.style.left = box[0] + "%"; d.style.top = box[1] + "%"; d.style.width = box[2] + "%"; d.style.height = box[3] + "%";
+    wrap.appendChild(d); return d;
+  }
+  function translationToggle(cfg, it, host){
+    var es = v2el("p", "comic-es"); es.hidden = true;
+    var toggle = v2el("button", "btn-cast", "Ver traducción"); toggle.type = "button";
+    toggle.addEventListener("click", function(){
+      if (es.hidden){ es.textContent = "Traducción: " + it.es; es.hidden = false; toggle.textContent = "Ocultar traducción"; }
+      else { es.hidden = true; toggle.textContent = "Ver traducción"; }
+      if (!toggle._logged){ toggle._logged = true; submitLog.push({ paso: cfg.paso, item: (it.src || it.latin) + " (traducción)", respuesta: "vio la traducción", correcta: null }); }
+    });
+    host.appendChild(toggle); host.appendChild(es);
+    return { reveal: function(){ es.textContent = "Traducción: " + it.es; es.hidden = false; if (toggle.parentNode) toggle.remove(); },
+             hide: function(){ toggle.hidden = true; }, show: function(){ toggle.hidden = false; } };
+  }
+
+  // ---------- Calentamiento (de la Act. 27) ----------
+  function warmArmado(host, it, onDone){
+    var cur = 0, errs = 0, slotErr = 0, rev = {}, used = {}, bad = {}, msg = "", msgBad = false, done = false;
+    var bank = shuffled(it.words.map(function(w, k){ return { t: w, k: k }; }).concat(it.decoys.map(function(w){ return { t: w, k: -1 }; })));
+    function bare(w){ return w.replace(/[,.;:!?]+$/, ""); }
+    function esHtml(){
+      return it.al.replace(/\{([\d,]+):([^}]*)\}/g, function(_, ids, txt){
+        var on = !done && ids.split(",").map(Number).indexOf(cur) !== -1;
+        return '<span class="' + (on ? "on" : "") + '">' + txt.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>") + '</span>';
+      }).replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+    }
+    function tap(bi){
+      if (done || used[bi] || bad[bi]) return;
+      var c = bank[bi];
+      if (c.k === cur){ used[bi] = true; cur++; slotErr = 0; msg = ""; msgBad = false; }
+      else if (c.k > cur){ msg = "Esa va, pero más adelante."; msgBad = false; }
+      else {
+        bad[bi] = true; errs++; slotErr++; msgBad = true;
+        msg = it.bad || "Esa palabra no va acá: mirar qué palabra resaltada sigue en castellano.";
+        if (slotErr >= 2){
+          for (var j = 0; j < bank.length; j++) if (bank[j].k === cur){ used[j] = true; break; }
+          rev[cur] = true; cur++; slotErr = 0; msg = "Esta es la forma que iba (en amarillo)."; msgBad = false;
+        }
+      }
+      if (cur >= it.words.length){ done = true; render(); onDone(Object.keys(rev).length === 0, errs); return; }
+      render();
+    }
+    function render(){
+      host.innerHTML = "";
+      host.appendChild(v2el("p", "v2-es", esHtml()));
+      var slots = v2el("div", "v2-slots");
+      it.words.forEach(function(w, k){
+        var cls = k < cur ? (rev[k] ? " rev" : " fill") : (k === cur && !done ? " cur" : "");
+        slots.appendChild(v2el("div", "v2-slot" + cls, k < cur ? w : "&nbsp;"));
+      });
+      host.appendChild(slots);
+      if (done){
+        host.appendChild(v2el("div", "warm-expl" + (Object.keys(rev).length ? " rev" : ""), (Object.keys(rev).length ? "" : CERTE + " ") + it.expl));
+        return;
+      }
+      var bk = v2el("div", "v2-bank");
+      bank.forEach(function(c, bi){
+        var b = v2el("button", "v2-chip" + (used[bi] ? " used" : "") + (bad[bi] ? " bad" : ""), bare(c.t));
+        b.type = "button"; b.disabled = !!(used[bi] || bad[bi]);
+        b.addEventListener("click", function(){ tap(bi); });
+        bk.appendChild(b);
+      });
+      host.appendChild(bk);
+      host.appendChild(v2el("p", "v2-msg" + (msgBad ? " bad" : ""), msg || "La palabra resaltada en castellano es la que sigue en latín."));
+    }
+    render();
+  }
+
+  // Una frase por vez; al terminar cada una, «Siguiente frase».
+  function buildWarm(items, stageEl, progressEl, doneBtn, sealsEl){
+    var arcs = items.map(function(it){ return it.arco; });
+    var lit = {}, k = 0;
+    function seals(){
+      sealsEl.innerHTML = "";
+      arcs.forEach(function(a){ sealsEl.appendChild(v2el("span", "v2-seal" + (lit[a] ? " on" : ""), a)); });
+    }
+    function show(){
+      var it = items[k];
+      progressEl.textContent = k + " / " + items.length;
+      stageEl.innerHTML = "";
+      var card = v2el("div", "stage-card");
+      if (it.img) card.appendChild(v2el("div", "v2-warm-img", '<img src="' + it.img + '" alt="">'));
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
+      var host = v2el("div"); card.appendChild(host);
+      stageEl.appendChild(card);
+      warmArmado(host, it, function(ok, errs){
+        submitLog.push({ paso: "0 - Calentamiento", item: it.arco + " · " + it.src, respuesta: ok ? "completa" : "con palabras reveladas", correcta: ok, errores: errs });
+        lit[it.arco] = true; seals();
+        progressEl.textContent = (k + 1) + " / " + items.length;
+        if (k < items.length - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ k++; show(); stageEl.scrollIntoView({ block:"start", behavior:"auto" }); });
+          card.appendChild(nx);
+        } else doneBtn.hidden = false;
+      });
+    }
+    seals(); show();
+  }
+
+  // ---------- Paso 1 · cajones (de la Act. 27) ----------
+  function buildBoxes(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var pool = document.getElementById(pre + "-pool"), boxesHost = document.getElementById(pre + "-boxes"), msgEl = document.getElementById(pre + "-msg");
+    var boxes = {}, holders = {}, sel = null, total = cfg.words.length, resolved = 0;
+    function say(t, cls){ msgEl.innerHTML = t; msgEl.className = "gen-msg" + (cls ? " " + cls : ""); }
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Tarjetas clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = resolved < total;
+    }
+    function arm(on){ Object.keys(boxes).forEach(function(k){ boxes[k].classList.toggle("armed", on); boxes[k].classList.remove("flash-bad"); }); }
+    function place(w, rev){
+      resolved++; w._chip.remove();
+      holders[w.correct].appendChild(v2el("span", "token gen-in" + (rev ? " gen-rev" : ""), w.word));
+      sel = null; arm(false); upd();
+    }
+    cfg.columns.forEach(function(c){
+      var b = v2el("button", "gen-box " + c.color); b.type = "button";
+      b.appendChild(v2el("div", "gen-model", c.model));
+      b.appendChild(v2el("div", "gen-pat", c.pat));
+      holders[c.key] = v2el("div"); b.appendChild(holders[c.key]);
+      b.addEventListener("click", function(){
+        if (!sel){ say("Primero, una tarjeta: después, el cajón."); return; }
+        var w = sel;
+        if (c.key === w.correct){
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: true, primerIntento: w._tried === 0, final: true });
+          if (w._tried === 0) streak.hit();
+          say(CERTE + " " + w.word + ": " + c.name + ".", "ok"); place(w, false); return;
+        }
+        w._tried++;
+        submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+        if (w._tried === 1){ streak.reset(); b.classList.add("flash-bad"); say("No va en ese cajón. " + (cfg.hint || "Queda un intento."), "bad"); }
+        else {
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          say("Tampoco. " + w.word + " quedó en su cajón (con borde punteado).", "bad"); place(w, true);
+        }
+      });
+      boxes[c.key] = b; boxesHost.appendChild(b);
+    });
+    shuffled(cfg.words).forEach(function(w){
+      w._tried = 0;
+      var chip = v2el("button", "token" + (w.ex ? " vcard" : ""), w.ex ? '<span class="vc-w">' + w.word + '</span><span class="vc-ex">' + w.ex + '</span><span class="vc-es">' + w.es + '</span>' : w.word); chip.type = "button"; w._chip = chip;
+      chip.addEventListener("click", function(){
+        Array.prototype.forEach.call(pool.children, function(ch){ ch.classList.remove("sel"); });
+        if (sel === w){ sel = null; arm(false); say(""); return; }
+        sel = w; chip.classList.add("sel"); arm(true); say("");
+      });
+      pool.appendChild(chip);
+    });
+    upd();
+  }
+
+  // ---------- Separadores dialogados (Act. 32): pregunta + «Ver la respuesta». No suman decisiones. ----------
+  function buildDialog(hostId, items){
+    var host = document.getElementById(hostId);
+    items.forEach(function(it){
+      var box = v2el("div", "dlg-item");
+      box.appendChild(v2el("p", "dlg-q", '<span class="dlg-who">Pregunta</span>' + it.q));
+      var a = v2el("div", "dlg-a", it.a); a.hidden = true;
+      var b = v2el("button", "dlg-btn", "Ver la respuesta"); b.type = "button";
+      b.addEventListener("click", function(){
+        a.hidden = !a.hidden; b.textContent = a.hidden ? "Ver la respuesta" : "Ocultar la respuesta";
+      });
+      box.appendChild(b); box.appendChild(a);
+      host.appendChild(box);
+    });
+  }
+
+  // ---------- Repregunta (Act. 32, «Stretch It» de Lemov, Teach Like a Champion 3.0, técnica 17: la recompensa de una
+  // respuesta correcta es una pregunta un poco más exigente). Aparece SOLO tras un acierto al primer intento, en lugar de
+  // una explicación que el ojo saltea. st = {q, ok, bad:[…], why}. Un intento; no suma al resultado (paso "Repregunta").
+  // Mientras está pendiente, el paso no avanza. ----------
+  function stretchBox(host, st, item, onDone){
+    var box = v2el("div", "st-box");
+    box.appendChild(v2el("p", "st-h", "Repregunta"));
+    box.appendChild(v2el("p", "st-q", st.q));
+    var row = v2el("div", "tg-pal"), msg = v2el("p", "st-msg"), over = false, btns = [];
+    shuffled([{ t: st.ok, ok: true }].concat(st.bad.map(function(b){ return { t: b }; }))).forEach(function(o){
+      var b = v2el("button", "tg-tag st-opt", o.t); b.type = "button"; o.el = b; btns.push(o);
+      b.addEventListener("click", function(){
+        if (over) return; over = true;
+        submitLog.push({ paso: "Repregunta", item: item + " · " + st.q.replace(/<[^>]+>/g, ""), respuesta: o.t.replace(/<[^>]+>/g, ""), correcta: !!o.ok, primerIntento: !!o.ok, final: true });
+        btns.forEach(function(x){ x.el.disabled = true; if (x.ok) x.el.classList.add("st-right"); });
+        if (o.ok){ msg.innerHTML = CERTE + (st.why ? " " + st.why : ""); }
+        else { b.classList.add("st-wrong"); msg.className = "st-msg bad"; msg.innerHTML = st.why ? "No. " + st.why : "No: era <em>" + st.ok + "</em>."; }
+        if (onDone) onDone();
+      });
+      row.appendChild(b);
+    });
+    box.appendChild(row); box.appendChild(msg);
+    host.appendChild(box);
+    return box;
+  }
+
+  // ---------- Calentamiento (warmArmado de la 27) con repregunta al terminar sin errores ----------
+  function buildWarm32(items, stageEl, progressEl, doneBtn, sealsEl){
+    var lit = {}, k = 0;
+    function seals(){
+      sealsEl.innerHTML = "";
+      items.forEach(function(it){ sealsEl.appendChild(v2el("span", "v2-seal" + (lit[it.arco] ? " on" : ""), it.arco)); });
+    }
+    function show(){
+      var it = items[k];
+      progressEl.textContent = k + " / " + items.length;
+      stageEl.innerHTML = "";
+      var card = v2el("div", "stage-card");
+      card.appendChild(v2el("p", "v2-arc-tag", "<em>" + it.arco + "</em>"));
+      var host = v2el("div"); card.appendChild(host);
+      stageEl.appendChild(card);
+      warmArmado(host, it, function(ok, errs){
+        submitLog.push({ paso: "0 - Calentamiento", item: it.arco + " · " + it.src, respuesta: ok ? "completa" : "con palabras reveladas", correcta: ok, errores: errs });
+        lit[it.arco] = true; seals();
+        progressEl.textContent = (k + 1) + " / " + items.length;
+        function next(){
+          if (k < items.length - 1){
+            var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+            nx.addEventListener("click", function(){ k++; show(); stageEl.scrollIntoView({ block:"start", behavior:"auto" }); });
+            card.appendChild(nx);
+          } else doneBtn.hidden = false;
+        }
+        if (errs === 0 && it.st){ var ex = host.querySelector(".warm-expl"); if (ex) ex.remove(); stretchBox(card, it.st, it.src, next); }
+        else next();
+      });
+    }
+    seals(); show();
+  }
+
+  // ---------- Pares para comparar (separador del imperativo): tocar la frase que da la orden. «Ver traducción» por par.
+  // No suma al resultado. Al resolver todos los pares aparece la regla (ruleId). ----------
+  function buildPairs(hostId, pairs, ruleId){
+    var host = document.getElementById(hostId), left = pairs.length;
+    pairs.forEach(function(pr, n){
+      var card = v2el("div", "stage-card pair-card");
+      card.appendChild(v2el("p", "scene-count", "Par " + (n + 1) + " de " + pairs.length));
+      var opts = v2el("div", "pair-opts"), msg = v2el("p", "tr-msg"), over = false, wrong = 0, btns = [];
+      shuffled([pr.a, pr.b]).forEach(function(o){
+        var wrapO = v2el("div", "pair-opt");
+        var b = v2el("button", "tr-opt la-opt", '<span class="ex-latin">' + o.la + "</span>"); b.type = "button";
+        var es = v2el("p", "pair-es", o.es); es.hidden = true;
+        var t = v2el("button", "btn-cast pair-tr", "Ver traducción"); t.type = "button";
+        t.addEventListener("click", function(){ es.hidden = !es.hidden; t.textContent = es.hidden ? "Ver traducción" : "Ocultar traducción"; });
+        wrapO.appendChild(b); wrapO.appendChild(t); wrapO.appendChild(es);
+        btns.push({ b: b, o: o });
+        b.addEventListener("click", function(){
+          if (over || b.disabled) return;
+          if (o.imp){
+            over = true; b.classList.add("ok");
+            btns.forEach(function(x){ x.b.disabled = true; });
+            function fin(){ if (--left === 0) document.getElementById(ruleId).hidden = false; }
+            msg.className = "tr-msg"; msg.innerHTML = CERTE + " " + pr.note;
+            if (wrong === 0 && pr.st) stretchBox(card, pr.st, "Imperativo · par " + (n + 1), fin); else fin();
+          } else {
+            wrong++; b.disabled = true; b.classList.add("bad");
+            msg.className = "tr-msg bad"; msg.innerHTML = "Esta frase no da una orden: mirar el final del verbo.";
+          }
+        });
+        opts.appendChild(wrapO);
+      });
+      card.appendChild(opts); card.appendChild(msg);
+      host.appendChild(card);
+    });
+  }
+
+  // ---------- Paso 1 · cajones (buildBoxes de la 27/31) con repregunta tras un acierto al primer intento ----------
+  function buildBoxes32(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var pool = document.getElementById(pre + "-pool"), boxesHost = document.getElementById(pre + "-boxes"), msgEl = document.getElementById(pre + "-msg");
+    var stHost = document.getElementById(pre + "-st");
+    var boxes = {}, holders = {}, sel = null, total = cfg.words.length, resolved = 0, pending = false;
+    function say(t, cls){ msgEl.innerHTML = t; msgEl.className = "gen-msg" + (cls ? " " + cls : ""); }
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Tarjetas clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = resolved < total || pending;
+    }
+    function arm(on){ Object.keys(boxes).forEach(function(k){ boxes[k].classList.toggle("armed", on); boxes[k].classList.remove("flash-bad"); }); }
+    function place(w, rev){
+      resolved++; w._chip.remove();
+      holders[w.correct].appendChild(v2el("span", "token gen-in" + (rev ? " gen-rev" : ""), w.word));
+      sel = null; arm(false); upd();
+    }
+    cfg.columns.forEach(function(c){
+      var b = v2el("button", "gen-box " + c.color); b.type = "button";
+      b.appendChild(v2el("div", "gen-name", c.name));
+      b.appendChild(v2el("div", "gen-model", c.model));
+      holders[c.key] = v2el("div"); b.appendChild(holders[c.key]);
+      b.addEventListener("click", function(){
+        if (pending){ say("Falta responder la repregunta (arriba de las tarjetas)."); return; }
+        if (!sel){ say("Primero, una tarjeta; después, el cajón."); return; }
+        var w = sel;
+        if (c.key === w.correct){
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: true, primerIntento: w._tried === 0, final: true });
+          var first = w._tried === 0;
+          if (first) streak.hit();
+          say(CERTE + " <em>" + w.word + "</em>: " + c.name + ".", "ok"); place(w, false);
+          if (first && w.st){
+            pending = true; upd(); stHost.innerHTML = "";
+            var sb = stretchBox(stHost, w.st, w.word, function(){ pending = false; upd(); });
+            sb.classList.add("st-flash"); sb.scrollIntoView({ block: "center", behavior: "auto" });
+          }
+          return;
+        }
+        w._tried++;
+        submitLog.push({ paso: cfg.paso, item: w.word, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+        if (w._tried === 1){ streak.reset(); b.classList.add("flash-bad"); say("No va en ese cajón. " + (cfg.hint || "Queda un intento."), "bad"); }
+        else {
+          submitLog.push({ paso: cfg.paso, item: w.word, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          say("Tampoco. <em>" + w.word + "</em> quedó en su cajón (con borde punteado): " + w.why, "bad"); place(w, true);
+        }
+      });
+      boxes[c.key] = b; boxesHost.appendChild(b);
+    });
+    shuffled(cfg.words).forEach(function(w){
+      w._tried = 0;
+      var chip = v2el("button", "token vcard", '<span class="vc-w">' + w.word + '</span><span class="vc-ex">' + w.ex + '</span><span class="vc-es">' + w.es + '</span>'); chip.type = "button"; w._chip = chip;
+      chip.addEventListener("click", function(){
+        if (pending){ say("Falta responder la repregunta (arriba de las tarjetas)."); return; }
+        Array.prototype.forEach.call(pool.children, function(ch){ ch.classList.remove("sel"); });
+        if (sel === w){ sel = null; arm(false); say(""); return; }
+        sel = w; chip.classList.add("sel"); arm(true); say("");
+        stHost.innerHTML = "";
+      });
+      pool.appendChild(chip);
+    });
+    upd();
+  }
+
+  // ---------- Paso 2 · Función de las formas verbales (buildVerbs): la frase se lee entera y solo las formas verbales son
+  // fichas. Ficha → NV u OD; si es OD → infinitivo solo o construcción; si el NV no tiene sujeto escrito → sujeto desinencial,
+  // en el MISMO recuadro y con la ficha todavía marcada (pedido de Santiago, 2026-10-16: no se entendía de qué verbo era la
+  // pregunta). Tras un acierto al primer intento en todas las decisiones de la ficha, repregunta. ----------
+  var PERSONS = [["1ra sg.","yo"],["2da sg.","tú"],["3ra sg.","él, ella"],["1ra pl.","nosotros"],["2da pl.","ustedes"],["3ra pl.","ellos, ellas"]];
+  function bareW(w){ return w.replace(/^[«"]+/, "").replace(/[,.;:!?»"]+$/, ""); }
+  function buildVerbs(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, done = 0, total = 0;
+    cfg.items.forEach(function(it){ it.v.forEach(function(v){ total += v.f === "NV" ? 1 : 2; if (v.sd) total++; }); });
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Decisiones resueltas: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = done < total;
+    }
+    function show(){
+      var it = cfg.items[k], left = it.v.length, sel = null, busy = null;
+      it.v.forEach(function(v){ v._st = 0; v._tried = {}; v._sub = null; v._clean = true; });
+      stage.innerHTML = "";
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + cfg.items.length));
+      var line = v2el("div", "vb-line"), wEls = [];
+      it.words.forEach(function(w, i){
+        var v = null; it.v.forEach(function(x){ if (x.i === i) v = x; });
+        var lead = (w.match(/^[«"]+/) || [""])[0], trail = (w.match(/[,.;:!?»"]+$/) || [""])[0];
+        var wrap = v2el("span", "vb-w");
+        if (lead) wrap.appendChild(document.createTextNode(lead));
+        var core;
+        if (v){
+          core = v2el("button", "vb-chip", bareW(w)); core.type = "button"; v._el = core;
+          core.addEventListener("click", function(){ pick(v); });
+        } else core = v2el("span", "vb-t", bareW(w));
+        wrap.appendChild(core);
+        if (trail) wrap.appendChild(document.createTextNode(trail));
+        wEls.push(core); line.appendChild(wrap); line.appendChild(document.createTextNode(" "));
+      });
+      card.appendChild(line);
+      var ask = v2el("div", "vb-ask"); ask.hidden = true; card.appendChild(ask);
+      var info = v2el("div", "tg-info"); info.hidden = true; card.appendChild(info);
+      var n2Host = v2el("div"); card.appendChild(n2Host);
+      var tr = translationToggle(cfg, it, card);
+      stage.appendChild(card);
+
+      function W(v){ return bareW(it.words[v.i]); }
+      function label(v, tag){
+        if (v._sub) v._sub.remove();
+        v._sub = v2el("sub", "tg-sub", TAGS[tag]);
+        v._el.parentNode.insertBefore(v._sub, v._el.nextSibling);
+      }
+      function setInfo(cls, html){ info.hidden = false; info.className = "tg-info" + (cls ? " " + cls : ""); info.innerHTML = html; }
+      function pick(v){
+        if (busy && busy !== v){ setInfo("", "Falta terminar con <em>" + W(busy) + "</em>."); return; }
+        it.v.forEach(function(x){ x._el.classList.remove("sel"); });
+        sel = v; v._el.classList.add("sel");
+        if (v._st === 3){ ask.hidden = true; explainDone(v); return; }
+        info.hidden = true; renderAsk();
+      }
+      function renderAsk(){
+        var v = sel; ask.innerHTML = ""; ask.hidden = false;
+        var head = '<span class="vb-name">' + W(v) + "</span>";
+        var q, opts;
+        if (v._st === 0){ q = head + " · ¿verbo conjugado o infinitivo?"; opts = [["conj","Verbo conjugado"],["inf","Infinitivo"]]; }
+        else if (v._st === 1){ q = head + " es un infinitivo. ¿Qué función cumple?"; opts = [["ODinf","OD (Inf. Obj.): infinitivo solo"],["ODci","OD‑Constr. Inf.: con complementos"]]; }
+        else { q = head + " es NV. No hay sujeto escrito para <em>" + W(v) + "</em> («" + v.es + "»). ¿Cuál es el sujeto desinencial?"; opts = PERSONS.map(function(p){ return [p[0], p[0] + " (" + p[1] + ")"]; }); }
+        ask.appendChild(v2el("p", "vb-q", q));
+        var row = v2el("div", "tg-pal");
+        opts.forEach(function(o){
+          var b = v2el("button", "tg-tag", o[1]); b.type = "button";
+          if (v._tried[v._st + ":" + o[0]]) b.disabled = true;
+          b.addEventListener("click", function(){ choose(v, o[0]); });
+          row.appendChild(b);
+        });
+        ask.appendChild(row);
+        if (v._st === 2) ask.scrollIntoView({ block: "nearest", behavior: "auto" });
+      }
+      function want(v){ return v._st === 0 ? (v.f === "NV" ? "conj" : "inf") : v._st === 1 ? v.f : v.sd.p; }
+      function choose(v, ans){
+        var w = want(v), st = v._st;
+        var tries = Object.keys(v._tried).filter(function(t){ return t.indexOf(st + ":") === 0; }).length;
+        var lvl = st === 0 ? "conjugado o infinitivo" : st === 1 ? "función" : "SD";
+        var item = it.src + " · " + W(v) + " (" + lvl + ")";
+        var shown = st === 2 ? ans : ans === "conj" ? "verbo conjugado" : ans === "inf" ? "infinitivo" : TAGS[ans];
+        if (ans === w){
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: true, primerIntento: tries === 0, final: true });
+          if (tries === 0) streak.hit();
+          done++; upd();
+          if (st === 0 && v.f !== "NV"){ v._st = 1; busy = v; renderAsk(); return; }
+          if (st === 2){ addSD(v, false); }
+          else if (v.sd){ v._st = 2; label(v, "NV"); busy = v; renderAsk(); return; }
+          finishVerb(v); return;
+        }
+        v._tried[st + ":" + ans] = true; v._clean = false; streak.reset(); busy = v;
+        submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: false, primerIntento: false, final: false });
+        if (st === 2 && tries >= 1){
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: w, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          done++; upd(); addSD(v, true); finishVerb(v); return;
+        }
+        v._el.classList.add("bad");
+        setInfo("bad", st === 2 ? "No es esa persona. Queda un intento: mirar el final del verbo (en el imperativo, ‑te es plural)."
+                                : ans === "conj" ? "No es un verbo conjugado. " + ((v.bad && v.bad.NV) || "")
+                                : ans === "inf" ? "No es un infinitivo. " + ((v.bad && v.bad.OD) || "")
+                                : "No es " + TAGS[ans].replace(/\.$/, "") + ". " + ((v.bad && v.bad[ans]) || ""));
+        renderAsk();
+      }
+      function addSD(v, rev){
+        var note = v2el("span", "tg-sdnote" + (rev ? " rev" : ""), "(SD: " + v.sd.p + " = " + v.sd.ref + ")");
+        var wrapW = v._el.parentNode; wrapW.parentNode.insertBefore(note, wrapW.nextSibling); wrapW.parentNode.insertBefore(document.createTextNode(" "), note);
+      }
+      function finishVerb(v){
+        v._st = 3; busy = null; v._el.classList.remove("bad"); v._el.classList.add("ok");
+        label(v, v.f);
+        if (v.span){
+          for (var j = v.span[0]; j <= v.span[1]; j++) wEls[j].classList.add("vb-span");
+          var last = wEls[v.span[1]];
+          v._sub.remove(); last.parentNode.insertBefore(v._sub, last.nextSibling);
+        }
+        ask.hidden = true; left--;
+        if (v._clean && v.st){
+          setInfo("ok", CERTE + " " + txt(v) + " «" + v.es + "».");
+          busy = v; stretchBox(info, v.st, it.src + " · " + W(v), function(){ busy = null; check(); });
+        } else { explainDone(v); check(); }
+      }
+      function txt(v){
+        var t = v.span ? it.words.slice(v.span[0], v.span[1] + 1).map(bareW).join(" ") : W(v);
+        return '<span class="ex-latin">' + t + '</span><sub class="tg-sub">' + TAGS[v.f] + "</sub>";
+      }
+      function explainDone(v){ setInfo("ok", txt(v) + " «" + v.es + "»: " + v.why); }
+      function check(){
+        if (left > 0 || busy) return;
+        var withN2 = it.v.filter(function(x){ return x.n2; });
+        if (withN2.length){
+          var n2 = v2el("div", "tg-n2");
+          n2.appendChild(v2el("p", "tg-n2-h", "Nivel 2 · dentro de la construcción"));
+          withN2.forEach(function(x){
+            n2.appendChild(v2el("div", "row", x.n2.map(function(p){ return p[0] + '<sub class="tg-sub">' + TAGS[p[1]] + "</sub>"; }).join(" ")));
+          });
+          n2Host.appendChild(n2);
+        }
+        tr.reveal();
+        if (k < cfg.items.length - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+    }
+    upd(); show();
+  }
+
+  // ---------- Paso 1 · cajones con TARJETAS-FRASE (Act. 33): la tarjeta de buildCases (Act. 30, la palabra en <b> dentro de
+  // la frase) + todo lo de buildBoxes32 (color y nombre por cajón, repregunta arriba de las tarjetas con scrollIntoView,
+  // bloqueo mientras está pendiente). Cada tarjeta lleva su «Ver traducción», oculta al entrar. w = {tag, la, es, wes,
+  // correct, why, st?}. ----------
+  function buildCases33(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var pool = document.getElementById(pre + "-pool"), boxesHost = document.getElementById(pre + "-boxes"), msgEl = document.getElementById(pre + "-msg");
+    var stHost = document.getElementById(pre + "-st");
+    var boxes = {}, holders = {}, sel = null, total = cfg.words.length, resolved = 0, pending = false;
+    function say(t, cls){ msgEl.innerHTML = t; msgEl.className = "gen-msg" + (cls ? " " + cls : ""); }
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Tarjetas clasificadas: <strong>" + resolved + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = resolved < total || pending;
+    }
+    function arm(on){ Object.keys(boxes).forEach(function(k){ boxes[k].classList.toggle("armed", on); boxes[k].classList.remove("flash-bad"); }); }
+    function place(w, rev){
+      resolved++; w._card.remove();
+      holders[w.correct].appendChild(v2el("span", "token gen-in" + (rev ? " gen-rev" : ""), w.tag));
+      sel = null; arm(false); upd();
+    }
+    cfg.columns.forEach(function(c){
+      var b = v2el("button", "gen-box " + c.color); b.type = "button";
+      b.appendChild(v2el("div", "gen-name", c.name));
+      b.appendChild(v2el("div", "gen-model", c.model));
+      holders[c.key] = v2el("div"); b.appendChild(holders[c.key]);
+      b.addEventListener("click", function(){
+        if (pending){ say("Falta responder la repregunta (arriba de las tarjetas)."); return; }
+        if (!sel){ say("Primero, una tarjeta; después, el cajón."); return; }
+        var w = sel;
+        if (c.key === w.correct){
+          submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: true, primerIntento: w._tried === 0, final: true });
+          var first = w._tried === 0;
+          if (first) streak.hit();
+          say(CERTE + " <em>" + w.tag + "</em> («" + w.wes + "»): " + c.key + ".", "ok"); place(w, false);
+          if (first && w.st){
+            pending = true; upd(); stHost.innerHTML = "";
+            var sb = stretchBox(stHost, w.st, w.tag, function(){ pending = false; upd(); if (/repregunta/.test(msgEl.textContent)) say(""); });
+            sb.classList.add("st-flash"); sb.scrollIntoView({ block: "center", behavior: "auto" });
+          }
+          return;
+        }
+        w._tried++;
+        submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+        if (w._tried === 1){ streak.reset(); b.classList.add("flash-bad"); say("No va en ese cajón. " + (cfg.hint || "Queda un intento."), "bad"); }
+        else {
+          submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          say("Tampoco. <em>" + w.tag + "</em> quedó en su cajón (con borde punteado): " + w.why, "bad"); place(w, true);
+        }
+      });
+      boxes[c.key] = b; boxesHost.appendChild(b);
+    });
+    shuffled(cfg.words).forEach(function(w){
+      w._tried = 0;
+      var card = v2el("div", "pc-card"); w._card = card;
+      var chip = v2el("button", "token vcard pc-btn", '<span class="vc-ex">' + w.la + '</span>'); chip.type = "button"; w._chip = chip;
+      var es = v2el("p", "pair-es", w.es); es.hidden = true;
+      var t = v2el("button", "btn-cast pc-tr", "Ver traducción"); t.type = "button";
+      t.addEventListener("click", function(){ es.hidden = !es.hidden; t.textContent = es.hidden ? "Ver traducción" : "Ocultar traducción"; });
+      chip.addEventListener("click", function(){
+        if (pending){ say("Falta responder la repregunta (arriba de las tarjetas)."); return; }
+        Array.prototype.forEach.call(pool.querySelectorAll(".pc-btn"), function(ch){ ch.classList.remove("sel"); });
+        if (sel === w){ sel = null; arm(false); say(""); return; }
+        sel = w; chip.classList.add("sel"); arm(true); say("");
+        stHost.innerHTML = "";
+      });
+      card.appendChild(chip); card.appendChild(t); card.appendChild(es);
+      pool.appendChild(card);
+    });
+    upd();
+  }
+
+  // ---------- Paso 1 · una frase por vez con cajones (buildSeq33, Act. 33, revisión del 2026-10-16): reemplaza a buildCases33
+  // (8 tarjetas en grilla = demasiado scroll, y en modo oscuro no se veía cuál estaba elegida). Arriba, UNA tarjeta-frase
+  // grande con su «Ver traducción» (oculta); abajo, los cajones en una fila; se toca directamente el cajón. Las frases ya
+  // clasificadas quedan a la vista debajo, enteras, con la palabra en el color de su cajón. Sin repreguntas. ----------
+  function buildSeq33(cfg, pre){
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var stage = document.getElementById(pre + "-stage"), log = document.getElementById(pre + "-log");
+    var words = shuffled(cfg.words), k = 0, total = words.length, cols = {};
+    cfg.columns.forEach(function(c){ cols[c.key] = c; });
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Frases clasificadas: <strong>" + k + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = k < total;
+    }
+    function show(){
+      stage.innerHTML = "";
+      if (k >= total){ upd(); return; }
+      var w = words[k], tried = 0, over = false;
+      var card = v2el("div", "scene-card seq-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
+      card.appendChild(v2el("p", "seq-la", w.la));
+      var es = v2el("p", "pair-es", w.es); es.hidden = true;
+      var t = v2el("button", "btn-cast", "Ver traducción"); t.type = "button";
+      t.addEventListener("click", function(){ es.hidden = !es.hidden; t.textContent = es.hidden ? "Ver traducción" : "Ocultar traducción"; });
+      card.appendChild(t); card.appendChild(es);
+      var row = v2el("div", "seq-boxes"), msg = v2el("p", "gen-msg");
+      cfg.columns.forEach(function(c){
+        var b = v2el("button", "gen-box seq-box " + c.color, '<div class="gen-name">' + c.name + '</div><div class="seq-sub">' + c.sub + '</div><div class="gen-model">' + c.model + "</div>"); b.type = "button";
+        b.addEventListener("click", function(){
+          if (over) return;
+          if (c.key === w.correct){
+            over = true;
+            submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: true, primerIntento: tried === 0, final: true });
+            if (tried === 0) streak.hit();
+            msg.className = "gen-msg ok"; msg.innerHTML = CERTE + " <em>" + w.tag + "</em> («" + w.wes + "»): " + c.name + ".";
+            done(false); return;
+          }
+          tried++;
+          submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: false, primerIntento: false, final: false });
+          b.classList.remove("flash-bad"); void b.offsetWidth; b.classList.add("flash-bad"); b.disabled = true;
+          if (tried === 1){ streak.reset(); msg.className = "gen-msg bad"; msg.innerHTML = "No es " + c.name + ". " + cfg.hint; }
+          else {
+            over = true;
+            submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+            msg.className = "gen-msg bad"; msg.innerHTML = "Era " + cols[w.correct].name + ": " + w.why;
+            done(true);
+          }
+        });
+        row.appendChild(b);
+      });
+      card.appendChild(row); card.appendChild(msg);
+      stage.appendChild(card);
+      function done(rev){
+        var c = cols[w.correct];
+        var li = v2el("div", "seq-done " + c.color + (rev ? " rev" : ""), '<span class="seq-tag">' + c.name + "</span> " + '<span class="seq-done-la">' + w.la + "</span>");
+        log.insertBefore(li, log.firstChild);
+        k++; upd();
+        if (k < total){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ show(); stage.scrollIntoView({ block: "start", behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+    }
+    upd(); show();
+  }
+
+  // ---------- Paso 2 · Caso y función (buildFunc, Act. 33): generalización de buildVerbs para las Act. 33-35. La frase se lee
+  // entera; solo los constituyentes del tema son fichas (un bloque de varias palabras = UNA ficha, con el subíndice al final);
+  // el resto llega con su subíndice ya puesto, en gris (it.pre = {índice: etiqueta}). Pregunta 1: el caso (cfg.cases);
+  // pregunta 2: la función (cfg.funcs), con la ficha marcada y nombrada. Mientras una ficha no termina, las otras no
+  // responden. Un reintento por pregunta; al segundo error se revela. Acierto limpio = repregunta (bloquea el avance). ----------
+  function buildFunc(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, done = 0, total = 0, stOpen = false;
+    cfg.items.forEach(function(it){ total += it.v.length * 2; });
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Decisiones resueltas: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = done < total || stOpen;
+    }
+    function show(){
+      var it = cfg.items[k], left = it.v.length, sel = null, busy = null;
+      var at = {}, skip = {}, blk = {};
+      (it.blocks || []).forEach(function(b){ for (var j = b[0]; j <= b[1]; j++) blk[j] = true; });
+      it.v.forEach(function(v){
+        v._st = 0; v._tried = {}; v._clean = true; v._sub = null; at[v.i] = v;
+        if (v.span) for (var j = v.span[0] + 1; j <= v.span[1]; j++) skip[j] = true;
+      });
+      stage.innerHTML = "";
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + cfg.items.length));
+      var line = v2el("div", "vb-line");
+      it.words.forEach(function(w, i){
+        if (skip[i]) return;
+        var v = at[i], last = v && v.span ? v.span[1] : i;
+        var lead = (w.match(/^[«"]+/) || [""])[0], trail = (it.words[last].match(/[,.;:!?»"]+$/) || [""])[0];
+        var wrap = v2el("span", "vb-w" + (blk[i] ? " vb-blk" : ""));
+        if (lead) wrap.appendChild(document.createTextNode(lead));
+        if (v){
+          v._t = it.words.slice(i, last + 1).map(bareW).join(" ");
+          var core = v2el("button", "vb-chip", v._t); core.type = "button"; v._el = core;
+          core.addEventListener("click", function(){ pick(v); });
+          wrap.appendChild(core);
+          if (it.pre && it.pre[last]) wrap.appendChild(v2el("sub", "tg-sub pre", TAGS[it.pre[last]]));
+        } else {
+          wrap.appendChild(v2el("span", "vb-t" + (it.pre && it.pre[i] ? " vb-pre" : ""), bareW(w)));
+          if (it.pre && it.pre[i]) wrap.appendChild(v2el("sub", "tg-sub pre", TAGS[it.pre[i]]));
+        }
+        if (trail) wrap.appendChild(document.createTextNode(trail));
+        line.appendChild(wrap); line.appendChild(document.createTextNode(" "));
+      });
+      card.appendChild(line);
+      var n2 = v2el("div", "n2-box", '<p class="n2-h">Nivel 2</p>'); n2.hidden = true; card.appendChild(n2);
+      var ask = v2el("div", "vb-ask"); ask.hidden = true; card.appendChild(ask);
+      var info = v2el("div", "tg-info"); info.hidden = true; card.appendChild(info);
+      var stHost = v2el("div"); card.appendChild(stHost);
+      var tr = translationToggle(cfg, it, card);
+      stage.appendChild(card);
+
+      function setInfo(cls, html){ info.hidden = false; info.className = "tg-info" + (cls ? " " + cls : ""); info.innerHTML = html; }
+      function pick(v){
+        if (stOpen){ var sb0 = stHost.querySelector(".st-box"); if (sb0){ sb0.classList.add("st-flash"); sb0.scrollIntoView({ block: "nearest", behavior: "auto" }); } return; }
+        if (busy && busy !== v){ setInfo("", "Falta terminar con <em>" + busy._t + "</em>."); return; }
+        it.v.forEach(function(x){ x._el.classList.remove("sel"); });
+        sel = v; v._el.classList.add("sel");
+        if (v._st === 2){ ask.hidden = true; explainDone(v); return; }
+        info.hidden = true; renderAsk();
+      }
+      function renderAsk(){
+        var v = sel; ask.innerHTML = ""; ask.hidden = false;
+        var head = '<span class="vb-name">' + v._t + "</span>";
+        var q, opts;
+        if (v._st === 0){ var cn = cfg.cases.map(function(c){ return c[1].toLowerCase(); }); q = head + " · ¿" + cn.slice(0, -1).join(", ") + " o " + cn[cn.length - 1] + "?"; opts = cfg.cases; }
+        else if (v.dep != null){ q = head + " está en genitivo. ¿De qué palabra depende?"; opts = v.deps.map(function(j){ return ["w" + j, bareW(it.words[j])]; }); }
+        else { q = head + " está en " + caseName(v.c) + ". ¿Qué función cumple?"; opts = (cfg.funcsByCase ? cfg.funcsByCase[v.c] : cfg.funcs).map(function(f){ return [f, TAGS[f]]; }); }
+        ask.appendChild(v2el("p", "vb-q", q));
+        var row = v2el("div", "tg-pal");
+        opts.forEach(function(o){
+          var b = v2el("button", "tg-tag", o[1]); b.type = "button";
+          if (v._tried[v._st + ":" + o[0]]) b.disabled = true;
+          b.addEventListener("click", function(){ choose(v, o[0]); });
+          row.appendChild(b);
+        });
+        ask.appendChild(row);
+        ask.scrollIntoView({ block: "nearest", behavior: "auto" });
+      }
+      function caseName(c){ var n = ""; cfg.cases.forEach(function(x){ if (x[0] === c) n = x[1].toLowerCase(); }); return n; }
+      function choose(v, ans){
+        var st = v._st, w = st === 0 ? v.c : (v.dep != null ? "w" + v.dep : v.f);
+        function lbl(x){ return x.charAt(0) === "w" ? bareW(it.words[+x.slice(1)]) : TAGS[x]; }
+        var tries = Object.keys(v._tried).filter(function(t){ return t.indexOf(st + ":") === 0; }).length;
+        var item = it.src + " · " + v._t + " (" + (st === 0 ? "caso" : "función") + ")";
+        var shown = st === 0 ? caseName(ans) : (v.dep != null ? "depende de " + lbl(ans) : TAGS[ans]);
+        if (ans === w){
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: true, primerIntento: tries === 0, final: true });
+          if (tries === 0) streak.hit();
+          done++; upd();
+          if (st === 0){ v._st = 1; busy = v; v._el.classList.remove("bad"); info.hidden = true; renderAsk(); return; }
+          finish(v, false); return;
+        }
+        v._tried[st + ":" + ans] = true; v._clean = false; streak.reset(); busy = v;
+        submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: false, primerIntento: false, final: false });
+        if (st === 1 && tries >= 1){
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: v.dep != null ? "depende de " + lbl(w) : TAGS[w], correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          done++; upd(); finish(v, true); return;
+        }
+        v._el.classList.add("bad");
+        var m;
+        if (st === 0) m = "No está en " + caseName(ans) + ": " + v.cw;
+        else if (v.dep != null) m = "No depende de <em>" + lbl(ans) + "</em>. " + ((v.bad && v.bad[ans.slice(1)]) ? v.bad[ans.slice(1)] + " " : "") + "Queda un intento.";
+        else if (cfg.funcCase[ans] && cfg.funcCase[ans] !== v.c) m = "<em>" + v._t + "</em> está en " + caseName(v.c) + ", y " + TAGS[ans] + " va en " + caseName(cfg.funcCase[ans]) + ". Queda un intento.";
+        else m = "No es " + TAGS[ans].replace(/\.$/, "") + ". " + ((v.bad && v.bad[ans]) ? v.bad[ans] + " " : "") + "Queda un intento.";
+        setInfo("bad", m); renderAsk();
+      }
+      function txt(v){ return '<span class="ex-latin">' + v._t + '</span><sub class="tg-sub">' + TAGS[v.f] + "</sub>"; }
+      function finish(v, rev){
+        v._st = 2; busy = null; v._el.classList.remove("bad"); v._el.classList.add(rev ? "rev" : "ok");
+        if (v._sub) v._sub.remove();
+        if (v.n2){ n2.hidden = false; n2.appendChild(v2el("p", null, analysisHtml(v.n2))); }
+        else {
+          v._sub = v2el("sub", "tg-sub" + (rev ? " rev" : ""), TAGS[v.f]);
+          v._el.parentNode.insertBefore(v._sub, v._el.nextSibling);
+        }
+        ask.hidden = true; left--;
+        if (rev){ setInfo("rev", (v.dep != null ? "Dependía de <em>" + bareW(it.words[v.dep]) + "</em>. " : "La función era " + TAGS[v.f] + ". ") + txt(v) + " «" + v.es + "»: " + v.why); check(); }
+        else if (v._clean && v.st){
+          setInfo("ok", CERTE + " " + txt(v) + " «" + v.es + "».");
+          busy = v; stOpen = true; upd();
+          stHost.innerHTML = "";
+          var sb = stretchBox(stHost, v.st, it.src + " · " + v._t, function(){ busy = null; stOpen = false; upd(); sb.classList.remove("st-flash"); check(); });
+          sb.scrollIntoView({ block: "nearest", behavior: "auto" });
+        } else { explainDone(v); check(); }
+      }
+      function explainDone(v){ setInfo("ok", txt(v) + " «" + v.es + "»: " + v.why); }
+      function check(){
+        if (left > 0 || busy) return;
+        tr.reveal();
+        if (k < cfg.items.length - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+    }
+    upd(); show();
+  }
+
+  // Análisis en texto («palabra[TAG]», «_» = espacio) → HTML con subíndices.
+  function analysisHtml(s){
+    return s.split(" ").map(function(tok){
+      var m = tok.match(/^(.+)\[(\w+)\]$/);
+      if (!m) return '<span class="an-p">' + tok.replace(/_/g, " ") + "</span>";
+      var t = m[1].replace(/_/g, " ");
+      return '<span class="an-w' + (t.indexOf(" ") !== -1 ? " multi" : "") + '">' + t + '</span><sub class="tg-sub">' + TAGS[m[2]] + "</sub>";
+    }).join(" ").replace(/ <span class="an-p">([.,;:!?»])/g, '<span class="an-p">$1').replace(/«<\/span> /g, "«</span>");
+  }
+
+  // ---------- Paso 3 · Del castellano al análisis (buildAnal): castellano + DOS análisis, el correcto y uno claramente
+  // absurdo (pedido de Santiago, 2026-10-16: el objetivo es acostumbrarse a leer un análisis, no distinguir en fino).
+  // Error = se revela con la devolución; acierto al primer intento = repregunta. Una decisión por frase. ----------
+  function buildAnal(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, done = 0, total = cfg.items.length;
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Resueltas: <strong>" + done + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = done < total;
+    }
+    function show(){
+      var it = cfg.items[k], over = false;
+      stage.innerHTML = "";
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total));
+      card.appendChild(v2el("p", "an-es", it.es));
+      var opts = v2el("div", "tr-opts"), msg = v2el("p", "tr-msg"), btns = [];
+      shuffled([{ s: it.ok, ok: true }, { s: it.bad[0], why: it.bad[1] }]).forEach(function(o){
+        var b = v2el("button", "tr-opt an-opt", analysisHtml(o.s)); b.type = "button"; o.el = b; btns.push(o);
+        b.addEventListener("click", function(){
+          if (over) return; over = true;
+          btns.forEach(function(x){ x.el.disabled = true; });
+          if (o.ok){
+            submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: it.ok, correcta: true, primerIntento: true, final: true });
+            streak.hit(); b.classList.add("ok"); msg.className = "tr-msg"; msg.innerHTML = CERTE;
+            if (it.st){ stretchBox(card, it.st, it.src, end); return; }
+          } else {
+            submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: o.s, correcta: false, primerIntento: false, final: false });
+            submitLog.push({ paso: cfg.paso, item: it.src + " · " + it.es, respuesta: it.ok, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+            streak.reset(); b.classList.add("bad");
+            btns.forEach(function(x){ if (x.ok) x.el.classList.add("rev"); });
+            msg.className = "tr-msg bad"; msg.innerHTML = o.why + " El análisis correcto queda marcado en amarillo.";
+          }
+          end();
+        });
+        opts.appendChild(b);
+      });
+      card.appendChild(opts); card.appendChild(msg);
+      stage.appendChild(card);
+      function end(){
+        done++; upd();
+        if (k < total - 1){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ k++; show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+    }
+    upd(); show();
+  }
+
+  function goStep(id){ return function(){ saveProgress(id); showStep(id); }; }
+
+  buildDialog("dlg-s1", DATA.s1);
+  buildDialog("dlg-s2", DATA.s2);
+  buildDialog("dlg-s3", DATA.s3);
+  document.getElementById("s3-decl").appendChild(declBox("is"));
+  document.getElementById("s3-decl").appendChild(declBox("ille"));
+  buildWarm32(WARMUP34, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
+  buildSeq33(DATA.paso1, "p1");
+  buildFunc(DATA.paso2, "p2");
+  buildAnal(DATA.paso3, "p3");
+  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-s2"));
+  document.getElementById("btn-warm-done").addEventListener("click", goStep("step-p1"));
+  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-warm"));
+  document.getElementById("btn-p1-done").addEventListener("click", goStep("step-s3"));
+  document.getElementById("btn-s3-done").addEventListener("click", goStep("step-p2"));
+  document.getElementById("btn-p2-done").addEventListener("click", goStep("step-p3"));
+  document.getElementById("btn-p3-done").addEventListener("click", goStep("step-fin"));
+
+  // ---------- Evaluación + envío ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var SCORE_EXCLUDE_PASOS = ["Repregunta"];
+  function computeScore(){
+    var items = submitLog.filter(function(e){
+      return e.correcta !== null && e.correcta !== undefined && e.final !== false &&
+        e.paso !== "Evaluación" && SCORE_EXCLUDE_PASOS.indexOf(e.paso) === -1;
+    });
+    function sec(list){ return { correct: list.filter(function(e){ return e.correcta === true; }).length, total: list.length }; }
+    var firstTryPool = items;
+    return {
+      correct: items.filter(function(e){ return e.correcta === true; }).length,
+      total: items.length,
+      sections: DATA.sections.map(function(s){ return { label: s[1], score: sec(items.filter(function(e){ return e.paso.indexOf(s[0]) === 0; })) }; }),
+      firstTry: firstTryPool.filter(function(e){ return e.primerIntento === true; }).length,
+      firstTryTotal: firstTryPool.length,
+      revealed: items.filter(function(e){ return e.respuestaRevelada; }).length,
+      translations: submitLog.filter(function(e){ return e.ayudaTraduccion && e.paso !== "Recuperación"; }).length,
+      idk: submitLog.filter(function(e){ return e.respuestaAutorreferida && e.paso !== "Recuperación"; }).length,
+      recovery: sec(submitLog.filter(function(e){ return e.paso === "Recuperación" && e.final !== false && e.correcta !== null; }))
+    };
+  }
+
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var evalPushed = false;
+
+  function checkEvalComplete(){
+    btnSend.disabled = !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    var comentario = inDiffComment.value.trim();
+    var sugerencia = inSuggestion.value.trim();
+    if (!comentario || !sugerencia) return;
+    if (!evalPushed){
+      submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: comentario, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: sugerencia, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+      submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
+      evalPushed = true;
+    }
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. ¡Gracias!"; statusEl.className = "status ok";
+      var s = computeScore();
+      if (s.total > 0){
+        var pct = Math.round(100 * s.correct / s.total);
+        var html = "Resultado principal: <strong>" + s.correct + " de " + s.total + "</strong> (" + pct + "%). " +
+          s.sections.map(function(x){ return x.label + ": <strong>" + x.score.correct + "/" + x.score.total + "</strong>"; }).join(" · ") + ". " +
+          "Resueltas al primer intento: <strong>" + s.firstTry + "/" + s.firstTryTotal + "</strong> · " +
+          "Respuestas reveladas: <strong>" + s.revealed + "</strong> · " +
+          "Marcaste «No lo sé todavía»: <strong>" + s.idk + "</strong> (no cuentan en el resultado).";
+        document.getElementById("score-summary").innerHTML = html;
+        document.getElementById("score-summary").hidden = false;
+      }
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+})();
+</script>
+
+<script src="../recursos/ayudas.js"></script>
+<script>
+/* Navegación arriba y abajo (2026-09-27, pedido de Santiago para todas las actividades): el botón
+   para avanzar de cada paso aparece también arriba, junto al de volver. El de arriba es un espejo
+   del de abajo: copia su texto, si está deshabilitado u oculto, y al tocarlo dispara el original. */
+(function(){
+  "use strict";
+  Array.prototype.forEach.call(document.querySelectorAll("section.step"), function(sec){
+    var fwd = sec.querySelector(".stage-nav .btn:not(.btn-ghost)");
+    var top = sec.querySelector(".top-nav");
+    if (!fwd || !top) return;
+    var twin = document.createElement("button");
+    twin.type = "button"; twin.className = "btn btn-fwd";
+    function sync(){ twin.textContent = fwd.textContent; twin.disabled = fwd.disabled; twin.hidden = fwd.hidden; }
+    twin.addEventListener("click", function(){ fwd.click(); });
+    top.appendChild(twin); sync();
+    new MutationObserver(sync).observe(fwd, { attributes: true, childList: true, characterData: true, subtree: true });
+  });
+})();
+</script>
+<script>
+/* Barra de pasos compacta (2026-09-27, feedback de un estudiante: los pasos sirven para volver directo a una
+   explicación). Una fila de puntos (uno por pantalla; cuadradito = explicación) + «Pasos k/n ▾», que despliega la
+   lista con los nombres. Solo lo ya visitado es tocable. No toca saveProgress. */
+(function(){
+  "use strict";
+  var main = document.getElementById("main");
+  if (!main || document.getElementById("pnav")) return;
+  var css = document.createElement("style");
+  css.textContent = [
+    "#pnav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:.7rem;margin:0 0 1rem;padding:.45rem 0;",
+    "background:var(--bg,#e8e7dd);border-bottom:1px solid var(--rule,#c9c4b3);}",
+    "#pnav .pn-cur{flex:0 0 auto;font:700 .78rem/1 var(--sans,system-ui,sans-serif);letter-spacing:.02em;white-space:nowrap;",
+    "border:1.5px solid var(--rule,#c9c4b3);border-radius:999px;padding:.4rem .7rem;background:var(--surface-raised,#fff);color:var(--ink,#1e211d);cursor:pointer;}",
+    "#pnav .pn-cur.open{border-color:var(--accent,#1e4dc7);}",
+    "#pnav .pn-dots{display:flex;align-items:center;gap:6px;min-width:0;overflow:hidden;padding:0 6px;}",
+    "#pnav .pn-dot{position:relative;flex:0 0 auto;width:12px;height:12px;padding:0;border-radius:50%;border:1.5px solid var(--rule,#c9c4b3);background:transparent;cursor:default;}",
+    "#pnav .pn-dot::before{content:'';position:absolute;inset:-8px -4px;}",
+    "#pnav .pn-dot.expl{border-radius:3px;}",
+    "#pnav .pn-dot.seen{background:var(--ink-muted,#5b5f56);border-color:var(--ink-muted,#5b5f56);cursor:pointer;}",
+    "#pnav .pn-dot.cur{width:16px;height:16px;background:var(--accent,#1e4dc7);border-color:var(--accent,#1e4dc7);}",
+    "#pnav .pn-list{position:absolute;left:0;right:0;top:100%;margin-top:4px;background:var(--surface,#f6f5ef);border:1px solid var(--rule,#c9c4b3);",
+    "border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.18);padding:.35rem;max-height:70vh;overflow:auto;}",
+    "#pnav .pn-list[hidden]{display:none;}",
+    "#pnav .pn-item{display:flex;align-items:center;gap:.55rem;width:100%;text-align:left;border:none;background:transparent;",
+    "font:500 .9rem/1.3 var(--sans,system-ui,sans-serif);color:var(--ink,#1e211d);padding:.5rem .55rem;border-radius:7px;cursor:pointer;}",
+    "#pnav .pn-item:hover:not(:disabled){background:var(--surface-raised,#fff);}",
+    "#pnav .pn-item:disabled{color:var(--ink-muted,#5b5f56);opacity:.5;cursor:default;}",
+    "#pnav .pn-item.cur{font-weight:700;color:var(--accent-strong,#17399c);opacity:1;}",
+    "#pnav .pn-item .pn-k{flex:0 0 auto;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-muted,#5b5f56);min-width:5.2rem;}"
+  ].join("");
+  document.head.appendChild(css);
+
+  var sections = Array.prototype.slice.call(document.querySelectorAll("section.step"));
+  function info(sec){
+    var id = sec.id, eb = sec.querySelector(".eyebrow"), h2 = sec.querySelector("h2");
+    var expl = /^step-s\d/.test(id) || id === "step-explain";
+    var kind = id === "step-fin" ? "Cierre" : (expl ? "Explicación" : (eb ? eb.textContent.trim() : ""));
+    var name = id === "step-fin" ? "Envío y comentario" : (h2 ? h2.textContent.trim() : kind);
+    return { id: id, expl: expl, kind: kind, name: name };
+  }
+  var steps = sections.map(info);
+  var reached = {}, maxIdx = -1; // al retomar una actividad, todo lo anterior al punto más avanzado queda disponible
+  function visibleId(){ var v = document.querySelector("section.step.visible"); return v ? v.id : null; }
+  function go(id){
+    sections.forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }
+
+  var nav = document.createElement("nav"); nav.id = "pnav"; nav.setAttribute("aria-label", "Pasos de la actividad");
+  var cur = document.createElement("button"); cur.type = "button"; cur.className = "pn-cur"; cur.setAttribute("aria-expanded", "false");
+  var dots = document.createElement("div"); dots.className = "pn-dots";
+  var list = document.createElement("div"); list.className = "pn-list"; list.hidden = true;
+  nav.appendChild(cur); nav.appendChild(dots); nav.appendChild(list);
+  main.insertBefore(nav, main.firstChild);
+  function toggle(open){ list.hidden = !open; cur.classList.toggle("open", open); cur.setAttribute("aria-expanded", open ? "true" : "false"); }
+  cur.addEventListener("click", function(){ toggle(list.hidden); });
+  document.addEventListener("click", function(e){ if (!list.hidden && !nav.contains(e.target)) toggle(false); });
+
+  function render(){
+    var v = visibleId(); if (v) reached[v] = true;
+    var k = steps.map(function(s){ return s.id; }).indexOf(v);
+    if (k > maxIdx) maxIdx = k;
+    steps.forEach(function(s, i){ if (i <= maxIdx) reached[s.id] = true; });
+    cur.textContent = "Pasos " + (k + 1) + "/" + steps.length + " ▾";
+    dots.innerHTML = ""; list.innerHTML = "";
+    steps.forEach(function(s, i){
+      var d = document.createElement("button"); d.type = "button";
+      d.className = "pn-dot" + (s.expl ? " expl" : "") + (reached[s.id] ? " seen" : "") + (s.id === v ? " cur" : "");
+      d.title = s.kind + (s.name && s.name !== s.kind ? " · " + s.name : "");
+      d.setAttribute("aria-label", d.title);
+      d.disabled = !reached[s.id] || s.id === v;
+      d.addEventListener("click", function(){ if (reached[s.id]) go(s.id); });
+      dots.appendChild(d);
+      var it = document.createElement("button"); it.type = "button";
+      it.className = "pn-item" + (s.id === v ? " cur" : "");
+      it.innerHTML = '<span class="pn-k">' + s.kind + '</span><span>' + s.name + '</span>';
+      it.disabled = !reached[s.id] || s.id === v;
+      it.addEventListener("click", function(){ toggle(false); go(s.id); });
+      list.appendChild(it);
+    });
+    if (k >= 0 && dots.children[k] && dots.scrollWidth > dots.clientWidth){ var c = dots.children[k]; dots.scrollLeft = Math.max(0, c.offsetLeft - dots.offsetLeft - dots.clientWidth / 2); } else dots.scrollLeft = 0;
+  }
+  var mo = new MutationObserver(function(records){
+    records.forEach(function(r){ if (r.oldValue && /(^|\s)visible(\s|$)/.test(r.oldValue)) reached[r.target.id] = true; });
+    render();
+  });
+  sections.forEach(function(s){ mo.observe(s, { attributes: true, attributeFilter: ["class"], attributeOldValue: true }); });
+  render();
+})();
+</script>
+</body>
+</html>
