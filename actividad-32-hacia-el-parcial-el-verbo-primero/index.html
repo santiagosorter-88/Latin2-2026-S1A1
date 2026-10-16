@@ -1286,7 +1286,7 @@
       document.getElementById("btn-" + pre + "-done").disabled = done < total;
     }
     function show(){
-      var it = cfg.items[k], left = it.v.length, sel = null, busy = null;
+      var it = cfg.items[k], left = it.v.length, sel = null, busy = null, stOpen = false;
       it.v.forEach(function(v){ v._st = 0; v._tried = {}; v._sub = null; v._clean = true; });
       stage.innerHTML = "";
       var card = v2el("div", "scene-card");
@@ -1309,6 +1309,9 @@
       card.appendChild(line);
       var ask = v2el("div", "vb-ask"); ask.hidden = true; card.appendChild(ask);
       var info = v2el("div", "tg-info"); info.hidden = true; card.appendChild(info);
+      // 2026-10-16: la repregunta va en su propio contenedor. Antes vivía dentro de «info»: tocar cualquier ficha mientras
+      // estaba abierta la borraba y la frase quedaba trabada (busy nunca se liberaba).
+      var stHost = v2el("div"); card.appendChild(stHost);
       var n2Host = v2el("div"); card.appendChild(n2Host);
       var tr = translationToggle(cfg, it, card);
       stage.appendChild(card);
@@ -1321,6 +1324,7 @@
       }
       function setInfo(cls, html){ info.hidden = false; info.className = "tg-info" + (cls ? " " + cls : ""); info.innerHTML = html; }
       function pick(v){
+        if (stOpen){ var sb0 = stHost.querySelector(".st-box"); if (sb0){ sb0.classList.add("st-flash"); sb0.scrollIntoView({ block: "nearest", behavior: "auto" }); } return; }
         if (busy && busy !== v){ setInfo("", "Falta terminar con <em>" + W(busy) + "</em>."); return; }
         it.v.forEach(function(x){ x._el.classList.remove("sel"); });
         sel = v; v._el.classList.add("sel");
@@ -1389,7 +1393,9 @@
         ask.hidden = true; left--;
         if (v._clean && v.st){
           setInfo("ok", CERTE + " " + txt(v) + " «" + v.es + "».");
-          busy = v; stretchBox(info, v.st, it.src + " · " + W(v), function(){ busy = null; check(); });
+          busy = v; stOpen = true; stHost.innerHTML = "";
+          var sb = stretchBox(stHost, v.st, it.src + " · " + W(v), function(){ busy = null; stOpen = false; sb.classList.remove("st-flash"); check(); });
+          sb.scrollIntoView({ block: "nearest", behavior: "auto" });
         } else { explainDone(v); check(); }
       }
       function txt(v){
