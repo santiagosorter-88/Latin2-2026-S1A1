@@ -544,6 +544,24 @@
   .n2-box p{ margin:.15rem 0; font-family:var(--serif); font-size:1.08rem; line-height:1.6; }
   .n2-box .an-w.multi, .n2-demo .u{ text-decoration:underline; text-underline-offset:4px; }
   .n2-demo{ text-align:center; font-size:1.1rem; }
+  /* Act. 34 v2 (2026-10-19): pares «a» / «de» (buildPairsQ) y transformaciones (buildTrans) */
+  .pq-q{ font-size:1.02rem; font-weight:600; margin:.2rem 0 .8rem; }
+  .pair-opt .exb-src{ font-family:var(--sans); font-style:normal; font-size:.75rem; color:var(--ink-muted); }
+  .la-opt .ex-latin{ font-family:var(--serif); font-size:1.12rem; line-height:1.45; }
+  .la-opt b{ background:var(--warn-bg); padding:0 .12em; border-radius:4px; }
+  .tf-base{ padding:.5rem .75rem; border-left:3px solid var(--rule); background:var(--surface-raised); border-radius:6px; margin:0 0 .8rem; }
+  .tf-lbl{ margin:0 0 .2rem; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); }
+  .tf-la{ font-family:var(--serif); font-size:1.2rem; line-height:1.5; margin:.1rem 0; }
+  .tf-la b{ background:var(--warn-bg); padding:0 .12em; border-radius:4px; }
+  .tf-es{ margin:.1rem 0 0; font-size:.92rem; font-style:italic; color:var(--ink-muted); }
+  .tf-target{ margin:.1rem 0 .5rem; font-size:1.02rem; }
+  .tf-line{ font-size:1.3rem; margin:.2rem 0 .7rem; }
+  .tf-slot{ display:inline-block; min-width:4.5rem; text-align:center; border-bottom:2px solid var(--accent); color:var(--accent-strong); font-style:italic; }
+  .tf-slot.ok{ border-color:var(--correct); color:var(--correct); background:var(--correct-bg); border-radius:4px 4px 0 0; }
+  .tf-slot.rev{ border-color:var(--warn); color:var(--warn); background:var(--warn-bg); border-radius:4px 4px 0 0; }
+  .tf-opt{ font-family:var(--serif); font-style:italic; font-size:1.05rem; }
+  .tf-opt.bad{ border-color:var(--incorrect); color:var(--incorrect); }
+  .tg-tag.tf-done{ border-color:var(--rule); background:transparent; color:var(--ink-muted); text-decoration:none; opacity:.55; }
 </style>
 </head>
 <body>
@@ -552,7 +570,7 @@
 
   <p class="eyebrow">Latín · Actividad 34</p>
   <h1>Hacia el parcial 3: Dativo y genitivo</h1>
-  <p class="lede">Para preparar el parcial: qué funciones cumplen el dativo (objeto indirecto o dativo régimen) y el genitivo (especificativo, adentro de un sintagma), cómo se distinguen de formas iguales y cómo se ven en <em>is</em> e <em>ille</em>.</p>
+  <p class="lede">Para preparar el parcial: «a quién» y «de quién» en frases de la <em>Eneida</em> que ya conocen, y qué cambia cuando se cambia una sola palabra.</p>
 
   <section class="identity" id="identity">
     <div class="identity-grid">
@@ -566,88 +584,50 @@
 
   <main id="main">
 
-    <section class="step" id="step-s1">
-      <div class="step-nav top-nav"></div>
-      <div class="step-head"><div><p class="eyebrow">Para empezar</p><h2>El dativo: a quién, para quién</h2></div></div>
-      <div class="explain-box">
-        <h3 class="box-h">Repaso: genitivo y dativo</h3>
-        <p>Antes de las funciones, las terminaciones. Con el nominativo al lado, porque varias formas coinciden:</p>
-        <table class="tbl-mini tbl-decl">
-          <tr><th></th><th>1ª</th><th>2ª</th><th>3ª</th></tr>
-          <tr><th>Nom. sg.</th><td class="la">sagitt<b>a</b></td><td class="la">amic<b>us</b></td><td class="la">soror</td></tr>
-          <tr><th>Gen. sg.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>i</b></td><td class="la">soror<b>is</b></td></tr>
-          <tr><th>Dat. sg.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>o</b></td><td class="la">soror<b>i</b></td></tr>
-          <tr><th>Nom. pl.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>i</b></td><td class="la">soror<b>es</b></td></tr>
-          <tr><th>Gen. pl.</th><td class="la">sagitt<b>arum</b></td><td class="la">amic<b>orum</b></td><td class="la">soror<b>um</b></td></tr>
-          <tr><th>Dat. pl.</th><td class="la">sagitt<b>is</b></td><td class="la">amic<b>is</b></td><td class="la">soror<b>ibus</b></td></tr>
-        </table>
-        <ul class="val-list"><li>En la 1ª, <strong>‑ae</strong> sirve para tres casos: genitivo y dativo singular, y nominativo plural.</li><li>En la 2ª, <strong>‑i</strong> es genitivo singular o nominativo plural; el dativo singular es <strong>‑o</strong>.</li><li>En la 3ª, <strong>‑i</strong> es el dativo singular y <strong>‑is</strong>, el genitivo singular.</li></ul>
-      </div>
-      <div class="consigna"><p>Tres preguntas para pensar el dativo. La idea es intentar una respuesta con lo que ya saben y recién después abrir la que está debajo de cada pregunta.</p></div>
-      <div class="explain-box"><div class="dlg" id="dlg-s1"></div></div>
-      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-s1-done">Continuar</button></div>
-    </section>
-
-    <section class="step" id="step-s2">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Para empezar (2)</p><h2>El genitivo: «de quién»</h2></div></div>
-      <div class="consigna"><p>Dos preguntas para pensar el genitivo. La idea, otra vez, es intentar una respuesta antes de abrir la que está debajo.</p></div>
-      <div class="explain-box"><div class="dlg" id="dlg-s2"></div></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-s2-done">Continuar al calentamiento</button></div>
-    </section>
-
     <section class="step" id="step-warm">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button></div>
+      <div class="step-nav top-nav"></div>
       <div class="step-head"><div><p class="eyebrow">Calentamiento</p><h2>Del castellano al latín</h2></div><span class="step-progress" id="warm-progress">—</span></div>
-      <div class="consigna"><p>Tres frases de la <em>Eneida</em> para armar en latín, palabra por palabra. La palabra resaltada en castellano es la que sigue. En <strong>negrita</strong>, lo que en latín va en dativo o en genitivo (y el «le» que duplica al dativo).</p></div>
+      <div class="consigna"><p>Tres frases de la <em>Eneida</em> para armar en latín, palabra por palabra. La palabra resaltada en castellano es la que sigue. En <strong>negrita</strong>, lo que dice «a quién» o «de quién».</p></div>
       <div class="v2-seals" id="warm-seals"></div>
       <div id="warm-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s2">← Volver</button><button class="btn" id="btn-warm-done" hidden>Continuar a Paso 1</button></div>
+      <div class="stage-nav bottom-nav"><span></span><button class="btn" id="btn-warm-done" hidden>Continuar a Paso 1</button></div>
     </section>
 
     <section class="step" id="step-p1">
       <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>Dativo o genitivo, y qué función</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 1</p><h2>¿«A» o «de»?</h2></div><span class="streak zero" id="p1-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <div class="explain-box p1-expl">
-        <h3 class="box-h">Qué mirar en la palabra en negrita</h3>
-        <div class="p1-row c-rojo"><p class="p1-name">OI · objeto indirecto</p><p>Dativo que es el <strong>tercer elemento</strong> del verbo: el verbo ya tiene sujeto y objeto directo, y el dativo dice a quién se da, se dice o se muestra algo.</p></div>
-        <div class="p1-row c-amarillo"><p class="p1-name">Dativo régimen</p><p>Dativo que es el <strong>segundo elemento</strong> del verbo: el verbo no tiene objeto directo y pide el dativo (<em>faveo, noceo, pareo, credo</em>).</p></div>
-        <div class="p1-row c-verde"><p class="p1-name">Esp · genitivo</p><p>No depende del verbo sino de un <strong>sustantivo</strong>: va adentro de su sintagma. En el nivel 2 lleva Esp.</p></div>
-      </div>
-      <div class="consigna"><p>Una frase por vez, con una palabra en <strong>negrita</strong>, en dativo o en genitivo. Tocar el cajón de la función que cumple. «Ver traducción» muestra el castellano de la frase.</p></div>
+      <div class="consigna"><p>Dos frases por vez, con la misma palabra en <strong>negrita</strong> y una terminación distinta (o la misma). Tocar la frase que responde a la pregunta. «Ver traducción» muestra el castellano de cada frase.</p></div>
       <div class="p-progress" id="p1-progress"></div>
       <div id="p1-stage"></div>
-      <div class="seq-log" id="p1-log"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar</button></div>
-    </section>
-
-    <section class="step" id="step-s3">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Antes del Paso 2</p><h2>Los pronombres en dativo y genitivo</h2></div></div>
-      <div class="consigna"><p>Dos preguntas para pensar <em>is</em> e <em>ille</em> en dativo y en genitivo. Como antes, la idea es intentar una respuesta antes de abrir la que está debajo. Debajo están las dos declinaciones completas.</p></div>
-      <div class="explain-box"><div class="dlg" id="dlg-s3"></div><div id="s3-decl"></div></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-s3-done">Continuar a Paso 2</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-warm">← Volver</button><button class="btn" id="btn-p1-done" disabled>Continuar a Paso 2</button></div>
     </section>
 
     <section class="step" id="step-p2">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button></div>
-      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Caso y función</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Paso 2</p><h2>Cambiar una palabra</h2></div><span class="streak zero" id="p2-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
-      <div class="consigna"><p>En cada frase, solo son fichas las palabras terminadas en <em>‑ae, ‑i, ‑is</em> y los pronombres que pueden ser dativo o genitivo; el resto ya tiene su subíndice, en gris. Para cada ficha:</p><ol class="cons-ol"><li>decidir el <strong>caso</strong>: dativo, genitivo o nominativo;</li><li>si es dativo, decidir la <strong>función</strong>: OI o Dativo régimen; si es genitivo, <strong>de qué palabra depende</strong>; si es nominativo, S o PS.</li></ol><p>Los genitivos resueltos se anotan debajo de la frase en el <strong>nivel 2</strong>, como en el parcial. Una ficha empezada se termina antes de pasar a otra.</p></div>
+      <div class="consigna"><p>Una frase conocida y la misma frase con un cambio, en castellano. Elegir la forma latina que corresponde al cambio. Después de cada una, una línea dice qué cambió y qué quedó igual.</p></div>
       <div class="p-progress" id="p2-progress"></div>
       <div id="p2-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s3">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar a Paso 3</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p1">← Volver</button><button class="btn" id="btn-p2-done" disabled>Continuar</button></div>
+    </section>
+
+    <section class="step" id="step-s1">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
+      <div class="step-head"><div><p class="eyebrow">Lo que viste</p><h2>Dativo y genitivo, con las frases de los pasos</h2></div></div>
+      <div id="s1-host"></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-s1-done">Continuar a Paso 3</button></div>
     </section>
 
     <section class="step" id="step-p3">
-      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button></div>
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button></div>
       <div class="step-head"><div><p class="eyebrow">Paso 3</p><h2>Del castellano al análisis</h2></div><span class="streak zero" id="p3-streak">Primer intento: 0</span></div>
       <p class="streak-note">«Primer intento» cuenta las respuestas correctas seguidas que resolviste sin ningún error.</p>
       <div class="consigna"><p>Una frase en castellano y dos análisis de su versión latina: uno es correcto y el otro no puede serlo. Tocar el correcto.</p></div>
       <div class="p-progress" id="p3-progress"></div>
       <div id="p3-stage"></div>
-      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-p2">← Volver</button><button class="btn" id="btn-p3-done" disabled>Finalizar actividad</button></div>
+      <div class="stage-nav bottom-nav"><button type="button" class="btn btn-ghost btn-back" data-back-step="step-s1">← Volver</button><button class="btn" id="btn-p3-done" disabled>Finalizar actividad</button></div>
     </section>
     <section class="step" id="step-fin">
       <div class="exercise" id="evaluacion">
@@ -696,186 +676,143 @@
   // Frase de ejemplo en bloque propio: latín al centro, traducción debajo (regla de diagramación del 2026-10-16).
   function EX(la, es, src){ return '<div class="exb"><p class="exb-la">' + la + '</p><p class="exb-es">' + es + (src ? ' <span class="exb-src">(' + src + ')</span>' : '') + '</p></div>'; }
 
-  // Frases del banco de la Eneida y de la Act. 26 (publicada), según el §8 del diseño 32-36 (revisado el 2026-10-16) y las
-  // reglas de la revisión de la Act. 33 (SKILL, conv. 38). «recortada» = se sacó una cláusula entera. OI = solo tercer
-  // argumento (Pinkster, Sintaxis y semántica del latín, 1995, §2.2, p. 17); Dativo régimen = dativo segundo argumento
-  // (Pinkster, OLS I, 2015, §4.24, p. 104).
+  // Act. 34 v2 (2026-10-19, pedido de Santiago): primero la práctica con frases ya conocidas (pares «a» / «de» y
+  // transformaciones de una palabra), la explicación después («Lo que viste»), con esas mismas frases. Sin Dativo régimen.
+  // Frases del banco de la Eneida (docs de Latín II), recortadas cuando se indica.
   var DATA = {
     sections: [["1 -","Paso 1"], ["2 -","Paso 2"], ["3 -","Paso 3"]],
 
-    s1: [
-      { q:"¿Qué función cumple un dativo?",
-        a:"<p>Dos frases:</p>" +
-          EX("Dea irata <u>Aeolo</u> dicit.", "La diosa, enojada, <strong>le</strong> dice <strong>a Eolo</strong>.", "Libro I · ya la viste en la Actividad 32") +
-          EX("Anchises <u>filio suo</u> Romanos futuros ostendit.", "Anquises <strong>le</strong> muestra <strong>a su hijo</strong> los futuros romanos.", "Libro VI, recortada") +
-          "<p><span class=\"ex-latin\">dicit</span> y <span class=\"ex-latin\">ostendit</span> piden <strong>tres elementos</strong>: alguien que dice o muestra (el S), algo dicho o mostrado (el OD) y alguien a quien se le dice o se le muestra. Decir es decir algo a alguien; mostrar es mostrar algo a alguien. En la primera frase lo dicho no está escrito (viene después, en discurso directo), pero el verbo lo implica.</p>" +
-          "<p>Ese tercer elemento va en dativo y es el <strong>objeto indirecto</strong> (<span class=\"lab\">OI</span>). Lo piden los verbos de comunicación y de transferencia: <em>do, dico, narro, ostendo, promitto, mando</em>.</p>" },
-      { q:"¿Y con verbos que no tienen objeto directo?",
-        a:"<p>Dos frases:</p>" +
-          EX("Iuno <u>Troianis</u> non favet.", "Juno no <strong>les</strong> es favorable <strong>a los troyanos</strong>.", "ya la viste en la Actividad 26") +
-          EX("Troiani <u>Cassandrae</u> non credunt.", "Los troyanos no <strong>le</strong> creen <strong>a Casandra</strong>.", "ya la viste en la Actividad 26") +
-          "<p><span class=\"ex-latin\">favet</span> y <span class=\"ex-latin\">credunt</span> piden <strong>solo dos elementos</strong>: quién favorece o cree, y a quién. El dativo no es un tercer elemento sino <strong>el segundo</strong>: ocupa el lugar que en otros verbos ocupa el objeto directo. Por eso no es OI: es <strong>Dativo régimen</strong>, el dativo que el verbo rige.</p>" +
-          "<h4 class=\"dlg-sub\">Qué verbos lo piden</h4>" +
-          "<ul class=\"val-list\"><li><em>faveo</em> (favorecer), <em>noceo</em> (hacer daño), <em>pareo</em> (obedecer), <em>credo</em> (creer).</li>" +
-          "<li>Verbos compuestos con preverbio, como <em>appareo</em> (aparecerse a alguien).</li></ul>" +
-          "<p>En castellano, varios se traducen con objeto directo («Ícaro no obedece a su padre»); en latín, el verbo pide dativo. Por eso conviene aprenderlos con el caso que rigen: <em>pareo</em> + dativo.</p>" },
-      { q:"¿Cómo ayuda el castellano a encontrar un dativo?",
-        a:"<p>Si en la traducción aparece <strong>«le» o «les»</strong>, casi seguro hay un dativo en la frase latina. Por eso conviene traducir duplicando el pronombre, como en las frases de arriba:</p>" +
-          EX("Dea irata Aeolo dicit.", "La diosa, enojada, <u>le</u> dice <u>a Eolo</u>.") +
-          "<p>«le» y «a Eolo» nombran a la misma persona: en latín hay una sola palabra, <span class=\"ex-latin\">Aeolo</span>, en dativo. Sirve para los dos usos, el OI y el Dativo régimen.</p>" }
-    ],
-
-    s2: [
-      { q:"¿Qué función cumple un genitivo en la oración?",
-        a:"<p>Dos frases:</p>" +
-          EX("Cupido formam <u>Ascanii</u> sumit.", "Cupido adopta la apariencia <strong>de Ascanio</strong>.", "Libro I · ya la viste en la Actividad 32") +
-          EX("Turnus castra <u>Troianorum</u> vidit.", "Turno vio el campamento <strong>de los troyanos</strong>.", "Libro IX, recortada") +
-          "<p>El genitivo no cumple por sí solo una función en la oración: <strong>depende de un sustantivo</strong> (<span class=\"ex-latin\">formam</span>, <span class=\"ex-latin\">castra</span>) y está <strong>adentro</strong> de su sintagma. Por eso no lleva subíndice propio en el nivel 1: el subíndice es del bloque entero. Aparece en el <strong>nivel 2</strong>, como <span class=\"lab\">Esp</span>:</p>" +
-          "<p class=\"n2-demo\"><span class=\"ex-latin u\">formam Ascanii</span><sub class=\"tg-sub\">OD</sub> → <span class=\"ex-latin\">formam</span><sub class=\"tg-sub\">N</sub> <span class=\"ex-latin\">Ascanii</span><sub class=\"tg-sub\">Esp</sub></p>" +
-          "<h4 class=\"dlg-sub\">La prueba del pronombre</h4>" +
-          "<p>Si el OD se reemplaza por un pronombre, el genitivo se va con él: «Turno vio el campamento de los troyanos» → «Turno <u>lo</u> vio». «de los troyanos» no queda afuera, porque es parte del OD. Es la misma prueba que separaba al atributo del predicativo en la Actividad 33.</p>" },
-      { q:"¿Cómo se reconoce un genitivo?",
-        a:"<p>Por las terminaciones del repaso: en singular, <em>‑ae</em> (1ª), <em>‑i</em> (2ª), <em>‑is</em> (3ª); en plural, <em>‑arum</em>, <em>‑orum</em> y, en la 3ª, <em>‑um</em>. Las del plural no se confunden con nada. Las del singular, sí:</p>" +
-          "<ul class=\"val-list\"><li><em>‑ae</em> puede ser genitivo, dativo o nominativo plural (<em>sagittae</em>).</li>" +
-          "<li><em>‑i</em> puede ser genitivo de la 2ª, nominativo plural de la 2ª o dativo de la 3ª (<em>amici</em>, <em>sorori</em>).</li></ul>" +
-          "<h4 class=\"dlg-sub\">Qué decide, entonces</h4>" +
-          "<ul class=\"val-list\"><li>Si hay un <strong>sustantivo</strong> del que la palabra pueda depender («la apariencia de Ascanio»): genitivo.</li>" +
-          "<li>Si el <strong>verbo</strong> pide un elemento más, a quién: dativo.</li>" +
-          "<li>Si el verbo está en <strong>plural</strong> y no tiene otro sujeto: nominativo plural.</li></ul>" }
-    ],
-
-    s3: [
-      { q:"¿Cómo se ve <em>is</em> en dativo y en genitivo?",
-        a:"<p>Dos frases:</p>" +
-          EX("Soror autem <u>ei</u> consilium dat.", "Pero la hermana <strong>le</strong> da un consejo.", "Libro IV · ya la viste en la Actividad 32") +
-          EX("Pyrrhus Priamum et filium <u>eius</u> occidit.", "Pirro mata a Príamo y a <strong>su</strong> hijo.", "Libro II, recortada") +
-          "<ul class=\"val-list\"><li><span class=\"ex-latin\">ei</span> es el <strong>dativo</strong> singular: <span class=\"ex-latin\">dat</span> ya tiene OD (<span class=\"ex-latin\">consilium</span>), y <span class=\"ex-latin\">ei</span> es a quién se lo da: OI.</li>" +
-          "<li><span class=\"ex-latin\">eius</span> es el <strong>genitivo</strong> singular: depende de <span class=\"ex-latin\">filium</span>, «el hijo <strong>de él</strong>». En castellano suena mejor «su hijo». En el nivel 2, <span class=\"ex-latin\">eius</span> es Esp.</li></ul>" +
-          "<p>Dativo: <em>ei</em> (singular), <em>eis</em> (plural). Genitivo: <em>eius</em> (singular), <em>eorum, earum</em> (plural).</p>" },
-      { q:"¿Y <em>ille</em>?",
-        a:"<p>Dativo: <em>illi</em> (singular), <em>illis</em> (plural). Genitivo: <em>illius</em> (singular), <em>illorum, illarum</em> (plural).</p>" +
-          "<p>Pero <em>illi</em> es también el <strong>nominativo plural</strong> masculino («ellos»), como <em>illae</em> es el femenino:</p>" +
-          EX("Iris feminas Troianas incitat; <u>illae</u> naves incendunt.", "Iris incita a las mujeres troyanas; <strong>ellas</strong> incendian las naves.", "Libro V, recortada") +
-          "<p>Lo que decide es el verbo: si está en plural y no tiene otro sujeto, <em>illi</em> es el sujeto. Con <em>is</em> pasa algo parecido, porque <em>ei</em> también puede ser nominativo plural; pero como sujeto que cambia se usa <em>ille</em>.</p>" }
-    ],
-
-    // ---------- Paso 1 · OI · Dativo régimen · Esp, una frase por vez (buildSeq33). Revisión de la Act. 33: pocas categorías,
-    // sin repreguntas. Las dos tarjetas «S (parece dativo o genitivo)» del §8 salen (no es una función del dativo ni del
-    // genitivo); los nominativos plurales en ‑i se practican en el Paso 2 (illi).
+    // ---------- Paso 1 · ¿«A» o «de»? (buildPairsQ): el mismo sustantivo en dativo y en genitivo, en dos frases conocidas.
     paso1: {
-      paso: "1 - Dativo o genitivo",
-      hint: "Queda un intento: mirar si la palabra depende de un sustantivo o del verbo, y si el verbo ya tiene objeto directo.",
-      columns: [
-        { key:"OI",     color:"c-rojo",     name:"OI",             sub:"dativo: tercer elemento", model:"<span class=\"la\">Dea <b>Aeolo</b> dicit</span>" },
-        { key:"DatReg", color:"c-amarillo", name:"Dativo régimen", sub:"dativo: segundo elemento", model:"<span class=\"la\">Iuno <b>Troianis</b> non favet</span>" },
-        { key:"Esp",    color:"c-verde",    name:"Esp",            sub:"genitivo: depende de un sustantivo", model:"<span class=\"la\">formam <b>Ascanii</b> sumit</span>" }
-      ],
-      words: [
-        { tag:"Iulo", la:"Euryalus matrem <b>Iulo</b> commendavit.", es:"Euríalo le encomendó su madre a Iulo.", wes:"a Iulo", correct:"OI",
-          why:"<em>Iulo</em> (‑o, 2ª declinación) es dativo. <em>commendavit</em> ya tiene OD (<em>matrem</em>): <em>Iulo</em> es el tercer elemento, a quién se la encomienda. OI." },
-        { tag:"Latinis", la:"Aeneas <b>Latinis</b> pacem dedit.", es:"Eneas les dio la paz a los latinos.", wes:"a los latinos", correct:"OI",
-          why:"<em>Latinis</em> (‑is) es dativo plural. <em>dedit</em> ya tiene OD (<em>pacem</em>): <em>Latinis</em> es a quiénes se la da. OI." },
-        { tag:"patri", la:"Icarus <b>patri</b> non paret.", es:"Ícaro no le obedece a su padre.", wes:"a su padre", correct:"DatReg",
-          why:"<em>patri</em> (‑i, 3ª declinación) es dativo. <em>paret</em> pide solo dos elementos, quién obedece y a quién: el dativo es el segundo. Dativo régimen." },
-        { tag:"fratri", la:"Ariadna <b>fratri</b> nocet.", es:"Ariadna le hace daño a su hermano.", wes:"a su hermano", correct:"DatReg",
-          why:"<em>fratri</em> (‑i, 3ª declinación) es dativo. <em>nocet</em> no tiene OD: pide quién hace daño y a quién. Dativo régimen." },
-        { tag:"castrorum", la:"Nisus et Euryalus portam <b>castrorum</b> simul custodiverunt.", es:"Niso y Euríalo custodiaron juntos la puerta del campamento.", wes:"del campamento", correct:"Esp",
-          why:"<em>castrorum</em> (‑orum) es genitivo plural. Depende de <em>portam</em>: «la puerta del campamento». Está adentro del OD; en el nivel 2, Esp." },
-        { tag:"deorum", la:"Mater <b>deorum</b> naves in nymphas vertit.", es:"La madre de los dioses convirtió las naves en ninfas.", wes:"de los dioses", correct:"Esp",
-          why:"<em>deorum</em> (‑orum) es genitivo plural. Depende de <em>Mater</em>: «la madre de los dioses». Está adentro del sujeto; en el nivel 2, Esp." }
-      ]
-    },
-
-    // ---------- Paso 2 · caso y función (buildFunc de la 33, extendido para el genitivo). Fichas = formas en ‑ae, ‑i, ‑is y
-    // pronombres en dativo o genitivo, y sus dobles (illi, nominativo plural). Para el genitivo, la segunda pregunta es «¿de qué
-    // palabra depende?» (dep = índice correcto, deps = opciones); al resolverlo se anota el nivel 2 debajo de la frase (n2).
-    // blocks = constituyentes de varias palabras (subrayados); pre = subíndices ya puestos, en gris, sobre la última palabra.
-    paso2: {
-      paso: "2 - Caso y función",
-      cases: [["dat","Dativo"],["gen","Genitivo"],["nom","Nominativo"]],
-      funcs: ["OI","DatReg","S","PS"],
-      funcCase: { OI:"dat", DatReg:"dat", S:"nom", PS:"nom" },
-      funcsByCase: { dat:["OI","DatReg"], nom:["S","PS"] },
+      paso: "1 - A o de",
       items: [
-        { src:"P2 · 1 (Libro II)", es:"Sinón les cuenta a los troyanos una explicación falsa, y ellos le creen.",
-          words:["Sinon","Troianis","falsam","causam","narrat,","et","illi","ei","credunt."], blocks:[[2,3]], pre:{ 0:"S", 3:"OD", 4:"NV", 5:"NC", 8:"NV" },
-          v:[ { i:1, c:"dat", f:"OI", es:"a los troyanos", cw:"‑is es dativo (o ablativo) plural de la 1ª y la 2ª. El nominativo sería <em>Troiani</em> y el genitivo, <em>Troianorum</em>.",
-                why:"dativo plural (‑is). <em>narrat</em> ya tiene OD (<em>falsam causam</em>): <em>Troianis</em> es el tercer elemento, a quiénes se cuenta.",
-                bad:{ DatReg:"<em>narrat</em> pide tres elementos: quién cuenta, qué cuenta (<em>falsam causam</em>) y a quién. El dativo es el tercero." } },
-              { i:6, c:"nom", f:"S", es:"ellos", cw:"<em>illi</em> podría ser dativo singular de <em>ille</em>, pero <em>credunt</em> está en plural y no tiene otro sujeto: es nominativo plural.",
-                why:"nominativo plural de <em>ille</em>: <em>credunt</em> (3ª del plural) no tiene otro sujeto. Son los troyanos, que ahora pasan a ser el sujeto.",
-                bad:{ PS:"<em>illi</em> concuerda con <em>credunt</em>: es el que cree, no lo que se dice de él." } },
-              { i:7, c:"dat", f:"DatReg", es:"le (a Sinón)", cw:"<em>ei</em> es el dativo singular de <em>is</em>; el sujeto de <em>credunt</em> ya es <em>illi</em>.",
-                why:"dativo de <em>is</em> (retoma a Sinón). <em>credunt</em> pide solo dos elementos, quién cree y a quién; no hay un tercero. En la misma frase está el contraste: <em>narrat</em> tiene OD, y por eso <em>Troianis</em> es OI.",
-                bad:{ OI:"<em>credunt</em> no tiene OD: pide quién cree y a quién. El dativo es el segundo elemento, no el tercero." } } ] },
-        { src:"P2 · 2 (Libro IX)", es:"La madre de Euríalo vio la cabeza de su hijo y lloró.",
-          words:["Mater","Euryali","caput","filii","vidit","et","flevit."], blocks:[[0,1],[2,3]], pre:{ 1:"S", 3:"OD", 4:"NV", 5:"NC", 6:"NV" },
-          v:[ { i:1, c:"gen", f:"Esp", dep:0, deps:[0,2,4], es:"de Euríalo", n2:"Mater_Euryali[S] → Mater[N] Euryali[Esp]",
-                cw:"‑i puede ser genitivo singular o nominativo plural de la 2ª; el dativo sería <em>Euryalo</em>. Y no es nominativo plural: <em>vidit</em> está en singular y hay un solo Euríalo.",
-                why:"genitivo singular (‑i, 2ª declinación): «la madre de Euríalo». Está adentro del sujeto.",
-                bad:{ 2:"<em>caput</em> ya tiene su genitivo, <em>filii</em>: «la cabeza del hijo».", 4:"Un genitivo no depende del verbo, sino de un sustantivo." } },
-              { i:3, c:"gen", f:"Esp", dep:2, deps:[0,2,4], es:"de su hijo", n2:"caput_filii[OD] → caput[N] filii[Esp]",
-                cw:"‑i puede ser genitivo singular o nominativo plural de la 2ª; el dativo sería <em>filio</em>. Y el sujeto ya es <em>Mater</em>.",
-                why:"genitivo singular (‑i, 2ª declinación): «la cabeza de su hijo». Está adentro del OD.",
-                bad:{ 0:"<em>Mater</em> ya tiene su genitivo, <em>Euryali</em>: «la madre de Euríalo».", 4:"Un genitivo no depende del verbo, sino de un sustantivo." } } ] },
-        { src:"P2 · 3 (Libro XI)", es:"Evandro le encargó a Eneas la muerte de Turno.",
-          words:["Evander","Aeneae","mortem","Turni","mandavit."], blocks:[[2,3]], pre:{ 0:"S", 3:"OD", 4:"NV" },
-          v:[ { i:1, c:"dat", f:"OI", es:"a Eneas", cw:"‑ae puede ser genitivo o dativo singular (o nominativo plural). No hay un sustantivo del que dependa, y <em>mandavit</em> pide a quién se encarga algo: dativo.",
-                why:"dativo (‑ae, 1ª declinación). <em>mandavit</em> ya tiene OD (<em>mortem Turni</em>): <em>Aeneae</em> es a quién se le encarga, el tercer elemento.",
-                bad:{ DatReg:"<em>mandavit</em> tiene OD (<em>mortem Turni</em>): el dativo es el tercer elemento." } },
-              { i:3, c:"gen", f:"Esp", dep:2, deps:[0,2,4], es:"de Turno", n2:"mortem_Turni[OD] → mortem[N] Turni[Esp]",
-                cw:"‑i, 2ª declinación: genitivo singular. El dativo sería <em>Turno</em>, y no es nominativo plural (hay un solo Turno).",
-                why:"genitivo singular (‑i): «la muerte de Turno». Está adentro del OD.",
-                bad:{ 0:"«Evandro de Turno» no tiene sentido: <em>Turni</em> va con <em>mortem</em>.", 4:"Un genitivo no depende del verbo, sino de un sustantivo." } } ] },
-        { src:"P2 · 4 (Actividad 26)", es:"Minerva le es favorable a Ulises, pero Neptuno no le es favorable.",
-          words:["Minerva","Vlixi","favet,","sed","Neptunus","ei","non","favet."], pre:{ 0:"S", 2:"NV", 3:"NC", 4:"S", 6:"CNeg", 7:"NV" },
-          v:[ { i:1, c:"dat", f:"DatReg", es:"a Ulises", cw:"‑i es el dativo singular de <em>Vlixes, Vlixis</em> (3ª declinación); el genitivo sería <em>Vlixis</em>.",
-                why:"dativo (‑i, 3ª declinación). <em>favet</em> pide solo dos elementos, quién favorece y a quién.",
-                bad:{ OI:"<em>favet</em> no tiene OD: el dativo es el segundo elemento, no el tercero." } },
-              { i:5, c:"dat", f:"DatReg", es:"le (a Ulises)", cw:"<em>ei</em> es el dativo singular de <em>is</em>; el sujeto de <em>favet</em> ya es <em>Neptunus</em>.",
-                why:"dativo de <em>is</em> (retoma a Ulises). Otra vez <em>favet</em>: solo dos elementos.",
-                bad:{ OI:"<em>favet</em> no tiene OD: el dativo es el segundo elemento, no el tercero." } } ] }
+        { q:"¿En cuál de las dos frases la palabra en negrita significa «de Turno»?",
+          ok:{ la:"Evander Aeneae mortem <b>Turni</b> mandavit.", es:"Evandro le encargó a Eneas la muerte de Turno.", src:"Libro XI" },
+          no:{ la:"Camilla <b>Turno</b> auxilium promisit.", es:"Camila le prometió ayuda a Turno.", src:"Libro XI" },
+          note:"<em>Turni</em> (‑i): «la muerte <strong>de</strong> Turno». <em>Turno</em> (‑o): «<strong>a</strong> Turno», a quién le promete ayuda." },
+        { q:"¿En cuál de las dos frases la palabra en negrita significa «a los troyanos»?",
+          ok:{ la:"Sinon <b>Troianis</b> falsam causam narrat.", es:"Sinón les cuenta a los troyanos una explicación falsa.", src:"Libro II, recortada" },
+          no:{ la:"Turnus castra <b>Troianorum</b> vidit.", es:"Turno vio el campamento de los troyanos.", src:"Libro IX, recortada" },
+          note:"<em>Troianis</em> (‑is): «<strong>a</strong> los troyanos», a quiénes les cuenta. <em>Troianorum</em> (‑orum): «el campamento <strong>de</strong> los troyanos»." },
+        { q:"¿En cuál de las dos frases la palabra en negrita significa «de su hijo»?",
+          ok:{ la:"Mater Euryali caput <b>filii</b> vidit et flevit.", es:"La madre de Euríalo vio la cabeza de su hijo y lloró.", src:"Libro IX" },
+          no:{ la:"Anchises <b>filio suo</b> Romanos futuros ostendit.", es:"Anquises le muestra a su hijo los futuros romanos.", src:"Libro VI, recortada" },
+          note:"<em>filii</em> (‑i): «la cabeza <strong>de</strong> su hijo». <em>filio</em> (‑o): «<strong>a</strong> su hijo», a quién le muestra." },
+        { q:"Las dos frases tienen <em>Aeneae</em>, con la misma forma. ¿En cuál significa «de Eneas»?",
+          ok:{ la:"Iuno imaginem <b>Aeneae</b> fecit.", es:"Juno hizo una imagen de Eneas.", src:"Libro X, recortada" },
+          no:{ la:"Euander <b>Aeneae</b> parvam domum ostendit.", es:"Evandro le muestra a Eneas una casa pequeña.", src:"Libro VIII, recortada" },
+          note:"La forma no decide: decide la frase. En la primera, <em>Aeneae</em> va con <em>imaginem</em>: «la imagen <strong>de</strong> Eneas». En la segunda, es <strong>a</strong> quién le muestra la casa." }
       ]
     },
 
-    // ---------- Paso 3 · del castellano al análisis (buildAnal): el correcto y uno claramente absurdo. Una sola repregunta
-    // (frase 2): «¿Cuál de estas tres está en dativo?».
+    // ---------- Paso 2 · Cambiar una palabra (buildTrans): frase conocida + la misma frase con un cambio en castellano;
+    // se elige la forma latina. kind = tipo de cambio; note = qué cambió y qué quedó igual; bad = devolución por opción.
+    paso2: {
+      paso: "2 - Cambiar una palabra",
+      items: [
+        { kind:"Cambio de número", base:"Nisus <b>amico</b> consilium suum dixit.", bes:"Niso le dijo su plan al amigo.",
+          tes:"Niso les dijo su plan <strong>a los amigos</strong>.", frame:["Nisus","consilium suum dixit."], ok:"amicis", opts:["amicis","amicos","amicorum"],
+          bad:{ amicos:"<em>amicos</em> (‑os) sería lo que dice, no a quiénes se lo dice.", amicorum:"<em>amicorum</em> (‑orum) es «de los amigos»." },
+          note:"Cambió el número: ‑o → ‑is. Lo demás quedó igual: sigue siendo a quiénes se lo dice." },
+        { kind:"Cambio de número", base:"Sinon <b>Troianis</b> falsam causam narrat.", bes:"Sinón les cuenta a los troyanos una explicación falsa.",
+          tes:"Sinón le cuenta una explicación falsa <strong>al troyano</strong>.", frame:["Sinon","falsam causam narrat."], ok:"Troiano", opts:["Troiano","Troianum","Troiani"],
+          bad:{ Troianum:"<em>Troianum</em> (‑um) sería a quién engaña, no a quién le cuenta.", Troiani:"<em>Troiani</em> (‑i) es «del troyano» (o «los troyanos», como sujeto)." },
+          note:"‑is → ‑o: del plural al singular. Sigue siendo a quién le cuenta." },
+        { kind:"Cambio de palabra", base:"Turnus castra <b>Troianorum</b> vidit.", bes:"Turno vio el campamento de los troyanos.",
+          tes:"Turno vio el campamento <strong>de los latinos</strong>.", frame:["Turnus castra","vidit."], ok:"Latinorum", opts:["Latinorum","Latinis","Latinos"],
+          bad:{ Latinis:"<em>Latinis</em> (‑is) es «a los latinos».", Latinos:"<em>Latinos</em> (‑os) sería a quiénes vio, no de quiénes es el campamento." },
+          note:"Cambió la palabra, no la terminación: ‑orum, porque sigue diciendo de quiénes es el campamento." },
+        { kind:"Pronombre", base:"Evander <b>Aeneae</b> mortem Turni mandavit.", bes:"Evandro le encargó a Eneas la muerte de Turno.",
+          tes:"Evandro <strong>le</strong> encargó la muerte de Turno.", frame:["Evander","mortem Turni mandavit."], ok:"ei", opts:["ei","eum","eius"],
+          bad:{ eum:"<em>eum</em> es «lo»: sería a quién encargó, como si Eneas fuera lo encargado.", eius:"<em>eius</em> es «de él»: «la muerte de él»." },
+          note:"<em>Aeneae</em> → <em>ei</em>: cambió la palabra, pero sigue siendo a quién se le encarga. <em>ei</em> es «le»." },
+        { kind:"Pronombre", base:"Soror autem <b>ei</b> consilium dat.", bes:"Pero la hermana le da un consejo.",
+          tes:"Pero la hermana <strong>les</strong> da un consejo.", frame:["Soror autem","consilium dat."], ok:"eis", opts:["eis","eos","eorum"],
+          bad:{ eos:"<em>eos</em> es «los»: a quiénes, como objeto directo.", eorum:"<em>eorum</em> es «de ellos»." },
+          note:"<em>ei</em> → <em>eis</em>: «le» → «les». Cambió solo el número." },
+        { kind:"Pronombre", base:"Aeneas <b>Latinis</b> pacem dedit.", bes:"Eneas les dio la paz a los latinos.",
+          tes:"Eneas les dio la paz <strong>a aquellos</strong>.", frame:["Aeneas","pacem dedit."], ok:"illis", opts:["illis","illorum","illos"],
+          bad:{ illorum:"<em>illorum</em> es «de aquellos».", illos:"<em>illos</em> sería a quiénes dio, como si ellos fueran lo dado." },
+          note:"<em>Latinis</em> → <em>illis</em>: la misma terminación ‑is. Sigue siendo a quiénes les da la paz." },
+        { kind:"Pronombre", base:"Mater <b>Euryali</b> caput filii vidit et flevit.", bes:"La madre de Euríalo vio la cabeza de su hijo y lloró.",
+          tes:"La madre <strong>de él</strong> («su madre») vio la cabeza de su hijo y lloró.", frame:["Mater","caput filii vidit et flevit."], ok:"eius", opts:["eius","ei","eum"],
+          bad:{ ei:"<em>ei</em> es «le», a quién.", eum:"<em>eum</em> es «lo», el objeto directo." },
+          note:"<em>Euryali</em> → <em>eius</em>: sigue diciendo de quién es la madre. En castellano suena mejor «su madre»." },
+        { kind:"Pronombre", base:"Rutuli capita <b>Nisi et Euryali</b> in hastis posuerunt.", bes:"Los rútulos pusieron las cabezas de Niso y Euríalo en las lanzas.",
+          tes:"Los rútulos pusieron las cabezas <strong>de ellos</strong> («sus cabezas») en las lanzas.", frame:["Rutuli capita","in hastis posuerunt."], ok:"eorum", opts:["eorum","eis","eos"],
+          bad:{ eis:"<em>eis</em> es «les», a quiénes.", eos:"<em>eos</em> es «los», el objeto directo." },
+          note:"Dos nombres, <em>Nisi et Euryali</em>, se reemplazan por un pronombre en plural: <em>eorum</em>, «de ellos»." },
+        { kind:"Del pronombre al nombre", base:"Pyrrhus Priamum et filium <b>eius</b> occidit.", bes:"Pirro mata a Príamo y a su hijo.",
+          tes:"Pirro mata a Príamo y al hijo <strong>de Príamo</strong>.", frame:["Pyrrhus Priamum et filium","occidit."], ok:"Priami", opts:["Priami","Priamo","Priamum"],
+          bad:{ Priamo:"<em>Priamo</em> (‑o) es «a Príamo».", Priamum:"<em>Priamum</em> (‑um) ya está en la frase: es a quién mata." },
+          note:"Al revés que antes: <em>eius</em> → <em>Priami</em>. Las dos formas dicen de quién es el hijo." },
+        { kind:"Cambio de relación", base:"Nisus <b>amico</b> consilium suum dixit.", bes:"Niso le dijo su plan al amigo.",
+          tes:"Niso dijo el plan <strong>del amigo</strong>.", frame:["Nisus consilium","dixit."], ok:"amici", opts:["amici","amico","amicum"],
+          bad:{ amico:"<em>amico</em> (‑o) es «al amigo», como en la frase original.", amicum:"<em>amicum</em> (‑um) sería a quién dijo, como objeto directo." },
+          note:"Acá cambió la relación: ya no es a quién se lo dice, sino de quién es el plan. Por eso cambia la terminación, ‑o → ‑i, y la palabra pasa a ir con <em>consilium</em>. <em>suum</em> sale: el plan ya no es de Niso." }
+      ]
+    },
+
+    // ---------- Lo que viste (después de los Pasos 1 y 2): la explicación, con las frases que se acaban de resolver.
+    s1:
+      '<div class="explain-box"><h3 class="box-h">«A quién»: el dativo</h3>' +
+        EX("Camilla <u>Turno</u> auxilium promisit.", "Camila <strong>le</strong> prometió ayuda <strong>a Turno</strong>.", "Paso 1") +
+        EX("Sinon <u>Troianis</u> falsam causam narrat.", "Sinón <strong>les</strong> cuenta <strong>a los troyanos</strong> una explicación falsa.", "Paso 1") +
+        '<p>Prometer es prometer algo a alguien; contar es contar algo a alguien. Ese «a alguien» va en <strong>dativo</strong>, y en castellano suele aparecer con «le» o «les». En el parcial lleva <span class="lab">OI</span>: <span class="ex-latin">Turno</span><sub class="tg-sub">OI</sub>.</p></div>' +
+      '<div class="explain-box"><h3 class="box-h">«De quién»: el genitivo</h3>' +
+        EX("Evander Aeneae <u>mortem Turni</u> mandavit.", "Evandro le encargó a Eneas <strong>la muerte de Turno</strong>.", "Paso 1") +
+        '<p>El genitivo no va con el verbo sino con un <strong>sustantivo</strong>: <span class="ex-latin">Turni</span> va con <span class="ex-latin">mortem</span>. Por eso forma un bloque con él y en el nivel 1 el subíndice es del bloque entero. En el nivel 2, el genitivo lleva <span class="lab">Esp</span>:</p>' +
+        '<p class="n2-demo"><span class="ex-latin u">mortem Turni</span><sub class="tg-sub">OD</sub> → <span class="ex-latin">mortem</span><sub class="tg-sub">N</sub> <span class="ex-latin">Turni</span><sub class="tg-sub">Esp</sub></p>' +
+        '<p>Cuando la forma es la misma (<span class="ex-latin">Aeneae</span>), decide la frase: «la imagen <strong>de</strong> Eneas» o «le muestra <strong>a</strong> Eneas».</p></div>' +
+      '<div class="explain-box"><h3 class="box-h">Lo que cambia y lo que no</h3><ul class="val-list">' +
+        '<li><strong>Cambio de número</strong> (<em>amico → amicis</em>, <em>Troianis → Troiano</em>): cambia la terminación, el caso sigue siendo el mismo.</li>' +
+        '<li><strong>Pronombre</strong> (<em>Aeneae → ei</em>, <em>Euryali → eius</em>): cambia la palabra, el caso sigue siendo el mismo. <em>is</em>: dativo <em>ei, eis</em>; genitivo <em>eius, eorum</em>. <em>ille</em>: dativo <em>illi, illis</em>; genitivo <em>illius, illorum</em>.</li>' +
+        '<li><strong>Cambio de relación</strong> (<em>amico → amici</em>): si ya no es «a quién» sino «de quién», cambia el caso.</li></ul></div>' +
+      '<div class="explain-box"><h3 class="box-h">Para consultar: las terminaciones</h3>' +
+        '<table class="tbl-mini tbl-decl"><tr><th></th><th>1ª</th><th>2ª</th><th>3ª</th></tr>' +
+        '<tr><th>Gen. sg.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>i</b></td><td class="la">soror<b>is</b></td></tr>' +
+        '<tr><th>Dat. sg.</th><td class="la">sagitt<b>ae</b></td><td class="la">amic<b>o</b></td><td class="la">soror<b>i</b></td></tr>' +
+        '<tr><th>Gen. pl.</th><td class="la">sagitt<b>arum</b></td><td class="la">amic<b>orum</b></td><td class="la">soror<b>um</b></td></tr>' +
+        '<tr><th>Dat. pl.</th><td class="la">sagitt<b>is</b></td><td class="la">amic<b>is</b></td><td class="la">soror<b>ibus</b></td></tr></table>' +
+        '<div id="s1-decl"></div></div>',
+
+    // ---------- Paso 3 · del castellano al análisis (buildAnal): el correcto y uno claramente absurdo. Una sola repregunta.
     paso3: {
       paso: "3 - Del castellano al análisis",
       items: [
         { src:"P3 · 1 (Libro XII)", es:"Turno tomó la lanza y le prometió la muerte a Eneas.",
           ok:"Turnus[S] hastam[OD] cepit[NV] et[NC] Aeneae[OI] mortem[OD] promisit[NV] .",
-          bad:["Turnus[CL] hastam[NV] cepit[S] et[OD] Aeneae[NV] mortem[NC] promisit[PS] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>Aeneae</em> (‑ae) es el dativo: a quién le promete la muerte, el tercer elemento de <em>promisit</em> (OI). <em>hastam</em> y <em>mortem</em> son los OD; <em>cepit</em> y <em>promisit</em>, los NV."] },
+          bad:["Turnus[CL] hastam[NV] cepit[S] et[OD] Aeneae[NV] mortem[NC] promisit[PS] .", "<em>Turnus</em> está en nominativo: es el sujeto. <em>Aeneae</em> es a quién le promete la muerte: OI. <em>hastam</em> y <em>mortem</em> son los OD; <em>cepit</em> y <em>promisit</em>, los NV."] },
         { src:"P3 · 2 (Libro XII)", es:"Júpiter le concedió a Juno el nombre latino.",
           ok:"Iuppiter[S] Iunoni[OI] nomen_Latinum[OD] concessit[NV] .",
-          bad:["Iuppiter[NV] Iunoni[CL] nomen_Latinum[S] concessit[OI] .", "<em>Iuppiter</em> es el sujeto y <em>concessit</em>, el NV. <em>Iunoni</em> (‑i, 3ª) es dativo: a quién le concede Júpiter, el tercer elemento (OI). <em>nomen Latinum</em> es lo concedido: OD."],
-          st:{ q:"¿Cuál de estas tres está en dativo?", ok:"Iunoni", bad:["Iuno","Iunonem"], why:"<em>Iunoni</em>: dativo singular (‑i). <em>Iuno</em> es nominativo y <em>Iunonem</em>, acusativo." } },
+          bad:["Iuppiter[NV] Iunoni[CL] nomen_Latinum[S] concessit[OI] .", "<em>Iuppiter</em> es el sujeto y <em>concessit</em>, el NV. <em>Iunoni</em> es a quién le concede Júpiter: OI. <em>nomen Latinum</em> es lo concedido: OD."],
+          st:{ q:"¿Cuál de estas tres significa «a Juno»?", ok:"Iunoni", bad:["Iuno","Iunonem"], why:"<em>Iunoni</em>, «a Juno»: dativo (‑i, 3ª declinación). <em>Iuno</em> es el sujeto y <em>Iunonem</em>, el objeto directo." } },
         { src:"P3 · 3 (Libro XII)", es:"Juno quiso borrar el nombre de los troyanos.",
           ok:"Iuno[S] nomen_Troianorum_delere[ODci] voluit[NV] .",
-          bad:["Iuno[NV] nomen_Troianorum_delere[CL] voluit[S] .", "<em>Iuno</em> es el sujeto y <em>voluit</em>, el NV. <em>Troianorum</em> (‑orum) es genitivo: depende de <em>nomen</em> y va adentro del bloque. Todo <em>nomen Troianorum delere</em> es lo que Juno quiso: OD‑Constr. Inf."] }
+          bad:["Iuno[NV] nomen_Troianorum_delere[CL] voluit[S] .", "<em>Iuno</em> es el sujeto y <em>voluit</em>, el NV. <em>Troianorum</em> va con <em>nomen</em>, adentro del bloque: todo <em>nomen Troianorum delere</em> es lo que Juno quiso, OD‑Constr. Inf."] }
       ]
     }
   };
 
-  // ---------- Calentamiento: armado del castellano al latín, sin señuelos. **x** = lo que en latín va en dativo o genitivo
-  // (y el «le» que lo duplica). Una sola repregunta (frase 1), con la devolución importante en su why (SKILL, conv. 38).
+  // ---------- Calentamiento: armado sin señuelos. **x** = lo que dice «a quién» o «de quién» (y el «le/les» que lo duplica).
+  // Una sola repregunta (frase 3).
   var WARMUP34 = [
-    { src:"Calentamiento 1 (Libro IX)", arco:"Aeneis IX · Nisus",
-      words:["Nisus","amico","consilium","suum","dixit."], decoys:[],
-      al:"{0:Niso} **le** {4:dijo} {3:su} {2:plan} {1:**al amigo**}.",
-      expl:"<em>amico</em> (‑o, 2ª declinación) es dativo: <em>dixit</em> ya tiene OD (<em>consilium suum</em>), y <em>amico</em> es a quién se lo dice, el OI.",
-      st:{ q:"<em>amico</em> es dativo singular, «al amigo». ¿Cómo sería «a los amigos»?", ok:"amicis", bad:["amicos","amicorum"], why:"<em>amicis</em>, «a los amigos»: dativo plural (‑is). <em>amicos</em> es acusativo plural («a los amigos» como OD) y <em>amicorum</em>, genitivo plural («de los amigos»)." } },
-    { src:"Calentamiento 2 (Libro XI)", arco:"Aeneis XI · Camilla",
-      words:["Camilla","Turno","auxilium","promisit."], decoys:[],
-      al:"{0:Camila} **le** {3:prometió} {2:ayuda} {1:**a Turno**}.",
-      expl:"<em>Turno</em> (‑o) es dativo: <em>promisit</em> ya tiene OD (<em>auxilium</em>), y <em>Turno</em> es a quién se la promete, el OI." },
-    { src:"Calentamiento 3 (Libro VIII, recortada)", arco:"Aeneis VIII · Clipeus",
+    { src:"Calentamiento 1 (Libro VIII, recortada)", arco:"Aeneis VIII · Clipeus",
       words:["Aeneas","clipeum","Volcani","spectat."], decoys:[],
       al:"{0:Eneas} {3:contempla} {1:el escudo} {2:**de Vulcano**}.",
-      expl:"<em>Volcani</em> (‑i, 2ª declinación) es genitivo: depende de <em>clipeum</em>, «el escudo de Vulcano». No depende del verbo: está adentro del OD." }
+      expl:"<em>Volcani</em>: «de Vulcano», va con <em>clipeum</em>." },
+    { src:"Calentamiento 2 (Libro IX, recortada)", arco:"Aeneis IX · Euryalus",
+      words:["Euryalus","matrem","Iulo","commendavit."], decoys:[],
+      al:"{0:Euríalo} **le** {3:encomendó} {1:su madre} {2:**a Iulo**}.",
+      expl:"<em>Iulo</em>: «a Iulo», a quién le encomienda su madre." },
+    { src:"Calentamiento 3 (Libro XI, recortada)", arco:"Aeneis XI · Pax",
+      words:["Aeneas","Latinis","pacem","dedit."], decoys:[],
+      al:"{0:Eneas} **les** {3:dio} {2:la paz} {1:**a los latinos**}.",
+      expl:"<em>Latinis</em>: «a los latinos», a quiénes les da la paz.",
+      st:{ q:"<em>Latinis</em> es «a los latinos». ¿Cómo sería «al latino»?", ok:"Latino", bad:["Latinum","Latini"], why:"<em>Latino</em>, «al latino». <em>Latinum</em> sería el objeto directo y <em>Latini</em>, «del latino» (o «los latinos», como sujeto)." } }
   ];
 
-  // Declinaciones de is e ille (desplegable «Ver la declinación de…», Act. 28).
+  // Declinaciones de is e ille (desplegable «Ver la declinación de…», Act. 28), en «Lo que viste».
   var DECL = {
     is: { title: "is, ea, id",
       sg: [["nom.","is","ea","id"],["gen.","eius","eius","eius"],["dat.","ei","ei","ei"],["ac.","eum","eam","id"],["abl.","eo","ea","eo"]],
@@ -937,9 +874,9 @@
     if (restored && restored.step){
       submitLog = restored.submitLog || [];
       (restored.flagged || []).forEach(function(k){ flagged[k] = true; });
-      showStep(document.getElementById(restored.step) ? restored.step : "step-s1");
+      showStep(document.getElementById(restored.step) ? restored.step : "step-warm");
     } else {
-      showStep("step-s1");
+      showStep("step-warm");
     }
     window.scrollTo({ top:0, behavior:"auto" });
   });
@@ -1568,17 +1505,17 @@
             over = true;
             submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: true, primerIntento: tried === 0, final: true });
             if (tried === 0) streak.hit();
-            msg.className = "gen-msg ok"; msg.innerHTML = CERTE + " <em>" + w.tag + "</em> («" + w.wes + "»): " + c.name + ".";
+            msg.className = "gen-msg ok"; msg.innerHTML = CERTE + " <em>" + w.tag + "</em> («" + w.wes + "»): " + c.key + ".";
             done(false); return;
           }
           tried++;
           submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: c.key, correcta: false, primerIntento: false, final: false });
           b.classList.remove("flash-bad"); void b.offsetWidth; b.classList.add("flash-bad"); b.disabled = true;
-          if (tried === 1){ streak.reset(); msg.className = "gen-msg bad"; msg.innerHTML = "No es " + c.name + ". " + cfg.hint; }
+          if (tried === 1){ streak.reset(); msg.className = "gen-msg bad"; msg.innerHTML = "No es " + c.key + ". " + cfg.hint; }
           else {
             over = true;
             submitLog.push({ paso: cfg.paso, item: w.tag, respuesta: w.correct, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
-            msg.className = "gen-msg bad"; msg.innerHTML = "Era " + cols[w.correct].name + ": " + w.why;
+            msg.className = "gen-msg bad"; msg.innerHTML = "Era " + w.correct + ": " + w.why;
             done(true);
           }
         });
@@ -1588,7 +1525,7 @@
       stage.appendChild(card);
       function done(rev){
         var c = cols[w.correct];
-        var li = v2el("div", "seq-done " + c.color + (rev ? " rev" : ""), '<span class="seq-tag">' + c.name + "</span> " + '<span class="seq-done-la">' + w.la + "</span>");
+        var li = v2el("div", "seq-done " + c.color + (rev ? " rev" : ""), '<span class="seq-tag">' + c.key + "</span> " + '<span class="seq-done-la">' + w.la + "</span>");
         log.insertBefore(li, log.firstChild);
         k++; upd();
         if (k < total){
@@ -1617,8 +1554,7 @@
     }
     function show(){
       var it = cfg.items[k], left = it.v.length, sel = null, busy = null;
-      var at = {}, skip = {}, blk = {};
-      (it.blocks || []).forEach(function(b){ for (var j = b[0]; j <= b[1]; j++) blk[j] = true; });
+      var at = {}, skip = {};
       it.v.forEach(function(v){
         v._st = 0; v._tried = {}; v._clean = true; v._sub = null; at[v.i] = v;
         if (v.span) for (var j = v.span[0] + 1; j <= v.span[1]; j++) skip[j] = true;
@@ -1631,14 +1567,13 @@
         if (skip[i]) return;
         var v = at[i], last = v && v.span ? v.span[1] : i;
         var lead = (w.match(/^[«"]+/) || [""])[0], trail = (it.words[last].match(/[,.;:!?»"]+$/) || [""])[0];
-        var wrap = v2el("span", "vb-w" + (blk[i] ? " vb-blk" : ""));
+        var wrap = v2el("span", "vb-w");
         if (lead) wrap.appendChild(document.createTextNode(lead));
         if (v){
           v._t = it.words.slice(i, last + 1).map(bareW).join(" ");
           var core = v2el("button", "vb-chip", v._t); core.type = "button"; v._el = core;
           core.addEventListener("click", function(){ pick(v); });
           wrap.appendChild(core);
-          if (it.pre && it.pre[last]) wrap.appendChild(v2el("sub", "tg-sub pre", TAGS[it.pre[last]]));
         } else {
           wrap.appendChild(v2el("span", "vb-t" + (it.pre && it.pre[i] ? " vb-pre" : ""), bareW(w)));
           if (it.pre && it.pre[i]) wrap.appendChild(v2el("sub", "tg-sub pre", TAGS[it.pre[i]]));
@@ -1647,7 +1582,6 @@
         line.appendChild(wrap); line.appendChild(document.createTextNode(" "));
       });
       card.appendChild(line);
-      var n2 = v2el("div", "n2-box", '<p class="n2-h">Nivel 2</p>'); n2.hidden = true; card.appendChild(n2);
       var ask = v2el("div", "vb-ask"); ask.hidden = true; card.appendChild(ask);
       var info = v2el("div", "tg-info"); info.hidden = true; card.appendChild(info);
       var stHost = v2el("div"); card.appendChild(stHost);
@@ -1667,8 +1601,7 @@
         var v = sel; ask.innerHTML = ""; ask.hidden = false;
         var head = '<span class="vb-name">' + v._t + "</span>";
         var q, opts;
-        if (v._st === 0){ var cn = cfg.cases.map(function(c){ return c[1].toLowerCase(); }); q = head + " · ¿" + cn.slice(0, -1).join(", ") + " o " + cn[cn.length - 1] + "?"; opts = cfg.cases; }
-        else if (v.dep != null){ q = head + " está en genitivo. ¿De qué palabra depende?"; opts = v.deps.map(function(j){ return ["w" + j, bareW(it.words[j])]; }); }
+        if (v._st === 0){ q = head + " · ¿" + cfg.cases.map(function(c){ return c[1].toLowerCase(); }).join(" o ") + "?"; opts = cfg.cases; }
         else { q = head + " está en " + caseName(v.c) + ". ¿Qué función cumple?"; opts = (cfg.funcsByCase ? cfg.funcsByCase[v.c] : cfg.funcs).map(function(f){ return [f, TAGS[f]]; }); }
         ask.appendChild(v2el("p", "vb-q", q));
         var row = v2el("div", "tg-pal");
@@ -1683,11 +1616,10 @@
       }
       function caseName(c){ var n = ""; cfg.cases.forEach(function(x){ if (x[0] === c) n = x[1].toLowerCase(); }); return n; }
       function choose(v, ans){
-        var st = v._st, w = st === 0 ? v.c : (v.dep != null ? "w" + v.dep : v.f);
-        function lbl(x){ return x.charAt(0) === "w" ? bareW(it.words[+x.slice(1)]) : TAGS[x]; }
+        var st = v._st, w = st === 0 ? v.c : v.f;
         var tries = Object.keys(v._tried).filter(function(t){ return t.indexOf(st + ":") === 0; }).length;
         var item = it.src + " · " + v._t + " (" + (st === 0 ? "caso" : "función") + ")";
-        var shown = st === 0 ? caseName(ans) : (v.dep != null ? "depende de " + lbl(ans) : TAGS[ans]);
+        var shown = st === 0 ? caseName(ans) : TAGS[ans];
         if (ans === w){
           submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: true, primerIntento: tries === 0, final: true });
           if (tries === 0) streak.hit();
@@ -1698,13 +1630,12 @@
         v._tried[st + ":" + ans] = true; v._clean = false; streak.reset(); busy = v;
         submitLog.push({ paso: cfg.paso, item: item, respuesta: shown, correcta: false, primerIntento: false, final: false });
         if (st === 1 && tries >= 1){
-          submitLog.push({ paso: cfg.paso, item: item, respuesta: v.dep != null ? "depende de " + lbl(w) : TAGS[w], correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: TAGS[w], correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
           done++; upd(); finish(v, true); return;
         }
         v._el.classList.add("bad");
         var m;
         if (st === 0) m = "No está en " + caseName(ans) + ": " + v.cw;
-        else if (v.dep != null) m = "No depende de <em>" + lbl(ans) + "</em>. " + ((v.bad && v.bad[ans.slice(1)]) ? v.bad[ans.slice(1)] + " " : "") + "Queda un intento.";
         else if (cfg.funcCase[ans] && cfg.funcCase[ans] !== v.c) m = "<em>" + v._t + "</em> está en " + caseName(v.c) + ", y " + TAGS[ans] + " va en " + caseName(cfg.funcCase[ans]) + ". Queda un intento.";
         else m = "No es " + TAGS[ans].replace(/\.$/, "") + ". " + ((v.bad && v.bad[ans]) ? v.bad[ans] + " " : "") + "Queda un intento.";
         setInfo("bad", m); renderAsk();
@@ -1713,13 +1644,10 @@
       function finish(v, rev){
         v._st = 2; busy = null; v._el.classList.remove("bad"); v._el.classList.add(rev ? "rev" : "ok");
         if (v._sub) v._sub.remove();
-        if (v.n2){ n2.hidden = false; n2.appendChild(v2el("p", null, analysisHtml(v.n2))); }
-        else {
-          v._sub = v2el("sub", "tg-sub" + (rev ? " rev" : ""), TAGS[v.f]);
-          v._el.parentNode.insertBefore(v._sub, v._el.nextSibling);
-        }
+        v._sub = v2el("sub", "tg-sub" + (rev ? " rev" : ""), TAGS[v.f]);
+        v._el.parentNode.insertBefore(v._sub, v._el.nextSibling);
         ask.hidden = true; left--;
-        if (rev){ setInfo("rev", (v.dep != null ? "Dependía de <em>" + bareW(it.words[v.dep]) + "</em>. " : "La función era " + TAGS[v.f] + ". ") + txt(v) + " «" + v.es + "»: " + v.why); check(); }
+        if (rev){ setInfo("rev", "La función era " + TAGS[v.f] + ". " + txt(v) + " «" + v.es + "»: " + v.why); check(); }
         else if (v._clean && v.st){
           setInfo("ok", CERTE + " " + txt(v) + " «" + v.es + "».");
           busy = v; stOpen = true; upd();
@@ -1804,23 +1732,145 @@
     upd(); show();
   }
 
+  // ---------- Paso 1 · ¿«A» o «de»? (buildPairsQ, Act. 34 v2): un par de frases conocidas por vez, con la misma palabra en
+  // dativo y en genitivo; se toca la que responde a la pregunta. Una decisión por par: si se equivoca, se marca la correcta
+  // (amarillo) con la explicación. «Ver traducción» por frase. ----------
+  function buildPairsQ(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, total = cfg.items.length;
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Pares resueltos: <strong>" + k + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = k < total;
+    }
+    function show(){
+      stage.innerHTML = "";
+      if (k >= total){ upd(); return; }
+      var it = cfg.items[k], over = false, btns = [];
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Par " + (k + 1) + " de " + total));
+      card.appendChild(v2el("p", "pq-q", it.q));
+      var opts = v2el("div", "pair-opts"), msg = v2el("p", "tr-msg");
+      shuffled([{ o: it.ok, ok: true }, { o: it.no }]).forEach(function(x){
+        var wrapO = v2el("div", "pair-opt");
+        var b = v2el("button", "tr-opt la-opt", '<span class="ex-latin">' + x.o.la + '</span> <span class="exb-src">(' + x.o.src + ")</span>"); b.type = "button";
+        var es = v2el("p", "pair-es", x.o.es); es.hidden = true;
+        var t = v2el("button", "btn-cast pair-tr", "Ver traducción"); t.type = "button";
+        t.addEventListener("click", function(){ es.hidden = !es.hidden; t.textContent = es.hidden ? "Ver traducción" : "Ocultar traducción"; });
+        wrapO.appendChild(b); wrapO.appendChild(t); wrapO.appendChild(es);
+        x.b = b; btns.push(x);
+        b.addEventListener("click", function(){
+          if (over) return; over = true;
+          btns.forEach(function(y){ y.b.disabled = true; });
+          var item = "Par " + (k + 1) + " · " + it.q.replace(/<[^>]+>/g, "");
+          if (x.ok){
+            submitLog.push({ paso: cfg.paso, item: item, respuesta: x.o.la.replace(/<[^>]+>/g, ""), correcta: true, primerIntento: true, final: true });
+            streak.hit(); b.classList.add("ok"); msg.className = "tr-msg"; msg.innerHTML = CERTE + " " + it.note;
+          } else {
+            submitLog.push({ paso: cfg.paso, item: item, respuesta: x.o.la.replace(/<[^>]+>/g, ""), correcta: false, primerIntento: false, final: false });
+            submitLog.push({ paso: cfg.paso, item: item, respuesta: it.ok.la.replace(/<[^>]+>/g, ""), correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+            streak.reset(); b.classList.add("bad");
+            btns.forEach(function(y){ if (y.ok) y.b.classList.add("rev"); });
+            msg.className = "tr-msg bad"; msg.innerHTML = "Era la otra (en amarillo). " + it.note;
+          }
+          btns.forEach(function(y){ y.b.parentNode.querySelector(".pair-es").hidden = false; y.b.parentNode.querySelector(".pair-tr").hidden = true; });
+          k++; upd();
+          if (k < total){
+            var nx = v2el("button", "btn find-next", "Siguiente par"); nx.type = "button";
+            nx.addEventListener("click", function(){ show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+            card.appendChild(nx);
+          }
+        });
+        opts.appendChild(wrapO);
+      });
+      card.appendChild(opts); card.appendChild(msg);
+      stage.appendChild(card);
+    }
+    upd(); show();
+  }
+
+  // ---------- Paso 2 · Cambiar una palabra (buildTrans, Act. 34 v2): frase conocida (con su traducción) + la misma frase
+  // con un cambio en castellano; se completa el hueco eligiendo entre tres formas. Un reintento; al segundo error se revela.
+  // Al terminar, la línea «qué cambió y qué quedó igual» (note). Una decisión por frase. ----------
+  function buildTrans(cfg, pre){
+    var stage = document.getElementById(pre + "-stage");
+    var streak = makeStreak(document.getElementById(pre + "-streak"));
+    var k = 0, total = cfg.items.length;
+    function upd(){
+      document.getElementById(pre + "-progress").innerHTML = "Resueltas: <strong>" + k + " / " + total + "</strong>";
+      document.getElementById("btn-" + pre + "-done").disabled = k < total;
+    }
+    function show(){
+      stage.innerHTML = "";
+      if (k >= total){ upd(); return; }
+      var it = cfg.items[k], tries = 0, over = false;
+      var card = v2el("div", "scene-card");
+      card.appendChild(v2el("p", "scene-count", "Frase " + (k + 1) + " de " + total + " · " + it.kind));
+      var base = v2el("div", "tf-base");
+      base.appendChild(v2el("p", "tf-lbl", "La frase que ya conocen"));
+      base.appendChild(v2el("p", "tf-la", it.base));
+      base.appendChild(v2el("p", "tf-es", it.bes));
+      card.appendChild(base);
+      card.appendChild(v2el("p", "tf-lbl", "Con el cambio"));
+      card.appendChild(v2el("p", "tf-target", it.tes));
+      var line = v2el("p", "tf-la tf-line");
+      line.appendChild(document.createTextNode(it.frame[0] + " "));
+      var slot = v2el("span", "tf-slot", "&nbsp;?&nbsp;"); line.appendChild(slot);
+      line.appendChild(document.createTextNode(" " + it.frame[1]));
+      card.appendChild(line);
+      var row = v2el("div", "tg-pal tf-opts"), msg = v2el("p", "tr-msg");
+      var item = "Frase " + (k + 1) + " · " + it.base.replace(/<[^>]+>/g, "") + " → " + it.tes.replace(/<[^>]+>/g, "");
+      shuffled(it.opts).forEach(function(o){
+        var b = v2el("button", "tg-tag tf-opt", o); b.type = "button";
+        b.addEventListener("click", function(){
+          if (over || b.disabled) return;
+          if (o === it.ok){
+            over = true;
+            submitLog.push({ paso: cfg.paso, item: item, respuesta: o, correcta: true, primerIntento: tries === 0, final: true });
+            if (tries === 0) streak.hit();
+            slot.textContent = o; slot.className = "tf-slot ok";
+            msg.className = "tr-msg"; msg.innerHTML = CERTE + " " + it.note;
+            return end();
+          }
+          tries++; b.disabled = true; b.classList.add("bad"); streak.reset();
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: o, correcta: false, primerIntento: false, final: false });
+          if (tries === 1){ msg.className = "tr-msg bad"; msg.innerHTML = "No: " + (it.bad[o] || "") + " Queda un intento."; return; }
+          over = true;
+          submitLog.push({ paso: cfg.paso, item: item, respuesta: it.ok, correcta: false, respuestaRevelada: true, primerIntento: false, final: true });
+          slot.textContent = it.ok; slot.className = "tf-slot rev";
+          msg.className = "tr-msg bad"; msg.innerHTML = "Era <em>" + it.ok + "</em>. " + it.note;
+          end();
+        });
+        row.appendChild(b);
+      });
+      card.appendChild(row); card.appendChild(msg);
+      stage.appendChild(card);
+      function end(){
+        row.querySelectorAll("button").forEach(function(x){ x.disabled = true; if (x.textContent === it.ok) x.classList.add("st-right"); else if (!x.classList.contains("bad")) x.classList.add("tf-done"); });
+        k++; upd();
+        if (k < total){
+          var nx = v2el("button", "btn find-next", "Siguiente frase"); nx.type = "button";
+          nx.addEventListener("click", function(){ show(); window.scrollTo({ top: stage.getBoundingClientRect().top + window.scrollY - 70, behavior: "auto" }); });
+          card.appendChild(nx);
+        }
+      }
+    }
+    upd(); show();
+  }
+
   function goStep(id){ return function(){ saveProgress(id); showStep(id); }; }
 
-  buildDialog("dlg-s1", DATA.s1);
-  buildDialog("dlg-s2", DATA.s2);
-  buildDialog("dlg-s3", DATA.s3);
-  document.getElementById("s3-decl").appendChild(declBox("is"));
-  document.getElementById("s3-decl").appendChild(declBox("ille"));
+  document.getElementById("s1-host").innerHTML = DATA.s1;
+  document.getElementById("s1-decl").appendChild(declBox("is"));
+  document.getElementById("s1-decl").appendChild(declBox("ille"));
   buildWarm32(WARMUP34, document.getElementById("warm-stage"), document.getElementById("warm-progress"), document.getElementById("btn-warm-done"), document.getElementById("warm-seals"));
-  buildSeq33(DATA.paso1, "p1");
-  buildFunc(DATA.paso2, "p2");
+  buildPairsQ(DATA.paso1, "p1");
+  buildTrans(DATA.paso2, "p2");
   buildAnal(DATA.paso3, "p3");
-  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-s2"));
   document.getElementById("btn-warm-done").addEventListener("click", goStep("step-p1"));
-  document.getElementById("btn-s2-done").addEventListener("click", goStep("step-warm"));
-  document.getElementById("btn-p1-done").addEventListener("click", goStep("step-s3"));
-  document.getElementById("btn-s3-done").addEventListener("click", goStep("step-p2"));
-  document.getElementById("btn-p2-done").addEventListener("click", goStep("step-p3"));
+  document.getElementById("btn-p1-done").addEventListener("click", goStep("step-p2"));
+  document.getElementById("btn-p2-done").addEventListener("click", goStep("step-s1"));
+  document.getElementById("btn-s1-done").addEventListener("click", goStep("step-p3"));
   document.getElementById("btn-p3-done").addEventListener("click", goStep("step-fin"));
 
   // ---------- Evaluación + envío ----------
