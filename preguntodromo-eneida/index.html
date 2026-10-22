@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Latín · Preguntódromo — Eneida</title>
+<style>
+  :root{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+    --radius-card: 10px; --radius-chip: 999px;
+    --serif: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,'Times New Roman',serif;
+    --sans: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+      --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+      --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+      --incorrect:#e08464; --incorrect-bg:#392420;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181a; --surface:#1d2224; --surface-raised:#242a2c; --ink:#e7e4d9; --ink-muted:#9ca39b;
+    --rule:#333a38; --accent:#1e4dc7; --accent-strong:#3a63d6; --accent-ink:#f6efe0;
+    --correct:#8fb35d; --correct-bg:#26301f; --warn:#d3ac52; --warn-bg:#392f18;
+    --incorrect:#e08464; --incorrect-bg:#392420;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 6px 20px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#e8e7dd; --surface:#f6f5ef; --surface-raised:#ffffff; --ink:#1e211d; --ink-muted:#5b5f56;
+    --rule:#c9c4b3; --accent:#1e4dc7; --accent-strong:#17399c; --accent-ink:#f6efe0;
+    --correct:#4f7a34; --correct-bg:#e4ecd7; --warn:#93701c; --warn-bg:#f2e6c2;
+    --incorrect:#b5502e; --incorrect-bg:#f3ded4;
+    --shadow: 0 1px 2px rgba(30,33,29,.06), 0 6px 16px rgba(30,33,29,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{ background:var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; -webkit-font-smoothing:antialiased; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+  [hidden]{ display:none !important; }
+
+  .wrap{ max-width:780px; margin:0 auto; padding:2.25rem 1.25rem 5rem; }
+
+  .eyebrow{ font-family:var(--sans); font-size:.72rem; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent-strong); }
+  h1{ font-family:var(--serif); font-weight:400; font-size:1.85rem; margin:.35rem 0 .25rem; text-wrap:balance; }
+  .lede{ color:var(--ink-muted); font-size:1rem; max-width:64ch; margin:0 0 1.75rem; }
+
+  .identity{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.25rem 1.4rem; box-shadow:var(--shadow); margin-bottom:2.25rem; }
+  .identity-grid{ display:flex; flex-wrap:wrap; gap:.9rem; align-items:end; }
+  .field{ display:flex; flex-direction:column; gap:.35rem; flex:1 1 200px; }
+  .field label{ font-size:.78rem; color:var(--ink-muted); font-weight:600; }
+  .field input{ font-family:var(--sans); font-size:.95rem; padding:.55rem .7rem; border-radius:7px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .field input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+
+  button{ font-family:var(--sans); cursor:pointer; color:inherit; touch-action:manipulation; }
+  .btn{ border:none; border-radius:8px; padding:.7rem 1.3rem; font-size:.95rem; font-weight:600; background:var(--accent); color:var(--accent-ink); transition:background .15s ease, opacity .15s ease; }
+  .btn:hover{ background:var(--accent-strong); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:focus-visible{ outline:2px solid var(--accent-strong); outline-offset:2px; }
+  .btn-ghost{ background:transparent; color:var(--accent-strong); border:1px solid var(--rule); }
+  .btn-ghost:hover{ background:var(--surface-raised); }
+
+  main{ display:none; } main.visible{ display:block; }
+  .step{ display:none; } .step.visible{ display:block; }
+
+  .step-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:1.1rem; }
+  .step-head h2{ font-family:var(--serif); font-weight:400; font-size:1.5rem; margin:.15rem 0 .3rem; }
+  .step-instructions{ color:var(--ink-muted); font-size:.92rem; max-width:66ch; margin:0 0 1.4rem; }
+  .exercise{ background:var(--surface); border:1px solid var(--rule); border-radius:var(--radius-card); padding:1.5rem 1.6rem 1.75rem; margin-bottom:1.75rem; box-shadow:var(--shadow); }
+
+  .stage-nav{ display:flex; justify-content:flex-end; gap:.7rem; margin-top:1.3rem; }
+  .step-nav{ display:flex; gap:.7rem; }
+  .step-nav.top-nav{ justify-content:flex-start; margin-bottom:1.1rem; }
+  .top-nav .btn-fwd{ margin-left:auto; }
+
+  .consigna{ margin:0 0 1.2rem; padding:.8rem 1rem; border-left:4px solid var(--accent); background:var(--surface); border-radius:8px; color:var(--ink); font-size:1rem; line-height:1.55; }
+  .consigna p{ margin:0 0 .45rem; } .consigna p:last-child{ margin-bottom:0; }
+
+  .diff-group{ display:flex; flex-wrap:wrap; gap:.5rem; margin:.25rem 0 1.1rem; }
+  .diff-chip{
+    font-family:var(--sans); font-size:.88rem; font-weight:600; border:1.5px solid var(--rule);
+    border-radius:var(--radius-chip); padding:.45rem 1.1rem; cursor:pointer;
+    background:var(--surface-raised); color:var(--ink-muted); transition:border-color .15s ease, background .15s ease, color .15s ease;
+  }
+  .diff-chip:hover{ border-color:var(--accent); }
+  .diff-chip.on{ border-color:var(--accent); background:var(--accent); color:var(--accent-ink); }
+
+  .submit-bar{ display:flex; align-items:center; gap:1rem; flex-wrap:wrap; margin-top:.5rem; }
+  .status{ font-size:.88rem; color:var(--ink-muted); } .status.ok{ color:var(--correct); } .status.err{ color:var(--incorrect); }
+
+  footer{ margin-top:2.5rem; color:var(--ink-muted); font-size:.8rem; }
+
+  .back-to-index{
+    display:inline-flex; align-items:center; gap:.4rem; width:fit-content;
+    font-size:.85rem; font-weight:700; text-decoration:none;
+    padding:.5rem 1rem; border-radius:999px; margin-bottom:1.25rem;
+    background:#face53; color:#2a2016; box-shadow:0 1px 2px rgba(0,0,0,.15);
+  }
+  .back-to-index:hover{ background:#e0b53f; color:#2a2016; }
+
+  /* Preguntódromo (2026-10-22) */
+  .intro p{ margin:0 0 .6rem; }
+  .pq-text{ font-family:var(--serif); font-size:1.3rem; line-height:1.5; margin:.2rem 0 1.1rem; text-wrap:pretty; }
+  .pq-input{ display:block; width:100%; min-height:9rem; resize:vertical; font-family:var(--sans); font-size:1rem; line-height:1.5;
+    padding:.7rem .8rem; border-radius:8px; border:1px solid var(--rule); background:var(--surface-raised); color:var(--ink); }
+  .pq-input:focus-visible{ outline:2px solid var(--accent); outline-offset:1px; }
+  .pq-aviso{ margin:.6rem 0 0; font-size:.88rem; line-height:1.45; color:var(--ink-muted); min-height:2.6em; }
+  .pq-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin-top:1.1rem; }
+  .pq-actions .btn:not(.btn-ghost){ margin-left:auto; }
+  .pq-end{ display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:.6rem; margin-top:1.4rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.88rem; color:var(--ink-muted); }
+  .fin-resumen{ margin:0 0 1.2rem; }
+  .fin-falta{ margin:.6rem 0 0; }
+  .fin-falta button{ margin:.35rem .35rem 0 0; }
+
+  /* Barra de tiempo: se llena, gris, finísima, sin números */
+  #tbar{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--ink-muted); opacity:.28; z-index:100; transition:width 1s linear; pointer-events:none; }
+
+  /* Barra de preguntas compacta (mismo aspecto que #pnav de las Act. 23 en adelante) */
+  #pnav{ position:sticky; top:0; z-index:60; display:flex; align-items:center; gap:.7rem; margin:0 0 1rem; padding:.45rem 0; background:var(--bg); }
+  #pnav .pn-cur{ flex:0 0 auto; font:700 .78rem/1 var(--sans); letter-spacing:.02em; white-space:nowrap; padding:.45rem .7rem; border-radius:999px; border:1.5px solid var(--rule); background:var(--surface); color:var(--ink); }
+  #pnav .pn-cur.open{ border-color:var(--accent); }
+  #pnav .pn-dots{ display:flex; align-items:center; gap:6px; min-width:0; overflow:hidden; padding:0 6px; }
+  #pnav .pn-dot{ position:relative; flex:0 0 auto; width:12px; height:12px; padding:0; border-radius:50%; border:1.5px solid var(--rule); background:transparent; cursor:default; }
+  #pnav .pn-dot::before{ content:''; position:absolute; inset:-8px -4px; }
+  #pnav .pn-dot.seen{ cursor:pointer; border-color:var(--ink-muted); }
+  #pnav .pn-dot.contestada{ background:var(--ink-muted); }
+  #pnav .pn-dot.salteada{ border-style:dashed; }
+  #pnav .pn-dot.remojo{ background:radial-gradient(circle, var(--ink-muted) 0 2px, transparent 2.5px); }
+  #pnav .pn-dot.cur{ width:16px; height:16px; background:var(--accent); border-color:var(--accent); border-style:solid; }
+  #pnav .pn-list{ position:absolute; left:0; right:0; top:100%; margin-top:4px; background:var(--surface); border:1px solid var(--rule); border-radius:10px; box-shadow:var(--shadow); padding:.3rem; max-height:60vh; overflow:auto; }
+  #pnav .pn-item{ display:flex; align-items:baseline; gap:.55rem; width:100%; text-align:left; border:none; background:transparent; padding:.5rem .6rem; border-radius:7px; font-size:.88rem; color:var(--ink); }
+  #pnav .pn-item:hover:not(:disabled){ background:var(--surface-raised); }
+  #pnav .pn-item:disabled{ color:var(--ink-muted); opacity:.5; cursor:default; }
+  #pnav .pn-item.cur{ font-weight:700; color:var(--accent-strong); opacity:1; }
+  #pnav .pn-item .pn-k{ flex:0 0 auto; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-muted); min-width:5.6rem; }
+  #pnav .pn-item .pn-q{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+</style>
+</head>
+<body>
+<div id="tbar" hidden></div>
+<div class="wrap">
+  <a class="back-to-index" href="../">← Volver al índice</a>
+
+  <p class="eyebrow">Latín II · Eneida</p>
+  <h1>Preguntódromo</h1>
+  <div class="lede intro">
+    <p>Once preguntas abiertas sobre la lectura de la <em>Eneida</em>, de a una por pantalla. No hay respuestas correctas: con dos o tres oraciones alcanza.</p>
+    <p>Las preguntas que no interesen se pueden saltear (el botón «Esta no» aparece a los 45 segundos) o dejar para después: vuelven al final de la ronda. Para cerrar hacen falta al menos tres contestadas.</p>
+    <p>El tiempo es orientativo: una línea gris en el borde superior muestra cómo avanza, y nunca corta lo que se está escribiendo.</p>
+    <p>Las respuestas se van a leer en el curso sin el nombre de quien las escribió.</p>
+  </div>
+
+  <section class="identity" id="identity">
+    <div class="identity-grid">
+      <div class="field">
+        <label for="in-email">Email</label>
+        <input id="in-email" type="email" autocomplete="email" placeholder="tu@email.com" />
+      </div>
+      <button class="btn" id="btn-start" disabled>Comenzar</button>
+    </div>
+  </section>
+
+  <main id="main">
+    <nav id="pnav" aria-label="Preguntas">
+      <button type="button" class="pn-cur" id="pn-cur" aria-expanded="false">Pregunta 1/11 ▾</button>
+      <div class="pn-dots" id="pn-dots"></div>
+      <div class="pn-list" id="pn-list" hidden></div>
+    </nav>
+
+    <section class="step" id="step-q">
+      <div class="step-nav top-nav"></div>
+      <div class="exercise">
+        <p class="eyebrow" id="q-eyebrow">Pregunta 1 de 11</p>
+        <p class="pq-text" id="q-text"></p>
+        <textarea class="pq-input" id="q-input" rows="6" aria-label="Respuesta" placeholder="Respuesta libre"></textarea>
+        <p class="pq-aviso" id="q-aviso" aria-live="polite"></p>
+        <div class="pq-actions stage-nav">
+          <button type="button" class="btn btn-ghost" id="btn-later">Volver después</button>
+          <button type="button" class="btn btn-ghost" id="btn-skip" hidden>Esta no</button>
+          <button type="button" class="btn btn-ghost" id="btn-resume" hidden>Volver a la que seguía</button>
+          <button type="button" class="btn" id="btn-next" disabled>Siguiente</button>
+        </div>
+      </div>
+      <div class="pq-end" id="q-end">
+        <span id="q-count">Contestadas: 0</span>
+        <button type="button" class="btn btn-ghost" id="btn-end" hidden>Terminar y enviar</button>
+      </div>
+    </section>
+
+    <section class="step" id="step-fin">
+      <div class="step-nav top-nav"><button type="button" class="btn btn-ghost" id="btn-fin-back">← Volver a las preguntas</button></div>
+      <div class="consigna fin-resumen" id="fin-resumen"></div>
+      <div class="exercise" id="evaluacion">
+        <div class="step-head"><div><p class="eyebrow">Antes de enviar</p><h2>¿Cómo te resultó la actividad?</h2></div></div>
+        <p class="step-instructions">Esto es para mejorar el material — no afecta tu recorrido. Los dos campos de texto son obligatorios (podés escribir "me fue igual que en el anterior" si no tenés más para agregar, pero no pueden quedar vacíos).</p>
+        <div class="diff-group" id="diff-group">
+          <button type="button" class="diff-chip" data-value="muy-facil">Muy fácil</button>
+          <button type="button" class="diff-chip" data-value="facil">Fácil</button>
+          <button type="button" class="diff-chip" data-value="complicado">Complicado</button>
+          <button type="button" class="diff-chip" data-value="imposible">Imposible</button>
+        </div>
+        <div class="field"><label for="in-diff-comment">Comentario sobre la dificultad (obligatorio)</label><input id="in-diff-comment" type="text" placeholder="respuesta libre" required /></div>
+        <div class="field" style="margin-top:1rem;"><label for="in-suggestion">La actividad funcionaría mejor si… (obligatorio)</label><input id="in-suggestion" type="text" placeholder="respuesta libre" required /></div>
+      </div>
+      <div class="submit-bar stage-nav">
+        <span class="status" id="status"></span>
+        <button class="btn" id="btn-send" disabled>Enviar respuestas</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>Latín I / II · UNTREF · material de cátedra</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyByHkBXVGDK8gnWj6xrMHhBaHgJX6j34OZGgtvtRMgkyFTHZs2AAIY0qZORd5wG_u6Rw/exec";
+
+  // Textos de los avisos de tiempo: editables acá. {r} = reserva en m:ss.
+  var TEXTOS = {
+    aviso: "Pasaste el tiempo promedio<br>Tenés {r} de reserva.",
+    agotada: "Reserva agotada: las preguntas que quedan tienen su tiempo justo"
+  };
+
+  // Tiempo (Santiago, 2026-10-22): 11 × 1:45 de base + 5:30 de reserva inicial (los 30 s extra de cada pregunta) = 24:45.
+  // Lo que sobra al contestar o saltear pasa a la reserva; lo que excede 1:45 se descuenta de ella. Nunca se corta nada.
+  var BASE = 105, RESERVA_INICIAL = 330, TOTAL = 11 * BASE + RESERVA_INICIAL, SALTEAR_DESDE = 45, MIN_CONTESTADAS = 3;
+
+  // Texto definitivo de Santiago (Prompt - Preguntódromo Eneida, §2): no editar.
+  var PREGUNTAS = [
+    "Si tuvieras que recomendarle la Eneida a alguien, ¿Qué escena usarías para probar tu punto? ¿Por qué? ¿Qué prejuicio atajarías de antemano (\"yo sé que pensás que la Eneida .... pero te juro que....\")",
+    "¿A quién NO le recomendarías la Eneida? No digas por qué: describí a esa persona con todo el detalle que puedas.",
+    "¿Qué se te hizo injustamente corto? En otras palabras ¿Qué te dejó con las ganas, o con la sensación de que seguro Virgilio hubiera hecho maravillas pero bueno, se murió antes de meter mano a esa parte?",
+    "¿Qué otra experiencia (libro, serie, canción, película, videojuego, comida) más o menos reciente en tu vida tuvo algún cruce inesperado con Eneida?",
+    "¿En qué momentos la experiencia de lectura de la Eneida te tomó por sorpresa, como quien dice \"no hubiera esperado que la lectura de esta obra me generara esto...\"?",
+    "¿Qué momentos pasaste de largo o deseaste que terminaran de una vez para pasar a algo más interesante?",
+    "¿Cuál dirías que es el personaje más logrado del libro? Ese que si te dijeran que NO está en una adaptación cinematográfica de Eneida, dirías: \"entonces es una porquería y no la pienso ver\"",
+    "¿Podrías describir un estado de mente placentero (o marcadamente desagradable también!) que haya generado la lectura?",
+    "Habrás leído la obra en muchas situaciones: cuáles te parecen inolvidables? Cuáles quedaron en el tintero? (e.g. nunca olvidaré leer Eneida ese día que se quedó el tren // me encantaría leer la Eneida en Sicilia tomándome una birra)",
+    "Una pregunta que te hayas hecho en la lectura y que ni el texto ni la clase hayan respondido todavía:",
+    "¿Algún personaje que casi no habla y te hubiera gustado escuchar?"
+  ];
+  var N = PREGUNTAS.length;
+
+  function nuevoEstado(){
+    return {
+      queue: PREGUNTAS.map(function(_, i){ return i; }), // preguntas sin resolver, en el orden en que se presentan
+      cur: 0,
+      agotada: false,
+      q: PREGUNTAS.map(function(){ return { estado:"", texto:"", usado:0, visto:false, liq:false }; })
+    };
+  }
+  var st = nuevoEstado();
+  var submitLog = [];
+
+  // ---------- Identidad y progreso (convenciones 3 y 4) ----------
+  var identity = { email:"" };
+  var inEmail = document.getElementById("in-email");
+  var btnStart = document.getElementById("btn-start");
+  var STORAGE_KEY = null;
+  function progressKey(email){ return "latinProgreso::" + document.title + "::" + email.trim().toLowerCase(); }
+  function currentStep(){ var v = document.querySelector("section.step.visible"); return v ? v.id : "step-q"; }
+  function saveProgress(stepId){
+    if (!STORAGE_KEY) return;
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ step: stepId || currentStep(), submitLog: submitLog, pq: st })); } catch(e){}
+  }
+  function loadProgress(key){
+    try { var raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : null; } catch(e){ return null; }
+  }
+  function clearProgress(){
+    if (STORAGE_KEY){ try { localStorage.removeItem(STORAGE_KEY); } catch(e){} }
+  }
+  function checkIdentity(){ btnStart.disabled = !(inEmail.value.trim().indexOf("@") > 0); }
+  inEmail.addEventListener("input", checkIdentity);
+  btnStart.addEventListener("click", function(){
+    identity.email = inEmail.value.trim();
+    STORAGE_KEY = progressKey(identity.email);
+    var restored = loadProgress(STORAGE_KEY);
+    document.getElementById("identity").style.display = "none";
+    document.querySelector(".intro").hidden = true;
+    document.getElementById("main").classList.add("visible");
+    document.getElementById("tbar").hidden = false;
+    if (restored && restored.pq && restored.pq.q && restored.pq.q.length === N){
+      st = restored.pq;
+      submitLog = restored.submitLog || [];
+      if (restored.step === "step-fin") goFin(); else showQ(st.cur);
+    } else {
+      showQ(st.queue[0]);
+    }
+  });
+
+  function showStep(id){
+    Array.from(document.querySelectorAll(".step")).forEach(function(s){ s.classList.remove("visible"); });
+    document.getElementById(id).classList.add("visible");
+    window.scrollTo({ top:0, behavior:"auto" });
+    renderNav();
+  }
+
+  // ---------- Tiempo ----------
+  function reserva(){
+    var r = RESERVA_INICIAL;
+    st.q.forEach(function(q){
+      if (q.liq) r += BASE - q.usado;            // contestada o salteada: se acredita lo que sobró (o se descuenta lo que se pasó)
+      else if (q.usado > BASE) r -= q.usado - BASE; // sin resolver: solo cuenta lo que ya excedió 1:45
+    });
+    return r;
+  }
+  function mmss(s){ s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+  function usadoTotal(){ return st.q.reduce(function(a, q){ return a + q.usado; }, 0); }
+
+  var elAviso = document.getElementById("q-aviso");
+  var tbar = document.getElementById("tbar");
+  function renderTiempo(){
+    var q = st.q[st.cur];
+    var r = reserva();
+    if (r <= 0) st.agotada = true;
+    if (q.usado > BASE){
+      elAviso.innerHTML = st.agotada ? TEXTOS.agotada : TEXTOS.aviso.replace("{r}", mmss(r));
+    } else {
+      elAviso.innerHTML = "";
+    }
+    tbar.style.width = Math.min(100, 100 * usadoTotal() / TOTAL) + "%";
+    btnSkip.hidden = !(enCola(st.cur) && q.usado >= SALTEAR_DESDE);
+  }
+  var ticks = 0;
+  setInterval(function(){
+    if (document.hidden || !document.getElementById("step-q").classList.contains("visible")) return;
+    st.q[st.cur].usado++;
+    renderTiempo();
+    if (++ticks % 5 === 0) saveProgress("step-q");
+  }, 1000);
+
+  // ---------- Pantalla de pregunta ----------
+  var elEyebrow = document.getElementById("q-eyebrow");
+  var elText = document.getElementById("q-text");
+  var inQ = document.getElementById("q-input");
+  var btnNext = document.getElementById("btn-next");
+  var btnLater = document.getElementById("btn-later");
+  var btnSkip = document.getElementById("btn-skip");
+  var btnResume = document.getElementById("btn-resume");
+  var btnEnd = document.getElementById("btn-end");
+  var elCount = document.getElementById("q-count");
+
+  function enCola(i){ return st.queue.indexOf(i) >= 0; }
+  function contestadas(){ return st.q.filter(function(q){ return q.estado === "contestada"; }).length; }
+
+  function showQ(i){
+    if (enCola(i) && st.queue[0] !== i){ st.queue.splice(st.queue.indexOf(i), 1); st.queue.unshift(i); }
+    st.cur = i;
+    var q = st.q[i];
+    q.visto = true;
+    var nota = q.estado === "remojo" ? " · había quedado para después" : (q.estado === "contestada" ? " · contestada" : (q.estado === "salteada" ? " · salteada" : ""));
+    elEyebrow.textContent = "Pregunta " + (i + 1) + " de " + N + nota;
+    elText.textContent = PREGUNTAS[i];
+    inQ.value = q.texto;
+    renderBotones();
+    showStep("step-q");
+    renderTiempo();
+    saveProgress("step-q");
+  }
+  function renderBotones(){
+    var q = st.q[st.cur], cola = enCola(st.cur);
+    btnNext.textContent = cola ? "Siguiente" : "Guardar";
+    btnNext.disabled = !inQ.value.trim();
+    btnLater.hidden = !cola || st.queue.length < 2;
+    btnResume.hidden = cola;
+    btnResume.textContent = st.queue.length ? "Volver a la que seguía" : "Volver al cierre";
+    var c = contestadas();
+    elCount.textContent = "Contestadas: " + c + (c < MIN_CONTESTADAS ? " (para cerrar hacen falta " + MIN_CONTESTADAS + ")" : "");
+    btnEnd.hidden = c < MIN_CONTESTADAS;
+  }
+  inQ.addEventListener("input", function(){
+    st.q[st.cur].texto = inQ.value;
+    btnNext.disabled = !inQ.value.trim();
+    saveProgress("step-q");
+  });
+
+  function sacarDeCola(i){ var k = st.queue.indexOf(i); if (k >= 0) st.queue.splice(k, 1); }
+  function seguir(){ if (st.queue.length) showQ(st.queue[0]); else goFin(); }
+
+  btnNext.addEventListener("click", function(){
+    var q = st.q[st.cur];
+    if (!inQ.value.trim()) return;
+    q.texto = inQ.value; q.estado = "contestada"; q.liq = true;
+    sacarDeCola(st.cur);
+    seguir();
+  });
+  btnSkip.addEventListener("click", function(){
+    var q = st.q[st.cur];
+    q.estado = "salteada"; q.liq = true;
+    sacarDeCola(st.cur);
+    seguir();
+  });
+  btnLater.addEventListener("click", function(){
+    var q = st.q[st.cur];
+    q.estado = "remojo";
+    sacarDeCola(st.cur); st.queue.push(st.cur);
+    seguir();
+  });
+  btnResume.addEventListener("click", seguir);
+  btnEnd.addEventListener("click", goFin);
+
+  // ---------- Barra de preguntas (puntos) ----------
+  var pnCur = document.getElementById("pn-cur"), pnDots = document.getElementById("pn-dots"), pnList = document.getElementById("pn-list");
+  var ESTADO_TXT = { contestada:"Contestada", salteada:"Salteada", remojo:"Para después", "":"" };
+  function toggleList(open){ pnList.hidden = !open; pnCur.classList.toggle("open", open); pnCur.setAttribute("aria-expanded", open ? "true" : "false"); }
+  pnCur.addEventListener("click", function(){ toggleList(pnList.hidden); });
+  document.addEventListener("click", function(e){ if (!pnList.hidden && !document.getElementById("pnav").contains(e.target)) toggleList(false); });
+  function renderNav(){
+    var enFin = currentStep() === "step-fin";
+    pnCur.textContent = (enFin ? "Cierre" : "Pregunta " + (st.cur + 1) + "/" + N) + " ▾";
+    pnDots.innerHTML = ""; pnList.innerHTML = "";
+    st.q.forEach(function(q, i){
+      var esCur = !enFin && i === st.cur;
+      var d = document.createElement("button"); d.type = "button";
+      d.className = "pn-dot" + (q.visto ? " seen" : "") + (q.estado ? " " + q.estado : "") + (esCur ? " cur" : "");
+      d.title = "Pregunta " + (i + 1) + (q.estado ? " · " + ESTADO_TXT[q.estado] : "");
+      d.setAttribute("aria-label", d.title);
+      d.disabled = !q.visto || esCur;
+      d.addEventListener("click", function(){ showQ(i); });
+      pnDots.appendChild(d);
+      var it = document.createElement("button"); it.type = "button";
+      it.className = "pn-item" + (esCur ? " cur" : "");
+      it.innerHTML = '<span class="pn-k">' + (i + 1) + (q.estado ? " · " + ESTADO_TXT[q.estado] : "") + '</span><span class="pn-q"></span>';
+      it.querySelector(".pn-q").textContent = PREGUNTAS[i];
+      it.disabled = !q.visto || esCur;
+      it.addEventListener("click", function(){ toggleList(false); showQ(i); });
+      pnList.appendChild(it);
+    });
+  }
+
+  // ---------- Cierre ----------
+  var elResumen = document.getElementById("fin-resumen");
+  var btnFinBack = document.getElementById("btn-fin-back");
+  function goFin(){
+    var c = contestadas();
+    var s = st.q.filter(function(q){ return q.estado === "salteada"; }).length;
+    var pend = st.queue.filter(function(i){ return st.q[i].visto; }).length;
+    var html = "<p>Contestadas: <strong>" + c + "</strong> · Salteadas: <strong>" + s + "</strong>" +
+      (pend ? " · Sin contestar: <strong>" + pend + "</strong>" : "") + ".</p>";
+    if (c < MIN_CONTESTADAS){
+      html += '<p class="fin-falta">Para enviar hacen falta al menos ' + MIN_CONTESTADAS + ' preguntas contestadas (falta' + (MIN_CONTESTADAS - c > 1 ? "n " : " ") + (MIN_CONTESTADAS - c) + '). Se puede volver a cualquiera de estas:<br>';
+      st.q.forEach(function(q, i){ if (q.estado !== "contestada") html += '<button type="button" class="btn btn-ghost" data-ir="' + i + '">Pregunta ' + (i + 1) + '</button>'; });
+      html += "</p>";
+    }
+    elResumen.innerHTML = html;
+    Array.from(elResumen.querySelectorAll("[data-ir]")).forEach(function(b){
+      b.addEventListener("click", function(){ showQ(+b.dataset.ir); });
+    });
+    btnFinBack.hidden = !st.queue.length;
+    showStep("step-fin");
+    checkEvalComplete();
+    saveProgress("step-fin");
+  }
+  btnFinBack.addEventListener("click", function(){ if (st.queue.length) showQ(st.queue[0]); });
+
+  // ---------- Feedback final obligatorio (convención 2, preguntas rotativas) ----------
+  var DIFF_LABELS = { "muy-facil":"Muy fácil", "facil":"Fácil", "complicado":"Complicado", "imposible":"Imposible" };
+  var evalState = { dificultad:null };
+  Array.from(document.querySelectorAll(".diff-chip")).forEach(function(chip){
+    chip.addEventListener("click", function(){
+      evalState.dificultad = chip.dataset.value;
+      document.querySelectorAll(".diff-chip").forEach(function(c){ c.classList.remove("on"); });
+      chip.classList.add("on");
+    });
+  });
+  var inDiffComment = document.getElementById("in-diff-comment");
+  var inSuggestion = document.getElementById("in-suggestion");
+
+  var FB_POOL_EXP = [
+    { id:"EXP-01", q:"¿Cuándo te costó seguir la consigna?" },
+    { id:"EXP-02", q:"¿En qué momento resolviste más bien adivinando?" },
+    { id:"EXP-03", q:"¿Qué paso te costó más?" },
+    { id:"EXP-04", q:"¿Dónde se te hizo larga?" },
+    { id:"EXP-05", q:"¿Qué parte te resultó demasiado fácil?" },
+    { id:"EXP-06", q:"¿Qué resolviste bien pero no entendés del todo?" },
+    { id:"EXP-07", q:"¿Qué querrías repasar de nuevo?" },
+    { id:"EXP-08", q:"¿Qué cambios notaste con respecto a la semana pasada?" }
+  ];
+  var FB_POOL_DIS = [
+    { id:"DIS-01", q:"¿Qué se trabó más en el celular?" },
+    { id:"DIS-02", q:"¿Qué se pareció demasiado a cosas que ya hicimos?" },
+    { id:"DIS-03", q:"¿Qué le agregarías a esta actividad?" },
+    { id:"DIS-04", q:"¿Qué esperabas encontrar y no apareció?" },
+    { id:"DIS-05", q:"¿Qué botón o indicación no quedó claro?" },
+    { id:"DIS-06", q:"¿Qué parte de la pantalla te distrajo o sobraba?" },
+    { id:"DIS-07", q:"¿Qué parte del diseño te ayudó más a resolver?" },
+    { id:"DIS-08", q:"¿Qué cambiarías de cómo se muestran los errores?" }
+  ];
+  function pickFeedbackQuestion(pool, key){
+    var last = null;
+    try { last = localStorage.getItem(key); } catch(e){}
+    var options = pool.filter(function(p){ return p.id !== last; });
+    var chosen = options[Math.floor(Math.random() * options.length)];
+    try { localStorage.setItem(key, chosen.id); } catch(e){}
+    return chosen;
+  }
+  var fbQExp = pickFeedbackQuestion(FB_POOL_EXP, "latinFeedbackUltimaExp");
+  var fbQDis = pickFeedbackQuestion(FB_POOL_DIS, "latinFeedbackUltimaDis");
+  document.querySelector('label[for="in-diff-comment"]').textContent = fbQExp.q + " (obligatorio)";
+  document.querySelector('label[for="in-suggestion"]').textContent = fbQDis.q + " (obligatorio)";
+  var statusEl = document.getElementById("status");
+  var btnSend = document.getElementById("btn-send");
+  var sendInFlight = false;
+  var logBuilt = false;
+
+  function checkEvalComplete(){
+    btnSend.disabled = sendInFlight || contestadas() < MIN_CONTESTADAS || !(inDiffComment.value.trim() && inSuggestion.value.trim());
+  }
+  inDiffComment.addEventListener("input", checkEvalComplete);
+  inSuggestion.addEventListener("input", checkEvalComplete);
+
+  // Una fila por pregunta vista. Paso = número de pregunta; Item = estado; Respuesta = texto (vacío si se salteó).
+  // Las que nunca se abrieron no se mandan. Sin tiempos.
+  function buildLog(){
+    submitLog = [];
+    st.q.forEach(function(q, i){
+      if (!q.visto) return;
+      var estado = q.estado === "contestada" ? "contestada" : (q.estado === "salteada" ? "salteada" : "en remojo");
+      submitLog.push({ paso: String(i + 1), item: estado, respuesta: estado === "salteada" ? "" : q.texto.trim(), correcta: null });
+    });
+    submitLog.push({ paso:"Evaluación", item:"Dificultad percibida", respuesta: evalState.dificultad ? DIFF_LABELS[evalState.dificultad] : "(sin responder)", correcta:null });
+    submitLog.push({ paso:"Evaluación", item:"Comentario", respuesta: inDiffComment.value.trim(), correcta:null });
+    submitLog.push({ paso:"Evaluación", item:"Sugerencia", respuesta: inSuggestion.value.trim(), correcta:null });
+    submitLog.push({ paso:"Evaluación", item:"Pregunta comentario", respuesta: fbQExp.id + " · " + fbQExp.q, correcta:null });
+    submitLog.push({ paso:"Evaluación", item:"Pregunta sugerencia", respuesta: fbQDis.id + " · " + fbQDis.q, correcta:null });
+  }
+
+  btnSend.addEventListener("click", function(){
+    if (sendInFlight) return;
+    if (!inDiffComment.value.trim() || !inSuggestion.value.trim() || contestadas() < MIN_CONTESTADAS) return;
+    if (!logBuilt){ buildLog(); logBuilt = true; }
+    if (!APPS_SCRIPT_URL){
+      statusEl.textContent = "Actividad completa. (No se envió: falta configurar la URL del Apps Script.)";
+      statusEl.className = "status"; return;
+    }
+    sendInFlight = true;
+    btnSend.disabled = true;
+    statusEl.textContent = "Enviando…"; statusEl.className = "status";
+    fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify({ actividad: document.title, email: identity.email, respuestas: submitLog })
+    }).then(function(){
+      statusEl.textContent = "Enviado. Gracias."; statusEl.className = "status ok";
+      btnFinBack.hidden = true;
+      clearProgress();
+    }).catch(function(){
+      statusEl.textContent = "No se pudo enviar (revisá tu conexión). Podés reintentar con \"Enviar respuestas\".";
+      statusEl.className = "status err";
+      sendInFlight = false;
+      btnSend.disabled = false;
+    });
+  });
+
+  window.__pq = { st: function(){ return st; }, reserva: reserva }; // solo para pruebas
+})();
+</script>
+<script>
+/* Navegación arriba y abajo (2026-09-27, pedido de Santiago para todas las actividades): el botón
+   para avanzar de cada paso aparece también arriba, junto al de volver. El de arriba es un espejo
+   del de abajo: copia su texto, si está deshabilitado u oculto, y al tocarlo dispara el original. */
+(function(){
+  "use strict";
+  Array.prototype.forEach.call(document.querySelectorAll("section.step"), function(sec){
+    var fwd = sec.querySelector(".stage-nav .btn:not(.btn-ghost)");
+    var top = sec.querySelector(".top-nav");
+    if (!fwd || !top) return;
+    var twin = document.createElement("button");
+    twin.type = "button"; twin.className = "btn btn-fwd";
+    function sync(){ twin.textContent = fwd.textContent; twin.disabled = fwd.disabled; twin.hidden = fwd.hidden; }
+    twin.addEventListener("click", function(){ fwd.click(); });
+    top.appendChild(twin); sync();
+    new MutationObserver(sync).observe(fwd, { attributes: true, childList: true, characterData: true, subtree: true });
+  });
+})();
+</script>
+</body>
+</html>
