@@ -150,7 +150,7 @@
   <p class="eyebrow">Latín II · Eneida</p>
   <h1>Preguntódromo</h1>
   <div class="lede intro">
-    <p>Once preguntas abiertas sobre la lectura de la <em>Eneida</em>, de a una por pantalla. No hay respuestas correctas: con dos o tres oraciones alcanza.</p>
+    <p>Doce preguntas abiertas sobre la lectura de la <em>Eneida</em>, de a una por pantalla. No hay respuestas correctas: con dos o tres oraciones alcanza.</p>
     <p>Las preguntas que no interesen se pueden saltear (el botón «Esta no» aparece a los 45 segundos) o dejar para después: vuelven al final de la ronda. Para cerrar hacen falta al menos tres contestadas.</p>
     <p>El tiempo es orientativo: una línea gris en el borde superior muestra cómo avanza, y nunca corta lo que se está escribiendo.</p>
     <p>Las respuestas se van a leer en el curso sin el nombre de quien las escribió.</p>
@@ -168,7 +168,7 @@
 
   <main id="main">
     <nav id="pnav" aria-label="Preguntas">
-      <button type="button" class="pn-cur" id="pn-cur" aria-expanded="false">Pregunta 1/11 ▾</button>
+      <button type="button" class="pn-cur" id="pn-cur" aria-expanded="false">Pregunta 1/12 ▾</button>
       <div class="pn-dots" id="pn-dots"></div>
       <div class="pn-list" id="pn-list" hidden></div>
     </nav>
@@ -176,7 +176,7 @@
     <section class="step" id="step-q">
       <div class="step-nav top-nav"></div>
       <div class="exercise">
-        <p class="eyebrow" id="q-eyebrow">Pregunta 1 de 11</p>
+        <p class="eyebrow" id="q-eyebrow">Pregunta 1 de 12</p>
         <p class="pq-text" id="q-text"></p>
         <textarea class="pq-input" id="q-input" rows="6" aria-label="Respuesta" placeholder="Respuesta libre"></textarea>
         <p class="pq-aviso" id="q-aviso" aria-live="polite"></p>
@@ -229,23 +229,24 @@
     agotada: "Reserva agotada: las preguntas que quedan tienen su tiempo justo"
   };
 
-  // Tiempo (Santiago, 2026-10-22): 11 × 1:45 de base + 5:30 de reserva inicial (los 30 s extra de cada pregunta) = 24:45.
+  // Tiempo (Santiago, 2026-10-22): 12 × 1:45 de base + 6:00 de reserva inicial (los 30 s extra de cada pregunta) = 27:00.
   // Lo que sobra al contestar o saltear pasa a la reserva; lo que excede 1:45 se descuenta de ella. Nunca se corta nada.
-  var BASE = 105, RESERVA_INICIAL = 330, TOTAL = 11 * BASE + RESERVA_INICIAL, SALTEAR_DESDE = 45, MIN_CONTESTADAS = 3;
+  var BASE = 105, RESERVA_INICIAL = 360, TOTAL = 12 * BASE + RESERVA_INICIAL, SALTEAR_DESDE = 45, MIN_CONTESTADAS = 3;
 
-  // Texto definitivo de Santiago (Prompt - Preguntódromo Eneida, §2): no editar.
+  // Texto revisado por Santiago (2026-10-23).
   var PREGUNTAS = [
-    "Si tuvieras que recomendarle la Eneida a alguien, ¿Qué escena usarías para probar tu punto? ¿Por qué? ¿Qué prejuicio atajarías de antemano (\"yo sé que pensás que la Eneida .... pero te juro que....\")",
+    "Si tuvieras que recomendarle la Eneida a alguien, ¿qué escena usarías para probar tu punto? ¿Por qué? ¿Qué prejuicio atajarías de antemano? (\"Yo sé que pensás que la Eneida es…, pero te juro que…\")",
     "¿A quién NO le recomendarías la Eneida? No digas por qué: describí a esa persona con todo el detalle que puedas.",
-    "¿Qué se te hizo injustamente corto? En otras palabras ¿Qué te dejó con las ganas, o con la sensación de que seguro Virgilio hubiera hecho maravillas pero bueno, se murió antes de meter mano a esa parte?",
-    "¿Qué otra experiencia (libro, serie, canción, película, videojuego, comida) más o menos reciente en tu vida tuvo algún cruce inesperado con Eneida?",
-    "¿En qué momentos la experiencia de lectura de la Eneida te tomó por sorpresa, como quien dice \"no hubiera esperado que la lectura de esta obra me generara esto...\"?",
+    "¿Qué se te hizo injustamente corto? En otras palabras: ¿qué te dejó con las ganas, o con la sensación de que seguro Virgilio habría hecho maravillas, pero bueno, se murió antes de meter mano en esa parte?",
+    "¿Qué otra experiencia (libro, serie, canción, película, videojuego, comida) más o menos reciente en tu vida tuvo algún cruce inesperado con la Eneida?",
+    "¿En qué momentos la lectura de la Eneida te tomó por sorpresa, como quien dice: \"No esperaba que esta obra me hiciera sentir esto…\"?",
     "¿Qué momentos pasaste de largo o deseaste que terminaran de una vez para pasar a algo más interesante?",
-    "¿Cuál dirías que es el personaje más logrado del libro? Ese que si te dijeran que NO está en una adaptación cinematográfica de Eneida, dirías: \"entonces es una porquería y no la pienso ver\"",
-    "¿Podrías describir un estado de mente placentero (o marcadamente desagradable también!) que haya generado la lectura?",
-    "Habrás leído la obra en muchas situaciones: cuáles te parecen inolvidables? Cuáles quedaron en el tintero? (e.g. nunca olvidaré leer Eneida ese día que se quedó el tren // me encantaría leer la Eneida en Sicilia tomándome una birra)",
-    "Una pregunta que te hayas hecho en la lectura y que ni el texto ni la clase hayan respondido todavía:",
-    "¿Algún personaje que casi no habla y te hubiera gustado escuchar?"
+    "¿Qué personaje de la Eneida es imprescindible? Si no apareciera en una película, dirías: \"Entonces es una porquería y no la pienso ver\".",
+    "¿Qué estado de ánimo te generaba la lectura? Puede ser placentero o marcadamente desagradable: describilo.",
+    "¿Qué te llamó la atención de la traducción castellana de Echave-Sustaeta? Puede ser algo que te haya agradado, repugnado o sorprendido, tanto al leer la obra como al compararla con el original latino.",
+    "Habrás leído la obra en muchas situaciones: ¿cuáles te parecen inolvidables? ¿Cuáles quedaron en el tintero? (P. ej.: \"Nunca olvidaré leer la Eneida ese día que se quedó el tren\" // \"Me encantaría leer la Eneida en Sicilia tomándome una birra\".)",
+    "Una pregunta que te hayas hecho en la lectura y que ni el texto ni la clase hayan respondido todavía, o una pregunta que faltó en esta lista y que vos harías a otra persona que haya leído la obra:",
+    "¿Algún personaje que casi no habla y te habría gustado escuchar?"
   ];
   var N = PREGUNTAS.length;
 
